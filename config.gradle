@@ -1,0 +1,139 @@
+ext {
+    android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion    : 17,
+            targetSdkVersion : 28,
+            versionCode      : 16,
+            versionName      : "1.1.5"
+    ]
+
+    dependVersion = [
+            androidSupportSdkVersion: "30.0.0",
+            espressoSdkVersion      : "3.3.0",
+            retrofitSdkVersion      : "2.4.0",
+            glideSdkVersion         : "4.8.0",
+            rxJava                  : "2.2.2",
+            rxAndroid               : "2.1.0",
+            rxKotlin                : "2.3.0",
+            anko                    : "0.10.7"
+    ]
+
+    supportXDeps = [
+            "material"        : 'com.google.android.material:material:1.2.1',
+            "corektx"         : 'androidx.core:core-ktx:1.3.2',
+            "supportv4"       : "androidx.legacy:legacy-support-v4:1.0.0",
+            "recyclerview"    : 'androidx.recyclerview:recyclerview:1.1.0',
+            "appcompatx"      : 'androidx.appcompat:appcompat:1.2.0',
+            "cardview"        : 'androidx.cardview:cardview:1.0.0',
+            "viewpager2"      : 'androidx.viewpager2:viewpager2:1.0.0',
+            "design"          : "com.android.support:design:${dependVersion.androidSupportSdkVersion}",
+            "constraintlayout": 'androidx.constraintlayout:constraintlayout:2.0.4',
+            "annotations"     : "com.android.support:support-annotations:${dependVersion.androidSupportSdkVersion}",
+            "vector-drawable" : "com.android.support:support-vector-drawable:${dependVersion.androidSupportSdkVersion}"
+    ]
+
+    retrofit = [
+            "retrofit"                : "com.squareup.retrofit2:retrofit:${dependVersion.retrofitSdkVersion}",
+            "retrofitConverterGson"   : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofitSdkVersion}",
+            "retrofitAdapterRxjava2"  : "com.squareup.retrofit2:adapter-rxjava2:${dependVersion.retrofitSdkVersion}",
+            "okhttp3LoggerInterceptor": 'com.squareup.okhttp3:logging-interceptor:3.11.0',
+            "retrofitConverterMoshi"  : 'com.squareup.retrofit2:converter-moshi:2.4.0',
+            "retrofitKotlinMoshi"     : "com.squareup.moshi:moshi-kotlin:1.7.0"
+    ]
+
+    rxJava = [
+            "rxJava"   : "io.reactivex.rxjava2:rxjava:${dependVersion.rxJava}",
+            "rxAndroid": "io.reactivex.rxjava2:rxandroid:${dependVersion.rxAndroid}",
+            "rxKotlin" : "io.reactivex.rxjava2:rxkotlin:${dependVersion.rxKotlin}",
+            "anko"     : "org.jetbrains.anko:anko:${dependVersion.anko}"
+    ]
+
+    testDeps = [
+            "junit"                    : 'junit:junit:4.12',
+            "junitx"                   : 'androidx.test.ext:junit:1.1.1',
+            "runner"                   : 'com.android.support.test:runner:1.0.2',
+            "espresso-core"            : "com.android.support.test.espresso:espresso-core:${dependVersion.espressoSdkVersion}",
+            "espresso-contrib"         : "com.android.support.test.espresso:espresso-contrib:${dependVersion.espressoSdkVersion}",
+            "espresso-intents"         : "com.android.support.test.espresso:espresso-intents:${dependVersion.espressoSdkVersion}",
+            "leakcanary-debug"         : 'com.squareup.leakcanary:leakcanary-android:1.6.1',
+            "leakcanary-release"       : 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1',
+            "leakcanary-debug-fragment": 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1',
+            "debug-db"                 : 'com.amitshekhar.android:debug-db:1.0.4'
+    ]
+
+    commonDeps = [
+            "glide"                 : "com.github.bumptech.glide:glide:${dependVersion.glideSdkVersion}",
+            "glide-transformations" : 'jp.wasabeef:glide-transformations:4.1.0',
+            "recyclerview-animators": 'jp.wasabeef:recyclerview-animators:3.0.0',
+            "brvh"                  : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4',
+            "banner"                : 'cn.bingoogolapple:bga-banner:2.2.4@aar',
+            "multidex"              : 'com.android.support:multidex:1.0.3',
+            "eventbus"              : 'org.greenrobot:eventbus:3.1.1',
+
+            "swipeback"             : 'com.cxz:swipeback:1.0.1',
+            "android-autosize"      : 'me.jessyan:autosize:1.2.1',
+            //图片选择器
+            "picture-library"       : 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.6',
+            //刷新
+            "smart-refresh"         : 'com.scwang.smart:refresh-layout-kernel:2.0.3',
+            "smart-refresh-header"  : 'com.scwang.smart:refresh-header-material:2.0.3',
+            "smart-refresh-footer"  : 'com.scwang.smart:refresh-footer-classics:2.0.3',
+            //工具类
+            "blankj"                : 'com.blankj:utilcodex:1.30.5',
+            //联动选择器
+            "pickerview"            : 'com.contrarywind:Android-PickerView:4.1.9',
+            //lottie动画
+            "lottie"                : 'com.airbnb.android:lottie:3.4.1',
+            //circleimageview
+            "circleimageview"       : 'de.hdodenhof:circleimageview:3.1.0',
+            //expandedtextview
+            "expand-textview"       : 'com.github.MZCretin:ExpandableTextView:v1.6.1',
+            //tablayout
+            "tablayout"             : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
+            //查看大图
+            "photoview"             : 'com.github.chrisbanes:PhotoView:2.3.0',
+            //播放器
+            "gsyjava"               : 'com.shuyu:gsyVideoPlayer-java:8.1.0',
+            "gsy-armv7a"            : 'com.shuyu:gsyVideoPlayer-armv7a:8.1.0',
+            "gsy-arm64"             : 'com.shuyu:gsyVideoPlayer-arm64:8.1.0',
+            "gsy-x64"               : 'com.shuyu:gsyVideoPlayer-x64:8.1.0',
+            "gsy-x86"               : 'com.shuyu:gsyVideoPlayer-x86:8.1.0',
+            //友盟统计
+            "umeng-common"          : 'com.umeng.umsdk:common:9.3.3',
+            "umeng-asms"            : 'com.umeng.umsdk:asms:1.1.3', // asms包依赖(必选)
+            //友盟分享
+            "ushare-core"           : 'com.umeng.umsdk:share-core:7.1.3',
+            "usahre-qq"             : 'com.umeng.umsdk:share-qq:7.1.3',
+            "ushare-wx"             : 'com.umeng.umsdk:share-wx:7.1.3',
+            "ushare-sina"           : 'com.umeng.umsdk:share-sina:7.1.3',
+            "ushare-weibo"          : 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar',
+            //bugly
+            "bugly-crash-up"        : 'com.tencent.bugly:crashreport_upgrade:latest.release',
+            //七牛
+            "qiniu"                 : 'com.qiniu:qiniu-android-sdk:8.0.+',
+            //云信
+            "nim-sdk"               : 'com.netease.nimlib:basesdk:8.2.2',
+            "nim-push"              : 'com.netease.nimlib:push:8.2.2',
+
+//            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
+//            "logger"                : 'com.orhanobut:logger:2.1.1',
+//            "litepal"               : 'org.litepal.android:core:2.0.0',
+//            "fab"                   : 'com.github.clans:fab:1.6.4',
+//            "materialdatetimepicker": 'com.wdullaer:materialdatetimepicker:3.6.4',
+//            "spinkit"               : 'com.github.ybq:Android-SpinKit:1.2.0'
+    ]
+
+    otherDeps = [
+            "glideCompiler": "com.github.bumptech.glide:compiler:${dependVersion.glideSdkVersion}",
+            "glideOkhttp"  : "com.github.bumptech.glide:okhttp3-integration:${dependVersion.glideSdkVersion}"
+    ]
+
+    supportLibs = supportXDeps.values()
+    networkLibs = retrofit.values()
+    rxJavaLibs = rxJava.values()
+    commonLibs = commonDeps.values()
+
+    annotationProcessorLibs = [otherDeps["glideCompiler"]]
+
+}
