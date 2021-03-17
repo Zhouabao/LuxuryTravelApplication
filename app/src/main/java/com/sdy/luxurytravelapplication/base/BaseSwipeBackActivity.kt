@@ -5,6 +5,7 @@ import com.cxz.swipelibrary.SwipeBackActivityBase
 import com.cxz.swipelibrary.SwipeBackActivityHelper
 import com.cxz.swipelibrary.SwipeBackLayout
 import com.cxz.swipelibrary.Utils
+import com.sdy.luxurytravelapplication.base.BaseActivity
 
 /**
  * Created by chenxz on 2018/8/6.

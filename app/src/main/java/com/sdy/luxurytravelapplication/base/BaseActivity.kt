@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
 import android.content.Context
 import android.content.IntentFilter
@@ -7,17 +7,22 @@ import android.graphics.PixelFormat
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.color.CircleView
-import com.cxz.multiplestatusview.MultipleStatusView
-import com.cxz.wanandroid.R
-import com.cxz.wanandroid.app.App
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.cxz.wanandroid.constant.Constant
-import com.cxz.wanandroid.event.NetworkChangeEvent
-import com.cxz.wanandroid.receiver.NetworkChangeReceiver
-import com.cxz.wanandroid.utils.*
+import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
+import com.sdy.luxurytravelapplication.ext.Preference
+import com.sdy.luxurytravelapplication.receiver.NetworkChangeReceiver
+import com.sdy.luxurytravelapplication.utils.SettingUtil
+import com.sdy.luxurytravelapplication.viewbinding.inflateBindingWithGeneric
+import com.sdy.luxurytravelapplication.widgets.MultipleStatusView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -25,8 +30,9 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by chenxz on 2018/4/21.
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
+    lateinit var binding: VB
     /**
      * check login
      */
@@ -100,7 +106,8 @@ abstract class BaseActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // AutoDensityUtil.setCustomDensity(this, App.instance)
         super.onCreate(savedInstanceState)
-        setContentView(attachLayoutRes())
+        binding = inflateBindingWithGeneric(layoutInflater)
+        setContentView(binding.root)
         if (useEventBus()) {
             EventBus.getDefault().register(this)
         }
@@ -137,7 +144,7 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             resources.getColor(R.color.colorPrimary)
         }
-        StatusBarUtil.setColor(this, mThemeColor, 0)
+        BarUtils.setStatusBarColor(this, mThemeColor)
         if (this.supportActionBar != null) {
             this.supportActionBar?.setBackgroundDrawable(ColorDrawable(mThemeColor))
         }
@@ -165,11 +172,12 @@ abstract class BaseActivity : AppCompatActivity() {
         mTipView = layoutInflater.inflate(R.layout.layout_network_tip, null)
         mWindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         mLayoutParams = WindowManager.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                PixelFormat.TRANSLUCENT)
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.TYPE_APPLICATION,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            PixelFormat.TRANSLUCENT
+        )
         mLayoutParams.gravity = Gravity.TOP
         mLayoutParams.x = 0
         mLayoutParams.y = 0
@@ -218,15 +226,15 @@ abstract class BaseActivity : AppCompatActivity() {
         if (ev?.action == MotionEvent.ACTION_UP) {
             val v = currentFocus
             // 如果不是落在EditText区域，则需要关闭输入法
-            if (KeyBoardUtil.isHideKeyboard(v, ev)) {
-                KeyBoardUtil.hideKeyBoard(this, v)
+            if (!KeyboardUtils.isSoftInputVisible(this)) {
+                KeyboardUtils.hideSoftInput(this)
             }
         }
         return super.dispatchTouchEvent(ev)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
             }
@@ -258,13 +266,13 @@ abstract class BaseActivity : AppCompatActivity() {
         if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
-        CommonUtil.fixInputMethodManagerLeak(this)
+        KeyboardUtils.fixSoftInputLeaks(this)
         App.getRefWatcher(this)?.watch(this)
     }
 
     override fun finish() {
         super.finish()
-        if (mTipView != null && mTipView.parent != null) {
+        if (mTipView.parent != null) {
             mWindowManager.removeView(mTipView)
         }
     }

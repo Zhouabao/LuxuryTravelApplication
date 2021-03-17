@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
 import io.reactivex.disposables.Disposable
 

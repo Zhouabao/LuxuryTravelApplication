@@ -1,6 +1,7 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
-import com.cxz.wanandroid.ext.showToast
+import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * @author chenxz
@@ -8,7 +9,8 @@ import com.cxz.wanandroid.ext.showToast
  * @desc BaseMvpActivity
  */
 @Suppress("UNCHECKED_CAST")
-abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity(), IView {
+abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding> :
+    BaseActivity<VB>(), IView {
 
     /**
      * Presenter
@@ -35,15 +37,15 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
     }
 
     override fun showError(errorMsg: String) {
-        showToast(errorMsg)
+        ToastUtils.showShort(errorMsg)
     }
 
     override fun showDefaultMsg(msg: String) {
-        showToast(msg)
+        ToastUtils.showShort(msg)
     }
 
     override fun showMsg(msg: String) {
-        showToast(msg)
+        ToastUtils.showShort(msg)
     }
 
 

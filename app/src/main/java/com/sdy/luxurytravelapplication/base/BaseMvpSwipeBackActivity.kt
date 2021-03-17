@@ -1,6 +1,7 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
 import android.os.Bundle
+import androidx.viewbinding.ViewBinding
 import com.cxz.swipelibrary.SwipeBackActivityBase
 import com.cxz.swipelibrary.SwipeBackActivityHelper
 import com.cxz.swipelibrary.SwipeBackLayout
@@ -9,7 +10,8 @@ import com.cxz.swipelibrary.Utils
 /**
  * Created by chenxz on 2018/8/6.
  */
-abstract class BaseMvpSwipeBackActivity<in V : IView, P : IPresenter<V>> : BaseMvpActivity<V, P>(), SwipeBackActivityBase {
+abstract class BaseMvpSwipeBackActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding> :
+    BaseMvpActivity<V, P, VB>(), SwipeBackActivityBase {
 
     private lateinit var mHelper: SwipeBackActivityHelper
 

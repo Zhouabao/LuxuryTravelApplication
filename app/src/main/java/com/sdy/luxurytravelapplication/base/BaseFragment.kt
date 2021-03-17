@@ -1,16 +1,18 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.cxz.multiplestatusview.MultipleStatusView
-import com.cxz.wanandroid.app.App
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.cxz.wanandroid.constant.Constant
-import com.cxz.wanandroid.event.NetworkChangeEvent
-import com.cxz.wanandroid.utils.Preference
+import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
+import com.sdy.luxurytravelapplication.ext.Preference
+import com.sdy.luxurytravelapplication.viewbinding.inflateBindingWithGeneric
+import com.sdy.luxurytravelapplication.widgets.MultipleStatusView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -18,7 +20,9 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by chenxz on 2018/4/21.
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+    private var _binding: VB? = null
+    val binding: VB get() = _binding!!
 
     /**
      * check login
@@ -34,10 +38,12 @@ abstract class BaseFragment : Fragment() {
      * 视图是否加载完毕
      */
     private var isViewPrepare = false
+
     /**
      * 数据是否加载过了
      */
     private var hasLoadData = false
+
     /**
      * 多种状态的 View 的切换
      */
@@ -71,8 +77,13 @@ abstract class BaseFragment : Fragment() {
         lazyLoad()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(attachLayoutRes(), null)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = inflateBindingWithGeneric(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -120,4 +131,8 @@ abstract class BaseFragment : Fragment() {
         activity?.let { App.getRefWatcher(it)?.watch(activity) }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

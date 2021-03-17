@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.base
+package com.sdy.luxurytravelapplication.base
 
 /**
  * Created by chenxz on 2018/4/21.

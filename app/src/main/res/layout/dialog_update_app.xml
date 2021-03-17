@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/updataBg"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <!--android:src="@drawable/icon_update_bg"-->
+        <ImageView
+            android:id="@+id/updataBg"
+            android:layout_width="wrap_content"
+            android:layout_height="191dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 【必设】升级标题控件tag：beta_title-->
+        <TextView
+            android:id="@+id/versionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:tag="beta_title"
+            android:textColor="#ffffffff"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/updataBg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="更新标题" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="215dp"
+            android:minHeight="215dp"
+            app:layout_constraintTop_toBottomOf="@id/updataBg">
+            <!--android:background="@drawable/shape_rectangle_white_bottom_10dp"-->
+
+
+            <!-- 【必设】更新属性控件tag：beta_upgrade_feature-->
+            <TextView
+                android:id="@+id/updateContent"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:tag="beta_upgrade_feature"
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="更新说明" />
+
+            <!-- 【必设】取消按钮tag：beta_cancel_button-->
+            <!--android:background="@drawable/shape_rectangle_stroke_eceff4_25dp"-->
+            <TextView
+                android:id="@+id/ignoreBtn"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:tag="beta_cancel_button"
+                android:text="@string/later_say"
+                android:textColor="#C6CAD4"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/updateContent"
+                app:layout_constraintRight_toLeftOf="@id/updateNowBtn"
+                app:layout_constraintTop_toBottomOf="@id/updateContent" />
+
+
+            <!-- 【必设】确认按钮tag：beta_confirm_button-->
+            <!--android:background="@drawable/shape_rectangle_enable_btn"-->
+            <TextView
+                android:id="@+id/updateNowBtn"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:tag="beta_confirm_button"
+                android:text="@string/upgrade_now"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/ignoreBtn"
+                app:layout_constraintRight_toRightOf="@id/updateContent"
+                app:layout_constraintTop_toTopOf="@id/ignoreBtn" />
+
+            <!-- 【必设】升级信息控件tag：beta_upgrade_info-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:tag="beta_upgrade_info"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

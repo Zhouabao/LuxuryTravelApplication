@@ -85,6 +85,9 @@ ext {
             "pickerview"            : 'com.contrarywind:Android-PickerView:4.1.9',
             //lottie动画
             "lottie"                : 'com.airbnb.android:lottie:3.4.1',
+            //各种弹窗
+            "dialog_v3x"            : 'com.kongzue.dialog_v3x:dialog:3.2.4',
+            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
             //circleimageview
             "circleimageview"       : 'de.hdodenhof:circleimageview:3.1.0',
             //expandedtextview
