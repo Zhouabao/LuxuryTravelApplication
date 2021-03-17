@@ -23,7 +23,7 @@ import kotlin.properties.Delegates
 /**
  * Created by chenxz on 2018/4/21.
  */
-class App : Application() {
+class TravelApp : Application() {
 
     private var refWatcher: RefWatcher? = null
 
@@ -34,7 +34,7 @@ class App : Application() {
         lateinit var instance: Application
 
         fun getRefWatcher(context: Context): RefWatcher? {
-            val app = context.applicationContext as App
+            val app = context.applicationContext as TravelApp
             return app.refWatcher
         }
 

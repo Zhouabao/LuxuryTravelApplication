@@ -1,5 +1,6 @@
 package com.cxz.wanandroid.http.cookies
 
+import com.sdy.luxurytravelapplication.http.cookies.PersistentCookieStore
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl

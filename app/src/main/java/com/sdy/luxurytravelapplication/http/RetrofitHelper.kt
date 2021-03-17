@@ -1,11 +1,11 @@
-package com.cxz.wanandroid.http
+package com.sdy.luxurytravelapplication.http
 
 import com.blankj.utilcode.util.AppUtils
 import com.sdy.luxurytravelapplication.api.ApiService
-import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.cxz.wanandroid.constant.Constant
 import com.cxz.wanandroid.constant.HttpConstant
-import com.cxz.wanandroid.http.interceptor.CacheInterceptor
+import com.sdy.luxurytravelapplication.http.interceptor.CacheInterceptor
 import com.cxz.wanandroid.http.interceptor.HeaderInterceptor
 import com.cxz.wanandroid.http.interceptor.SaveCookieInterceptor
 import okhttp3.Cache
@@ -52,7 +52,7 @@ object RetrofitHelper {
         }
 
         //设置 请求的缓存的大小跟位置
-        val cacheFile = File(App.context.cacheDir, "cache")
+        val cacheFile = File(TravelApp.context.cacheDir, "cache")
         val cache = Cache(cacheFile, HttpConstant.MAX_CACHE_SIZE)
 
         builder.run {

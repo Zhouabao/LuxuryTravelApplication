@@ -1,7 +1,7 @@
 package com.sdy.luxurytravelapplication.ext
 
 import com.blankj.utilcode.util.NetworkUtils
-import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.base.IModel
 import com.sdy.luxurytravelapplication.base.IView
 import com.cxz.wanandroid.http.exception.ErrorStatus
@@ -37,7 +37,7 @@ fun <T : BaseBean> Observable<T>.ss(
                     if (isShowLoading) view?.showLoading()
                     model?.addDisposable(d)
                     if (!NetworkUtils.isConnected()) {
-                        view?.showDefaultMsg(App.instance.resources.getString(R.string.network_unavailable_tip))
+                        view?.showDefaultMsg(TravelApp.instance.resources.getString(R.string.network_unavailable_tip))
                         onComplete()
                     }
                 }

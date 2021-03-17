@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.cxz.wanandroid.constant.Constant
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.receiver.NetworkChangeReceiver
@@ -267,7 +267,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             EventBus.getDefault().unregister(this)
         }
         KeyboardUtils.fixSoftInputLeaks(this)
-        App.getRefWatcher(this)?.watch(this)
+        TravelApp.getRefWatcher(this)?.watch(this)
     }
 
     override fun finish() {

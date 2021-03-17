@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
+    <external-path
+        name="beta_external_path"
+        path="Download/" />
+    <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
+    <external-path
+        name="beta_external_files_path"
+        path="Android/data/" />
+
+    <external-files-path
+        name="umeng_cache"
+        path="umeng_cache/" />
+
+    <external-files-path
+        name="opensdk_external"
+        path="Images/tmp" />
+
+    <root-path
+        name="opensdk_root"
+        path="" />
+    <external-path
+        name="camera_photos"
+        path="DCIM/Camera" />
+    <!--path：需要临时授权访问的路径（.代表所有路径）-->
+    <!--name：就是你给这个访问路径起个名字-->
+    <!--<external-files-path name="demoapplicaiton/video" path="Android/data/"/>-->
+    <!--<external-files-path name="demoapplicaiton/camera" path="Android/data/"/>-->
+    <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
+    <external-path
+        name="beta_external_path"
+        path="Download/" />
+    <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
+    <external-path
+        name="beta_external_files_path"
+        path="Android/data/" />
+</paths>

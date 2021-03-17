@@ -1,0 +1,19 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--为了让android9.0上显示HTTP开头的图片-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+       <!-- <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>-->
+    </base-config>
+
+    <!--<domain-config>
+        &lt;!&ndash;添加需要抓包的域名&ndash;&gt;
+        <domain includeSubdomains="true">xapp.talkdating.cn</domain>
+        <domain includeSubdomains="true">testxapp.talkdating.cn</domain>
+        <trust-anchors>
+            &lt;!&ndash;信任用户自己安装的证书&ndash;&gt;
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>-->
+</network-security-config>

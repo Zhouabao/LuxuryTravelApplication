@@ -1,11 +1,10 @@
-package com.cxz.wanandroid.rx
+package com.sdy.luxurytravelapplication.rx
 
-import com.sdy.luxurytravelapplication.app.App
-import com.sdy.luxurytravelapplication.base.IView
+import com.blankj.utilcode.util.NetworkUtils
 import com.cxz.wanandroid.http.exception.ErrorStatus
 import com.cxz.wanandroid.http.exception.ExceptionHandle
 import com.cxz.wanandroid.mvp.model.bean.BaseBean
-import com.cxz.wanandroid.utils.NetWorkUtil
+import com.sdy.luxurytravelapplication.base.IView
 import io.reactivex.observers.ResourceObserver
 
 /**
@@ -39,7 +38,7 @@ abstract class BaseObserver<T : BaseBean> : ResourceObserver<T> {
     override fun onStart() {
         super.onStart()
         if (bShowLoading) mView?.showLoading()
-        if (!NetWorkUtil.isNetworkConnected(App.instance)) {
+        if (!NetworkUtils.isConnected()) {
             mView?.showDefaultMsg("当前网络不可用，请检查网络设置")
             onComplete()
         }

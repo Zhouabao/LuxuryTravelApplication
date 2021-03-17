@@ -2,14 +2,14 @@ package com.sdy.luxurytravelapplication.utils
 
 import android.graphics.Color
 import android.preference.PreferenceManager
-import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.R
 
 /**
  * Created by chenxz on 2018/6/18.
  */
 object SettingUtil {
-    private val setting = PreferenceManager.getDefaultSharedPreferences(App.context)
+    private val setting = PreferenceManager.getDefaultSharedPreferences(TravelApp.context)
 
     /**
      * 获取是否开启无图模式
@@ -29,7 +29,7 @@ object SettingUtil {
      * 获取主题颜色
      */
     fun getColor(): Int {
-        val defaultColor = App.context.resources.getColor(R.color.colorPrimary)
+        val defaultColor = TravelApp.context.resources.getColor(R.color.colorPrimary)
         val color = setting.getInt("color", defaultColor)
         return if (color != 0 && Color.alpha(color) != 255) {
             defaultColor

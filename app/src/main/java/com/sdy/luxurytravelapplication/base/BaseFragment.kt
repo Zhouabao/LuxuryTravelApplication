@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.cxz.wanandroid.constant.Constant
-import com.sdy.luxurytravelapplication.app.App
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.viewbinding.inflateBindingWithGeneric
@@ -128,7 +128,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
-        activity?.let { App.getRefWatcher(it)?.watch(activity) }
+        activity?.let { TravelApp.getRefWatcher(it)?.watch(activity) }
     }
 
     override fun onDestroyView() {

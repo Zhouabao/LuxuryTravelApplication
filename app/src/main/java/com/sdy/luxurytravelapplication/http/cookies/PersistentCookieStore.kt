@@ -1,10 +1,11 @@
-package com.cxz.wanandroid.http.cookies
+package com.sdy.luxurytravelapplication.http.cookies
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
 import android.util.Log
-import com.sdy.luxurytravelapplication.app.App
+import com.cxz.wanandroid.http.cookies.OkHttpCookies
+import com.sdy.luxurytravelapplication.app.TravelApp
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import java.io.*
@@ -24,7 +25,7 @@ class PersistentCookieStore {
     private val cookiePrefs: SharedPreferences
 
     init {
-        cookiePrefs = App.context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE)
+        cookiePrefs = TravelApp.context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE)
         var prefsMap = cookiePrefs.all
 
 
