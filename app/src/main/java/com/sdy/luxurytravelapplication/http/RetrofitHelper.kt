@@ -6,8 +6,8 @@ import com.sdy.luxurytravelapplication.app.TravelApp
 import com.cxz.wanandroid.constant.Constant
 import com.cxz.wanandroid.constant.HttpConstant
 import com.sdy.luxurytravelapplication.http.interceptor.CacheInterceptor
-import com.cxz.wanandroid.http.interceptor.HeaderInterceptor
-import com.cxz.wanandroid.http.interceptor.SaveCookieInterceptor
+import com.sdy.luxurytravelapplication.http.interceptor.HeaderInterceptor
+import com.sdy.luxurytravelapplication.http.interceptor.SaveCookieInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

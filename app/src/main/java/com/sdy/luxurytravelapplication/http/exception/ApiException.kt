@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.http.exception
+package com.sdy.luxurytravelapplication.http.exception
 
 /**
  * Created by chenxz on 2018/4/21.

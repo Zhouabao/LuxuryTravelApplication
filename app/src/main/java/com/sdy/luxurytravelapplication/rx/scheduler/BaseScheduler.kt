@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.rx.scheduler
+package com.sdy.luxurytravelapplication.rx.scheduler
 
 import io.reactivex.*
 import org.reactivestreams.Publisher

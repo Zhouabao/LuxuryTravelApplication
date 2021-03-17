@@ -1,8 +1,8 @@
-package com.cxz.wanandroid.http.interceptor
+package com.sdy.luxurytravelapplication.http.interceptor
 
 import com.cxz.wanandroid.constant.Constant
 import com.cxz.wanandroid.constant.HttpConstant
-import com.cxz.wanandroid.utils.Preference
+import com.sdy.luxurytravelapplication.ext.Preference
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -27,8 +27,8 @@ class HeaderInterceptor : Interceptor {
         // .header("token", token)
         // .method(request.method(), request.body())
 
-        val domain = request.url().host()
-        val url = request.url().toString()
+        val domain = request.url.host
+        val url = request.url.toString()
         if (domain.isNotEmpty() && (url.contains(HttpConstant.COLLECTIONS_WEBSITE)
                         || url.contains(HttpConstant.UNCOLLECTIONS_WEBSITE)
                         || url.contains(HttpConstant.ARTICLE_WEBSITE)

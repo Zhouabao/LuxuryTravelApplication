@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.http.cookies
+package com.sdy.luxurytravelapplication.http.cookies
 
 import okhttp3.Cookie
 import java.io.IOException

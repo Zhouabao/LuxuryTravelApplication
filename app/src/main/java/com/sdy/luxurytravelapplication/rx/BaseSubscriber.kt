@@ -1,10 +1,9 @@
 package com.sdy.luxurytravelapplication.rx
 
 import com.blankj.utilcode.util.NetworkUtils
-import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.base.IView
-import com.cxz.wanandroid.http.exception.ErrorStatus
-import com.cxz.wanandroid.http.exception.ExceptionHandle
+import com.sdy.luxurytravelapplication.http.exception.ErrorStatus
+import com.sdy.luxurytravelapplication.http.exception.ExceptionHandle
 import com.cxz.wanandroid.mvp.model.bean.BaseBean
 import io.reactivex.subscribers.ResourceSubscriber
 

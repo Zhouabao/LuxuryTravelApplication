@@ -1,6 +1,6 @@
 package com.cxz.wanandroid.rx
 
-import com.cxz.wanandroid.rx.scheduler.IoMainScheduler
+import com.sdy.luxurytravelapplication.rx.scheduler.IoMainScheduler
 
 /**
  * Created by chenxz on 2018/4/21.

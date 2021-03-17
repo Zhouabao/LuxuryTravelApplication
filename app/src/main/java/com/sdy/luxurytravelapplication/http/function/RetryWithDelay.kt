@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.http.function
+package com.sdy.luxurytravelapplication.http.function
 
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction

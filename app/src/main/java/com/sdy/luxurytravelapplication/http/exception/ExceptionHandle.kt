@@ -1,4 +1,4 @@
-package com.cxz.wanandroid.http.exception
+package com.sdy.luxurytravelapplication.http.exception
 
 import com.blankj.utilcode.util.LogUtils
 import com.google.gson.JsonParseException
