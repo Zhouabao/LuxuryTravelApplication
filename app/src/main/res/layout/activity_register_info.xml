@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.activity.RegisterInfoActivity">
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/welcome_come"
+        android:textColor="#ff8a909f"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nicknameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:hint="@string/input_nickname"
+        android:inputType="text"
+        android:maxLength="6"
+        android:textColor="@color/color_333333"
+        android:textColorHint="#ffccd1da"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+    <TextView
+        android:id="@+id/travelAim"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:drawableRight="@drawable/icon_register_info_choose_icon"
+        android:gravity="center_vertical"
+        android:hint="@string/travel_aim"
+        android:paddingLeft="18dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/color_333333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nicknameEt" />
+
+    <TextView
+        android:id="@+id/travelPatener"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:drawableRight="@drawable/icon_register_info_choose_icon"
+        android:gravity="center_vertical"
+        android:hint="@string/travel_require"
+        android:paddingLeft="18dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/color_333333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/travelAim" />
+
+    <TextView
+        android:id="@+id/travelKeepTime"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:drawableRight="@drawable/icon_register_info_choose_icon"
+        android:gravity="center_vertical"
+        android:hint="@string/travel_keep_time"
+        android:paddingLeft="18dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/color_333333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/travelPatener" />
+
+
+    <Button
+        android:id="@+id/filterBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:gravity="center"
+        android:enabled="false"
+        android:text="@string/filter_your_partner"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

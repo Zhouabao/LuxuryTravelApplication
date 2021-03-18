@@ -25,4 +25,42 @@ data class RegisterFileBean(
 )
 
 
+data class LoginBean(
+    var accid: String = "",
+    var extra_data: ExtraData = ExtraData(),
+    var info_check: Boolean = false,
+    var phone_check: Boolean = false,
+    var qn_prefix: List<String> = listOf(),
+    var qntk: String = "",
+    var register: Boolean = false,
+    var token: String = "",
+    var userinfo: Userinfo = Userinfo()
+)
+
+
+data class LoginOffCauseBean(
+    var descr: String = "",
+    var list: MutableList<String> = mutableListOf()
+)
+
+data class ExtraData(
+    var birth: Int = 0,
+    var city_name: String = "",
+    var im_token: String = "",
+    var isvip: Boolean = false,
+    var living_btn: Boolean = false,
+    var supplement: Int = 0,
+    var threshold: Boolean = false,
+    var invite_code: Boolean = false,
+    var inviter_data_code: String = "",
+    var tourists: Boolean = false
+)
+
+data class Userinfo(
+    var avatar: String = "",
+    var birth: Int = 0,
+    var gender: Int = 0,
+    var nickname: String = ""
+)
+
 

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.activity.VerifycodeActivity">
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/input_verify_code"
+        android:textColor="@color/color_333333"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sendVerifcodeTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1"
+        tools:text="@string/code_has_sent" />
+
+
+    <com.jyn.vcview.VerificationCodeView
+        android:id="@+id/verifycodeEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1"
+        app:vcv_et_bg="@drawable/selector_verifycode_et_bg"
+        app:vcv_et_cursor_visible="false"
+        app:vcv_et_inputType="number"
+        app:vcv_et_number="4"
+        app:vcv_et_spacing="20dp"
+        app:vcv_et_text_color="@color/colorAccent"
+        app:vcv_et_text_size="14sp"
+        app:vcv_et_width="60dp" />
+
+    <!--    <com.sdy.sweetdateapplication.ui.widgets.VerifycodeInputView-->
+    <!--        android:id="@+id/verifycodeEt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_marginTop="80dp"-->
+    <!--        android:textColor="#ff333333"-->
+    <!--        android:textSize="30sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/t1"-->
+    <!--        app:strokeBackground="@drawable/shape_rectangle_stroke_blue_10dp"-->
+    <!--        app:strokeHeight="60dp"-->
+    <!--        app:strokeLength="4"-->
+    <!--        app:strokePadding="20dp"-->
+    <!--        app:strokeWidth="60dp" />-->
+
+    <TextView
+        android:id="@+id/resendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textColor="#FFB6BCC6"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verifycodeEt"
+        tools:text="@string/resend_after_seconds" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
