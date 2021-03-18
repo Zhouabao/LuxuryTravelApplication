@@ -14,7 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.color.CircleView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.cxz.wanandroid.constant.Constant
+import com.cxz.wanandroid.constant.Constants
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
@@ -36,12 +36,12 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * check login
      */
-    protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    protected var isLogin: Boolean by Preference(Constants.LOGIN_KEY, false)
 
     /**
      * 缓存上一次的网络状态
      */
-    protected var hasNetwork: Boolean by Preference(Constant.HAS_NETWORK_KEY, true)
+    protected var hasNetwork: Boolean by Preference(Constants.HAS_NETWORK_KEY, true)
 
     /**
      * 网络状态变化的广播
@@ -68,7 +68,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * 布局文件id
      */
-    protected abstract fun attachLayoutRes(): Int
+//    protected abstract fun attachLayoutRes(): Int
 
     /**
      * 初始化数据
@@ -88,7 +88,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * 是否使用 EventBus
      */
-    open fun useEventBus(): Boolean = true
+    open fun useEventBus(): Boolean = false
 
     /**
      * 是否需要显示 TipView

@@ -1,6 +1,6 @@
 package com.sdy.luxurytravelapplication.http.interceptor
 
-import com.cxz.wanandroid.constant.HttpConstant
+import com.sdy.luxurytravelapplication.constant.HttpConstant
 import okhttp3.Interceptor
 import okhttp3.Response
 

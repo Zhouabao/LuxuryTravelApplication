@@ -1,4 +1,6 @@
-package com.cxz.wanandroid.mvp.model.bean
+package com.sdy.luxurytravelapplication.mvp.model.bean
+
+import com.squareup.moshi.Json
 
 /**
  * @author admin
@@ -6,6 +8,7 @@ package com.cxz.wanandroid.mvp.model.bean
  * @desc
  */
 open class BaseBean {
-    var errorCode: Int = 0
-    var errorMsg: String = ""
+    var code: Int = 0
+    var msg: String = ""
 }
+data class BaseResp<T>(@Json(name = "data") val data: T) : BaseBean()

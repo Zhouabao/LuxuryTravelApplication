@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorPrimary" format="color" />
+    <attr name="colorPrimaryDark" format="color" />
+    <attr name="colorAccent" format="color" />
+    <attr name="textColorPrimary" format="color" />
+    <attr name="viewBackground" format="color" />
+
 
     <declare-styleable name="MultipleStatusView">
         <attr name="loadingView" format="reference"/>

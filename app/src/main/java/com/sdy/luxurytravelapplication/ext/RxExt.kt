@@ -7,7 +7,7 @@ import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.http.exception.ErrorStatus
 import com.sdy.luxurytravelapplication.http.exception.ExceptionHandle
 import com.sdy.luxurytravelapplication.http.function.RetryWithDelay
-import com.cxz.wanandroid.mvp.model.bean.BaseBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.BaseBean
 import com.cxz.wanandroid.rx.SchedulerUtils
 import com.sdy.luxurytravelapplication.R
 import io.reactivex.Observable
@@ -44,11 +44,11 @@ fun <T : BaseBean> Observable<T>.ss(
 
                 override fun onNext(t: T) {
                     when {
-                        t.errorCode == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
-                        t.errorCode == ErrorStatus.TOKEN_INVALID -> {
+                        t.code == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
+                        t.code == ErrorStatus.TOKEN_INVALID -> {
                             // Token 过期，重新登录
                         }
-                        else -> view?.showDefaultMsg(t.errorMsg)
+                        else -> view?.showDefaultMsg(t.msg)
                     }
                 }
 
@@ -70,16 +70,16 @@ fun <T : BaseBean> Observable<T>.sss(
             .retryWhen(RetryWithDelay())
             .subscribe({
                 when {
-                    it.errorCode == ErrorStatus.SUCCESS -> onSuccess.invoke(it)
-                    it.errorCode == ErrorStatus.TOKEN_INVALID -> {
+                    it.code == ErrorStatus.SUCCESS -> onSuccess.invoke(it)
+                    it.code == ErrorStatus.TOKEN_INVALID -> {
                         // Token 过期，重新登录
                     }
                     else -> {
                         if (onError != null) {
                             onError.invoke(it)
                         } else {
-                            if (it.errorMsg.isNotEmpty())
-                                view?.showDefaultMsg(it.errorMsg)
+                            if (it.msg.isNotEmpty())
+                                view?.showDefaultMsg(it.msg)
                         }
                     }
                 }

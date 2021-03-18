@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
-import com.cxz.wanandroid.constant.Constant
+import com.cxz.wanandroid.constant.Constants
 import com.sdy.luxurytravelapplication.R
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -124,14 +124,12 @@ class TravelApp : Application() {
         Beta.strUpgradeDialogCancelBtn = getString(R.string.say_next_time)
         //Beta.dialogFullScreen = true
         // CrashReport.initCrashReport(applicationContext, Constant.BUGLY_ID, BuildConfig.DEBUG, strategy)
-        Bugly.init(applicationContext, Constant.BUGLY_ID, AppUtils.isAppDebug(), strategy)
+        Bugly.init(applicationContext, Constants.BUGLY_ID, AppUtils.isAppDebug(), strategy)
     }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(base)
-        // 安装 Tinker
-        Beta.installTinker()
     }
 
 

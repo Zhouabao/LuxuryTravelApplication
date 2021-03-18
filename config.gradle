@@ -73,12 +73,14 @@ ext {
 
             "swipeback"             : 'com.cxz:swipeback:1.0.1',
             "android-autosize"      : 'me.jessyan:autosize:1.2.1',
+            "android-verificationcodeview"      : 'com.jyn.verificationcodeview:verificationcodeview:1.0.1',
             //图片选择器
             "picture-library"       : 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.6',
             //刷新
             "smart-refresh"         : 'com.scwang.smart:refresh-layout-kernel:2.0.3',
             "smart-refresh-header"  : 'com.scwang.smart:refresh-header-material:2.0.3',
             "smart-refresh-footer"  : 'com.scwang.smart:refresh-footer-classics:2.0.3',
+            "spinkit"               : 'com.github.ybq:Android-SpinKit:1.2.0',
             //工具类
             "blankj"                : 'com.blankj:utilcodex:1.30.5',
             //联动选择器

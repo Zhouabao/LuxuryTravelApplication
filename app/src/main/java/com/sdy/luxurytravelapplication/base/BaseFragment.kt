@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.cxz.wanandroid.constant.Constant
+import com.cxz.wanandroid.constant.Constants
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference
@@ -27,12 +27,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     /**
      * check login
      */
-    protected var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    protected var isLogin: Boolean by Preference(Constants.LOGIN_KEY, false)
 
     /**
      * 缓存上一次的网络状态
      */
-    protected var hasNetwork: Boolean by Preference(Constant.HAS_NETWORK_KEY, true)
+    protected var hasNetwork: Boolean by Preference(Constants.HAS_NETWORK_KEY, true)
 
     /**
      * 视图是否加载完毕

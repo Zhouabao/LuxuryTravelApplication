@@ -1,8 +1,11 @@
 package com.sdy.luxurytravelapplication.http.interceptor
 
-import com.cxz.wanandroid.constant.Constant
-import com.cxz.wanandroid.constant.HttpConstant
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.DeviceUtils
+import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.ext.Preference
+import com.sdy.luxurytravelapplication.utils.ChannelUtils
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -16,7 +19,7 @@ class HeaderInterceptor : Interceptor {
     /**
      * token
      */
-    private var token: String by Preference(Constant.TOKEN_KEY, "")
+    private var token: String by Preference(Constants.TOKEN, "")
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
@@ -24,23 +27,11 @@ class HeaderInterceptor : Interceptor {
         val builder = request.newBuilder()
 
         builder.addHeader("Content-type", "application/json; charset=utf-8")
-        // .header("token", token)
-        // .method(request.method(), request.body())
-
-        val domain = request.url.host
-        val url = request.url.toString()
-        if (domain.isNotEmpty() && (url.contains(HttpConstant.COLLECTIONS_WEBSITE)
-                        || url.contains(HttpConstant.UNCOLLECTIONS_WEBSITE)
-                        || url.contains(HttpConstant.ARTICLE_WEBSITE)
-                        || url.contains(HttpConstant.TODO_WEBSITE)
-                        || url.contains(HttpConstant.COIN_WEBSITE))) {
-            val spDomain: String by Preference(domain, "")
-            val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
-            if (cookie.isNotEmpty()) {
-                // 将 Cookie 添加到请求头
-                builder.addHeader(HttpConstant.COOKIE_NAME, cookie)
-            }
-        }
+            .addHeader("os","android")
+            .addHeader("mac",DeviceUtils.getUniqueDeviceId())
+            .addHeader("machine","${DeviceUtils.getManufacturer()},${DeviceUtils.getModel()}")
+            .addHeader("app-vrn",AppUtils.getAppVersionName())
+            .addHeader("chnl",ChannelUtils.getChannel(TravelApp.context))
 
         return chain.proceed(builder.build())
     }

@@ -3,7 +3,7 @@ package com.sdy.luxurytravelapplication.rx
 import com.blankj.utilcode.util.NetworkUtils
 import com.sdy.luxurytravelapplication.http.exception.ErrorStatus
 import com.sdy.luxurytravelapplication.http.exception.ExceptionHandle
-import com.cxz.wanandroid.mvp.model.bean.BaseBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.BaseBean
 import com.sdy.luxurytravelapplication.base.IView
 import io.reactivex.observers.ResourceObserver
 
@@ -47,14 +47,14 @@ abstract class BaseObserver<T : BaseBean> : ResourceObserver<T> {
     override fun onNext(t: T) {
         mView?.hideLoading()
         when {
-            t.errorCode == ErrorStatus.SUCCESS -> onSuccess(t)
-            t.errorCode == ErrorStatus.TOKEN_INVALID -> {
+            t.code == ErrorStatus.SUCCESS -> onSuccess(t)
+            t.code == ErrorStatus.TOKEN_INVALID -> {
                 // TODO Token 过期，重新登录
             }
             else -> {
                 onError(t)
-                if (t.errorMsg.isNotEmpty())
-                    mView?.showDefaultMsg(t.errorMsg)
+                if (t.msg.isNotEmpty())
+                    mView?.showDefaultMsg(t.msg)
             }
         }
     }

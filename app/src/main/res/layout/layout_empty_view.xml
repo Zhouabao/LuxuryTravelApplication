@@ -9,13 +9,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_empty" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:text="@string/no_data"
-        android:textColor="@color/common_color" />
+        android:textColor="@color/color_333333" />
 
 </LinearLayout>

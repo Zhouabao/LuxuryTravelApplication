@@ -3,11 +3,9 @@ package com.sdy.luxurytravelapplication.http
 import com.blankj.utilcode.util.AppUtils
 import com.sdy.luxurytravelapplication.api.ApiService
 import com.sdy.luxurytravelapplication.app.TravelApp
-import com.cxz.wanandroid.constant.Constant
-import com.cxz.wanandroid.constant.HttpConstant
-import com.sdy.luxurytravelapplication.http.interceptor.CacheInterceptor
-import com.sdy.luxurytravelapplication.http.interceptor.HeaderInterceptor
-import com.sdy.luxurytravelapplication.http.interceptor.SaveCookieInterceptor
+import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.HttpConstant
+import com.sdy.luxurytravelapplication.http.interceptor.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,9 +27,9 @@ object RetrofitHelper {
     private fun getRetrofit(): Retrofit? {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)  // baseUrl
+                .baseUrl(Constants.BASE_URL)  // baseUrl
                 .client(getOkHttpClient())
-                //.addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
@@ -57,15 +55,15 @@ object RetrofitHelper {
 
         builder.run {
             addInterceptor(httpLoggingInterceptor)
-            addInterceptor(HeaderInterceptor())
-            addInterceptor(SaveCookieInterceptor())
-            addInterceptor(CacheInterceptor())
+            addInterceptor(AddParameterInterceptor())
+//            addInterceptor(QueryParameterInterceptor())
+//            addInterceptor(SaveCookieInterceptor())
+//            addInterceptor(CacheInterceptor())
             cache(cache)  //添加缓存
             connectTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(HttpConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             retryOnConnectionFailure(true) // 错误重连
-            // cookieJar(CookieManager())
         }
         return builder.build()
     }

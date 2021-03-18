@@ -1,6 +1,8 @@
-package com.cxz.wanandroid.constant
+package com.sdy.luxurytravelapplication.constant
 
-import com.cxz.wanandroid.utils.Preference
+import com.blankj.utilcode.util.DeviceUtils
+import com.sdy.luxurytravelapplication.ext.Preference
+
 
 /**
  * Created by chenxz on 2018/6/9.
@@ -11,14 +13,7 @@ object HttpConstant {
     const val SAVE_USER_LOGIN_KEY = "user/login"
     const val SAVE_USER_REGISTER_KEY = "user/register"
 
-    const val COLLECTIONS_WEBSITE = "lg/collect"
-    const val UNCOLLECTIONS_WEBSITE = "lg/uncollect"
-    const val ARTICLE_WEBSITE = "article"
-    const val TODO_WEBSITE = "lg/todo"
-    const val COIN_WEBSITE = "lg/coin"
-
     const val SET_COOKIE_KEY = "set-cookie"
-    const val COOKIE_NAME = "Cookie"
 
     const val MAX_CACHE_SIZE: Long = 1024 * 1024 * 50 // 50M 的缓存大小
 
@@ -54,5 +49,6 @@ object HttpConstant {
         @Suppress("UNUSED_VALUE")
         spDomain = cookies
     }
+
 
 }
