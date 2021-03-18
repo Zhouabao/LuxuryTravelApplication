@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.activity.LoginInfoActivity">
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:text="@string/complete_register_info"
+        android:textColor="#ff333333"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/loginAvator"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/icon_login_avator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+
+    <TextView
+        android:id="@+id/loginBirthday"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:drawableRight="@drawable/icon_register_info_choose_icon"
+        android:gravity="center_vertical"
+        android:hint="@string/tell_your_birthday"
+        android:paddingLeft="18dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/colorEdittext"
+        android:textColorHint="@color/colorHintEdittext"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginAvator" />
+
+
+    <TextView
+        android:id="@+id/loginGender"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:drawableRight="@drawable/icon_register_info_choose_icon"
+        android:gravity="center_vertical"
+        android:hint="@string/tell_your_sex"
+        android:paddingLeft="18dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/colorEdittext"
+        android:textColorHint="@color/colorHintEdittext"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@id/loginBirthday"
+        app:layout_constraintRight_toRightOf="@id/loginBirthday"
+        app:layout_constraintTop_toBottomOf="@id/loginBirthday" />
+
+
+    <TextView
+        android:id="@+id/loginNextBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/next_step"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

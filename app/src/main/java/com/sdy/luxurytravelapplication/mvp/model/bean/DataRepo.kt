@@ -63,4 +63,37 @@ data class Userinfo(
     var nickname: String = ""
 )
 
+/**
+ * 设置个人信息后的数据
+ */
+data class SetPersonalBean(
+    var avatar: String = "",
+    var city_name: String = "",
+    var gender: Int = 0,
+    var birth: Int = 0,
+    var living_btn: Boolean = false,
+    var nickname: String = "",
+    var supplement: Int = 0,
+    var threshold: Boolean = false,
+    var tourists: Boolean = false
+)
 
+
+
+data class MediaBean(
+    val id :Int = 0,
+    val fileType: TYPE = TYPE.IMAGE,
+    var filePath: Any = "",
+    var fileName: String = "",
+    var thumbnail: String = "",
+    var duration: Int = 0,
+    var size: Long = 0L,
+    var ischecked: Boolean = false,
+    var width: Int = 0,
+    var height: Int = 0
+) {
+    enum class TYPE { IMAGE, VIDEO }
+
+}
+
+data class ContactInfo(val id: String, val name: String, val phone: String)

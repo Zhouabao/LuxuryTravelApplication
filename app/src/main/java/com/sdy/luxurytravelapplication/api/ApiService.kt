@@ -1,9 +1,10 @@
 package com.sdy.luxurytravelapplication.api
 
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterFileBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
@@ -47,6 +48,14 @@ interface ApiService {
     @POST("Account/cancelAccount${Constants.END_BASE_URL}")
     fun cancelAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
+
+
+    /**
+     * 注册填写个人信息
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/setPersonal${Constants.END_BASE_URL}")
+    fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
 
 
 

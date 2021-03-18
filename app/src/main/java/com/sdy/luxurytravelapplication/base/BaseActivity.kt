@@ -14,7 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.color.CircleView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent

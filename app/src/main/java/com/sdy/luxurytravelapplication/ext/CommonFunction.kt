@@ -1,0 +1,112 @@
+package com.sdy.luxurytravelapplication.ext
+
+import android.app.Activity
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.TimeUtils
+import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.config.PictureMimeType
+import com.luck.picture.lib.style.PictureCropParameterStyle
+import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.glide.GlideEngine
+import com.sdy.luxurytravelapplication.utils.UriUtils
+
+/**
+ *    author : ZFM
+ *    date   : 2021/3/1811:01
+ *    desc   :
+ *    version: 1.0
+ */
+
+
+
+/**
+ * 拍照或者选取照片
+ */
+@JvmOverloads
+fun onTakePhoto(
+    context: Context,
+    maxCount: Int,
+    requestCode: Int,
+    chooseMode: Int = PictureMimeType.ofImage(),
+    compress: Boolean = false,
+    showCamera: Boolean = true,
+    rotateEnable: Boolean = false,
+    cropEnable: Boolean = false,
+    minSeconds: Int = 5,
+    maxSeconds: Int = 2 * 60,
+    aspect_ratio_x: Int = 4,
+    aspect_ratio_y: Int = 5
+) {
+    PictureSelector.create(context as Activity)
+        .openGallery(chooseMode)
+        .maxSelectNum(maxCount)
+        .minSelectNum(0)
+        .imageSpanCount(4)
+        .selectionMode(
+            if (maxCount > 1) {
+                PictureConfig.MULTIPLE
+            } else {
+                PictureConfig.SINGLE
+            }
+        )
+        .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
+        .previewImage(true)
+        .previewVideo(true)
+        .isCamera(showCamera)
+        .enableCrop(cropEnable)
+        .maxVideoSelectNum(1)
+        .compressSavePath(UriUtils.getCacheDir(context))
+        .compress(compress)
+        .videoMaxSecond(maxSeconds)
+        .videoMinSecond(minSeconds)
+        .minimumCompressSize(100)
+        .scaleEnabled(true)
+//            .showCropGrid(true)
+//            .showCropFrame(true)
+        .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
+        .rotateEnabled(rotateEnable)
+//            .cropImageWideHigh(4, 5)
+        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
+        .compressSavePath(UriUtils.getCacheDir(context))
+        .openClickSound(false)
+        .isUseCustomCamera(false)
+        .forResult(requestCode)
+}
+
+/**
+ * 单独拍照
+ */
+fun openCamera(
+    context: Context,
+    requestCode: Int,
+    chooseMode: Int = 1,
+    compress: Boolean = false,
+    rotateEnable: Boolean = false,
+    cropEnable: Boolean = false
+) {
+    // 裁剪主题
+    val mCropParameterStyle = PictureCropParameterStyle(
+        ContextCompat.getColor(context, R.color.colorBlack),
+        ContextCompat.getColor(context, R.color.colorBlack),
+        ContextCompat.getColor(context, R.color.colorWhite),
+        true
+    )
+
+    PictureSelector.create(context as Activity)
+        .openCamera(chooseMode)
+        .enableCrop(cropEnable)
+        .rotateEnabled(rotateEnable)
+        .setPictureCropStyle(mCropParameterStyle) // 动态自定义裁剪主题
+        .theme(R.style.picture_default_style)
+//            .cropImageWideHigh(4, 5)
+        .withAspectRatio(4, 5)
+        .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
+        .compressSavePath(UriUtils.getCacheDir(context))
+        .cameraFileName("${TimeUtils.getNowMills()}.png")
+        .compress(compress)
+        .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
+        .compressSavePath(UriUtils.getCacheDir(context))
+        .forResult(requestCode)
+}

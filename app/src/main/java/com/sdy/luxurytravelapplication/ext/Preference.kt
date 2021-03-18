@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.ext
 
 import android.annotation.SuppressLint
 import com.blankj.utilcode.util.SPUtils
+import com.sdy.luxurytravelapplication.constant.Constants
 import java.io.*
 import kotlin.reflect.KProperty
 
@@ -14,7 +15,7 @@ import kotlin.reflect.KProperty
 class Preference<T>(val name: String, private val default: T) {
 
     companion object {
-        private val file_name = "luxury-travel-file"
+        private val file_name = Constants.SPNAME
 
         private val prefs: SPUtils by lazy {
             SPUtils.getInstance(file_name)

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference

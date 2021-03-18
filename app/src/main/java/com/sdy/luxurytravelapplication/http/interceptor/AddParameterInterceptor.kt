@@ -3,16 +3,16 @@ package com.sdy.luxurytravelapplication.http.interceptor
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.LogUtils
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.qiniu.android.dns.util.MD5
 import com.sdy.luxurytravelapplication.app.TravelApp
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.utils.ChannelUtils
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.net.URLDecoder
-import java.util.*
 
 /**
  *    author : ZFM
@@ -39,20 +39,15 @@ class AddParameterInterceptor : Interceptor {
                 for (i in 0 until formBody.size) {
                     bodyBuilder.addEncoded(formBody.encodedName(i), formBody.encodedValue(i))
                 }
-                val city_name by Preference(Constants.CITY, "")
-                val province by Preference(Constants.PROVINCE, "")
-                val accid by Preference(Constants.ACCID, "")
-                val token by Preference(Constants.TOKEN, "")
-                val lat by Preference(Constants.LAT, "")
-                val lng by Preference(Constants.LNG, "")
+
                 formBody = bodyBuilder.addEncoded("_timestamp","${ System.currentTimeMillis()}")
-                    .addEncoded("accid", accid)
-                    .addEncoded("token", token)
+                    .addEncoded("accid", UserManager.accid)
+                    .addEncoded("token", UserManager.token)
                     .addEncoded("device_id", DeviceUtils.getUniqueDeviceId())
-                    .addEncoded("city_name", city_name)
-                    .addEncoded("province_name", province)
-                    .addEncoded("lat", lat)
-                    .addEncoded("lng", lng)
+                    .addEncoded("city_name", UserManager.city)
+                    .addEncoded("province_name", UserManager.province)
+                    .addEncoded("lat", UserManager.latitude)
+                    .addEncoded("lng", UserManager.longtitude)
                     .build()
 
                 val bodyMap = hashMapOf<String, String>()
@@ -83,14 +78,14 @@ class AddParameterInterceptor : Interceptor {
         } else if (request.method == "GET") {
             var httpUrl = request.url
                 .newBuilder()
-                .addQueryParameter("accid", Preference(Constants.ACCID, "").name)
-                .addQueryParameter("token", Preference(Constants.TOKEN, "").name)
+                .addQueryParameter("accid", UserManager.accid)
+                .addQueryParameter("token", UserManager.token)
                 .addQueryParameter("_timestamp", "${System.currentTimeMillis()}")
                 .addQueryParameter("device_id", DeviceUtils.getUniqueDeviceId())
-                .addQueryParameter("city_name", Preference(Constants.CITY, "").name)
-                .addQueryParameter("province_name", Preference(Constants.PROVINCE, "").name)
-                .addQueryParameter("lat", Preference(Constants.LAT, "").name)
-                .addQueryParameter("lng", Preference(Constants.LNG, "").name)
+                .addQueryParameter("city_name", UserManager.city)
+                .addQueryParameter("province_name", UserManager.province)
+                .addQueryParameter("lat", UserManager.latitude)
+                .addQueryParameter("lng", UserManager.longtitude)
                 .build()
 
             val nameSet = httpUrl.queryParameterNames

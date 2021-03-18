@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.blankj.utilcode.util.NetworkUtils
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference
 import org.greenrobot.eventbus.EventBus

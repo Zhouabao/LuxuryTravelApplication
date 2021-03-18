@@ -3,7 +3,7 @@ package com.sdy.luxurytravelapplication.http
 import com.blankj.utilcode.util.AppUtils
 import com.sdy.luxurytravelapplication.api.ApiService
 import com.sdy.luxurytravelapplication.app.TravelApp
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.HttpConstant
 import com.sdy.luxurytravelapplication.http.interceptor.*
 import okhttp3.Cache

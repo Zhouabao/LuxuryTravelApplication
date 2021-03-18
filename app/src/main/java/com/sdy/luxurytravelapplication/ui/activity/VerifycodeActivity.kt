@@ -119,7 +119,6 @@ class VerifycodeActivity :
     }
 
     override fun loginIMResult(loginInfo: LoginInfo?, success: Boolean) {
-
         if (success) {
             binding.verifycodeEt.isEnabled = true
             KeyboardUtils.hideSoftInputByToggle(this)

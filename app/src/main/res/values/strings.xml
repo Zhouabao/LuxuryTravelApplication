@@ -40,5 +40,17 @@
     <string name="re_resend">重新发送</string>
     <string name="after_some_seconds">%1$ds后  </string>
     <string name="login_fail">登录失败</string>
+    <string name="complete_register_info">完善个人信息</string>
+    <string name="how_to_call_u">你想大家怎么称呼你</string>
+    <string name="tell_your_birthday">告诉我们您的生日</string>
+    <string name="tell_your_sex">告诉我们您的性别</string>
+    <string name="next_step">下一步</string>
+    <string name="i_am_male">男性</string>
+    <string name="i_am_female">女性</string>
+    <string name="notice">提示</string>
+    <string name="i_know">知道了</string>
+    <string name="please_choose_your_gender">请选择您的性别</string>
+    <string name="gender_cannot_change">性别一旦选定之后就不能变更了哦，请慎重选择</string>
+    <string name="gender">生日</string>
 
 </resources>

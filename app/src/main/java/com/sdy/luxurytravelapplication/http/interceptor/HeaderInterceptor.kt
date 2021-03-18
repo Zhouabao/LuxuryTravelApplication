@@ -2,7 +2,7 @@ package com.sdy.luxurytravelapplication.http.interceptor
 
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
-import com.cxz.wanandroid.constant.Constants
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.utils.ChannelUtils
@@ -19,7 +19,6 @@ class HeaderInterceptor : Interceptor {
     /**
      * token
      */
-    private var token: String by Preference(Constants.TOKEN, "")
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
