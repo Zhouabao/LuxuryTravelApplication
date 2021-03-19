@@ -6,26 +6,24 @@ package com.sdy.luxurytravelapplication.constant
 
 object Constants {
     //测试
-    const val BASE_URL = "http://testxapp.talkdating.cn/api/"
-    //  生产
-//    const val BASE_URL = "https://xapp.talkdating.cn/api/"
-
-    const val END_BASE_URL = "/v1.json"
-
-
-    //云信key
+    const val BASE_URL = "http://testppsns.talkdating.cn/ppsns/"
     const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
+
+    //  生产
+//    const val BASE_URL = "https://ppsns.duluduludala.com/ppsns/"
 //    const val NIM_APP_KEY = "8556d54f7f6f3453efd7713dba23f852"//正式
 
     //是否处于测试环境
     const val TEST = true
 
 
+    const val END_BASE_URL = "/v1.json"
 
 
 
-    const val PRIVACY_URL = "https://xapp.talkdating.cn/index/Protocol/privacyProtocol.html"//
-    const val PROTOCOL_URL = "https://xapp.talkdating.cn/index/Protocol/userProtocol.html"//
+
+    const val PRIVACY_URL = "${BASE_URL}index/Protocol/privacyProtocol.html"//
+    const val PROTOCOL_URL = "${BASE_URL}index/Protocol/userProtocol.html"//
 
 
     const val BUGLY_ID = "76e2b2867d"

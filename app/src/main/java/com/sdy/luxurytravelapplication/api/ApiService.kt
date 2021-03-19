@@ -19,6 +19,8 @@ interface ApiService {
     @POST("OpenApi/getVersion${Constants.END_BASE_URL}")
     fun getRegisterProcessType(): Observable<BaseResp<RegisterFileBean>>
 
+
+
     /**
      * 注册发送短信
      * scene :场景 register 注册/登录 change 变更 cancel注销
@@ -38,6 +40,18 @@ interface ApiService {
     fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
 
 
+
+    /**
+     * 注册填写个人信息
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/setProfileCandy${Constants.END_BASE_URL}")
+    fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
+
+
+
+
+
     /**
      * 注销账号
      */
@@ -46,22 +60,17 @@ interface ApiService {
     fun cancelAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
-    /**
-     * 注册填写个人信息
-     */
-    @FormUrlEncoded
-    @POST("MemberInfo/setPersonal${Constants.END_BASE_URL}")
-    fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
-
-
-
     /**
      * 退出登录
      * http://www.wanandroid.com/user/logout/json
      */
     @GET("user/logout/json")
     fun logout(): Observable<BaseResp<Any>>
+
+
+
+
+
 
 
     /**

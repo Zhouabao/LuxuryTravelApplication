@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.activity.RegisterInfoActivity">
+    tools:context=".ui.activity.RegisterInfoTwoActivity">
 
     <TextView
         android:id="@+id/t1"
@@ -103,8 +103,8 @@
         app:layout_constraintTop_toBottomOf="@id/travelPatener" />
 
 
-    <Button
-        android:id="@+id/filterBtn"
+    <TextView
+        android:id="@+id/nextBtn"
         android:layout_width="255dp"
         android:layout_height="52dp"
         android:layout_gravity="center"

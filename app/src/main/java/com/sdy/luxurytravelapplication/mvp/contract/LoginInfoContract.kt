@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.mvp.contract
 
+import com.qiniu.android.storage.UpCompletionHandler
 import com.sdy.luxurytravelapplication.base.IModel
 import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
@@ -23,7 +24,7 @@ interface LoginInfoContract {
     interface Model : IModel {
         fun setPersonal(params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
 
-        fun uploadAvatar(filePath: String, imageName: String): String
+        fun uploadAvatar(filePath: String, imageName: String,upCompletionHandler: UpCompletionHandler)
 
     }
 

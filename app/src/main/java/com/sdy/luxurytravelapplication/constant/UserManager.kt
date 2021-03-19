@@ -6,8 +6,9 @@ import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
-import com.sdy.luxurytravelapplication.ui.activity.LoginInfoActivity
+import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoOneActivity
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoTwoActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
@@ -65,12 +66,13 @@ object UserManager {
     fun startToPersonalInfoActivity(context: Context, nothing: LoginInfo?, data: LoginBean) {
         SPUtils.getInstance(Constants.SPNAME).put("imToken", nothing?.token)
         SPUtils.getInstance(Constants.SPNAME).put("imAccid", nothing?.account)
-        DemoCache.setAccount(nothing?.account)
         token = data.token
         accid = data.accid
         qnToken = data.qntk
         if (data.qn_prefix.isNotEmpty())
             SPUtils.getInstance(Constants.SPNAME).put("qn_prefix", data.qn_prefix[0])
+
+        DemoCache.setAccount(nothing?.account)
 
         //昵称 生日 性别 头像
         savePersonalInfo(data.userinfo)
@@ -78,8 +80,17 @@ object UserManager {
         //初始化消息提醒配置
         initNotificationConfig()
         if (data.userinfo.gender == 0) {
-            context.startActivity<LoginInfoActivity>()
-        } else if (data.userinfo.gender == 2 && data.extra_data.living_btn) {
+            context.startActivity<RegisterInfoOneActivity>()
+        }
+        else if (data.userinfo.nickname.isNullOrEmpty()) {
+            context.startActivity<RegisterInfoTwoActivity>()
+        }
+        else if (data.userinfo.gender == 1) {
+            //todo 男性判断是否付费
+
+
+        } else if (data.userinfo.gender == 2 ) {
+            //todo 女性判断是否做过活体认证
             living_btn = data.extra_data.living_btn
 //            FaceLivenessExpActivity.startActivity(
 //                context,

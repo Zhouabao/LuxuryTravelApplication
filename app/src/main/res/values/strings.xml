@@ -414,4 +414,5 @@
     <string name="verify_code">验证码</string>
     <string name="login_expired">登录过期</string>
     <string name="please_relogin">请重新登录</string>
+    <string name="user_cnt">全球%1$d个想要旅行的%2$s性用户\n 立刻和%3$s们链接促成甜蜜约会</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.mvp.model
 
+import com.qiniu.android.storage.UpCompletionHandler
 import com.sdy.luxurytravelapplication.base.BaseModel
 import com.sdy.luxurytravelapplication.constant.QNUploadManager
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -21,14 +22,14 @@ class LoginInfoModel : BaseModel(), LoginInfoContract.Model {
 
     }
 
-    override fun uploadAvatar(filePath: String, imageName: String): String {
-        var imageKey = ""
-        QNUploadManager.getInstance().put(filePath, imageName, UserManager.qnToken, {
-            key, info, response ->
-            if (info != null && info.isOK) {
-                imageKey = key
-            }
-        }, null)
-        return  imageKey
+    override fun uploadAvatar(
+        filePath: String,
+        imageName: String,
+        upCompletionHandler: UpCompletionHandler
+    ){
+
+        QNUploadManager.getInstance()
+            .put(filePath, imageName, UserManager.qnToken, upCompletionHandler, null)
+
     }
 }

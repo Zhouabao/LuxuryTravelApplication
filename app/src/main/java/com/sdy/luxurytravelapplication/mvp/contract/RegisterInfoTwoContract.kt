@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterFileBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import io.reactivex.Observable
 
 /**
@@ -13,22 +14,22 @@ import io.reactivex.Observable
  *    desc   :
  *    version: 1.0
  */
-interface RegisterInfoContract {
+interface RegisterInfoTwoContract {
     interface View : IView {
-        fun registerSuccess(success: Boolean)
-        fun registerFail()
+        fun setPersonalSuccess(personalBean: SetPersonalBean)
+        fun setPersonalFail()
 
         fun getRegisterProcessType(data: RegisterFileBean)
     }
 
     interface Presenter : IPresenter<View> {
-        fun register(params: HashMap<String, String>)
+        fun setPersonal(params: HashMap<String, Any>)
 
         fun getRegisterProcessType()
     }
 
     interface Model : IModel {
-        fun register(params: HashMap<String, String>): Observable<BaseResp<Any>>
+        fun setPersonal(params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
         fun getRegisterProcessType(): Observable<BaseResp<RegisterFileBean>>
     }
 }

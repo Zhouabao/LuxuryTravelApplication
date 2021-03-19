@@ -1,6 +1,9 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -10,12 +13,14 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kongzue.dialog.v3.MessageDialog
+import com.luck.picture.lib.PictureSelector
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.databinding.ActivityLoginInfoBinding
+import com.sdy.luxurytravelapplication.databinding.ActivityRegisterInfoOneBinding
 import com.sdy.luxurytravelapplication.ext.onTakePhoto
+import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.LoginInfoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
@@ -27,8 +32,8 @@ import java.util.*
 /**
  * 注册个人信息
  */
-class LoginInfoActivity :
-    BaseMvpActivity<LoginInfoContract.View, LoginInfoContract.Presenter, ActivityLoginInfoBinding>(),
+class RegisterInfoOneActivity :
+    BaseMvpActivity<LoginInfoContract.View, LoginInfoContract.Presenter, ActivityRegisterInfoOneBinding>(),
     LoginInfoContract.View, View.OnClickListener {
 
     companion object {
@@ -46,7 +51,7 @@ class LoginInfoActivity :
                     loginBirthday,
                     loginGender,
                     loginNextBtn
-                ), this@LoginInfoActivity
+                ), this@RegisterInfoOneActivity
             )
         }
     }
@@ -93,7 +98,7 @@ class LoginInfoActivity :
                                 "${System.currentTimeMillis()}/${RandomUtils.getRandomString(
                                     16
                                 )}"
-                    mPresenter?.uploadAvatar(imgPath, key)
+                    mPresenter?.uploadAvatar(avatarPath, key)
                 }
 
             }
@@ -166,14 +171,34 @@ class LoginInfoActivity :
     }
 
 
-    private var imgPath = ""
-
+    private var avatarPath = ""
     private fun checkConfirmEnable() {
         binding.loginNextBtn.isEnabled =
             binding.loginBirthday.text.isNotEmpty()
                     && binding.loginGender.text.isNotEmpty()
-                    && imgPath.isNotEmpty()
-//                && (params["avatar"] != null && params["avatar"].toString().isNotEmpty())
+                    && avatarPath.isNotEmpty()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                //选择照片
+                REQUEST_LOGIN_AVATOR -> {
+                    if (data != null) {
+                        avatarPath = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P
+                            && !PictureSelector.obtainMultipleResult(data)[0].androidQToPath.isNullOrEmpty()
+                        ) {
+                            PictureSelector.obtainMultipleResult(data)[0].androidQToPath
+                        } else {
+                            PictureSelector.obtainMultipleResult(data)[0].path
+                        }
+                        GlideUtil.loadAvatorImg(this, avatarPath, binding.loginAvator)
+                        checkConfirmEnable()
+                    }
+                }
+            }
+        }
 
     }
 

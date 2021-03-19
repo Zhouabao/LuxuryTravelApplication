@@ -74,6 +74,7 @@ ext {
 
             "swipeback"             : 'com.cxz:swipeback:1.0.1',
             "android-autosize"      : 'me.jessyan:autosize:1.2.1',
+            "BannerViewPager"      : 'com.github.zhpanvip:BannerViewPager:3.5.0',
             "android-verificationcodeview"      : 'com.jyn.verificationcodeview:verificationcodeview:1.0.1',
             //图片选择器
             "picture-library"       : 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.6',

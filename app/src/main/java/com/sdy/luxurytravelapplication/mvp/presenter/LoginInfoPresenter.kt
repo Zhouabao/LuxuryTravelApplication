@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
+import com.qiniu.android.storage.UpCompletionHandler
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.ext.sss
 import com.sdy.luxurytravelapplication.mvp.contract.LoginInfoContract
@@ -23,7 +24,9 @@ class LoginInfoPresenter : BasePresenter<LoginInfoContract.Model, LoginInfoContr
     }
 
     override fun uploadAvatar(filePath: String, imageName: String) {
-        val key = mModel?.uploadAvatar(filePath, imageName)
-        mView?.uploadAvatarResult(key, !key.isNullOrEmpty())
+        mModel?.uploadAvatar(filePath, imageName,
+            UpCompletionHandler { key, info, response ->
+                mView?.uploadAvatarResult(key, !key.isNullOrEmpty())
+            })
     }
 }
