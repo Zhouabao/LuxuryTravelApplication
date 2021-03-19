@@ -1,10 +1,7 @@
 package com.sdy.luxurytravelapplication.api
 
 import com.sdy.luxurytravelapplication.constant.Constants
-import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
-import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterFileBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.*
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
@@ -89,5 +86,58 @@ interface ApiService {
     @POST("Account/bundSocial${Constants.END_BASE_URL}")
     @FormUrlEncoded
     fun register(@FieldMap params: HashMap<String, String>): Observable<BaseResp<Any>>
+
+    /**
+     * 动态喜欢（关注）
+     * 	type：1关注（喜欢） 2取消关注（取消喜欢
+     * 	target_accid：
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/memberFocus${Constants.END_BASE_URL}")
+    fun memberFocus(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<FocusBean>>
+
+
+    /**
+     * 聊天页个人信息和限制返回
+     */
+    @FormUrlEncoded
+    @POST("Tidings/getTargetInfo${Constants.END_BASE_URL}")
+    fun getTargetInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChatInfoBean>>
+
+    /**
+     * 发送消息
+     */
+    @FormUrlEncoded
+    @POST("Tidings/sendMsg${Constants.END_BASE_URL}")
+    fun sendMsg(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendMsgBean>>
+
+    /**
+     * 发送消息给小助手
+     */
+    @FormUrlEncoded
+    @POST("Tidings/aideSendMsg${Constants.END_BASE_URL}")
+    fun aideSendMsg(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 获取聊天🎁列表
+     */
+    @FormUrlEncoded
+    @POST("Gifts/getGiftList${Constants.END_BASE_URL}")
+    fun getGiftList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<GetGiftBean>>
+  /*
+    * 领取礼物
+    */
+    @FormUrlEncoded
+    @POST("Gifts/getGift${Constants.END_BASE_URL}")
+    fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckGreetBean>>
+
+
+    /**
+     * 拒绝领取礼物
+     */
+    @FormUrlEncoded
+    @POST("Gifts/refundGift${Constants.END_BASE_URL}")
+    fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 }

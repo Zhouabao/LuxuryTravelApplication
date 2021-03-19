@@ -70,6 +70,7 @@ ext {
             "banner"                : 'cn.bingoogolapple:bga-banner:2.2.4@aar',
             "multidex"              : 'com.android.support:multidex:1.0.3',
             "eventbus"              : 'org.greenrobot:eventbus:3.1.1',
+            "fastjson"              : 'com.alibaba:fastjson:1.1.72.android',
 
             "swipeback"             : 'com.cxz:swipeback:1.0.1',
             "android-autosize"      : 'me.jessyan:autosize:1.2.1',

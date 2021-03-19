@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/giftViewCl"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right"
+    android:background="@color/colorWhite">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/giftCl"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle_stroke_eceff4_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/giftIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/default_image_10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/giftName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="加个微信吧"
+            android:textColor="#ff333333"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/giftIcon"
+            app:layout_constraintRight_toLeftOf="@id/giftAmount"
+            app:layout_constraintTop_toBottomOf="@id/giftIcon" />
+
+        <TextView
+            android:id="@+id/giftAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:text="4599"
+            android:textColor="#ff333333"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/giftName"
+            app:layout_constraintRight_toRightOf="@id/giftIcon"
+            app:layout_constraintTop_toTopOf="@id/giftName" />
+
+        <ImageView
+            android:id="@+id/giftStutasIv"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View
+        android:id="@+id/refuseCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@drawable/shape_rectangle_stroke_80ffffff_10dp"
+        app:layout_constraintBottom_toBottomOf="@id/giftCl"
+        app:layout_constraintLeft_toLeftOf="@id/giftCl"
+        app:layout_constraintRight_toRightOf="@id/giftCl"
+        app:layout_constraintTop_toTopOf="@id/giftCl" />
+
+    <TextView
+        android:id="@+id/giftReceviceStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:text="等待对方接受"
+        android:textColor="#ffc6cad4"
+        android:textSize="11sp"
+        android:visibility="visible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/giftCl" />
+
+    <LinearLayout
+        android:id="@+id/receiverLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/giftCl">
+
+        <TextView
+            android:id="@+id/acceptBtn"
+            android:layout_width="58dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/shape_rectangle_blue_15dp"
+            android:gravity="center"
+            android:text="接受礼物"
+
+            android:textColor="#ffffffff"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/declineBtn"
+            android:layout_width="58dp"
+            android:layout_height="24dp"
+            android:background="@drawable/shape_rectangle_gray_12dp"
+            android:gravity="center"
+            android:text="拒绝"
+            android:textColor="#ffb6bcc6"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

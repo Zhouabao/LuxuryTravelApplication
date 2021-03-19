@@ -46,6 +46,24 @@
         </provider>
 
         <activity android:name=".ui.activity.MainActivity" />
+
+
+        <!-- 查看大图 -->
+        <activity
+            android:name=".nim.business.session.activity.WatchMessagePictureActivity"
+            android:configChanges="keyboardHidden"
+            android:launchMode="singleTop"
+            android:theme="@style/DarkTheme" />
+        <activity
+            android:name=".nim.business.session.activity.WatchVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/video_play"
+            android:launchMode="singleTop"
+            android:theme="@style/DarkTheme" />
+        <activity
+            android:name=".nim.business.session.activity.ChatActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
     </application>
 
 </manifest>

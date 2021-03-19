@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- <include layout="@layout/watch_picture_progress_layout" /> -->
+
+
+    <!-- <include layout="@layout/watch_picture_show_more_action_layout" /> -->
+    <include
+        android:id="@+id/llTitle"
+        layout="@layout/layout_actionbar" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/simple_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/nim_watch_media_download_progress_layout" />
+
+</LinearLayout>

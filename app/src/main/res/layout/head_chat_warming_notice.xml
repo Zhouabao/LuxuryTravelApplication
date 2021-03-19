@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/warmingNoticeBtn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_rectangle_gray_10dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="声尤是一个提倡高质量社交平台，为表达男性优质和诚意，每条消息需要消耗1个金币，如对方未回复将退回，双方互相喜欢后聊天不再消耗糖果，如对方存在粗鲁、诱导消费、诱导平台外交易等不良行为请立即匿名举报，核实后将严肃处罚对方"
+        android:textColor="#ff8a909f"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+    <TextView
+        android:id="@+id/knowBtn"
+        android:layout_width="59dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_rectangle_blue_12dp"
+        android:gravity="center"
+        android:text="知道了"
+        android:textColor="#ffffffff"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content" />
+
+    <TextView
+        android:id="@+id/neverNoticeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="不再提示"
+        android:textColor="#ffc6cad4"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/knowBtn"
+        app:layout_constraintLeft_toRightOf="@id/knowBtn"
+        app:layout_constraintTop_toTopOf="@id/knowBtn" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

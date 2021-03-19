@@ -103,6 +103,28 @@ object UserManager {
     var living_btn: Boolean
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("living_btn", true)
         set(living_btn) = SPUtils.getInstance(Constants.SPNAME).put("living_btn", living_btn)
+    /**
+     * 是否通过真人认证
+     */
+    var isFaced: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isFaced", false)
+        set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("isFaced", isFaced)
+
+
+    /**
+     * 视频认证
+     */
+    var mvFaced: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("mvFaced", false)
+        set(mvFaced) = SPUtils.getInstance(Constants.SPNAME).put("mvFaced", mvFaced)
+
+
+    /**
+     * 是否有人脸
+     */
+    var hasFaceUrl: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("hasFaceUrl", false)
+        set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("hasFaceUrl", isFaced)
 
 
     /**

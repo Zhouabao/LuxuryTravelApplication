@@ -84,4 +84,10 @@ object Constants {
     //pagesize
     const val PAGESIZE = 15
     const val MAX_VOICE_DURATION = 60
+    const val EXTRA_RESULT_ITEMS = "extra_result_items"
+
+
+    //官方助手id
+    const val ASSISTANT_ACCID = "xapp_01"
+
 }

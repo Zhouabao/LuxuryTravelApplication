@@ -3,14 +3,25 @@ package com.sdy.luxurytravelapplication.ext
 import android.app.Activity
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.style.PictureCropParameterStyle
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.event.UpdateContactBookEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
+import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
 import com.sdy.luxurytravelapplication.utils.UriUtils
+import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
+import org.greenrobot.eventbus.EventBus
 
 /**
  *    author : ZFM
@@ -19,6 +30,66 @@ import com.sdy.luxurytravelapplication.utils.UriUtils
  *    version: 1.0
  */
 
+object CommonFunction {
+    /**
+     * 更新消息的扩展字段
+     */
+    fun updateMessageExtension(message: IMMessage, statusKey: String, statusValue: Any) {
+        val params = message.localExtension ?: hashMapOf()
+        params[statusKey] = statusValue
+        message.localExtension = params
+        NIMClient.getService(MsgService::class.java).updateIMMessage(message)
+
+        if (message.attachment is SendGiftAttachment)
+            if (message.direct == MsgDirectionEnum.In) {
+                updateRecentExtension(message.fromAccount, params)
+            } else {
+                updateRecentExtension(message.sessionId, params)
+            }
+    }
+
+    /**
+     * 更新最近联系人的扩展字段
+     */
+    fun updateRecentExtension(sessionId: String, params: Map<String, Any> = mapOf()) {
+        val recent = NIMClient.getService(MsgService::class.java)
+            .queryRecentContact(sessionId, SessionTypeEnum.P2P)
+        if (recent != null) {
+            recent.extension = params
+            NIMClient.getService(MsgService::class.java).updateRecentAndNotify(
+                recent
+            )
+        }
+    }
+
+    fun dissolveRelationshipLocal(target_accid: String, negative: Boolean = false) {
+        NIMClient.getService(MsgService::class.java)
+            .deleteRecentContact2(target_accid, SessionTypeEnum.P2P)
+        //如果是被动删除，就删除会话
+        if (!negative)
+            NIMClient.getService(MsgService::class.java)
+                .clearChattingHistory(target_accid, SessionTypeEnum.P2P)
+        if (ActivityUtils.isActivityExistsInStack(ChatActivity::class.java))
+            ActivityUtils.finishActivity(ChatActivity::class.java)
+//        if (ActivityUtils.isActivityExistsInStack(TargetUserActivity::class.java))
+//            ActivityUtils.finishActivity(TargetUserActivity::class.java)
+//        if (ActivityUtils.isActivityExistsInStack(MessageInfoActivity::class.java))
+//            ActivityUtils.finishActivity(MessageInfoActivity::class.java)
+        //更新通讯录
+//        if (ActivityUtils.isActivityExistsInStack(ContactBookActivity::class.java))
+//            EventBus.getDefault().post(UpdateContactBookEvent())
+    }
+
+
+    fun getErrorMsg(context: Context): String {
+        return if (NetworkUtils.isConnected()) {
+            context.getString(R.string.retry_load_error)
+        } else {
+            context.getString(R.string.retry_net_error)
+        }
+    }
+
+}
 
 
 /**

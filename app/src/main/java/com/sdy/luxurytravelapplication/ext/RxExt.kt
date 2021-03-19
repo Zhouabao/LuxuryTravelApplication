@@ -90,3 +90,28 @@ fun <T : BaseBean> Observable<T>.sss(
             })
 }
 
+
+fun <T : BaseBean> Observable<T>.ssss(
+    view: IView?=null,
+    isShowLoading: Boolean = true,
+    onResult: (T) -> Unit
+): Disposable {
+    if (isShowLoading) view?.showLoading()
+    return this.compose(SchedulerUtils.ioToMain())
+            .retryWhen(RetryWithDelay())
+            .subscribe({
+                when (it.code) {
+                    ErrorStatus.TOKEN_INVALID -> {
+                        // Token 过期，重新登录
+                    }
+                    else -> {
+                        onResult.invoke(it)
+                    }
+                }
+                view?.hideLoading()
+            }, {
+                view?.hideLoading()
+                view?.showError(ExceptionHandle.handleException(it))
+            })
+}
+

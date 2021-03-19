@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/message_location_ll"
+        android:layout_width="237dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/message_location_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="银石广场"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/message_location_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="银石广场"
+            android:textColor="#FFB6BCC6"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/message_item_thumb_thumbnailFl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message_location_ll">
+
+        <com.sdy.luxurytravelapplication.nim.common.ui.imageview.MsgThumbImageView
+            android:id="@+id/message_item_thumb_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/empty"
+            android:gravity="center"
+            android:padding="0dip"
+            android:scaleType="centerCrop" />
+
+
+        <include layout="@layout/nim_message_item_thumb_progress_bar_text" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/location_marker"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icon_location_located"
+        app:layout_constraintBottom_toBottomOf="@id/message_item_thumb_thumbnailFl"
+        app:layout_constraintLeft_toLeftOf="@id/message_item_thumb_thumbnailFl"
+        app:layout_constraintRight_toRightOf="@id/message_item_thumb_thumbnailFl"
+        app:layout_constraintTop_toTopOf="@id/message_item_thumb_thumbnailFl" />
+</androidx.constraintlayout.widget.ConstraintLayout>
