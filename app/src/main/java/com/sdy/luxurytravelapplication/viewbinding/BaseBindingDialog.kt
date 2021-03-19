@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused")
 
-package com.dylanc.viewbinding.sample.base.reflection.kotlin
+package com.sdy.luxurytravelapplication.viewbinding
 
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.viewbinding.ViewBinding
-import com.sdy.luxurytravelapplication.viewbinding.inflateBindingWithGeneric
+import com.sdy.luxurytravelapplication.R
 
 /**
  * How to modify the base class to use view binding, you need the following steps:
@@ -39,7 +38,7 @@ abstract class BaseBindingDialog<VB : ViewBinding>(context: Context, themeResId:
 
   lateinit var binding: VB
 
-  constructor(context: Context) : this(context, 0)
+  constructor(context: Context) : this(context, R.style.MyDialog)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

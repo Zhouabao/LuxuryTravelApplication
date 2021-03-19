@@ -11,17 +11,27 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.style.PictureCropParameterStyle
 import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.callback.MyUMAuthCallback
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.event.UpdateContactBookEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
+import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
+import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 
 /**
  *    author : ZFM
@@ -31,6 +41,38 @@ import org.greenrobot.eventbus.EventBus
  */
 
 object CommonFunction {
+    /**
+     * 退出登录
+     */
+    fun loginOut(activity: Context) {
+        NimUIKit.logout()
+        NIMClient.getService(AuthService::class.java).logout()
+        UserManager.clearLoginData()
+        val intent = activity.intentFor<WelcomeActivity>().clearTask().newTask()
+        activity.startActivity(intent)
+    }
+
+
+
+    /**
+     * 三方登录设置
+     */
+    fun socialLogin(context: Context, shareMedia: SHARE_MEDIA) {
+//        val wxapi = WXAPIFactory.createWXAPI(context, null)
+//        wxapi.registerApp(Constants.WECHAT_APP_ID)
+//        if (!wxapi.isWXAppInstalled) {
+//            ToastUtil.toast(context.getString(R.string.unload_wechat))
+//            return
+//        }
+//        val req = SendAuth.Req()
+//        req.scope = "snsapi_userinfo"
+//        req.state = state
+//        wxapi.sendReq(req)
+        UMShareAPI.get(context)
+            .getPlatformInfo(context as Activity, shareMedia, MyUMAuthCallback(context))
+    }
+
+
     /**
      * 更新消息的扩展字段
      */

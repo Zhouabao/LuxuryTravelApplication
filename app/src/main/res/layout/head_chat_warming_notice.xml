@@ -37,7 +37,7 @@
         android:layout_width="59dp"
         android:layout_height="26dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/shape_rectangle_blue_12dp"
+        android:background="@drawable/shape_rectangle_green_12dp"
         android:gravity="center"
         android:text="知道了"
         android:textColor="#ffffffff"

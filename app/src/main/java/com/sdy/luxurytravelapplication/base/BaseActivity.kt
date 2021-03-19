@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.base
 
 import android.content.Context
 import android.content.IntentFilter
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.drawable.ColorDrawable
@@ -106,6 +107,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // AutoDensityUtil.setCustomDensity(this, App.instance)
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        BarUtils.transparentStatusBar(this)
+        BarUtils.setStatusBarLightMode(this,true)
         binding = inflateBindingWithGeneric(layoutInflater)
         setContentView(binding.root)
         if (useEventBus()) {
@@ -127,7 +131,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
         super.onResume()
 
-        initColor()
+//        initColor()
 
         // 在无网络情况下打开APP时，系统不会发送网络状况变更的Intent，需要自己手动检查
 

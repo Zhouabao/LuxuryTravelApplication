@@ -5,8 +5,10 @@ import com.blankj.utilcode.util.SPUtils
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
+import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.LoginInfoActivity
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
 /**
@@ -20,10 +22,50 @@ object UserManager {
 
     /*************登录注册公共方法*********************/
 
+    /**
+     * 清除登录信息
+     */
+    fun clearLoginData() {
+        //IM信息
+        SPUtils.getInstance(Constants.SPNAME).remove("imToken")
+        SPUtils.getInstance(Constants.SPNAME).remove("imAccid")
+        //用户信息
+        SPUtils.getInstance(Constants.SPNAME).remove("accid")
+        SPUtils.getInstance(Constants.SPNAME).remove("token")
+        SPUtils.getInstance(Constants.SPNAME).remove("nickname")
+        SPUtils.getInstance(Constants.SPNAME).remove("avatar")
+        SPUtils.getInstance(Constants.SPNAME).remove("gender")
+        SPUtils.getInstance(Constants.SPNAME).remove("birth")
+
+
+        SPUtils.getInstance(Constants.SPNAME).remove("isVip")
+        SPUtils.getInstance(Constants.SPNAME).remove("isFootVip")
+        SPUtils.getInstance(Constants.SPNAME).remove("isFaced")
+        SPUtils.getInstance(Constants.SPNAME).remove("hasFaceUrl")
+        SPUtils.getInstance(Constants.SPNAME).remove("living_btn")
+        SPUtils.getInstance(Constants.SPNAME).remove("mvFaced")
+
+
+        SPUtils.getInstance(Constants.SPNAME).remove("myVerifyBtn")
+        SPUtils.getInstance(Constants.SPNAME).remove("myRedPacketBtn")
+
+
+
+        SPUtils.getInstance(Constants.SPNAME).remove("limit_age_high")
+        SPUtils.getInstance(Constants.SPNAME).remove("limit_age_low")
+        SPUtils.getInstance(Constants.SPNAME).remove("isvip")
+        SPUtils.getInstance(Constants.SPNAME).remove("ishuman")
+        SPUtils.getInstance(Constants.SPNAME).remove("iscall")
+
+        EventBus.getDefault().removeAllStickyEvents()//移除全部
+    }
+
+
+
     fun startToPersonalInfoActivity(context: Context, nothing: LoginInfo?, data: LoginBean) {
         SPUtils.getInstance(Constants.SPNAME).put("imToken", nothing?.token)
         SPUtils.getInstance(Constants.SPNAME).put("imAccid", nothing?.account)
-//        DemoCache.setAccount(nothing?.account)
+        DemoCache.setAccount(nothing?.account)
         token = data.token
         accid = data.accid
         qnToken = data.qntk
@@ -127,6 +169,11 @@ object UserManager {
         set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("hasFaceUrl", isFaced)
 
 
+    var alertProtocol
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("AlertProtocol", false)
+        set(value) = SPUtils.getInstance(Constants.SPNAME).put("AlertProtocol", value)
+
+
     /**
      * 登录成功保存用户信息
      */
@@ -136,6 +183,22 @@ object UserManager {
                 gender == -1 ||
                 SPUtils.getInstance(Constants.SPNAME).getInt("birth") == -1
                 || (gender == 2 && living_btn))
+    }
+
+
+    // 如果已经存在IM用户登录信息，返回LoginInfo，否则返回null即可
+    fun loginInfo(): LoginInfo? {
+        if (SPUtils.getInstance(Constants.SPNAME).getString("imToken") != null
+            && SPUtils.getInstance(Constants.SPNAME).getString("imAccid") != null
+        ) {
+            DemoCache.setAccount(SPUtils.getInstance(Constants.SPNAME).getString("imAccid"))
+
+            return LoginInfo(
+                SPUtils.getInstance(Constants.SPNAME).getString("imAccid"),
+                SPUtils.getInstance(Constants.SPNAME).getString("imToken")
+            )
+        }
+        return null
     }
 
 

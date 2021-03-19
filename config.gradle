@@ -91,6 +91,7 @@ ext {
             //各种弹窗
             "dialog_v3x"            : 'com.kongzue.dialog_v3x:dialog:3.2.4',
             "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
+            "avi-loading"      : 'com.wang.avi:library:2.1.3',
             //circleimageview
             "circleimageview"       : 'de.hdodenhof:circleimageview:3.1.0',
             //expandedtextview

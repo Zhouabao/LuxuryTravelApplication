@@ -101,7 +101,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_marginRight="3dp"
-            android:background="@drawable/shape_rectangle_blue_15dp"
+            android:background="@drawable/shape_rectangle_green_15dp"
             android:gravity="center"
             android:text="接受礼物"
 

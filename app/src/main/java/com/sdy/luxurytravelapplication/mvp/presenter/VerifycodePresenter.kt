@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
+import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.ext.ss
@@ -30,8 +31,19 @@ class VerifycodePresenter : BasePresenter<VerifycodeContract.Model, VerifycodeCo
     }
 
     override fun loginIM(loginInfo: LoginInfo) {
-        val result = mModel?.loginIM()
-        mView?.loginIMResult(result, result != null)
+        mModel?.loginIM(loginInfo, object : RequestCallback<LoginInfo> {
+            override fun onSuccess(param: LoginInfo) {
+                mView?.loginIMResult(loginInfo, true)
+            }
+
+            override fun onFailed(code: Int) {
+                mView?.loginIMResult(loginInfo, false)
+            }
+
+            override fun onException(exception: Throwable?) {
+                mView?.loginIMResult(loginInfo, false)
+            }
+        })
     }
 
     override fun cancelAccount(params: HashMap<String, Any>) {

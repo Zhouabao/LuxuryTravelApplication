@@ -13,11 +13,6 @@ object Constants {
     const val END_BASE_URL = "/v1.json"
 
 
-
-
-    const val BUGLY_ID = "76e2b2867d"
-
-
     //云信key
     const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
 //    const val NIM_APP_KEY = "8556d54f7f6f3453efd7713dba23f852"//正式
@@ -25,6 +20,15 @@ object Constants {
     //是否处于测试环境
     const val TEST = true
 
+
+
+
+
+    const val PRIVACY_URL = "https://xapp.talkdating.cn/index/Protocol/privacyProtocol.html"//
+    const val PROTOCOL_URL = "https://xapp.talkdating.cn/index/Protocol/userProtocol.html"//
+
+
+    const val BUGLY_ID = "76e2b2867d"
 
 
     //微信支付appid
@@ -68,8 +72,6 @@ object Constants {
 
     const val CACHE_DIR = "/datingapplication"//缓存文件夹
 
-    const val PRIVACY_URL = "https://xapp.talkdating.cn/index/Protocol/privacyProtocol.html"//
-    const val PROTOCOL_URL = "https://xapp.talkdating.cn/index/Protocol/userProtocol.html"//
 
 
 

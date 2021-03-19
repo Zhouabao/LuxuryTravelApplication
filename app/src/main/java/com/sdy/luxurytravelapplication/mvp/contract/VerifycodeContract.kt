@@ -1,5 +1,7 @@
 package com.sdy.luxurytravelapplication.mvp.contract
 
+import com.netease.nimlib.sdk.AbortableFuture
+import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.base.IModel
 import com.sdy.luxurytravelapplication.base.IPresenter
@@ -26,7 +28,7 @@ interface VerifycodeContract {
         fun sendSms(params: HashMap<String, Any>): Observable<BaseResp<Any>>
         fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
         fun cancelAccount(params: HashMap<String, Any>): Observable<BaseResp<Any>>
-        fun loginIM(): LoginInfo?
+        fun loginIM(loginInfo: LoginInfo, callback: RequestCallback<LoginInfo>)
     }
 
     interface View : IView {

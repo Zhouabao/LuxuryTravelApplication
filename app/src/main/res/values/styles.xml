@@ -13,6 +13,28 @@
 
 
 
+    <!--自定义Dialog背景全透明无边框theme-->
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <!--<item name="android:windowFrame">@null</item>-->
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <!--<item name="android:radius">5dp</item>-->
+        <!-- <item name="android:windowIsTranslucent">false</item>-->
+        <!--是否模糊-->
+        <!--<item name="android:backgroundDimEnabled">true</item>-->
+
+        <!--<item name="android:backgroundDimAmount">0.5</item>-->
+
+    </style>
+
+
 
     <style name="MultipleStatusView" />
 
@@ -49,6 +71,17 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="MyDialogBottomAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_exit</item>
+    </style>
+
+    <style name="MyDialogCenterAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_center_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_center_exit</item>
     </style>
 
 </resources>

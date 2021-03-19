@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_rectangle_white_top_15dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/sign_up"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/create_profile_start_date"
+        android:textColor="#ffb5b7b9"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+
+    <TextView
+        android:id="@+id/loginWithPhoneBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/shape_rectangle_f7f8fa_28dp"
+        android:gravity="center"
+        android:text="@string/phone_number"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t2" />
+
+    <ImageView
+        android:id="@+id/loginWithPhoneIv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/icon_login_way_phone"
+        app:layout_constraintBottom_toBottomOf="@id/loginWithPhoneBtn"
+        app:layout_constraintLeft_toLeftOf="@id/loginWithPhoneBtn"
+        app:layout_constraintTop_toTopOf="@id/loginWithPhoneBtn" />
+
+
+    <TextView
+        android:id="@+id/loginWithWechatBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/shape_rectangle_f7f8fa_28dp"
+        android:gravity="center"
+        android:text="@string/wechat"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginWithPhoneBtn" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/icon_login_way_wechat"
+        app:layout_constraintBottom_toBottomOf="@id/loginWithWechatBtn"
+        app:layout_constraintLeft_toLeftOf="@id/loginWithWechatBtn"
+        app:layout_constraintTop_toTopOf="@id/loginWithWechatBtn" />
+
+
+    <TextView
+        android:id="@+id/loginWithQQBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/shape_rectangle_f7f8fa_28dp"
+        android:gravity="center"
+        android:text="@string/continue_with_qq"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginWithWechatBtn" />
+
+    <ImageView
+        android:id="@+id/loginWithQQIv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/icon_login_way_qq"
+        app:layout_constraintBottom_toBottomOf="@id/loginWithQQBtn"
+        app:layout_constraintLeft_toLeftOf="@id/loginWithQQBtn"
+        app:layout_constraintTop_toTopOf="@id/loginWithQQBtn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
