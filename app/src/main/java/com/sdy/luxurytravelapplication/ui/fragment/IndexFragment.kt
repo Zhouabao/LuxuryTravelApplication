@@ -1,60 +1,89 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.SizeUtils
+import com.flyco.tablayout.listener.OnTabSelectListener
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.base.BaseMvpFragment
+import com.sdy.luxurytravelapplication.constant.UserManager
+import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
+import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
+import com.sdy.luxurytravelapplication.mvp.presenter.IndexPresenter
+import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
+import com.sdy.luxurytravelapplication.ui.adapter.PeopleRecommendTopAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [IndexFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * 首页
  */
-class IndexFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class IndexFragment :
+    BaseMvpFragment<IndexContract.View, IndexContract.Presenter, FragmentIndexBinding>(),
+    IndexContract.View {
+    private val fragments by lazy {
+        arrayListOf<Fragment>(
+            IndexRecommendFragment(IndexRecommendFragment.TYPE_RECOMMEND),
+            IndexRecommendFragment(IndexRecommendFragment.TYPE_SAME_CITY),
+            IndexLuxuryFragment()
+        )
+    }
+    private val titles by lazy {
+        arrayOf(
+            getString(R.string.tab_recommend),
+            getString(R.string.tab_nearby),
+            getString(R.string.tab_sweet)
+        )
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun createPresenter(): IndexContract.Presenter = IndexPresenter()
+    private val peopleRecommendTopAdapter by lazy { PeopleRecommendTopAdapter() }
+
+    override fun initView(view: View) {
+        super.initView(view)
+
+        binding.apply {
+            recommendUsers.layoutManager =
+                LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            recommendUsers.adapter = peopleRecommendTopAdapter
+            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
+            titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
+                override fun onTabSelect(position: Int) {
+                    addLuxuryBtn.isVisible = position == 2
+                }
+
+                override fun onTabReselect(position: Int) {
+                }
+
+            })
+            titleIndex.currentTab = 0
+
+            ClickUtils.applySingleDebouncing(addLuxuryBtn) {
+                JoinLuxuryActivity.startJoinLuxuxy(activity!!, SweetProgressBean())
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index, container, false)
+    override fun lazyLoad() {
+        mPresenter?.indexTop(hashMapOf())
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IndexFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IndexFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun indexTop(data: IndexListBean) {
+        peopleRecommendTopAdapter.setNewInstance(data.list)
+        UserManager.gender = data.gender
+        if ((data.gender == 1 && data.isplatinumvip) || (data.gender == 2 && data.mv_url)) {
+            binding.tobeSelectedBtn.isVisible = false
+            val params = (binding.recommendUsers.layoutParams as ConstraintLayout.LayoutParams)
+            params.leftMargin = SizeUtils.dp2px(5F)
+        } else {
+            binding.tobeSelectedBtn.isVisible = true
+            binding.recommendUsers.scrollToPosition(1)
+        }
     }
 }

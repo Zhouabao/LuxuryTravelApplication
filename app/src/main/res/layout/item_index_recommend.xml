@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/icon_index_recommend_normal_bg">
+
+    <ImageView
+        android:id="@+id/userAvatar"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/default_image_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/userVideoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_index_video"
+        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar" />
+
+    <TextView
+        android:id="@+id/userNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:text="别滢"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/userAvatar"
+        app:layout_constraintTop_toTopOf="@id/userAvatar" />
+
+    <TextView
+        android:id="@+id/userTravelPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/shape_rectangle_dcfff7_5dp"
+        android:drawableLeft="@drawable/icon_index_nearby"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="成都-三亚"
+        android:textColor="#ff1ed0a7"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userNickname"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+    <ImageView
+        android:id="@+id/userVerifyLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/icon_index_luxury"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userTravelPlace"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+    <ImageView
+        android:id="@+id/userContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/icon_vip"
+        app:layout_constraintLeft_toRightOf="@id/userVerifyLevel"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+
+    <TextView
+        android:id="@+id/userBasicInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="234m·女·天蝎座·30分钟前"
+        android:textColor="#ff1ed0a7"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/userNickname"
+        app:layout_constraintTop_toBottomOf="@id/userNickname" />
+
+    <TextView
+        android:id="@+id/userSign"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="这是她的个性签名这是她的个性签名这是她的个性签名这是她的个性签名"
+        android:textColor="#ff8a909f"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="@id/userNickname"
+        app:layout_constraintRight_toLeftOf="@id/moreBtn"
+        app:layout_constraintTop_toBottomOf="@id/userBasicInfo" />
+
+    <ImageView
+        android:id="@+id/moreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/icon_index_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

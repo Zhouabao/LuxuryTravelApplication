@@ -25,9 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-        <activity android:name=".ui.activity.MainActivity" >
+        <activity android:name=".ui.activity.JoinLuxuryActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,20 +35,18 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.PurchaseFootActivity"></activity>
-        <activity android:name=".ui.activity.InviteCodeActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.PurchaseFootActivity" />
+        <activity android:name=".ui.activity.InviteCodeActivity"></activity>
         <activity
             android:name=".ui.activity.GuideActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GetMoreMatchActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.OnekeyLoginActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.activity.WelcomeActivity" />
+        <activity android:name=".ui.activity.WelcomeActivity"></activity>
         <activity
             android:name=".ui.activity.ProtocolActivity"
             android:launchMode="singleTop" />
@@ -84,12 +81,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths1" />
-        </provider>
-
-
-
-
-        <!-- 查看大图 -->
+        </provider> <!-- 查看大图 -->
         <activity
             android:name=".nim.business.session.activity.WatchMessagePictureActivity"
             android:configChanges="keyboardHidden"

@@ -1,4 +1,4 @@
-package com.sdy.luxurytravelapplication.adapter
+package com.sdy.luxurytravelapplication.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

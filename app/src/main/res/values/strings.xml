@@ -249,7 +249,7 @@
     <string name="each_coin_minute">每分钟收益%1$d金币</string>
     <string name="each_cost_minute">每分钟消耗%1$d金币</string>
     <string name="tab_recommend">推荐</string>
-    <string name="tab_nearby">附近</string>
+    <string name="tab_nearby">同城</string>
     <string name="voice_expand">语音%1$d金币/分钟</string>
     <string name="choose_a_chatup_content">选择一条搭讪语</string>
     <string name="please_check_network">请检查网络设置</string>
@@ -426,4 +426,7 @@
     <string name="tab_find">发现</string>
     <string name="tab_message">消息</string>
     <string name="tab_travel">伴游</string>
-    <string name="tab_mine">我的</string></resources>
+    <string name="tab_mine">我的</string>
+    <string name="choiceness">精选</string>
+    <string name="tab_sweet">奢旅圈</string>
+</resources>

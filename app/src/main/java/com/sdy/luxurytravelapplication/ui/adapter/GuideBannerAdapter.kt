@@ -1,4 +1,4 @@
-package com.sdy.luxurytravelapplication.adapter
+package com.sdy.luxurytravelapplication.ui.adapter
 
 import android.widget.ImageView
 import com.sdy.luxurytravelapplication.R

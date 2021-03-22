@@ -49,11 +49,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
      */
     protected var mLayoutStatusView: MultipleStatusView? = null
 
-    /**
-     * 加载布局
-     */
-    @LayoutRes
-    abstract fun attachLayoutRes(): Int
+
 
     /**
      * 初始化 View

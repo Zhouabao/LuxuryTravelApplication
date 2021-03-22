@@ -129,4 +129,5 @@
     <color name="colorBackground">#F6F7F9</color>
     <color name="color_f4dab0">#FFF4DAB0</color>
     <color name="color_755011">#ff755011</color>
+    <color name="colorTransparent">#00000000</color>
 </resources>

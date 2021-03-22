@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.mvp.model.bean
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.squareup.moshi.Json
 import java.io.Serializable
 
@@ -338,3 +339,51 @@ data class VipDescr(
     var id: Int = 0,
     val title_pay: String = ""
 )
+
+
+
+data class IndexListBean(
+    var list: MutableList<IndexTopBean> = mutableListOf(),
+    var dating_list: MutableList<String> = mutableListOf(),
+    var free_show: Boolean = false,//是否免费查看 true 免费 false 不能查看
+    var gender: Int = 0,//我的性别
+    var isplatinumvip: Boolean = false,//我是否 钻石会员 true 是 false不是
+    var mv_url: Boolean = false,//我是否有视频
+    var today_exposure_cnt: Int = 0,//总到访
+    var today_visit_cnt: Int = 0,//今日来访
+    var total_exposure_cnt: Int = 0,//today_exposure_cnt
+    var total_visit_cnt: Int = 0//总曝光
+) : Serializable
+
+
+
+/**
+ * 开屏页推荐
+ */
+data class IndexTopBean(
+    var amount: Int = 0,
+    var isplatinum: Boolean = false,
+    var type: Int = 1,
+    var accid: String = "",
+    var age: Int = 0,
+    var avatar: String = "",
+    var distance: String = "",
+    var gender: Int = 0,
+    var nickname: String = "",
+    var source_type: Int = 0 //1视频 2图片, override val itemType: Int
+) : MultiItemEntity, Serializable {
+    override val itemType: Int
+        get() = type
+}
+
+/**
+ * 甜心圈进度
+ */
+data class SweetProgressBean(
+    var now_money: String = "0",
+    var normal_money: String = "0",
+    val gender: Int = 0,
+    val assets_audit_state: Int = 0,//学历认证1没有 2认证中 3认证通过
+    val img: String = "",
+    val female_mv_state: Int = 0//女性视频认证 1没有通过 2审核中 3视频认证通过
+):Serializable

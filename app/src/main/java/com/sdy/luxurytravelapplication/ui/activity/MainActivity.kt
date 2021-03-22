@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.adapter.MainPager2Adapter
+import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
@@ -79,6 +79,7 @@ class MainActivity :
                 offscreenPageLimit = 5
                 isUserInputEnabled = false
                 adapter = MainPager2Adapter(this@MainActivity,fragments)
+                currentItem = 0
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)

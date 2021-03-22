@@ -1,6 +1,12 @@
 package com.sdy.luxurytravelapplication.base
 
+import android.view.View
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.sdy.luxurytravelapplication.widgets.SpaceItemDecoration
 
 /**
  * @author chenxz
@@ -39,14 +45,14 @@ abstract class BaseMvpListFragment<in V : IView, P : IPresenter<V>, VB : ViewBin
 //    /**
 //     * RefreshListener
 //     */
-//    protected val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+//    protected val onRefreshListener = SmartRefreshLayout.RefreshKernelImpl {
 //        isRefresh = true
 //        onRefreshList()
 //    }
 //    /**
 //     * LoadMoreListener
 //     */
-//    protected val onRequestLoadMoreListener = BaseQuickAdapter.RequestLoadMoreListener {
+//    protected val onRequestLoadMoreListener = SwipeRefreshLayout.OnRefreshListener {
 //        isRefresh = false
 //        swipeRefreshLayout.isRefreshing = false
 //        onLoadMoreList()

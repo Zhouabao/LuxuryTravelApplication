@@ -6,8 +6,8 @@ import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
-import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoOneActivity
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoOneActivity
 import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoTwoActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
@@ -62,7 +62,6 @@ object UserManager {
     }
 
 
-
     fun startToPersonalInfoActivity(context: Context, nothing: LoginInfo?, data: LoginBean) {
         SPUtils.getInstance(Constants.SPNAME).put("imToken", nothing?.token)
         SPUtils.getInstance(Constants.SPNAME).put("imAccid", nothing?.account)
@@ -79,28 +78,26 @@ object UserManager {
 
         //初始化消息提醒配置
         initNotificationConfig()
-        if (data.userinfo.gender == 0) {
-            context.startActivity<RegisterInfoOneActivity>()
-        }
-        else if (data.userinfo.nickname.isNullOrEmpty()) {
-            context.startActivity<RegisterInfoTwoActivity>()
-        }
-        else if (data.userinfo.gender == 1) {
-            //todo 男性判断是否付费
 
-
-        } else if (data.userinfo.gender == 2 ) {
-            //todo 女性判断是否做过活体认证
-            living_btn = data.extra_data.living_btn
-//            FaceLivenessExpActivity.startActivity(
-//                context,
-//                FaceLivenessExpActivity.TYPE_LIVE_CAPTURE
-//            )
-        } else {
-//            SelfVoiceIntroduceActivity.start(context,SelfVoiceIntroduceActivity.FROM_REGISTER)
-//            context.startActivity<SelfVoiceIntroduceActivity>()
-            MainActivity.startToMain(context)
-        }
+        MainActivity.startToMain(context)
+//        if (data.userinfo.gender == 0) {
+//            context.startActivity<RegisterInfoOneActivity>()
+//        } else if (data.userinfo.nickname.isNullOrEmpty()) {
+//            context.startActivity<RegisterInfoTwoActivity>()
+//        } else if (data.userinfo.gender == 1) {
+//            //todo 男性判断是否付费
+//        } else if (data.userinfo.gender == 2) {
+//            //todo 女性判断是否做过活体认证
+//            living_btn = data.extra_data.living_btn
+////            FaceLivenessExpActivity.startActivity(
+////                context,
+////                FaceLivenessExpActivity.TYPE_LIVE_CAPTURE
+////            )
+//        } else {
+////            SelfVoiceIntroduceActivity.start(context,SelfVoiceIntroduceActivity.FROM_REGISTER)
+////            context.startActivity<SelfVoiceIntroduceActivity>()
+//            MainActivity.startToMain(context)
+//        }
     }
 
     var avatar: String
@@ -135,11 +132,11 @@ object UserManager {
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("longtitude", value)
 
     var city: String
-        get() = SPUtils.getInstance(Constants.SPNAME).getString("city", "0")
+        get() = SPUtils.getInstance(Constants.SPNAME).getString("city", "")
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("city", value)
 
     var province: String
-        get() = SPUtils.getInstance(Constants.SPNAME).getString("province", "0")
+        get() = SPUtils.getInstance(Constants.SPNAME).getString("province", "")
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("province", value)
 
     var gender: Int
@@ -156,6 +153,7 @@ object UserManager {
     var living_btn: Boolean
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("living_btn", true)
         set(living_btn) = SPUtils.getInstance(Constants.SPNAME).put("living_btn", living_btn)
+
     /**
      * 是否通过真人认证
      */

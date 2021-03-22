@@ -28,6 +28,7 @@ class AddParameterInterceptor : Interceptor {
             .addHeader("mac", DeviceUtils.getUniqueDeviceId())
             .addHeader("machine", "${DeviceUtils.getManufacturer()},${DeviceUtils.getModel()}")
             .addHeader("app-vrn", AppUtils.getAppVersionName())
+            .addHeader("bag", "2")
             .addHeader("chnl", ChannelUtils.getChannel(TravelApp.context))
             .build()
 
@@ -60,13 +61,13 @@ class AddParameterInterceptor : Interceptor {
 
                 //按字母升序排序
                 nameList.sort()
-                val builder = StringBuilder().append("${AppUtils.getAppVersionName()}dcyfyf")
+                val builder = StringBuilder().append("ppsns${AppUtils.getAppVersionName()}dcyfyf")
                 nameList.forEach {
                     builder.append(it).append("=")
                         .append(URLDecoder.decode(bodyMap[it], "UTF-8"))
                         .append("&")
                 }
-                LogUtils.d(builder.toString())
+                LogUtils.d(builder.substring(0,builder.length-1))
                 formBody = bodyBuilder.addEncoded(
                     "_signature",
                     MD5.encrypt(builder.substring(0, builder.length - 1))
@@ -92,7 +93,7 @@ class AddParameterInterceptor : Interceptor {
             val nameList = arrayListOf<String>()
             nameList.addAll(nameSet)
             nameList.sort()
-            val buffer = StringBuffer().append("${AppUtils.getAppVersionName()}dcyfyf")
+            val buffer = StringBuffer().append("ppsns${AppUtils.getAppVersionName()}dcyfyf")
             nameList.forEach {
                 buffer.append("&").append(it).append("=")
                     .append(

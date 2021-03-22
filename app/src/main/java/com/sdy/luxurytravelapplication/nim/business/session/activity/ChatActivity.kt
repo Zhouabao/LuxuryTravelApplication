@@ -37,7 +37,7 @@ import com.netease.nimlib.sdk.msg.model.CustomNotification
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.netease.nimlib.sdk.msg.model.MessageReceipt
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.adapter.ChatUserPhotoAdapter
+import com.sdy.luxurytravelapplication.ui.adapter.ChatUserPhotoAdapter
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager

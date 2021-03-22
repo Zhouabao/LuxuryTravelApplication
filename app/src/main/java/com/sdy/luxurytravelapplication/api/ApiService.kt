@@ -60,6 +60,14 @@ interface ApiService {
 
 
 
+    /**
+     * 推荐10个
+     */
+    @FormUrlEncoded
+    @POST("Home/topList${Constants.END_BASE_URL}")
+    fun indexTop(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexListBean>>
+
+
 
 
     /**

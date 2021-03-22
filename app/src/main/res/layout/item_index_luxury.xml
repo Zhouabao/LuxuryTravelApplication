@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="394dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="15dp"
+    android:background="@drawable/icon_index_luxury_bg">
+
+    <ImageView
+        android:id="@+id/userAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:src="@drawable/default_image_15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_index_cover"
+        android:drawableLeft="@drawable/icon_index_online"
+        android:drawablePadding="2dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="1dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="1dp"
+        android:text="30分钟前在线"
+        android:textColor="#ffffffff"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icon_index_luxury_big"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/userVideoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/icon_index_arrow_up"
+        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar" />
+
+    <TextView
+        android:id="@+id/userNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="别滢"
+        android:textColor="#ff333333"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userAvatar" />
+
+    <ImageView
+        android:id="@+id/userVerifyLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/icon_index_luxury"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userNickname"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+    <TextView
+        android:id="@+id/userTravelPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/shape_rectangle_dcfff7_5dp"
+        android:drawableLeft="@drawable/icon_index_nearby"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="成都-三亚"
+        android:textColor="#ff1ed0a7"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userVerifyLevel"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+
+    <ImageView
+        android:id="@+id/userContact"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/icon_index_wechat"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userTravelPlace"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+
+
+    <TextView
+        android:id="@+id/userBasicInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="234m·女·天蝎座·30分钟前"
+        android:textColor="#ff1ed0a7"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/userNickname"
+        app:layout_constraintTop_toBottomOf="@id/userNickname" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userLabelRv"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@id/userNickname"
+        app:layout_constraintTop_toBottomOf="@id/userBasicInfo" />
+
+    <TextView
+        android:id="@+id/userSign"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="这是她的个性签名这是她的个性签名这是她的个性签名这是她的个性签名"
+        android:textColor="#ff8a909f"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="@id/userNickname"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userLabelRv" />
+
+    <TextView
+        android:id="@+id/contactBtn"
+        android:layout_width="145dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/gradient_light_orange_20dp"
+        android:gravity="center"
+        android:text="获取联系方式"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/hiBtn"
+        app:layout_constraintTop_toBottomOf="@id/userSign" />
+
+    <TextView
+        android:id="@+id/hiBtn"
+        android:layout_width="145dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/gradient_light_green_20dp"
+        android:gravity="center"
+        android:text="打招呼"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/contactBtn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userSign" />
+</androidx.constraintlayout.widget.ConstraintLayout>

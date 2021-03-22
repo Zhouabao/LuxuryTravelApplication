@@ -13,8 +13,7 @@ import androidx.multidex.MultiDex
 import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.kongzue.dialog.util.DialogSettings
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -22,13 +21,13 @@ import com.netease.nimlib.sdk.StatusCode
 import com.netease.nimlib.sdk.auth.AuthServiceObserver
 import com.netease.nimlib.sdk.auth.OnlineClient
 import com.netease.nimlib.sdk.mixpush.NIMPushClient
-import com.netease.nimlib.sdk.msg.MessageBuilder
-import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.MsgServiceObserve
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.CustomNotification
-import com.sdy.luxurytravelapplication.constant.Constants
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.event.RefreshMessageCenterEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
@@ -44,7 +43,6 @@ import com.sdy.luxurytravelapplication.nim.impl.provider.NimDemoLocationProvider
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoMixPushMessageHandler
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoPushContentProvider
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
-import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.Bugly
@@ -75,6 +73,37 @@ class TravelApp : Application() {
             return app.refWatcher
         }
     }
+
+    init {
+
+        SmartRefreshLayout.setDefaultRefreshInitializer { context, layout ->
+            layout.setPrimaryColorsId(R.color.colorWhite)
+                .setReboundDuration(200)
+                .setEnableHeaderTranslationContent(false)
+                .setDisableContentWhenRefresh(true)
+                .setDisableContentWhenLoading(true)
+        }
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.colorWhite)
+                .setReboundDuration(200)
+                .setDisableContentWhenRefresh(true)
+                .setDisableContentWhenLoading(true)
+            MaterialHeader(context).setColorSchemeResources(R.color.colorAccent)
+        }
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.colorWhite)
+                .setReboundDuration(200)
+                .setDisableContentWhenRefresh(true)
+                .setDisableContentWhenLoading(true)
+                .setEnableScrollContentWhenLoaded(true)
+            ClassicsFooter(context).setFinishDuration(200).setDrawableSize(20F)
+        }
+
+        DialogSettings.style = DialogSettings.STYLE.STYLE_IOS
+        DialogSettings.theme = DialogSettings.THEME.LIGHT
+    }
+
+
 
     private val onLineClient: Observer<List<OnlineClient>> = Observer {
         if (it == null || it.isEmpty()) {
@@ -333,8 +362,6 @@ class TravelApp : Application() {
 
         // AutoDensityUtil.init()
     }
-
-
 
 
     private fun initNimUIKit() {

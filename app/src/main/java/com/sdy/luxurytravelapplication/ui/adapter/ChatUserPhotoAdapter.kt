@@ -1,4 +1,4 @@
-package com.sdy.luxurytravelapplication.adapter
+package com.sdy.luxurytravelapplication.ui.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView

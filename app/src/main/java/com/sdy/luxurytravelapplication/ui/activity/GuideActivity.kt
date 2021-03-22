@@ -3,7 +3,7 @@ package com.sdy.luxurytravelapplication.ui.activity
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.sdy.luxurytravelapplication.adapter.GuideBannerAdapter
+import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityGuideBinding
 import com.zhpan.bannerview.BannerViewPager
