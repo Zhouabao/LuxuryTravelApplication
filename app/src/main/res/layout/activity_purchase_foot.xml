@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.PurchaseFootActivity">
+
+    <View
+        android:id="@+id/coverBg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_gradient_foot_cover"
+        app:layout_constraintBottom_toTopOf="@id/priceBg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
+        android:layout_marginBottom="10dp"
+        android:text="本软件为会员邀请制App"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/t2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="软件内容为私人定制约会\n老用户邀请或购买邀请码才可进入"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2"
+        app:layout_constraintBottom_toBottomOf="@id/coverBg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/priceBg"
+        android:layout_width="325dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/icon_bg_foot_price"
+        app:layout_constraintBottom_toTopOf="@id/buyBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <TextView
+        android:id="@+id/inviteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="旅游App邀请码"
+        android:textColor="#ff1ed0a7"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/inviteDescr"
+        app:layout_constraintLeft_toLeftOf="@id/priceBg"
+        app:layout_constraintTop_toTopOf="@id/priceBg"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <TextView
+        android:id="@+id/inviteDescr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="解锁所有功能开启浪漫约会"
+        android:textColor="#ff1ed0a7"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/priceBg"
+        app:layout_constraintLeft_toLeftOf="@id/inviteTitle"
+        app:layout_constraintTop_toBottomOf="@id/inviteTitle" />
+
+    <TextView
+        android:id="@+id/footNowPrice"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="¥29.9"
+        android:textColor="#ffffffff"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/footOrignalPrice1"
+        app:layout_constraintRight_toRightOf="@id/priceBg"
+        app:layout_constraintTop_toTopOf="@id/priceBg" />
+
+    <TextView
+        android:id="@+id/footOrignalPrice1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="199"
+        android:textColor="#ffbbede2"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/priceBg"
+        app:layout_constraintLeft_toLeftOf="@id/footNowPrice"
+        app:layout_constraintRight_toRightOf="@id/footNowPrice"
+        app:layout_constraintTop_toBottomOf="@id/footNowPrice" />
+
+
+    <TextView
+        android:id="@+id/buyBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/shape_1ed0a7_29dp"
+        android:gravity="center"
+        android:text="购买邀请码"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/whyPayBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/whyPayBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_stroke_1ed0a7_29dp"
+        android:gravity="center"
+        android:text="为什么要付费"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,6 +51,16 @@ interface ApiService {
 
 
 
+    /**
+     * 门槛支付列表
+     */
+    @FormUrlEncoded
+    @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL}")
+    fun getThreshold(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
+
+
+
+
 
     /**
      * 注销账号

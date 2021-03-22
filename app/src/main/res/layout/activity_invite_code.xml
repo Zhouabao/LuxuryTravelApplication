@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".ui.activity.InviteCodeActivity">
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="请输入邀请码"
+        android:textColor="#ff333333"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.jyn.vcview.VerificationCodeView
+        android:id="@+id/inviteCodeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1"
+        app:vcv_et_bg="@drawable/selector_verifycode_et_bg"
+        app:vcv_et_cursor_visible="false"
+        app:vcv_et_inputType="number"
+        app:vcv_et_number="4"
+        app:vcv_et_spacing="20dp"
+        app:vcv_et_text_color="@color/colorAccent"
+        app:vcv_et_text_size="14sp"
+        app:vcv_et_width="65dp" />
+
+
+    <TextView
+        android:id="@+id/nextBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/selector_button_29dp"
+        android:gravity="center"
+        android:text="@string/next_step"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:enabled="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/noInviteCodeBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/noInviteCodeBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_stroke_1ed0a7_29dp"
+        android:gravity="center"
+        android:text="@string/no_invite_code"
+        android:textColor="#1ed0a7"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

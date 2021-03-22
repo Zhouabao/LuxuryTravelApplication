@@ -49,7 +49,7 @@
         app:vcv_et_spacing="20dp"
         app:vcv_et_text_color="@color/colorAccent"
         app:vcv_et_text_size="14sp"
-        app:vcv_et_width="60dp" />
+        app:vcv_et_width="65dp" />
 
     <!--    <com.sdy.sweetdateapplication.ui.widgets.VerifycodeInputView-->
     <!--        android:id="@+id/verifycodeEt"-->

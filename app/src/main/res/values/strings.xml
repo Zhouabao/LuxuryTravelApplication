@@ -415,4 +415,11 @@
     <string name="login_expired">登录过期</string>
     <string name="please_relogin">请重新登录</string>
     <string name="user_cnt">全球%1$d个想要旅行的%2$s性用户\n 立刻和%3$s们链接促成甜蜜约会</string>
+    <string name="no_invite_code">没有邀请码</string>
+    <string name="why_pay">为什么要付费</string>
+    <string name="why_pay_explain">精英认证是为了旅游App更好的服务用户\n全面提升用户旅游交友体验</string>
+    <string name="why_pay1">保证平台内女性真实，平台均为人工全天候审核</string>
+    <string name="why_pay2">杜绝骚扰，未认证用户无法骚扰有真正婚恋意愿的用户</string>
+    <string name="why_pay3">认证精英即表达婚恋意愿，提升社交效率，女生会主动找你</string>
+    <string name="i_know1">我已知晓</string>
 </resources>
