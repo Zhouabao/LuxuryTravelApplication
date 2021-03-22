@@ -422,4 +422,8 @@
     <string name="why_pay2">杜绝骚扰，未认证用户无法骚扰有真正婚恋意愿的用户</string>
     <string name="why_pay3">认证精英即表达婚恋意愿，提升社交效率，女生会主动找你</string>
     <string name="i_know1">我已知晓</string>
-</resources>
+    <string name="tab_index">首页</string>
+    <string name="tab_find">发现</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_travel">伴游</string>
+    <string name="tab_mine">我的</string></resources>

@@ -25,8 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.PurchaseFootActivity"></activity>
-        <activity android:name=".ui.activity.InviteCodeActivity">
+
+
+        <activity android:name=".ui.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +35,10 @@
 
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.PurchaseFootActivity"></activity>
+        <activity android:name=".ui.activity.InviteCodeActivity">
+
         </activity>
         <activity
             android:name=".ui.activity.GuideActivity"
@@ -81,7 +86,10 @@
                 android:resource="@xml/file_paths1" />
         </provider>
 
-        <activity android:name=".ui.activity.MainActivity" /> <!-- 查看大图 -->
+
+
+
+        <!-- 查看大图 -->
         <activity
             android:name=".nim.business.session.activity.WatchMessagePictureActivity"
             android:configChanges="keyboardHidden"

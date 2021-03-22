@@ -1,9 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:overScrollMode="never" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:id="@+id/tabIndex"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="26dp"
+            app:layout_constraintBottom_toTopOf="@id/tabIndexTv"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/icon_tab_index_checked"
+            app:layout_constraintRight_toLeftOf="@id/tabFind"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tabIndexTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="首页"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabIndex"
+            app:layout_constraintRight_toRightOf="@id/tabIndex"
+            app:layout_constraintTop_toBottomOf="@id/tabIndex" />
+
+        <ImageView
+            android:id="@+id/tabFind"
+            android:layout_width="28dp"
+            android:src="@drawable/icon_tab_find"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toTopOf="@id/tabFindTv"
+            app:layout_constraintLeft_toRightOf="@id/tabIndex"
+            app:layout_constraintRight_toLeftOf="@id/tabTravel"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tabFindTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="发现"
+            android:textColor="#FFCBD0D7"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabFind"
+            app:layout_constraintRight_toRightOf="@id/tabFind"
+            app:layout_constraintTop_toBottomOf="@id/tabFind" />
+
+        <ImageView
+            android:id="@+id/tabTravel"
+            android:layout_width="28dp"
+            android:src="@drawable/icon_tab_travel"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toTopOf="@id/tabTravelTv"
+            app:layout_constraintLeft_toRightOf="@id/tabFind"
+            app:layout_constraintRight_toLeftOf="@id/tabMessage"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tabTravelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="伴游"
+            android:textColor="#FFCBD0D7"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabTravel"
+            app:layout_constraintRight_toRightOf="@id/tabTravel"
+            app:layout_constraintTop_toBottomOf="@id/tabTravel" />
+
+
+        <ImageView
+            android:id="@+id/tabMessage"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_tab_message"
+            app:layout_constraintBottom_toTopOf="@id/tabMessageTv"
+            app:layout_constraintLeft_toRightOf="@id/tabTravel"
+            app:layout_constraintRight_toLeftOf="@id/tabMineCheckView"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/msgNewCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/shape_oval_red"
+            android:gravity="center"
+            android:minWidth="16dp"
+            android:minHeight="16dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textColor="#ffffffff"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/tabMessage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9" />
+
+
+        <TextView
+            android:id="@+id/tabMessageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="消息"
+            android:textColor="#FFCBD0D7"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabMessage"
+            app:layout_constraintRight_toRightOf="@id/tabMessage"
+            app:layout_constraintTop_toBottomOf="@id/tabMessage" />
+
+        <View
+            android:id="@+id/tabMineCheckView"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="26dp"
+            android:visibility="invisible"
+            android:background="@drawable/shape_green_white"
+            app:layout_constraintBottom_toTopOf="@id/tabMineTv"
+            app:layout_constraintLeft_toRightOf="@id/tabMessage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/tabMine"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/tabMineCheckView"
+            app:layout_constraintLeft_toLeftOf="@id/tabMineCheckView"
+            app:layout_constraintRight_toRightOf="@id/tabMineCheckView"
+            app:layout_constraintTop_toTopOf="@id/tabMineCheckView" />
+
+
+        <TextView
+            android:id="@+id/tabMineTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="我的"
+            android:textColor="#FFCBD0D7"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabMineCheckView"
+            app:layout_constraintRight_toRightOf="@id/tabMineCheckView"
+            app:layout_constraintTop_toBottomOf="@id/tabMineCheckView" />
+
+        <View
+            android:id="@+id/indexBtn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabIndex"
+            app:layout_constraintRight_toRightOf="@id/tabIndex"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/findBtn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tabFind"
+            app:layout_constraintRight_toRightOf="@id/tabFind"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/travelBtn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tabTravel"
+            app:layout_constraintRight_toRightOf="@id/tabTravel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/messageBtn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabMessage"
+            app:layout_constraintRight_toRightOf="@id/tabMessage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/mineBtn"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@id/tabMineCheckView"
+            app:layout_constraintRight_toRightOf="@id/tabMineCheckView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
