@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_rectangle_white_top_15dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icon_complete_info" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="完善个人信息"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="您目前个人信息未完善，请优先补充个人信息，\n信息填充率大于60%的用户才会对外优先展示"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/completeInfoBtn"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_rectangle_green_25dp"
+        android:gravity="center"
+        android:text="去完善"
+        android:textColor="#ffffffff"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

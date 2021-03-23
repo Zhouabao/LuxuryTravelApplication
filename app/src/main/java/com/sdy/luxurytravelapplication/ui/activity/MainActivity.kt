@@ -13,6 +13,7 @@ import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
 import com.sdy.luxurytravelapplication.mvp.presenter.MainPresenter
+import com.sdy.luxurytravelapplication.ui.dialog.CompleteInfoDialog
 import com.sdy.luxurytravelapplication.ui.fragment.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -70,6 +71,12 @@ class MainActivity :
     }
 
     override fun initData() {
+
+//        CompleteInfoDialog().show()
+    }
+
+
+    override fun initView() {
         binding.apply {
             ClickUtils.applySingleDebouncing(
                 arrayOf(indexBtn, findBtn, messageBtn,travelBtn, mineBtn),
@@ -89,11 +96,6 @@ class MainActivity :
 
             }
         }
-    }
-
-
-    override fun initView() {
-
 
     }
 

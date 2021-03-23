@@ -104,7 +104,6 @@ class TravelApp : Application() {
     }
 
 
-
     private val onLineClient: Observer<List<OnlineClient>> = Observer {
         if (it == null || it.isEmpty()) {
             return@Observer

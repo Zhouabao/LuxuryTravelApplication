@@ -100,6 +100,12 @@ object UserManager {
 //        }
     }
 
+
+    val tempDatas =    arrayListOf(
+        "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2509550317,2669241293&fm=26&gp=0.jpg",
+        "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
+        "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167430823,2130012097&fm=26&gp=0.jpg"
+    )
     var avatar: String
         get() = SPUtils.getInstance(Constants.SPNAME).getString("avatar")
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("avatar", value)

@@ -14,15 +14,16 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/default_image_10dp"
+        android:src="@drawable/icon_tobe_selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/userVideoIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/shape_cover_right_10dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/icon_index_video"
         app:layout_constraintBottom_toBottomOf="@id/userAvatar"
         app:layout_constraintLeft_toLeftOf="@id/userAvatar" />

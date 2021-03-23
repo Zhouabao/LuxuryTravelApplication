@@ -21,7 +21,10 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.AppUtils
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.app.TravelApp
 
 /**
  * How to modify the base class to use view binding, you need the following steps:
@@ -38,7 +41,9 @@ abstract class BaseBindingDialog<VB : ViewBinding>(context: Context, themeResId:
 
   lateinit var binding: VB
 
+
   constructor(context: Context) : this(context, R.style.MyDialog)
+  constructor() : this(ActivityUtils.getTopActivity(), R.style.MyDialog)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -15,10 +15,12 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexPresenter
 import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.PeopleRecommendTopAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.ToBeSelectedDialog
 
 
 /**
@@ -26,7 +28,7 @@ import com.sdy.luxurytravelapplication.ui.adapter.PeopleRecommendTopAdapter
  */
 class IndexFragment :
     BaseMvpFragment<IndexContract.View, IndexContract.Presenter, FragmentIndexBinding>(),
-    IndexContract.View {
+    IndexContract.View, View.OnClickListener {
     private val fragments by lazy {
         arrayListOf<Fragment>(
             IndexRecommendFragment(IndexRecommendFragment.TYPE_RECOMMEND),
@@ -64,10 +66,20 @@ class IndexFragment :
             })
             titleIndex.currentTab = 0
 
-            ClickUtils.applySingleDebouncing(addLuxuryBtn) {
-                JoinLuxuryActivity.startJoinLuxuxy(activity!!, SweetProgressBean())
+            ClickUtils.applySingleDebouncing(
+                arrayOf(addLuxuryBtn, tobeSelectedBtn),
+                this@IndexFragment
+            )
+        }
+        val data = arrayListOf<IndexTopBean>()
+        data.apply {
+            repeat(4) {
+                UserManager.tempDatas.forEach {
+                    add(IndexTopBean(avatar = it))
+                }
             }
         }
+        peopleRecommendTopAdapter.setNewInstance(data)
     }
 
     override fun lazyLoad() {
@@ -85,5 +97,17 @@ class IndexFragment :
             binding.tobeSelectedBtn.isVisible = true
             binding.recommendUsers.scrollToPosition(1)
         }
+    }
+
+    override fun onClick(v: View) {
+        when (v) {
+            binding.addLuxuryBtn -> {
+                JoinLuxuryActivity.startJoinLuxuxy(activity!!, SweetProgressBean())
+            }
+            binding.tobeSelectedBtn -> {
+                ToBeSelectedDialog(false).show()
+            }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.sdy.luxurytravelapplication.base.BaseActivity
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGuideBinding
 import com.zhpan.bannerview.BannerViewPager
 
@@ -32,13 +33,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
             })
         }.create()
 
-        binding.bannerGuide.refreshData(
-            arrayListOf(
-                "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2509550317,2669241293&fm=26&gp=0.jpg",
-                "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
-                "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167430823,2130012097&fm=26&gp=0.jpg"
-            )
-        )
+        binding.bannerGuide.refreshData(UserManager.tempDatas)
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
 
         }
