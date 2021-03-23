@@ -7,7 +7,9 @@ import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.DialogToBeSelectedBinding
+import com.sdy.luxurytravelapplication.ui.activity.ChooseVerifyActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
+import org.jetbrains.anko.startActivity
 
 /**
  *    author : ZFM
@@ -58,6 +60,7 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
         }
         //成为精选用户
         ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
+            context.startActivity<ChooseVerifyActivity>()
             dismiss()
         }
 

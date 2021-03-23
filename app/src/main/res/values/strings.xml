@@ -429,4 +429,16 @@
     <string name="tab_mine">我的</string>
     <string name="choiceness">精选</string>
     <string name="tab_sweet">奢旅圈</string>
+    <string name="verify_title_house">资产认证</string>
+    <string name="verify_title_car">豪车认证</string>
+    <string name="verify_title_figure">身材认证</string>
+    <string name="verify_title_job">职业认证</string>
+    <string name="sweet_rich_to_be_friend">听说你很有钱，她们想和你做朋友</string>
+    <string name="sweet_car_to_be_friend">听说你的车很漂亮，她们想和你做朋友</string>
+    <string name="sweet_education_rich">听说你读过很多书见过许多人</string>
+    <string name="sweet_funny_job">听说你的职业很有趣，我和她们不一样</string>
+    <string name="sweet_upload_one_or_more_pic">上传一张或多张图片，照片将对外展示</string>
+    <string name="one_or_more_job_pic">上传一张或多张能证明你职业的图片，照片将对外展示</string>
+    <string name="one_or_more_figure_pic">照片将对外展示，注意照片尺度过大或导致无法通过认证</string>
+
 </resources>

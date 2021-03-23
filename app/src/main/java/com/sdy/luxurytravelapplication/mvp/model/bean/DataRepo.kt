@@ -387,3 +387,12 @@ data class SweetProgressBean(
     val img: String = "",
     val female_mv_state: Int = 0//女性视频认证 1没有通过 2审核中 3视频认证通过
 ):Serializable
+
+
+data class SweetUploadBean(
+    val defacultIcon: Int = 0,
+    val type: Int = 0,
+    var url: String = "",
+    var width: Int = 0,
+    var height: Int = 0
+)

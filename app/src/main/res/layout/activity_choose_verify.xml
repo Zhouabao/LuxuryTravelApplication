@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ChooseVerifyActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="选择认证方式"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+    <ImageView
+        android:id="@+id/verifyType1"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/icon_verify_house_checked"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/verifyType2"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+    <ImageView
+        android:id="@+id/verifyType2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="35dp"
+        android:src="@drawable/icon_verify_car"
+        app:layout_constraintLeft_toRightOf="@id/verifyType1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/verifyType1" />
+
+    <ImageView
+        android:id="@+id/checkedView1"
+        android:layout_width="12dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/icon_arrow_green_up"
+        app:layout_constraintLeft_toLeftOf="@id/verifyType1"
+        app:layout_constraintRight_toRightOf="@id/verifyType1"
+        app:layout_constraintTop_toBottomOf="@id/verifyType2" />
+
+    <ImageView
+        android:id="@+id/checkedView2"
+        android:layout_width="12dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/icon_arrow_green_up"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/verifyType2"
+        app:layout_constraintRight_toRightOf="@id/verifyType2"
+        app:layout_constraintTop_toBottomOf="@id/verifyType2" />
+
+    <TextView
+        android:id="@+id/verifyNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_rectangle_green_15dp"
+        android:gravity="center"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="15dp"
+        android:text="需要提交行驶证、且车辆价格大于50万\n
+认证后对外展示您的车辆图片\n
+提高您的交友效率，使您的信息更真实可靠"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verifyType2" />
+
+
+    <TextView
+        android:id="@+id/applyVerifyBtn"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_rectangle_green_25dp"
+        android:gravity="center"
+        android:text="申请认证"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

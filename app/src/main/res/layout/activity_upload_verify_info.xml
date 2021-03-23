@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.UploadVerifyInfoActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <TextView
+        android:id="@id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="上传资料"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="首先上传手持身份证及身份证正面\n
+请确保与本人头像一致，此流程不对外公开\n
+此流程仅认证一次，认证通过后不会再要求填写"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@id/t1"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+    <TextView
+        android:id="@+id/uploadIdHand"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="上传手持身份证照片"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t2" />
+
+    <ImageView
+        android:id="@+id/uploadIdHandBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_upload"
+        app:layout_constraintBottom_toBottomOf="@id/uploadIdHand"
+        app:layout_constraintRight_toRightOf="@id/uploadIdHand"
+        app:layout_constraintTop_toTopOf="@id/uploadIdHand" />
+
+    <ImageView
+        android:id="@+id/deleteIdHandBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_delete"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="@id/uploadIdHandBtn"
+        app:layout_constraintTop_toTopOf="@id/uploadIdHandBtn" />
+
+
+    <TextView
+        android:id="@+id/uploadIdFace"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="上传身份证正面"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uploadIdHand" />
+
+    <ImageView
+        android:id="@+id/uploadIdFaceBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_upload"
+        app:layout_constraintBottom_toBottomOf="@id/uploadIdFace"
+        app:layout_constraintRight_toRightOf="@id/uploadIdFace"
+        app:layout_constraintTop_toTopOf="@id/uploadIdFace" />
+
+
+    <ImageView
+        android:id="@+id/deleteIdFaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_delete"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="@id/uploadIdFaceBtn"
+        app:layout_constraintTop_toTopOf="@id/uploadIdFaceBtn" />
+
+    <TextView
+        android:id="@+id/uploadInfo"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="车辆行驶证"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uploadIdFace" />
+
+    <ImageView
+        android:id="@+id/uploadInfoBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_upload"
+        app:layout_constraintBottom_toBottomOf="@id/uploadInfo"
+        app:layout_constraintRight_toRightOf="@id/uploadInfo"
+        app:layout_constraintTop_toTopOf="@id/uploadInfo" />
+
+
+    <ImageView
+        android:id="@+id/deleteInfoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon_delete"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="@id/uploadInfoBtn"
+        app:layout_constraintTop_toTopOf="@id/uploadInfoBtn" />
+
+    <TextView
+        android:id="@+id/applyVerfyBtn"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:gravity="center"
+        android:text="提交不公开审核"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

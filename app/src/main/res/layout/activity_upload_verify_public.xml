@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.UploadVerifyPublicActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <TextView
+        android:id="@+id/uploadTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="我咬了一口嘴巴，也太辣了吧"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+    <EditText
+        android:id="@+id/uploadType"
+        android:layout_width="0dp"
+        android:layout_height="205dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@null"
+        android:gravity="start"
+        android:hint="照片将对外展示，注意照片尺度过大或导致无法通过认证"
+        android:maxLength="50"
+        android:textColorHint="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/publicUploadRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uploadType" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="#FFF7F8FA"
+        app:layout_constraintBottom_toTopOf="@id/tt1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/tt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="照片示例"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/publicNormalBottomRv"
+        app:layout_constraintLeft_toLeftOf="@id/uploadType" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/publicNormalBottomRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/normalIconLl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/normalIconRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:bvp_auto_play="false"
+            app:bvp_can_loop="false"
+            app:bvp_page_style="multi_page"
+            app:bvp_page_margin="15dp"
+            app:bvp_reveal_width="22dp"
+            app:bvp_indicator_checked_color="@color/colorTransparent"
+            app:bvp_indicator_gravity="center"
+            app:bvp_indicator_normal_color="@color/colorTransparent"
+            app:bvp_indicator_slide_mode="smooth"
+            app:bvp_indicator_style="round_rect"
+            app:bvp_round_corner="2dp" />
+
+        <ImageView
+            android:id="@+id/normalCloseBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/icon_close_transparent" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
