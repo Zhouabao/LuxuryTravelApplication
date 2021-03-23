@@ -104,8 +104,10 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addLuxuryCl"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:visibility="gone"
         android:layout_gravity="bottom"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"

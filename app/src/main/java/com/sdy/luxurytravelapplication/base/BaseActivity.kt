@@ -115,9 +115,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         if (useEventBus()) {
             EventBus.getDefault().register(this)
         }
+        initView()
         initData()
         initTipView()
-        initView()
         start()
         initListener()
     }

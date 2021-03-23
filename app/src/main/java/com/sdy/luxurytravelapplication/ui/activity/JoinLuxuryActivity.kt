@@ -3,20 +3,18 @@ package com.sdy.luxurytravelapplication.ui.activity
 import android.content.Context
 import android.graphics.Color
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityJoinLuxuryBinding
-import com.sdy.luxurytravelapplication.databinding.LayoutActionbarBinding
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
+import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
+import com.zhpan.bannerview.BannerViewPager
 import org.jetbrains.anko.startActivity
 
 class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
-
     private val sweetProgressBean by lazy { intent.getSerializableExtra("sweetProgressBean") as SweetProgressBean }
-
-    private val barBinding: LayoutActionbarBinding = LayoutActionbarBinding.inflate(layoutInflater)
-
     companion object {
         fun startJoinLuxuxy(context: Context, sweetProgressBean: SweetProgressBean) {
             context.startActivity<JoinLuxuryActivity>("sweetProgressBean" to sweetProgressBean)
@@ -24,22 +22,15 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
     }
 
 
+    private val guideBannerAdapter by lazy { GuideBannerAdapter() }
     override fun initView() {
-        barBinding.apply {
-            actionbarTitle.text = "加入奢旅圈"
-            btnBack.setOnClickListener {
+        binding.apply {
+            barCl.actionbarTitle.text = "加入奢旅圈"
+            barCl.btnBack.setOnClickListener {
                 finish()
             }
-            divider.isVisible = true
+            barCl.divider.isVisible = true
 
-        }
-    }
-
-    override fun start() {
-    }
-
-    override fun initData() {
-        binding.apply {
             if (UserManager.gender == 1) {
                 way1.isVisible = false
                 way2.isVisible = false
@@ -84,7 +75,34 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
                     }
                 }
             }
+
+
+            (bannerLuxury as BannerViewPager<String>).apply {
+                adapter = guideBannerAdapter
+                setIndicatorSliderWidth(SizeUtils.dp2px(8F))
+                setIndicatorHeight(SizeUtils.dp2px(4F))
+                setIndicatorSliderGap(SizeUtils.dp2px(4F))
+                setLifecycleRegistry(lifecycle)
+            }.create()
+
+            bannerLuxury.refreshData(
+                arrayListOf(
+                    "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2509550317,2669241293&fm=26&gp=0.jpg",
+                    "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
+                    "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167430823,2130012097&fm=26&gp=0.jpg"
+                )
+            )
         }
+
+
+
+    }
+
+    override fun start() {
+    }
+
+    override fun initData() {
+
 
     }
 }

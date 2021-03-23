@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activity.JoinLuxuryActivity">
 
     <include
@@ -17,6 +18,15 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
+        app:bvp_auto_play="false"
+        app:bvp_can_loop="false"
+        app:bvp_indicator_checked_color="#FFFFB825"
+        app:bvp_indicator_gravity="center"
+        app:bvp_indicator_normal_color="#FFF6F7F9"
+        app:bvp_indicator_radius="2dp"
+        app:bvp_indicator_slide_mode="smooth"
+        app:bvp_indicator_style="round_rect"
+        app:bvp_round_corner="2dp"
         app:layout_constraintBottom_toTopOf="@id/view1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barCl" />

@@ -55,7 +55,7 @@ class IndexFragment :
             titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
-                    addLuxuryBtn.isVisible = position == 2
+                    addLuxuryCl.isVisible = position == 2
                 }
 
                 override fun onTabReselect(position: Int) {
