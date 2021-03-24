@@ -3,7 +3,6 @@ package com.sdy.luxurytravelapplication.mvp.model.bean
 import android.os.Parcel
 import android.os.Parcelable
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.squareup.moshi.Json
 import java.io.Serializable
 
 
@@ -86,9 +85,8 @@ data class SetPersonalBean(
 )
 
 
-
 data class MediaBean(
-    val id :Int = 0,
+    val id: Int = 0,
     val fileType: TYPE = TYPE.IMAGE,
     var filePath: Any = "",
     var fileName: String = "",
@@ -107,8 +105,6 @@ data class ContactInfo(val id: String, val name: String, val phone: String)
 
 /************发布相关*************/
 data class PublishWayBean(var checked: Boolean, var normalIcon: Int, var checkedIcon: Int)
-
-
 
 
 data class SquareBean(
@@ -188,6 +184,7 @@ data class ChatInfoBean(
     var istalk_btn: Boolean = false,//是否显示闪聊按钮
     var weight: String = ""
 )
+
 /**
  * 发送消息tip
  */
@@ -230,8 +227,6 @@ data class SendGiftBean(
     var id: Int = 0,
     var status: Int = 0
 )
-
-
 
 
 data class ChargeWayBeans(
@@ -341,7 +336,6 @@ data class VipDescr(
 )
 
 
-
 data class IndexListBean(
     var list: MutableList<IndexTopBean> = mutableListOf(),
     var dating_list: MutableList<String> = mutableListOf(),
@@ -354,7 +348,6 @@ data class IndexListBean(
     var total_exposure_cnt: Int = 0,//today_exposure_cnt
     var total_visit_cnt: Int = 0//总曝光
 ) : Serializable
-
 
 
 /**
@@ -386,7 +379,7 @@ data class SweetProgressBean(
     val assets_audit_state: Int = 0,//学历认证1没有 2认证中 3认证通过
     val img: String = "",
     val female_mv_state: Int = 0//女性视频认证 1没有通过 2审核中 3视频认证通过
-):Serializable
+) : Serializable
 
 
 data class SweetUploadBean(
@@ -395,4 +388,86 @@ data class SweetUploadBean(
     var url: String = "",
     var width: Int = 0,
     var height: Int = 0
+)
+
+
+data class RecommendSquareBean(
+    var accid: String = "",
+    var avatar: String = "",
+    var comment_cnt: Int = 0,
+    var cover_url: String = "",
+    var descr: String = "",
+    var distance: String = "",
+    var gender: Int = 0,
+    var id: Int = 0,
+    var title_id: Int = 0,
+    var isliked: Boolean = false,
+    var originalLike: Boolean = false,
+    var like_cnt: Int = 0,
+    var originalLikeCount: Int = 0,
+    var nickname: String = "",
+    var title: String = "",
+    var type: Int = 0,
+    var height: Int = 0,
+    var width: Int = 0,
+    var is_elite: Boolean = false,
+    var approve_type: Int = 0,//新增字段 ：0普通动态 1 资产 2豪车 3身材 4职业
+    var assets_audit_descr: String = "",
+    var title_list: MutableList<TopicBean>? = mutableListOf()
+)
+
+data class TopicBean(
+    var icon: String = "",
+    var id: Int = 0,
+    var son: MutableList<SquarePicBean> = mutableListOf(),
+    var tag_id: Int = 0,
+    var tag_title: String = "",
+    var title: String = "",
+    var used_cnt: Int = 0,
+    var visit_cnt: Int = 0
+) : Serializable
+
+data class SquarePicBean(
+    var cover_url: String = "",
+    var square_id: Int = 0,
+    var id: Int = 0,
+    var descr: String = ""
+) : Serializable
+
+data class RecommendSquareListBean(
+    var banner: MutableList<SquareBannerBean> = mutableListOf(),
+    var list: MutableList<RecommendSquareBean> = mutableListOf()
+)
+
+/**
+ * 广场运营位广告
+ */
+data class SquareBannerBean(
+    var adv_type: Int = 0,//类型 广告类型默认1   1.只是展示图  2.跳转外连  3.内部跳转   4发布+话题 5发布+兴趣
+    var cover_url: String = "",
+    var id: Int = 0,
+    var link_url: String = "",
+    var title: String = "",
+    var icon: String = "",
+    val used_cnt: Int = 0,
+    val visit_cnt: Int = 0
+)
+
+
+/**
+ * 广场兴趣列表
+ */
+data class SquareTagBean(
+    var icon: String = "",
+    var id: Int = 0,
+    var is_hot: Boolean = false,
+    var is_join: Boolean = false,
+    var cover_list: MutableList<SquarePicBean> = mutableListOf(),
+    var place_type: Int = 0,//位置类型 0 没有操作 1置顶 2置底
+    var title: String = ""
+)
+
+data class TagSquareListBean(
+    var banner: SquareBannerBean,
+    var list: MutableList<RecommendSquareBean> = mutableListOf()
 )

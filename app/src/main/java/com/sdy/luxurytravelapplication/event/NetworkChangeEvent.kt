@@ -48,3 +48,12 @@ class SendLikeTipMessageEvent(val accid: String, val isReceive: Boolean)
 class UpdateVerifyEvent
 
 class RefreshGoldEvent()
+
+
+//刷新点赞等事件
+class RefreshLikeEvent(
+    val squareId: Int,
+    val isLike: Int,
+    val position: Int,
+    var likeCount: Int = -1
+)

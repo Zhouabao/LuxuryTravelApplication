@@ -6,12 +6,12 @@ package com.sdy.luxurytravelapplication.constant
 
 object Constants {
     //测试
-    const val BASE_URL = "http://testppsns.talkdating.cn/ppsns/"
-    const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
+//    const val BASE_URL = "http://testppsns.talkdating.cn/ppsns/"
+//    const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
 
     //  生产
-//    const val BASE_URL = "https://ppsns.duluduludala.com/ppsns/"
-//    const val NIM_APP_KEY = "8556d54f7f6f3453efd7713dba23f852"//正式
+    const val BASE_URL = "https://ppsns.duluduludala.com/ppsns/"
+    const val NIM_APP_KEY = "8556d54f7f6f3453efd7713dba23f852"//正式
 
     //是否处于测试环境
     const val TEST = true

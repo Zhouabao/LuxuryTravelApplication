@@ -1,16 +1,16 @@
 package com.sdy.luxurytravelapplication.constant
 
 import android.content.Context
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
-import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoOneActivity
-import com.sdy.luxurytravelapplication.ui.activity.RegisterInfoTwoActivity
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.startActivity
 
 /**
  *    author : ZFM
@@ -101,7 +101,19 @@ object UserManager {
     }
 
 
-    val tempDatas =    arrayListOf(
+    /**
+     * 跳至登录界面
+     */
+    fun startToLogin(activity: Context, fromNimNotification: Boolean = false) {
+        touristMode = false
+        clearLoginData()
+        NIMClient.getService(AuthService::class.java).logout()
+        ActivityUtils.startLauncherActivity()
+//            activity.startActivity<SplashActivity>()
+    }
+
+    var touristMode: Boolean = false
+    val tempDatas = arrayListOf(
         "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2509550317,2669241293&fm=26&gp=0.jpg",
         "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
         "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167430823,2130012097&fm=26&gp=0.jpg"

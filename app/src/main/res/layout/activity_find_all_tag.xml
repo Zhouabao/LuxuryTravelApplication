@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.FindAllTagActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <com.sdy.luxurytravelapplication.widgets.MultipleStatusView
+        android:id="@+id/stateTagSquare"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:emptyView="@layout/layout_empty_view"
+        app:errorView="@layout/layout_error_view"
+        app:loadingView="@layout/layout_loading_view"
+        app:noNetworkView="@layout/layout_network_view"
+        tools:context=".ui.fragment.TagSquareFragment">
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshTagSquare"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            app:srlDisableContentWhenLoading="true"
+            app:srlDisableContentWhenRefresh="true"
+            app:srlEnableLoadMore="false"
+            app:srlEnableRefresh="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTagSquare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite" />
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>
+
+</LinearLayout>

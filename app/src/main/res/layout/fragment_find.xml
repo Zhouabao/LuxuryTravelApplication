@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".ui.fragment.FindFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/tabFind"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/publishBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/publishBtn"
+        app:layout_constraintTop_toTopOf="@id/publishBtn"
+        app:tl_bar_color="@color/colorBackgroundGray"
+        app:tl_indicator_anim_enable="true"
+        app:tl_indicator_bounce_enable="false"
+        app:tl_indicator_color="@color/colorWhite"
+        app:tl_indicator_corner_radius="6dp"
+        app:tl_indicator_margin_bottom="3dp"
+        app:tl_indicator_margin_left="3dp"
+        app:tl_indicator_margin_right="3dp"
+        app:tl_indicator_margin_top="3dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textBold="SELECT"
+        app:tl_textSelectColor="@color/color333"
+        app:tl_textUnselectColor="#FFB6BCC6"
+        app:tl_textsize="16sp" />
+
+    <ImageView
+        android:id="@+id/publishBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/icon_publish"
+        app:layout_constraintLeft_toRightOf="@id/tabFind"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/publishBtn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

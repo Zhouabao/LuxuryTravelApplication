@@ -71,6 +71,51 @@ interface ApiService {
 
 
     /**
+     * 广场点赞/取消点赞
+     */
+    @FormUrlEncoded
+    @POST("square/squareLikes${Constants.END_BASE_URL}")
+    fun getSquareLike(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 推荐广场
+     *
+     */
+    @FormUrlEncoded
+    @POST("Square/squareEliteList${Constants.END_BASE_URL}")
+    fun squareEliteList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
+    /**
+     * 广场获取兴趣
+     *
+     */
+    @FormUrlEncoded
+    @POST("Square/squareTagList${Constants.END_BASE_URL}")
+    fun squareTagList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareTagBean>?>>
+
+
+
+
+    /**
+     * 兴趣广场详情列表
+     */
+    @FormUrlEncoded
+    @POST("Square/squareTagInfo${Constants.END_BASE_URL}")
+    fun squareTagInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TagSquareListBean?>>
+
+
+
+    /**
+     * 发布动态验证是否被禁封
+     */
+    @FormUrlEncoded
+    @POST("Square/checkBlock${Constants.END_BASE_URL}")
+    fun checkBlock(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any?>>
+
+
+    /**
      * 注销账号
      */
     @FormUrlEncoded

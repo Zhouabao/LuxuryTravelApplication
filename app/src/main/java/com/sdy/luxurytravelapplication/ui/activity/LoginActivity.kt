@@ -33,19 +33,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 //        ScreenUtils.setFullScreen(this)
 //        BarUtils.transparentStatusBar(this)
         syCode = intent.getIntExtra(SYCODE, -1)
-        if (syCode == -1) {
-            OneKeyLoginManager.getInstance().getPhoneInfo { i, s ->
-                syCode = i
-            }
-        }
 
-        if (UserManager.token.isNotEmpty()) {
-            if (UserManager.isUserInfoMade()) {
-                MainActivity.startToMain(this, true)
-            } else {
-                UserManager.clearLoginData()
-            }
-        }
     }
 
     override fun initView() {

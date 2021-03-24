@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="7dp"
+    android:layout_marginTop="7dp">
+
+    <ImageView
+        android:id="@+id/squareImg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/icon_arrow_white_up"
+        app:layout_constraintBottom_toBottomOf="@id/squareImg"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/squareOnlyTextContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_rectangle_light_green_15dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="6"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/squareImg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/squareImg" />
+
+
+    <ImageView
+        android:id="@+id/squareAudioCover"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/icon_audio_recommend"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/squareImg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/squareImg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/squareVideoState"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/shape_circle_cover"
+        android:src="@drawable/icon_video_recommend"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/squareDistanceLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/squareDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_white_5dp"
+            android:ellipsize="end"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingLeft="4dp"
+            android:paddingTop="1dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="1dp"
+            android:text="300Km"
+            android:textColor="#FF191919"
+            android:textSize="10sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/squareSweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_rectangle_ffedb2_5dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="4dp"
+        android:paddingTop="1dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="1dp"
+        android:text="身材认证"
+        android:textColor="#FFFC9010"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintLeft_toRightOf="@id/squareDistanceLl"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/squareContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="有功无过是短暂的，无功有过是行不通的，有功…"
+        android:textColor="#ff191919"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/squareImg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/squareAvator"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/icon_default_avator"
+        app:layout_constraintBottom_toBottomOf="@id/squareLike"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/squareLike" />
+
+    <TextView
+        android:id="@+id/squareName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="3dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="Alice DanielAlice"
+        android:textColor="#ff888d92"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/squareLike"
+        app:layout_constraintLeft_toRightOf="@id/squareAvator"
+        app:layout_constraintRight_toLeftOf="@id/squareSweetLogo"
+        app:layout_constraintTop_toTopOf="@id/squareLike"
+        app:layout_goneMarginRight="15dp" />
+
+    <ImageView
+        android:id="@+id/squareSweetLogo"
+        android:layout_width="36dp"
+        android:layout_height="11dp"
+        android:layout_marginRight="7dp"
+        android:src="@drawable/icon_index_luxury"
+        app:layout_constraintBottom_toBottomOf="@id/clickZanViewAni"
+        app:layout_constraintRight_toLeftOf="@id/clickZanViewAni"
+        app:layout_constraintTop_toTopOf="@id/clickZanViewAni" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/clickZanViewAni"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/squareLike"
+        app:layout_constraintTop_toBottomOf="@id/squareContent"
+        app:lottie_fileName="data_click_zan.json" />
+
+    <TextView
+        android:id="@+id/squareLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="123"
+        android:textColor="#ff888d92"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/squareContent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

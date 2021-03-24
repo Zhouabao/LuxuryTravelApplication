@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdy.luxurytravelapplication.widgets.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.TagDetailCategoryActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/samePersonBg"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/colorDivider"
+            android:scaleType="centerCrop" />
+
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/icon_back_white" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/sameAppbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
+
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="79dp"
+                app:contentScrim="@null"
+                app:expandedTitleGravity="center"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@null">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/llSame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="129dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/samePersonTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="#我看过最棒的演出"
+                            android:textColor="#ffffffff"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/publish"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:src="@drawable/icon_publish" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <RelativeLayout
+                    android:id="@+id/llTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:visibility="visible"
+                    app:layout_collapseMode="pin">
+
+                    <View
+                        android:id="@+id/statusView"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:background="@color/colorTransparent" />
+
+                    <ImageView
+                        android:id="@+id/btnBack1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/hotT1"
+                        android:layout_alignBottom="@id/hotT1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/icon_return_arrow" />
+
+                    <ImageView
+                        android:id="@+id/smallBg"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignTop="@id/hotT1"
+                        android:layout_alignBottom="@id/hotT1"
+                        android:layout_toRightOf="@id/btnBack1"
+                        android:src="@drawable/default_image_5dp" />
+
+                    <TextView
+                        android:id="@+id/hotT1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:layout_below="@id/statusView"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/smallBg"
+                        android:gravity="center"
+                        android:textColor="@color/color333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="黑名单" />
+
+
+                    <ImageView
+                        android:id="@+id/rightBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/statusView"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/icon_publish" />
+                </RelativeLayout>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshSamePerson"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:srlAccentColor="@color/colorBlack"
+            app:srlDisableContentWhenLoading="true"
+            app:srlDisableContentWhenRefresh="true"
+            app:srlEnableLoadMore="true"
+            app:srlEnableLoadMoreWhenContentNotFull="false"
+            app:srlEnableRefresh="true"
+            app:srlPrimaryColor="@color/colorTransparent">
+
+            <com.scwang.smart.refresh.header.MaterialHeader
+                android:id="@+id/refreshHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/samePersonRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="15dp"
+                />
+
+            <com.scwang.smart.refresh.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srlFinishDuration="200" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

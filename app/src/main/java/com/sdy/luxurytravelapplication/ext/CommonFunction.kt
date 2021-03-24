@@ -152,7 +152,7 @@ fun onTakePhoto(
     aspect_ratio_x: Int = 4,
     aspect_ratio_y: Int = 5
 ) {
-    PictureSelector.create(context as Activity)
+    PictureSelector.create(ActivityUtils.getTopActivity())
         .openGallery(chooseMode)
         .maxSelectNum(maxCount)
         .minSelectNum(0)
