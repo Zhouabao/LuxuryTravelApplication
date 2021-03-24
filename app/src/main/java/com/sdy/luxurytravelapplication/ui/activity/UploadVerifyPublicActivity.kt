@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.tools.SdkVersionUtils
 import com.sdy.luxurytravelapplication.R
@@ -113,6 +114,8 @@ class UploadVerifyPublicActivity :
                         binding.normalIconLl.isVisible = false
                     }
                 })
+                setRevealWidth(SizeUtils.dp2px(22F))
+                setPageMargin(SizeUtils.dp2px(15F))
                 create(UserManager.tempDatas)
             }
         }
@@ -160,6 +163,7 @@ class UploadVerifyPublicActivity :
                 finish()
             }
             binding.barCl.rightTextBtn -> {
+                startActivity<SweetHeartVerifyingActivity>()
 //                mPresenter.uploadPhoto(adappter.data[index].url, index)
             }
             binding.normalCloseBtn -> {

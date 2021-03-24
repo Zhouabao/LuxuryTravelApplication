@@ -99,8 +99,6 @@
             app:bvp_auto_play="false"
             app:bvp_can_loop="false"
             app:bvp_page_style="multi_page"
-            app:bvp_page_margin="15dp"
-            app:bvp_reveal_width="22dp"
             app:bvp_indicator_checked_color="@color/colorTransparent"
             app:bvp_indicator_gravity="center"
             app:bvp_indicator_normal_color="@color/colorTransparent"

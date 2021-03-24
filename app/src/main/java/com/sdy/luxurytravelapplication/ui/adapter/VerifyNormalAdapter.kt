@@ -1,6 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
-import android.widget.ImageView
+import android.widget.LinearLayout
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
@@ -16,9 +16,10 @@ import com.zhpan.bannerview.BaseViewHolder
  *    version: 1.0
  */
 class VerifyNormalAdapter(private val closeCallBack: CloseCallBack) : BaseBannerAdapter<String>() {
-interface CloseCallBack{
-    fun close()
-}
+    interface CloseCallBack {
+        fun close()
+    }
+
     override fun getLayoutId(viewType: Int): Int {
         return R.layout.item_sweet_normal_pic
     }
@@ -30,11 +31,15 @@ interface CloseCallBack{
         pageSize: Int
     ) {
         val binding = ItemSweetNormalPicBinding.bind(holder.itemView)
+        val params = binding.bannerImage.layoutParams as LinearLayout.LayoutParams
+        params.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(37 * 2F)
+        params.height = params.width / 3 * 4
+        binding.bannerImage.layoutParams = params
         GlideUtil.loadRoundImgCenterCrop(
             binding.root.context,
             data,
             binding.bannerImage,
-            SizeUtils.dp2px(15F)
+            SizeUtils.dp2px(10F)
         )
         binding.bannerClose.setOnClickListener {
             closeCallBack.close()

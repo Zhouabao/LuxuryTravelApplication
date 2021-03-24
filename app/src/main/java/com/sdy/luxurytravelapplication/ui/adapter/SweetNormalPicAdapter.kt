@@ -4,13 +4,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.databinding.ItemSweetNormalBottomPicBinding
 import com.sdy.luxurytravelapplication.databinding.ItemSweetNormalPicBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
-class SweetNormalPicAdapter() :
-    BaseBindingQuickAdapter<String, ItemSweetNormalPicBinding>(R.layout.item_sweet_normal_pic) {
-    override fun convert(binding: ItemSweetNormalPicBinding, position: Int, item: String) {
+class SweetNormalPicAdapter :
+    BaseBindingQuickAdapter<String, ItemSweetNormalBottomPicBinding>(R.layout.item_sweet_normal_bottom_pic) {
+    override fun convert(binding: ItemSweetNormalBottomPicBinding, position: Int, item: String) {
 
         binding.apply {
                 val params = root.layoutParams as RecyclerView.LayoutParams

@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.SweetHeartVerifyingActivity"></activity>
         <activity android:name=".ui.activity.UploadVerifyPublicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,14 +34,11 @@
 
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-
         </activity>
         <activity android:name=".ui.activity.UploadVerifyInfoActivity" />
-        <activity android:name=".ui.activity.ChooseVerifyActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.ChooseVerifyActivity"></activity>
         <activity android:name=".ui.activity.JoinLuxuryActivity" />
-        <activity android:name=".ui.activity.MainActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.PurchaseFootActivity" />
         <activity android:name=".ui.activity.InviteCodeActivity" />
         <activity
