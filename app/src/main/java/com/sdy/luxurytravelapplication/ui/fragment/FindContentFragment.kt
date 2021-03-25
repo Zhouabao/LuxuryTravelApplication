@@ -42,6 +42,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     private val adapter by lazy { RecommendSquareAdapter() }
     private val topicAdapter by lazy { SquareHeadTopicAdapter() }
     private var page = 1
+
     //请求广场的参数 TODO要更新tagid
     private val params by lazy {
         hashMapOf<String, Any>(
@@ -62,7 +63,8 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             findRv.adapter = adapter
 
             //android 瀑布流
-            adapter.setHeaderView(initHeadBannerView())
+            if (type == TYPE_RECOMMEND)
+                adapter.setHeaderView(initHeadBannerView())
             adapter.setEmptyView(R.layout.empty_friend_layout)
             val emptyBinding = EmptyFriendLayoutBinding.inflate(layoutInflater)
             emptyBinding.emptyFriendTitle.text = getString(R.string.nearby_empty_content)
@@ -120,18 +122,18 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
                 topicAdapter.setNewInstance(data?.banner)
             }
         }
-        if ( binding.refreshFind.state == RefreshState.Refreshing) {
+        if (binding.refreshFind.state == RefreshState.Refreshing) {
             adapter.data.clear()
             adapter.notifyDataSetChanged()
             binding.findRv.scrollToPosition(0)
-             binding.refreshFind.finishRefresh(b)
+            binding.refreshFind.finishRefresh(b)
         } else {
             if (data?.list.isNullOrEmpty() || (data?.list
                     ?: mutableListOf()).size < Constants.PAGESIZE
             )
-                 binding.refreshFind.finishLoadMoreWithNoMoreData()
+                binding.refreshFind.finishLoadMoreWithNoMoreData()
             else
-                 binding.refreshFind.finishLoadMore(b)
+                binding.refreshFind.finishLoadMore(b)
         }
 
         if ((data?.list ?: mutableListOf()).size > 0) {
@@ -145,6 +147,6 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
         if (adapter.data.isEmpty()) {
             adapter.isUseEmpty = true
         }
-        
+
     }
 }
