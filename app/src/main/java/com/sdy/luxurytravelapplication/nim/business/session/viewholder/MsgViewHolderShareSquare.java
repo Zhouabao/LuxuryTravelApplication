@@ -51,12 +51,12 @@ public class MsgViewHolderShareSquare extends MsgViewHolderBase {
             shareDesc.setText(R.string.share_a_square_for_u);
         }
         shareContent.setText(attachment.getDesc());
-        GlideUtil.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(5F));
+        GlideUtil.INSTANCE.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(5F));
         if (attachment.getShareType() == SquareBean.VIDEO) {
             shareTypeMedia.setVisibility(View.VISIBLE);
             shareTypeText.setVisibility(View.GONE);
             shareTypeMedia.setImageResource(R.drawable.icon_play_transparent);
-            GlideUtil.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(10F));
+            GlideUtil.INSTANCE.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(10F));
         } else if (attachment.getShareType() == SquareBean.AUDIO) {
             shareTypeMedia.setVisibility(View.VISIBLE);
             shareTypeText.setVisibility(View.GONE);
@@ -65,7 +65,7 @@ public class MsgViewHolderShareSquare extends MsgViewHolderBase {
         } else if (attachment.getShareType() == SquareBean.PIC) {
             shareTypeMedia.setVisibility(View.GONE);
             shareTypeText.setVisibility(View.GONE);
-            GlideUtil.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(10F));
+            GlideUtil.INSTANCE.loadRoundImgCenterCrop(context, attachment.getImg(), shareImg, SizeUtils.dp2px(10F));
         } else {
             shareTypeMedia.setVisibility(View.GONE);
             shareTypeText.setVisibility(View.VISIBLE);

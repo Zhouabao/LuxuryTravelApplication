@@ -1,5 +1,7 @@
 package com.sdy.luxurytravelapplication.ext
 
+import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.base.IModel
@@ -9,6 +11,7 @@ import com.sdy.luxurytravelapplication.http.exception.ExceptionHandle
 import com.sdy.luxurytravelapplication.http.function.RetryWithDelay
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseBean
 import com.cxz.wanandroid.rx.SchedulerUtils
+import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -47,6 +50,16 @@ fun <T : BaseBean> Observable<T>.ss(
                         t.code == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
                         t.code == ErrorStatus.TOKEN_INVALID -> {
                             // Token 过期，重新登录
+                            MessageDialog.show(
+                                ActivityUtils.getTopActivity() as AppCompatActivity,
+                                ActivityUtils.getTopActivity() .  getString(R.string.login_expired),
+                                ActivityUtils.getTopActivity() .   getString(R.string.please_relogin)
+                            )
+                                .setCancelable(false)
+                                .setOnOkButtonClickListener { baseDialog, v ->
+                                    CommonFunction.loginOut(ActivityUtils.getTopActivity())
+                                    false
+                                }
                         }
                         else -> view?.showDefaultMsg(t.msg)
                     }
@@ -73,6 +86,16 @@ fun <T : BaseBean> Observable<T>.sss(
                     it.code == ErrorStatus.SUCCESS -> onSuccess.invoke(it)
                     it.code == ErrorStatus.TOKEN_INVALID -> {
                         // Token 过期，重新登录
+                        MessageDialog.show(
+                            ActivityUtils.getTopActivity() as AppCompatActivity,
+                            ActivityUtils.getTopActivity() .  getString(R.string.login_expired),
+                            ActivityUtils.getTopActivity() .   getString(R.string.please_relogin)
+                        )
+                            .setCancelable(false)
+                            .setOnOkButtonClickListener { baseDialog, v ->
+                                CommonFunction.loginOut(ActivityUtils.getTopActivity())
+                                false
+                            }
                     }
                     else -> {
                         if (onError != null) {
@@ -103,6 +126,17 @@ fun <T : BaseBean> Observable<T>.ssss(
                 when (it.code) {
                     ErrorStatus.TOKEN_INVALID -> {
                         // Token 过期，重新登录
+                        // Token 过期，重新登录
+                        MessageDialog.show(
+                            ActivityUtils.getTopActivity() as AppCompatActivity,
+                            ActivityUtils.getTopActivity() .  getString(R.string.login_expired),
+                            ActivityUtils.getTopActivity() .   getString(R.string.please_relogin)
+                        )
+                            .setCancelable(false)
+                            .setOnOkButtonClickListener { baseDialog, v ->
+                                CommonFunction.loginOut(ActivityUtils.getTopActivity())
+                                false
+                            }
                     }
                     else -> {
                         onResult.invoke(it)

@@ -13,9 +13,14 @@
         <ImageView
             android:id="@+id/samePersonBg"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:background="@color/colorDivider"
-            android:scaleType="centerCrop" />
+            android:layout_height="193dp"
+            android:layout_marginBottom="8dp" />
+
+        <View
+            android:id="@+id/samePersonBg1"
+            android:layout_width="match_parent"
+            android:layout_height="193dp"
+            android:background="@drawable/gradient_rectangle_cover_bottom_20dp" />
 
 
         <ImageView
@@ -118,15 +123,16 @@
                         android:layout_alignTop="@id/hotT1"
                         android:layout_alignBottom="@id/hotT1"
                         android:layout_toRightOf="@id/btnBack1"
-                        android:src="@drawable/default_image_5dp" />
+                        android:src="@drawable/default_image_5dp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/hotT1"
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:layout_below="@id/statusView"
+                        android:layout_centerInParent="true"
                         android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/smallBg"
                         android:gravity="center"
                         android:textColor="@color/color333"
                         android:textSize="16sp"
@@ -139,7 +145,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/statusView"
+                        android:layout_alignTop="@id/hotT1"
                         android:layout_alignParentRight="true"
+                        android:layout_alignBottom="@id/hotT1"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:src="@drawable/icon_publish" />
@@ -174,8 +182,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="15dp"
-                />
+                android:layout_marginRight="15dp" />
 
             <com.scwang.smart.refresh.footer.ClassicsFooter
                 android:layout_width="match_parent"

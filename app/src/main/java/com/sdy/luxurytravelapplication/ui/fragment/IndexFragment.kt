@@ -54,7 +54,7 @@ class IndexFragment :
             recommendUsers.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter
-            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
+            titleIndex.setTabData(titles, activity!!, indexContent.id, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     addLuxuryCl.isVisible = position == 2

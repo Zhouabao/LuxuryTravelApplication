@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.VibrateUtils
 import com.bumptech.glide.Glide
@@ -105,25 +104,23 @@ class RecommendSquareAdapter :
                 squareImg.isVisible = true
                 squareAudioCover.isVisible = false
                 squareVideoState.isVisible = false
-                GlideUtil.loadRoundImgCenterCrop(
+                GlideUtil.loadImg(
                     context,
                     item.cover_url,
-                    squareImg,
-                    SizeUtils.dp2px(15F)
+                    squareImg
                 )
-            }else if (item.type==2) {//2视频
+            } else if (item.type == 2) {//2视频
                 squareOnlyTextContent.isVisible = false
                 squareImg.isVisible = true
                 squareAudioCover.isVisible = false
                 squareVideoState.isVisible = true
                 squareVideoState.setImageResource(R.drawable.icon_play_transparent)
-                GlideUtil.loadRoundImgCenterCrop(
+                GlideUtil.loadImg(
                     context,
                     item.cover_url,
-                    squareImg,
-                    SizeUtils.dp2px(15F)
+                    squareImg
                 )
-            }else if (item.type == 3) {//语音
+            } else if (item.type == 3) {//语音
                 squareOnlyTextContent.isVisible = false
                 squareImg.isVisible = true
                 squareAudioCover.isVisible = true

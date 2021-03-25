@@ -15,9 +15,9 @@ import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.color.CircleView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.event.NetworkChangeEvent
 import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.receiver.NetworkChangeReceiver
@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     lateinit var binding: VB
+
     /**
      * check login
      */
@@ -109,7 +110,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         BarUtils.transparentStatusBar(this)
-        BarUtils.setStatusBarLightMode(this,true)
+        BarUtils.setStatusBarLightMode(this, true)
         binding = inflateBindingWithGeneric(layoutInflater)
         setContentView(binding.root)
         if (useEventBus()) {
@@ -193,7 +194,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     }
 
     open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
-        start()
+        if (mLayoutStatusView?.viewStatus != MultipleStatusView.STATUS_CONTENT)
+            start()
     }
 
     protected fun initToolbar(toolbar: Toolbar, homeAsUpEnabled: Boolean, title: String) {

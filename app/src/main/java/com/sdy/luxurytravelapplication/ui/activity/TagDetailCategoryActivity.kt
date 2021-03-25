@@ -23,6 +23,7 @@ import com.sdy.luxurytravelapplication.mvp.contract.TagDetailCategoryContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.TagSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.TagDetailCategoryPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.abs
@@ -66,7 +67,6 @@ class TagDetailCategoryActivity :
     override fun initData() {
         binding.apply {
             mLayoutStatusView = root
-            smallBg.isVisible = type == TYPE_TAG
             samePersonTitle.textSize = if (type == TYPE_TAG) {
                 24F
             } else {
@@ -106,11 +106,14 @@ class TagDetailCategoryActivity :
                 if (llTitle.isVisible) {
                     llSame.visibility = View.INVISIBLE
                     samePersonBg.isVisible = false
+                    samePersonBg1.isVisible = false
                     btnBack.isVisible = false
                 } else {
                     btnBack.isVisible = true
                     llSame.visibility = View.VISIBLE
                     samePersonBg.isVisible = true
+                    samePersonBg1.isVisible = true
+
                 }
             })
 
@@ -139,12 +142,12 @@ class TagDetailCategoryActivity :
 
         if (binding.refreshSamePerson.state != RefreshState.Loading) {
             data?.banner?.let {
-                GlideUtil.loadImgCenterCrop(this, it.icon, binding.samePersonBg)
                 GlideUtil.loadRoundImgCenterCrop(
                     this,
                     it.icon,
-                    binding.smallBg,
-                    SizeUtils.dp2px(5F)
+                    binding.samePersonBg,
+                    SizeUtils.dp2px(20F),
+                    RoundedCornersTransformation.CornerType.BOTTOM
                 )
                 binding.samePersonTitle.text = it.title
                 binding.hotT1.text = it.title
