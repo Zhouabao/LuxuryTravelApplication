@@ -41,6 +41,10 @@ import org.jetbrains.anko.newTask
  */
 
 object CommonFunction {
+
+    fun checkChat(context1: Context, target_accid: String){}
+
+
     /**
      * 退出登录
      */

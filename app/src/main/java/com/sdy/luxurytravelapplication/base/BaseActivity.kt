@@ -35,6 +35,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     lateinit var binding: VB
 
+    val  TAG by lazy { this::class.java.simpleName }
+
     /**
      * check login
      */

@@ -453,5 +453,31 @@
     <string name="recommend">推荐</string>
     <string name="empty_friend">您还没有好友</string>
     <string name="publish_square">发布</string>
+    <string name="official">官方助手</string>
+    <string name="collapse">收起</string>
+    <string name="expand">展开</string>
+    <string name="say_your_feel">说点什么吧~</string>
+    <string name="he">他</string>
+    <string name="she">她</string>
+    <string name="verify_info">的认证资料</string>
+    <string name="square_detail">动态详情</string>
+    <string name="wirte_comment">快写下你的评论吧</string>
+    <string name="reply">回复</string>
+    <string name="remove_square">该动态已被删除</string>
+    <string name="hot_comment">热门评论</string>
+    <string name="all_comment">所有评论</string>
+    <string name="delete_success">删除成功!</string>
+    <string name="collect">收藏</string>
+    <string name="cancel_collect">取消收藏</string>
+    <string name="report_square_title">动态举报</string>
+    <string name="delete_fail">动态删除失败！</string>
+    <string name="has_copy">已复制内容到剪贴板</string>
+    <string name="my_info_title">我的认证资料</string>
 
+    <string name="sweet_rich_user">平台认证高资产用户，想和他交个朋友吗</string>
+    <string name="sweet_luxury_car">平台认证豪车用户，听说上车会很热呢</string>
+    <string name="sweet_good_shencai">经平台评估身材具有吸引力和有一定高端约会意向</string>
+    <string name="sweet_job">职业认证通过代表用户职业正当且有一定高端约会意向</string>
+    <string name="sweet_education">经平台认证用户为985/211高等学府毕业</string>
+    <string name="audio_play_error">音频播放出错</string>
 </resources>

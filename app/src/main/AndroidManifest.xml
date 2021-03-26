@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.TagDetailCategoryActivity"></activity>
+        <activity android:name=".ui.activity.SquareCommentDetailActivity"/>
+        <activity android:name=".ui.activity.TagDetailCategoryActivity" />
         <activity android:name=".ui.activity.FindAllTagActivity" />
         <activity android:name=".ui.activity.SweetHeartVerifyingActivity" />
         <activity android:name=".ui.activity.UploadVerifyPublicActivity" />

@@ -57,3 +57,19 @@ class RefreshLikeEvent(
     val position: Int,
     var likeCount: Int = -1
 )
+
+
+
+//刷新删除动态事件
+class RefreshDeleteSquareEvent(val squareId: Int)
+
+
+//刷新评论数量
+class RefreshCommentEvent(val commentNum: Int, val position: Int)
+
+
+//刷新事件  local 是否是本地
+class RefreshSquareEvent(val refresh: Boolean, var from: String = "")
+
+//根据性别筛选更新数据
+class RefreshSquareByGenderEvent()

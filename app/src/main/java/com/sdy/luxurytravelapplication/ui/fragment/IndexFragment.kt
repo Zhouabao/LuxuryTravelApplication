@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +55,8 @@ class IndexFragment :
             recommendUsers.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter
-            titleIndex.setTabData(titles, activity!!, indexContent.id, fragments)
+            titleIndex.setTabData(titles)
+//            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     addLuxuryCl.isVisible = position == 2
@@ -90,7 +92,7 @@ class IndexFragment :
         peopleRecommendTopAdapter.setNewInstance(data.list)
         UserManager.gender = data.gender
         if ((data.gender == 1 && data.isplatinumvip) || (data.gender == 2 && data.mv_url)) {
-            binding.tobeSelectedBtn.isVisible = false
+            binding.tobeSelectedBtn.isVisible=false
             val params = (binding.recommendUsers.layoutParams as ConstraintLayout.LayoutParams)
             params.leftMargin = SizeUtils.dp2px(5F)
         } else {

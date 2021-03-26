@@ -115,6 +115,106 @@ interface ApiService {
     fun checkBlock(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any?>>
 
 
+
+
+    /**
+     * 获取某一广场详情
+     */
+    @FormUrlEncoded
+    @POST("square/squareInfoV13${Constants.END_BASE_URL}")
+    fun getSquareInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SquareBean?>>
+
+
+
+    /**
+     * 分享成功调用
+     */
+    @FormUrlEncoded
+    @POST("square/addShare${Constants.END_BASE_URL}")
+    fun addShare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 广场评论
+     */
+    @FormUrlEncoded
+    @POST("square/addComment${Constants.END_BASE_URL}")
+    fun addComment(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 广场收藏
+     */
+    @FormUrlEncoded
+    @POST("square/squareCollect${Constants.END_BASE_URL}")
+    fun getSquareCollect(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 广场举报
+     */
+    @FormUrlEncoded
+    @POST("square/squareReport${Constants.END_BASE_URL}")
+    fun getSquareReport(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 获取广场的评论列表
+     */
+    @FormUrlEncoded
+    @POST("square/commentLists${Constants.END_BASE_URL}")
+    fun getCommentLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<AllCommentBean?>>
+
+    /**
+     * 删除评论
+     */
+    @FormUrlEncoded
+    @POST("square/destoryComment${Constants.END_BASE_URL}")
+    fun destoryComment(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 删除我的动态
+     */
+    @FormUrlEncoded
+    @POST("square/removeMySquare${Constants.END_BASE_URL}")
+    fun removeMySquare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+    /**
+     * 评论点赞
+     */
+    @FormUrlEncoded
+    @POST("square/commentLikes${Constants.END_BASE_URL}")
+    fun commentLikes(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 评论举报
+     */
+    @FormUrlEncoded
+    @POST("square/replyReport${Constants.END_BASE_URL}")
+    fun commentReport(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 广场发布
+     */
+    @FormUrlEncoded
+    @POST("square/announceV13${Constants.END_BASE_URL}")
+    fun squareAnnounce(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 注销账号
      */
@@ -211,5 +311,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Gifts/refundGift${Constants.END_BASE_URL}")
     fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
 
 }

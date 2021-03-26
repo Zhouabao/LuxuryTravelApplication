@@ -116,7 +116,7 @@ fun <T : BaseBean> Observable<T>.sss(
 
 fun <T : BaseBean> Observable<T>.ssss(
     view: IView?=null,
-    isShowLoading: Boolean = true,
+    isShowLoading: Boolean = false,
     onResult: (T) -> Unit
 ): Disposable {
     if (isShowLoading) view?.showLoading()

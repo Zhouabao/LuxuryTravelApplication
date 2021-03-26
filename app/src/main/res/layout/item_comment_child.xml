@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/commentReplyContent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_vip_charge_normal_bg"
+        android:padding="10dp"
+        android:text="孟敏：将内容组织后得到8个视图界面：浏览影片浏览影片浏览影片浏览影片浏览影片浏览影片浏览影片浏览影片"
+        android:textColor="#ff666666"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

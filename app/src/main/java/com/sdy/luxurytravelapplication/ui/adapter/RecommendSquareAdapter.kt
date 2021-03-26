@@ -22,6 +22,7 @@ import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareBean
+import com.sdy.luxurytravelapplication.ui.activity.SquareCommentDetailActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -181,7 +182,6 @@ class RecommendSquareAdapter :
 
             //点击跳转
             root.setOnClickListener {
-                ToastUtil.toast("$position")
 //                if (UserManager.touristMode) {
 //                    TouristDialog(context).show()
 //                } else {
@@ -200,17 +200,17 @@ class RecommendSquareAdapter :
 //                                    position - headerLayoutCount
 //                                )
 //                        }
-//                        SquareCommentDetailActivity.start(
-//                            context,
-//                            squareId = item.id,
-//                            position = helper.layoutPosition - headerLayoutCount,
-//                            type = if (item.approve_type != 0) {
-//                                SquareCommentDetailActivity.TYPE_SWEET
-//                            } else {
-//                                SquareCommentDetailActivity.TYPE_SQUARE
-//                            },
-//                            gender = item.gender
-//                        )
+                        SquareCommentDetailActivity.start(
+                            context,
+                            squareId = item.id,
+                            position = position,
+                            type = if (item.approve_type != 0) {
+                                SquareCommentDetailActivity.TYPE_SWEET
+                            } else {
+                                SquareCommentDetailActivity.TYPE_SQUARE
+                            },
+                            gender = item.gender
+                        )
 //
 //                    }
 //                }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="wrap_content">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/commentUser"
+        android:layout_width="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:scaleType="centerCrop"
+        android:layout_height="35dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/commentUserName"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正宇的查卡拉"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@id/commentUser"
+        app:layout_constraintTop_toTopOf="@id/commentUser"
+        />
+
+    <TextView
+        android:id="@+id/commentTime"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="04-16 14:32"
+        android:textColor="@color/colorBlack99"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@id/commentUserName"
+        app:layout_constraintTop_toBottomOf="@id/commentUserName"
+        />
+
+    <ImageView
+        android:id="@+id/commentReplyBtn"
+        android:src="@drawable/icon_comment"
+        android:layout_width="30dp"
+        android:padding="5dp"
+        android:layout_height="30dp"
+        android:scaleType="centerInside"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/commentUser"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/commentUser"/>
+
+    <LinearLayout
+        android:id="@+id/llCommentDianzanBtn"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/commentUser"
+        app:layout_constraintRight_toLeftOf="@id/commentReplyBtn"
+        app:layout_constraintTop_toTopOf="@id/commentUser">
+
+        <ImageView
+            android:id="@+id/commentDianzanBtn"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_zan_comment_normal"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            app:layout_constraintRight_toLeftOf="@id/commentDianzanNum"
+            />
+
+        <TextView
+            android:id="@+id/commentDianzanNum"
+            android:text="3"
+            android:textColor="#FF696E73"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/commentDianzanBtn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/commentDianzanBtn"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/commentContent"
+        android:layout_marginTop="10dp"
+        android:layout_width="0dp"
+        android:text="语雀是一款优雅高效的在线文档编辑与协同工具，让每个企业轻松拥有文档中心阿里巴巴集团内部使用多年，众多中小企业首选。"
+        android:layout_height="wrap_content"
+        android:textColor="#FF2C2F31"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/commentUserName"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="15dp"
+        app:layout_constraintTop_toBottomOf="@id/commentTime"/>
+
+    <include
+        android:id="@+id/childView"
+        layout="@layout/item_comment_child"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toRightOf="@id/commentContent"
+        android:layout_marginRight="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/commentUserName"
+        app:layout_constraintTop_toBottomOf="@id/commentContent"/>
+
+    <View
+        android:id="@+id/commentDivider"
+        android:background="#EFEFEF"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/childView"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/commentUserName"
+        app:layout_constraintRight_toRightOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

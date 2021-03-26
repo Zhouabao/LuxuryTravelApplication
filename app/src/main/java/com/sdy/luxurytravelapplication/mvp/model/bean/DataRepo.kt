@@ -108,34 +108,54 @@ data class PublishWayBean(var checked: Boolean, var normalIcon: Int, var checked
 
 
 data class SquareBean(
+    var isdirectvip: Boolean = false,    //是否铂金会员 true是 false不是
+    var isplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
+    var isvip: Int = 0,//是否会员 1是 0 不是
     var accid: String = "",
-    var audio_json: ArrayList<VideoJson> = arrayListOf(),
+    var audio_json: MutableList<VideoJson>?,
     var avatar: String = "",
     var city_name: String = "",
     var comment_cnt: Int = 0,
-    var cover_url: String = "",
     var create_time: String = "",
-    var descr: String = "",
-    var id: Int = 0,
-    var iscollected: Boolean = false,
-    var isfocused: Boolean = false,
-    var originalFocus: Boolean = false,
-    var isvip: Boolean = false,
-    var isliked: Boolean = false,
-    var istalk_btn: Boolean = false, //为True才显示  为false不显示
+    var descr: String? = "",
+    var id: Int?,
+    var title_id: Int?,
+    var isliked: Int = 0,
+    var iscollected: Int?,//0没收藏 1收藏
     var like_cnt: Int = 0,
-    var gender: Int = 0,
-    var clickCnt: Int = 0,
-    var nickname: String = "",
-    var out_time: String = "",
-    var photo_json: ArrayList<VideoJson> = arrayListOf(),
-    var province_name: String = "",
-    var puber_address: String = "",
-    var share_cnt: Int = 0,
-    var type: Int = TEXT,
-    var lastZanTime: Long = 0L,
-    var lastFocusTime: Long = 0L,
-    var video_json: ArrayList<VideoJson> = arrayListOf()
+    var member_level: Int?,
+    var nickname: String?,
+    var out_time: String?,
+    var puber_address: String?,
+    var photo_json: MutableList<VideoJson>?,
+    var province_name: String?,
+    var share_cnt: Int?,
+    var tag_id: Int?,
+    var title: String?,
+    var cover_url: String?,
+    var tags: String?,
+    var video_json: MutableList<VideoJson>?,
+    var isfriend: Boolean = true,
+    var greet_switch: Boolean = true,//接收招呼开关   true  接收招呼      false   不接受招呼
+    var greet_state: Boolean = true,// 认证招呼开关   true  开启认证      flase   不开启认证
+    var icon: String = "",
+    var isPlayAudio: Int = 0, //0未播放  1 播放中 2暂停  3 停止
+    var comment: String = "",
+    val distance: String = "",
+    var link_url: String?,
+    var type: Int = 1,
+    var category_type: Int = 1,
+    var duration: Long = 0L,
+    var clickTime: Int = 0,
+    var gender: Int = 2,
+    var originalLike: Int = 0,
+    var originalLikeCount: Int = 0,
+    var isgreeted: Boolean = true,//招呼是否仍然有效
+    var member_id: Int? = null,
+    var title_list: MutableList<TopicBean>? = mutableListOf(),
+    var approve_type: Int = 0,// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证  5高额充值
+    val assets_audit_descr: String="",
+    var issweet: Boolean = true//是否是甜心圈
 ) : Serializable {
     companion object {
         const val TEXT = 0
@@ -470,4 +490,36 @@ data class SquareTagBean(
 data class TagSquareListBean(
     var banner: SquareBannerBean,
     var list: MutableList<RecommendSquareBean> = mutableListOf()
+)
+
+/**
+ * 评论数据
+ */
+data class CommentBean(
+    var avatar: String? = null,
+    var content: String? = null,
+    var create_time: String? = null,
+    var id: Int? = 0,
+    var isliked: Int? = 0,
+    var like_count: Int? = 0,
+    var member_accid: String? = null,
+    var reply_content: String? = null,
+    var reply_count: Int? = 0,
+    var reply_id: Int? = 0,
+    var replyed_nickname: String? = null,
+    var nickname: String? = null,
+    var square_id: Int? = 0,
+    var type: Int = 1, //1数据  0标题
+    override var itemType: Int = type
+) : MultiItemEntity {
+    companion object {
+        const val TITLE = 0
+        const val CONTENT = 1
+    }
+
+}
+
+data class AllCommentBean(
+    var hotlist: MutableList<CommentBean>?,
+    var list: MutableList<CommentBean>?
 )
