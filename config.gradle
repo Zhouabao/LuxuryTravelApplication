@@ -77,7 +77,9 @@ ext {
             "android-autosize"            : 'me.jessyan:autosize:1.2.1',
             "BannerViewPager"             : 'com.github.zhpanvip:BannerViewPager:3.5.0',
             "android-verificationcodeview": 'com.jyn.verificationcodeview:verificationcodeview:1.0.1',
-            //图片选择器
+            //倒计时
+            "count-down-timer"             : 'in.xiandan:count-down-timer:1.0.3',
+             //图片选择器
             "picture-library"             : 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.6',
             //刷新
             "smart-refresh"               : 'com.scwang.smart:refresh-layout-kernel:2.0.3',

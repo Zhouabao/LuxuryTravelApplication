@@ -2,7 +2,6 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +19,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexPresenter
 import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
+import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.ui.adapter.PeopleRecommendTopAdapter
 import com.sdy.luxurytravelapplication.ui.dialog.ToBeSelectedDialog
 
@@ -56,10 +56,13 @@ class IndexFragment :
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter
             titleIndex.setTabData(titles)
+            indexContent.adapter = MainPager2Adapter(activity!!, fragments)
+            indexContent.isUserInputEnabled = false
 //            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     addLuxuryCl.isVisible = position == 2
+                    indexContent.currentItem = position
                 }
 
                 override fun onTabReselect(position: Int) {
@@ -67,6 +70,7 @@ class IndexFragment :
 
             })
             titleIndex.currentTab = 0
+            indexContent.currentItem = 0
 
             ClickUtils.applySingleDebouncing(
                 arrayOf(addLuxuryBtn, tobeSelectedBtn),
@@ -92,7 +96,7 @@ class IndexFragment :
         peopleRecommendTopAdapter.setNewInstance(data.list)
         UserManager.gender = data.gender
         if ((data.gender == 1 && data.isplatinumvip) || (data.gender == 2 && data.mv_url)) {
-            binding.tobeSelectedBtn.isVisible=false
+            binding.tobeSelectedBtn.isVisible = false
             val params = (binding.recommendUsers.layoutParams as ConstraintLayout.LayoutParams)
             params.leftMargin = SizeUtils.dp2px(5F)
         } else {

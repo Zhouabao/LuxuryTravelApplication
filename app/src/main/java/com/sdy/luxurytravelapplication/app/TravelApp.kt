@@ -43,6 +43,7 @@ import com.sdy.luxurytravelapplication.nim.impl.provider.NimDemoLocationProvider
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoMixPushMessageHandler
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoPushContentProvider
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.Bugly
@@ -355,6 +356,7 @@ class TravelApp : Application() {
         refWatcher = setupLeakCanary()
         configUnits()
         Utils.init(this)
+        CrashUtils.init(UriUtils.getCacheDir(context))
         initBugly()
         initSy()
         initNimUIKit()

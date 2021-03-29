@@ -2,10 +2,13 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ClickUtils
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseFragment
 import com.sdy.luxurytravelapplication.databinding.FragmentFindBinding
+import com.sdy.luxurytravelapplication.ui.activity.PublishActivity
+import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,9 +36,13 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
 
     override fun initView(view: View) {
         binding.apply {
-            tabFind.setTabData(titles, activity!!, content.id, fragments)
+            content.isUserInputEnabled = false
+            content.adapter = MainPager2Adapter(activity!!, fragments)
+            tabFind.setTabData(titles)
+//            tabFind.setTabData(titles, activity!!, R.id.content, fragments)
             tabFind.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
+                    content.currentItem = position
                 }
 
                 override fun onTabReselect(position: Int) {
@@ -43,6 +50,10 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
 
             })
             tabFind.currentTab = 0
+            content.currentItem = 0
+            ClickUtils.applySingleDebouncing(publishBtn) {
+                PublishActivity.start(activity!!)
+            }
         }
 
     }

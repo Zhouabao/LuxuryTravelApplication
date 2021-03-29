@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.event
 
+import android.content.Context
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import java.io.File
 
@@ -43,7 +44,6 @@ class UpdateUnreadCntEvent
 class SendLikeTipMessageEvent(val accid: String, val isReceive: Boolean)
 
 
-
 //更新个人认证
 class UpdateVerifyEvent
 
@@ -59,7 +59,6 @@ class RefreshLikeEvent(
 )
 
 
-
 //刷新删除动态事件
 class RefreshDeleteSquareEvent(val squareId: Int)
 
@@ -73,3 +72,13 @@ class RefreshSquareEvent(val refresh: Boolean, var from: String = "")
 
 //根据性别筛选更新数据
 class RefreshSquareByGenderEvent()
+
+
+/*语音播放单例回调*/
+class OneVoicePlayEvent(val playPosition: Int, val type: Int, val context: Context)
+
+/**
+ * 录制完成
+ */
+class RecordCompleteEvent(val duration: Int, val filePath: String)
+

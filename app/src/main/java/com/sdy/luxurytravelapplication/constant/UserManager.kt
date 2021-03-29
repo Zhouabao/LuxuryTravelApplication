@@ -19,7 +19,8 @@ import org.greenrobot.eventbus.EventBus
  *    version: 1.0
  */
 object UserManager {
-
+    /*************动态语音播放位置记录****************/
+    var currentPlayPosition = -1
 
     /*************登录注册公共方法*********************/
 

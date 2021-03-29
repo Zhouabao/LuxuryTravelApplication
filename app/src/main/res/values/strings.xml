@@ -480,4 +480,17 @@
     <string name="sweet_job">职业认证通过代表用户职业正当且有一定高端约会意向</string>
     <string name="sweet_education">经平台认证用户为985/211高等学府毕业</string>
     <string name="audio_play_error">音频播放出错</string>
+
+
+    <string name="re_record_title">重新录制</string>
+    <string name="confirm_to_re_record">确定重新录制？</string>
+    <string name="record_longer">再录制长一点吧</string>
+    <string name="delete_and_re_record">删除并重新录制</string>
+    <string name="click_to_try_listen">点击试听</string>
+    <string name="click_to_end_record">点击结束录制</string>
+    <string name="click_to_start_record">点击开始录制</string>
+    <string name="record_complete">录制完成</string>
+    <string name="left_10_seconds_to_record">还可以录制10秒钟哦，抓紧时间</string>
+    <string name="permission_record_rejected">录音权限被拒,请开启后再录音.</string>
+    <string name="permission_storage">请先开启相册权限</string>
 </resources>

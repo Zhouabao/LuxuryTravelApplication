@@ -11,7 +11,6 @@ import java.io.IOException;
  * Time:17:41
  */
 public class MediaPlayerHelper {
-
     private static MediaPlayer mMediaPlayer;
     private static boolean isPause = false;
 
@@ -19,7 +18,13 @@ public class MediaPlayerHelper {
         playSound(filePath, null);
     }
 
+
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
+        playSound(filePath, onCompletionListener, null);
+
+    }
+
+    public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener, MediaPlayer.OnPreparedListener onPreparedListener) {
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -37,11 +42,14 @@ public class MediaPlayerHelper {
             if (onCompletionListener != null) {
                 mMediaPlayer.setOnCompletionListener(onCompletionListener);
             }
-
+            if (onPreparedListener != null) {
+                mMediaPlayer.setOnPreparedListener(onPreparedListener);
+            }
 
             mMediaPlayer.setDataSource(filePath);
             mMediaPlayer.prepare();
             mMediaPlayer.start();
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
@@ -74,6 +82,12 @@ public class MediaPlayerHelper {
             mMediaPlayer.start();
             isPause = false;
         }
+    }
+
+    public static boolean isPlaying() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            return true;
+        } else return false;
     }
 
     /**

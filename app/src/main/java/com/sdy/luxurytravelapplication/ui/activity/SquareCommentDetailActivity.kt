@@ -143,18 +143,6 @@ class SquareCommentDetailActivity :
 
             adapter.setOnItemChildClickListener { _, view, position ->
                 when (view.id) {
-                    R.id.commentUser -> {
-//                        if ((adapter.data[position].member_accid ?: "") != UserManager.accid)
-//                            MatchDetailActivity.start(
-//                                this,
-//                                adapter.data[position].member_accid ?: ""
-//                            )
-//                    reply = true
-//                    reply_id = adapter.data[position].reply_id!!
-//                    showCommentEt.isFocusable = true
-//                    showCommentEt.hint = "『回复\t${adapter.data[position].replyed_nickname}：』"
-//                    KeyboardUtils.showSoftInput(showCommentEt)
-                    }
                     R.id.llCommentDianzanBtn -> {
                         mPresenter?.getCommentLike(
                             hashMapOf(
@@ -315,7 +303,7 @@ class SquareCommentDetailActivity :
             val params =
                 binding.bottomLayout.squareSweetVerifyContentCl.layoutParams as ConstraintLayout.LayoutParams
             params.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15 * 2F)
-            params.height = (params.width * (177 / 1035F)).toInt()
+            params.height = (params.width * (285F / 1065F)).toInt()
 
             //// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证
 //            if (squareBean!!.approve_type == 1 || squareBean!!.approve_type == 2 || squareBean!!.approve_type == 5) {
@@ -520,9 +508,6 @@ class SquareCommentDetailActivity :
             null,
             ""
         )
-//         binding.  squareUserVideo.setSwitchUrl(squareBean!!.video_json?.get(0)?.url ?: "")
-//         binding.  squareUserVideo.setSwitchCache(false)
-//         binding.  squareUserVideo.setUp(squareBean!!.video_json?.get(0)?.url ?: "", false, "")
         binding.squareUserVideo.startPlayLogic()
         binding.squareUserVideo.binding.detailBtn.setOnClickListener {
             if (binding.squareUserVideo.isInPlayingState) {

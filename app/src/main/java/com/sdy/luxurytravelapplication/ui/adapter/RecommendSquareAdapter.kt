@@ -125,8 +125,7 @@ class RecommendSquareAdapter :
                 squareOnlyTextContent.isVisible = false
                 squareImg.isVisible = true
                 squareAudioCover.isVisible = true
-                squareVideoState.isVisible = true
-                squareVideoState.setImageResource(R.drawable.icon_audio_recommend)
+                squareVideoState.isVisible = false
 
                 val multiTransformation = MultiTransformation(
                     CenterCrop(),

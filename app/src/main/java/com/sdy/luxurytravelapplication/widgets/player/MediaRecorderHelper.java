@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.MediaRecorder;
 import android.os.Environment;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import java.io.File;
 
 /**
@@ -41,7 +43,7 @@ public class MediaRecorderHelper {
             path = context.getCacheDir().getAbsolutePath();
 
         }
-        return path + File.separator + "jitangapplicaiton" + File.separator + "audio";
+        return path + File.separator + AppUtils.getAppPackageName() + File.separator + "audio";
     }
 
 
@@ -52,6 +54,7 @@ public class MediaRecorderHelper {
         try {
             mMediaRecorder = new MediaRecorder();
             File file = new File(mSavePath, generateFileName());
+//            file.createNewFile();
             mCurrentFilePath = file.getAbsolutePath();
             // 设置录音文件的保存位置
             mMediaRecorder.setOutputFile(mCurrentFilePath);
