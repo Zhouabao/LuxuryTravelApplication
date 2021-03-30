@@ -46,10 +46,6 @@ import com.sdy.luxurytravelapplication.ui.adapter.ListSquareImgsAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MultiListCommentAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareTitleAdapter
 import com.sdy.luxurytravelapplication.utils.ToastUtil
-import com.sdy.luxurytravelapplication.utils.UriUtils
-import com.sdy.luxurytravelapplication.widgets.player.IjkMediaPlayerUtil
-import com.sdy.luxurytravelapplication.widgets.player.OnPlayingListener
-import com.sdy.luxurytravelapplication.widgets.player.UpdateVoiceTimeThread
 import com.sdy.luxurytravelapplication.widgets.switchplay.SwitchUtil
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
@@ -234,10 +230,8 @@ class SquareCommentDetailActivity :
                 initVideo()
             }
             else -> {
-                binding.audioCl.audioRecordLl.isVisible = true
-                initAudio(0)
-                mediaPlayer!!.setDataSource(squareBean!!.audio_json?.get(0)?.url ?: "")
-                    .prepareMedia()
+                binding.audioCl.isVisible = true
+                initAudio()
             }
         }
 
@@ -392,110 +386,15 @@ class SquareCommentDetailActivity :
     }
 
 
-    var mediaPlayer: IjkMediaPlayerUtil? = null
-
-    private fun initAudio(position: Int) {
-        if (mediaPlayer != null) {
-            mediaPlayer!!.resetMedia()
-            mediaPlayer = null
-        }
-        mediaPlayer = IjkMediaPlayerUtil(this, position, object : OnPlayingListener {
-            override fun onPlay(position: Int) {
-                squareBean!!.isPlayAudio = IjkMediaPlayerUtil.MEDIA_PLAY
-                binding.audioCl.voicePlayView.playAnimation()
-                UpdateVoiceTimeThread.getInstance(
-                    squareBean!!.audio_json?.get(0)?.duration?.let { UriUtils.getShowTime(it) },
-                    binding.audioCl.audioTime
-                ).start()
-//                binding.audioCl.audioPlayBtn.setImageResource(R.drawable.icon_pause_audio)
-            }
-
-            override fun onPause(position: Int) {
-                squareBean!!.isPlayAudio = IjkMediaPlayerUtil.MEDIA_PAUSE
-                binding.audioCl.voicePlayView.cancelAnimation()
-                UpdateVoiceTimeThread.getInstance(
-                    squareBean!!.audio_json?.get(0)?.duration?.let { UriUtils.getShowTime(it) },
-                    binding.audioCl.audioTime
-                ).pause()
-//                binding.audioCl.audioPlayBtn.setImageResource(R.drawable.icon_play_audio)
-            }
-
-            override fun onStop(position: Int) {
-                squareBean!!.isPlayAudio = IjkMediaPlayerUtil.MEDIA_STOP
-                binding.audioCl.voicePlayView.cancelAnimation()
-                UpdateVoiceTimeThread.getInstance(
-                    squareBean!!.audio_json?.get(0)?.duration?.let { UriUtils.getShowTime(it) },
-                    binding.audioCl.audioTime
-                ).stop()
-//                binding.audioCl.audioPlayBtn.setImageResource(R.drawable.icon_play_audio)
-
-            }
-
-            override fun onError(position: Int) {
-                ToastUtil.toast(getString(R.string.audio_play_error))
-                squareBean!!.isPlayAudio = IjkMediaPlayerUtil.MEDIA_ERROR
-                binding.audioCl.voicePlayView.cancelAnimation()
-                UpdateVoiceTimeThread.getInstance(
-                    squareBean!!.audio_json?.get(0)?.duration?.let { UriUtils.getShowTime(it) },
-                    binding.audioCl.audioTime
-                ).stop()
-//                binding.audioCl.audioPlayBtn.setImageResource(R.drawable.icon_play_audio)
-                mediaPlayer!!.resetMedia()
-            }
-
-            override fun onPrepared(position: Int) {
-                mediaPlayer!!.startPlay()
-            }
-
-            override fun onPreparing(position: Int) {
-                binding.audioCl.voicePlayView.cancelAnimation()
-                UpdateVoiceTimeThread.getInstance(
-                    squareBean!!.audio_json?.get(0)?.duration?.let { UriUtils.getShowTime(it) },
-                    binding.audioCl.audioTime
-                ).stop()
-//                binding.audioCl.audioPlayBtn.setImageResource(R.drawable.icon_play_audio)
-            }
-
-            override fun onRelease(position: Int) {
-//                squareBean!!.isPlayAudio = IjkMediaPlayerUtil.MEDIA_STOP
-//                voicePlayView.stop()
-//                UpdateVoiceTimeThread.getInstance("03:40", audioTime).stop()
-//                audioPlayBtn.setImageResource(R.drawable.icon_play_audio)
-//                mediaPlayer!!.resetMedia()
-//                mediaPlayer = null
-            }
-
-        }).getInstance()
-
-        binding.audioCl.audioPlayBtn.setOnClickListener {
-            when (squareBean!!.isPlayAudio) {
-                IjkMediaPlayerUtil.MEDIA_ERROR -> {
-                    initAudio(0)
-                    mediaPlayer!!.setDataSource(squareBean!!.audio_json?.get(0)?.url ?: "")
-                        .prepareMedia()
-                }
-                IjkMediaPlayerUtil.MEDIA_PREPARE -> {//准备中
-                    mediaPlayer!!.prepareMedia()
-                }
-                IjkMediaPlayerUtil.MEDIA_STOP -> {//停止就重新准备
-                    initAudio(0)
-                    mediaPlayer!!.setDataSource(squareBean!!.audio_json?.get(0)?.url ?: "")
-                        .prepareMedia()
-                }
-                IjkMediaPlayerUtil.MEDIA_PLAY -> {//播放点击就暂停
-                    mediaPlayer!!.pausePlay()
-                }
-                IjkMediaPlayerUtil.MEDIA_PAUSE -> {//暂停再次点击就播放
-                    mediaPlayer!!.resumePlay()
-                }
-            }
-        }
+    private fun initAudio() {
+        binding.audioCl.prepareAudio(
+            squareBean!!.audio_json!!.get(0).url,
+            squareBean!!.audio_json!!.get(0).duration,autoPlay = true
+        )
     }
 
 
     private fun initVideo() {
-
-
         SwitchUtil.optionPlayer(
             binding.squareUserVideo,
             squareBean!!.video_json?.get(0)?.url ?: "",
@@ -604,7 +503,8 @@ class SquareCommentDetailActivity :
         }
             .setStyle(DialogSettings.STYLE.STYLE_IOS)
             .setShowCancelButton(false)
-            .menuTextInfo = TextInfo().setFontColor(resources.getColor(R.color.color333)).setFontSize(16)
+            .menuTextInfo =
+            TextInfo().setFontColor(resources.getColor(R.color.color333)).setFontSize(16)
 
     }
 
@@ -930,10 +830,8 @@ class SquareCommentDetailActivity :
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "super.onPause()")
-//        squareUserVideo.onVideoPause()
-        if (mediaPlayer != null)
-            mediaPlayer!!.pausePlay()
-//        squareUserVideo.onVideoPause()
+        if (binding.audioCl.isPlaying())
+            binding.audioCl.pauseAudio()
     }
 
     override fun onStart() {
@@ -946,28 +844,23 @@ class SquareCommentDetailActivity :
         super.onResume()
         Log.d(TAG, "super.onResume()")
         binding.squareUserVideo.onVideoResume(false)
-        if (mediaPlayer != null)
-            mediaPlayer!!.resumePlay()
+        if (binding.audioCl.isPause())
+            binding.audioCl.resumeAudio()
+
 //        squareUserVideo.onVideoResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "super.onDestroy()")
-        if (mediaPlayer != null) {
-            mediaPlayer!!.resetMedia()
-            mediaPlayer = null
-        }
+        binding.audioCl.release()
         if (binding.showCommentEt.isFocused)
             resetCommentEt()
     }
 
     override fun finish() {
         super.finish()
-        if (mediaPlayer != null) {
-            mediaPlayer!!.resetMedia()
-            mediaPlayer = null
-        }
+        binding.audioCl.release()
         if (binding.showCommentEt.isFocused)
             resetCommentEt()
         //释放所有
@@ -982,10 +875,7 @@ class SquareCommentDetailActivity :
         if (binding.showCommentEt.isFocused) {
             resetCommentEt()
         }
-        if (mediaPlayer != null) {
-            mediaPlayer!!.resetMedia()
-            mediaPlayer = null
-        }
+        binding.audioCl.release()
 
         //释放所有
         binding.squareUserVideo.gsyVideoManager.setListener(binding.squareUserVideo.gsyVideoManager.lastListener())

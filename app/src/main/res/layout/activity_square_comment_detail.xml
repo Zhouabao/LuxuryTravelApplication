@@ -79,11 +79,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/topLayout" />
 
-                    <include
+                    <com.sdy.luxurytravelapplication.widgets.FindAudioView
                         android:id="@+id/audioCl"
-                        layout="@layout/layout_record_audio"
-                        android:layout_width="275dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="10dp"
                         app:layout_constraintBottom_toTopOf="@id/bottomLayout"

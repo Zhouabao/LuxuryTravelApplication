@@ -63,11 +63,17 @@ class FindAudioView @JvmOverloads constructor(
 //        const val TYPE_LIKE = 4
 //        const val TYPE_MY_LIKED = 5
 //        const val TYPE_MINE = 6
-    fun prepareAudio(path: String, duration: Int, position: Int = 0, type: Int = 0) {
+    fun prepareAudio(
+        path: String,
+        duration: Int,
+        position: Int = 0,
+        type: Int = 0,
+        autoPlay: Boolean = false
+    ) {
 
         filePath = path
         this.duration = duration
-        val params = binding.audioPlayBtn.layoutParams as FrameLayout.LayoutParams
+        val params = binding.root.layoutParams as FrameLayout.LayoutParams
         params.width =
             SizeUtils.dp2px(115F) + (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(115 + 15 * 2 + 10 * 2F)) /
                     PublishActivity.MAX_RECORD_TIME *
@@ -93,6 +99,11 @@ class FindAudioView @JvmOverloads constructor(
                     pauseAudio()
                 }
             }
+        }
+
+        if (autoPlay) {
+            EventBus.getDefault().post(OneVoicePlayEvent(position, type, context))
+            playAudio()
         }
 
     }
@@ -146,6 +157,7 @@ class FindAudioView @JvmOverloads constructor(
         binding.audioState.pauseAnimation()
     }
 
+
     /**
      * 恢复播放
      */
@@ -159,6 +171,9 @@ class FindAudioView @JvmOverloads constructor(
         binding.audioState.resumeAnimation()
     }
 
+    fun isPlaying() = playState == MEDIA_PLAY
+
+    fun isPause() = playState == MEDIA_PAUSE
 
     /**
      * 播放结束
