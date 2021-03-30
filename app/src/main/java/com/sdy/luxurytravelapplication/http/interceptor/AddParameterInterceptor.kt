@@ -3,11 +3,9 @@ package com.sdy.luxurytravelapplication.http.interceptor
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.LogUtils
-import com.sdy.luxurytravelapplication.constant.Constants
 import com.qiniu.android.dns.util.MD5
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.ext.Preference
 import com.sdy.luxurytravelapplication.utils.ChannelUtils
 import okhttp3.FormBody
 import okhttp3.Interceptor
@@ -41,14 +39,36 @@ class AddParameterInterceptor : Interceptor {
                     bodyBuilder.addEncoded(formBody.encodedName(i), formBody.encodedValue(i))
                 }
 
-                formBody = bodyBuilder.addEncoded("_timestamp","${ System.currentTimeMillis()}")
+                var city_name = false
+                var province_name = false
+                var lat = false
+                var lng = false
+                for (i in 0 until formBody.size) {
+                    if (formBody.encodedName(i) == "city_name") {
+                        city_name = true
+                    }
+                    if (formBody.encodedName(i) == "province_name") {
+                        province_name = true
+                    }
+                    if (formBody.encodedName(i) == "lat") {
+                        lat = true
+                    }
+                    if (formBody.encodedName(i) == "lng") {
+                        lng = true
+                    }
+                }
+                if (!city_name)
+                    bodyBuilder.addEncoded("city_name", UserManager.city)
+                if (!province_name)
+                    bodyBuilder.addEncoded("province_name", UserManager.province)
+                if (!lat)
+                    bodyBuilder.addEncoded("lat", UserManager.latitude)
+                if (!lng)
+                    bodyBuilder.addEncoded("lng", UserManager.longtitude)
+                formBody = bodyBuilder.addEncoded("_timestamp", "${System.currentTimeMillis()}")
                     .addEncoded("accid", UserManager.accid)
                     .addEncoded("token", UserManager.token)
                     .addEncoded("device_id", DeviceUtils.getUniqueDeviceId())
-                    .addEncoded("city_name", UserManager.city)
-                    .addEncoded("province_name", UserManager.province)
-                    .addEncoded("lat", UserManager.latitude)
-                    .addEncoded("lng", UserManager.longtitude)
                     .build()
 
                 val bodyMap = hashMapOf<String, String>()
@@ -67,7 +87,7 @@ class AddParameterInterceptor : Interceptor {
                         .append(URLDecoder.decode(bodyMap[it], "UTF-8"))
                         .append("&")
                 }
-                LogUtils.d(builder.substring(0,builder.length-1))
+                LogUtils.d(builder.substring(0, builder.length - 1))
                 formBody = bodyBuilder.addEncoded(
                     "_signature",
                     MD5.encrypt(builder.substring(0, builder.length - 1))

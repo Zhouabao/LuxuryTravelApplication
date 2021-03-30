@@ -74,7 +74,9 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
         if (mCompositeDisposable == null) {
             mCompositeDisposable = CompositeDisposable()
         }
-        disposable?.let { mCompositeDisposable?.add(it) }
+        disposable?.let {
+            mCompositeDisposable?.add(it)
+        }
     }
 
     private fun unDispose() {
@@ -88,6 +90,7 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
         owner.lifecycle.removeObserver(this)
     }
 
-    private class MvpViewNotAttachedException internal constructor() : RuntimeException("Please call IPresenter.attachView(IBaseView) before" + " requesting data to the IPresenter")
+    private class MvpViewNotAttachedException internal constructor() :
+        RuntimeException("Please call IPresenter.attachView(IBaseView) before" + " requesting data to the IPresenter")
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,50 +7,120 @@
     android:background="@color/colorWhite"
     tools:context=".ui.fragment.FindFragment">
 
-
-    <com.flyco.tablayout.SegmentTabLayout
-        android:id="@+id/tabFind"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        app:layout_constraintBottom_toBottomOf="@id/publishBtn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/publishBtn"
-        app:layout_constraintTop_toTopOf="@id/publishBtn"
-        app:tl_bar_color="@color/colorBackgroundGray"
-        app:tl_indicator_anim_enable="true"
-        app:tl_indicator_bounce_enable="false"
-        app:tl_indicator_color="@color/colorWhite"
-        app:tl_indicator_corner_radius="6dp"
-        app:tl_indicator_margin_bottom="3dp"
-        app:tl_indicator_margin_left="3dp"
-        app:tl_indicator_margin_right="3dp"
-        app:tl_indicator_margin_top="3dp"
-        app:tl_tab_space_equal="true"
-        app:tl_textBold="SELECT"
-        app:tl_textSelectColor="@color/color333"
-        app:tl_textUnselectColor="#FFB6BCC6"
-        app:tl_textsize="16sp" />
-
-    <ImageView
-        android:id="@+id/publishBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/icon_publish"
-        app:layout_constraintLeft_toRightOf="@id/tabFind"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/publishBtn" />
+        android:layout_height="match_parent">
+
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/tabFind"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintBottom_toBottomOf="@id/publishBtn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/publishBtn"
+            app:layout_constraintTop_toTopOf="@id/publishBtn"
+            app:tl_bar_color="@color/colorBackgroundGray"
+            app:tl_indicator_anim_enable="true"
+            app:tl_indicator_bounce_enable="false"
+            app:tl_indicator_color="@color/colorWhite"
+            app:tl_indicator_corner_radius="6dp"
+            app:tl_indicator_margin_bottom="3dp"
+            app:tl_indicator_margin_left="3dp"
+            app:tl_indicator_margin_right="3dp"
+            app:tl_indicator_margin_top="3dp"
+            app:tl_tab_space_equal="true"
+            app:tl_textBold="SELECT"
+            app:tl_textSelectColor="@color/color333"
+            app:tl_textUnselectColor="#FFB6BCC6"
+            app:tl_textsize="16sp" />
+
+        <ImageView
+            android:id="@+id/publishBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_publish"
+            app:layout_constraintLeft_toRightOf="@id/tabFind"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/publishBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/uploadCl"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_rectangle_gray_white_10dp">
+
+        <ImageView
+            android:id="@+id/publishStatusIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/icon_publish_ing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/publishStateContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/publish_ing"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/publishStatusIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/publishProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:progress="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/republishBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shape_stroke_rectangle_green_12dp"
+            android:paddingLeft="9dp"
+            android:paddingTop="3dp"
+            android:paddingRight="9dp"
+            android:paddingBottom="3dp"
+            android:text="@string/republish"
+            android:textColor="@color/colorAccent"
+            android:textSize="11sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

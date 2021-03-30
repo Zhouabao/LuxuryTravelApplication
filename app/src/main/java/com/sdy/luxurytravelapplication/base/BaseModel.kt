@@ -18,7 +18,9 @@ abstract class BaseModel : IModel, LifecycleObserver {
         if (mCompositeDisposable == null) {
             mCompositeDisposable = CompositeDisposable()
         }
-        disposable?.let { mCompositeDisposable?.add(it) }
+        disposable?.let {
+            mCompositeDisposable?.add(it)
+        }
     }
 
     override fun onDetach() {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdy.luxurytravelapplication.widgets.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:errorView="@layout/layout_error_view"
+    app:emptyView="@layout/layout_empty_view"
+    app:noNetworkView="@layout/no_network_view"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ChooseTitleActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/barCl"
+            layout="@layout/layout_actionbar"/>
+
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlDisableContentWhenLoading="true"
+            app:srlDisableContentWhenRefresh="true"
+            app:srlEnableLoadMore="false"
+            app:srlEnableAutoLoadMore="false"
+            app:srlEnableLoadMoreWhenContentNotFull="true"
+            app:srlEnableRefresh="false">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <EditText
+                        android:id="@+id/titleEt"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:singleLine="true"
+                        android:background="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/input_topic_content"
+                        android:textColor="#FF6796FA"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/moreInfoTitle"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/hot_topic"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="#ff959a9e"
+                        android:textSize="14sp"
+                        android:background="@color/colorDivider"
+                        android:layout_height="38dp"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/titleRv"
+                        android:nestedScrollingEnabled="true"
+                        android:layout_width="match_parent"
+                        android:overScrollMode="never"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="5dp"
+                        />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

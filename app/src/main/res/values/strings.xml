@@ -493,4 +493,27 @@
     <string name="left_10_seconds_to_record">还可以录制10秒钟哦，抓紧时间</string>
     <string name="permission_record_rejected">录音权限被拒,请开启后再录音.</string>
     <string name="permission_storage">请先开启相册权限</string>
+    <string name="permission_location">请先开启位置权限</string>
+    <string name="open_internet">网络不可用</string>
+    <string name="dont_show_location">不显示位置</string>
+    <string name="input_topic_content">请输入话题文本</string>
+    <string name="hot_topic">热门标题</string>
+    <string name="label_title_hot">选择热门话题</string>
+    <string name="complete">完成</string>
+    <string name="lable_title_most">至多可以选择%1$d个话题</string>
+    <string name="label_title_max_length">标题长度最大为12</string>
+    <string name="search_place">搜索地点</string>
+    <string name="choose_location">选择地址</string>
+    <string name="no_yaoqiu">无明确要求</string>
+    <string name="poi_name">商务住宅|餐饮服务|生活服务|地名地址信息|体育休闲服务|购物服务|住宿服务|风景名胜|交通设施服务|事件活动|通行设施</string>
+
+    <string name="publish_ing">帖子正在发布中...</string>
+    <string name="publish_fail">发布失败</string>
+    <string name="publish_success">发布成功</string>
+    <string name="republish">重新发布</string>
+    <string name="unilegal_content">内容违规请重新编辑</string>
+    <string name="publish_tip">发布提示</string>
+    <string name="re_publish_for_fail_content">您有一条内容未成功发布，是否重新发布？</string>
+    <string name="retry_upload">重新上传</string>
+    <string name="publish_new_content">发布新内容</string>
 </resources>

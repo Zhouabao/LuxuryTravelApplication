@@ -82,3 +82,30 @@ class OneVoicePlayEvent(val playPosition: Int, val type: Int, val context: Conte
  */
 class RecordCompleteEvent(val duration: Int, val filePath: String)
 
+
+/**
+ * 动态发布上传
+ */
+class UploadEvent(
+    var totalFileCount: Int = 0,
+    var currentFileIndex: Int = 0,
+    var progress: Double = 0.0,
+    var qnSuccess: Boolean = true,
+    var from: Int = FROM_SQUARE
+) {
+    companion object {
+        val FROM_SQUARE = 1
+        val FROM_USERCENTER = 2
+    }
+}
+
+//上传成功或者失败事件
+/**
+ * @param serverSuccess 成功或者失败
+ * @param  code失败的code码 判断是否是审核不通过
+ */
+class AnnounceEvent(var serverSuccess: Boolean = false, var code: Int = 0)
+
+
+//重新上传内容的通知成功或者失败事件
+class RePublishEvent(var republish: Boolean, val context: String)

@@ -126,6 +126,10 @@ ext {
             //云信
             "nim-sdk"                     : 'com.netease.nimlib:basesdk:8.2.2',
             "nim-push"                    : 'com.netease.nimlib:push:8.2.2',
+            //高德地图
+            "3dmap"                    : 'com.amap.api:3dmap:latest.integration',
+            "location"                    : 'com.amap.api:location:latest.integration',
+            "search"                    : 'com.amap.api:search:latest.integration',
 
 //            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
 //            "logger"                : 'com.orhanobut:logger:2.1.1',

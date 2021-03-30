@@ -17,6 +17,8 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding
      */
     protected var mPresenter: P? = null
 
+    protected var mPresenterDetach = true
+
     protected abstract fun createPresenter(): P
 
     override fun initView() {
@@ -26,8 +28,10 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter?.detachView()
-        this.mPresenter = null
+        if (mPresenterDetach) {
+            mPresenter?.detachView()
+            this.mPresenter = null
+        }
     }
 
     override fun showLoading() {

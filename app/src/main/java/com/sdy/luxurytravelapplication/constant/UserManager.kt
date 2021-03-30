@@ -6,7 +6,9 @@ import com.blankj.utilcode.util.SPUtils
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.LoginInfo
+import com.qiniu.android.storage.UpCancellationSignal
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
@@ -19,6 +21,37 @@ import org.greenrobot.eventbus.EventBus
  *    version: 1.0
  */
 object UserManager {
+    /*************发布缓存参数*********************/
+    //手动取消上传
+    var cancelUpload = false
+
+    //帮助取消上传的handler
+    val cancellationHandler = UpCancellationSignal { cancelUpload }
+
+    //发布动态的状态
+    var publishState: Int = 0  //0未发布  1进行中   -1失败--违规400  -2失败--发布失败
+
+    //发布
+    var publishParams: HashMap<String, Any> = hashMapOf()
+
+    //发布的媒体资源对象
+    var mediaBeans: MutableList<MediaParamBean> = mutableListOf()
+
+    //发布的对象keylist
+    var keyList: MutableList<String> = mutableListOf()
+
+    /**
+     * 清除发布的参数
+     */
+    fun clearPublishParams() {
+        publishState = 0
+        publishParams.clear()
+        mediaBeans.clear()
+        keyList = mutableListOf()
+        cancelUpload = false
+    }
+
+
     /*************动态语音播放位置记录****************/
     var currentPlayPosition = -1
 
@@ -138,6 +171,25 @@ object UserManager {
     var qnToken: String
         get() = SPUtils.getInstance(Constants.SPNAME).getString("qntoken")
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("qntoken", value)
+
+    /**
+     * 保存位置信息
+     */
+    fun saveLocation(
+        latitude: String?,
+        longtitude: String?,
+        province: String?,
+        city: String?
+    ) {
+        if (latitude != null)
+            this.latitude = latitude
+        if (longtitude != null)
+            this.longtitude = longtitude
+        if (province != null)
+            this.province = province
+        if (city != null)
+            this.city = city
+    }
 
     /**
      * 获取维度

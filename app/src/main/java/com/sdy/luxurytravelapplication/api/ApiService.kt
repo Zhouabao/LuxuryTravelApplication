@@ -195,7 +195,6 @@ interface ApiService {
     @POST("square/replyReport${Constants.END_BASE_URL}")
     fun commentReport(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
-
     /**
      * 广场发布
      */
@@ -204,11 +203,12 @@ interface ApiService {
     fun squareAnnounce(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
-
-
-
-
+    /**
+     * 获取所有的标题
+     */
+    @FormUrlEncoded
+    @POST("Tags/getTagTitleListV13${Constants.END_BASE_URL}")
+    fun getTagTitleList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChooseTitleBean>>
 
 
 

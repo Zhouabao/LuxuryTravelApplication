@@ -3,6 +3,7 @@ package com.sdy.luxurytravelapplication.mvp.model.bean
 import android.os.Parcel
 import android.os.Parcelable
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.contrarywind.interfaces.IPickerViewData
 import java.io.Serializable
 
 
@@ -522,4 +523,45 @@ data class CommentBean(
 data class AllCommentBean(
     var hotlist: MutableList<CommentBean>?,
     var list: MutableList<CommentBean>?
+)
+
+
+
+/**
+ * 媒体文件的参数
+ */
+data class MediaParamBean(
+    var url: String = "",
+    var duration: Int = 0,
+    var width: Int = 0,
+    var height: Int = 0
+)
+
+
+/**
+ * 兴趣特质
+ */
+data class LabelQualityBean(
+    var content: String = "",
+    var icon: String = "",
+    var id: Int = 0,
+    var title: String = "",
+    var cheked: Boolean = false,
+    var isfuse: Boolean = false,
+    var outtime: Boolean = false//过期标志
+) : Serializable, IPickerViewData {
+    override fun getPickerViewText(): String {
+        return content
+    }
+}
+
+data class LabelQualitysBean(
+    var roll_list: MutableList<LabelQualityBean> = mutableListOf(),
+    var list: MutableList<LabelQualityBean> = mutableListOf(),
+    var has_button: Boolean = false
+)
+
+data class ChooseTitleBean(
+    val limit_cnt: Int?,
+    val list: MutableList<LabelQualityBean>?
 )
