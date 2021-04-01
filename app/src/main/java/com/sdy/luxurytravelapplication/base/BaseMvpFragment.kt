@@ -38,7 +38,7 @@ abstract class BaseMvpFragment<in V : IView, P : IPresenter<V>, VB : ViewBinding
     }
 
     override fun showError(errorMsg: String) {
-        ToastUtils.showShort(errorMsg)
+        mLayoutStatusView?.showError()
     }
 
     override fun showDefaultMsg(msg: String) {

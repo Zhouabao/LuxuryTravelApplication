@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.PublishTravelEndActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <EditText
+        android:id="@+id/travelTitle"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        android:hint="输入标题"
+        android:inputType="text"
+        android:maxLength="10"
+        android:padding="15dp"
+        android:textColor="@color/color333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/travelContentCl"
+        android:layout_width="0dp"
+        android:layout_height="268dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_f7f8fa_15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/travelTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentCl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/travelDescrEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                android:gravity="start"
+                android:hint="详细说说你的旅行的时间/要求/具体计划/行程天数等，越具体的计划会让人越有参与的积极性哦"
+                android:inputType="text"
+                android:padding="15dp"
+                android:lines="3"
+                android:textColor="@color/color333"
+                android:textColorHint="#ffc7cad4"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/autoCb"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/selector_check_blue"
+                android:button="@null"
+                android:checked="false"
+                app:layout_constraintBottom_toBottomOf="@id/autoComplete"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/autoComplete" />
+
+            <TextView
+                android:id="@+id/autoComplete"
+                android:layout_width="96dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="根据选项自动填写"
+                android:textColor="#ffc7cad4"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/autoCb" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recordCl"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/recordTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="00:00"
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recordTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="点击录音"
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recordTimeTv" />
+
+            <ImageView
+                android:id="@+id/recordBtn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/icon_record_normal"
+                app:layout_constraintBottom_toBottomOf="@id/recordProgressTime"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/recordProgressTime" />
+
+
+            <com.sdy.luxurytravelapplication.widgets.CircleProgressBar
+                android:id="@+id/recordProgressTime"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recordTitle" />
+
+            <TextView
+                android:id="@+id/recordListenTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="点击试听"
+                android:textColor="#ff333333"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/recordBtn"
+                app:layout_constraintRight_toRightOf="@id/recordBtn"
+                app:layout_constraintTop_toBottomOf="@id/recordProgressTime" />
+
+            <TextView
+                android:id="@+id/recordRevertBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_record_revert"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="重录"
+                android:textColor="#ff333333"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/recordListenTip"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/recordBtn"
+                app:layout_constraintTop_toTopOf="@id/recordBtn" />
+
+            <TextView
+                android:id="@+id/recordConfirmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_record_commit"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="使用"
+                android:textColor="#ff333333"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/recordListenTip"
+                app:layout_constraintLeft_toRightOf="@id/recordBtn"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/recordBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/previewAudioLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.sdy.luxurytravelapplication.widgets.FindAudioView
+                android:id="@+id/previewAudio"
+                android:layout_width="165dp"
+                android:layout_height="48dp" />
+
+
+            <ImageView
+                android:id="@+id/audioDeleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_delete" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/switchImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_switch_audio"
+            app:layout_constraintRight_toLeftOf="@id/switchBtn"
+            app:layout_constraintTop_toTopOf="@id/switchBtn" />
+
+
+        <TextView
+            android:id="@+id/switchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="切换语音描述"
+            android:textColor="#ff8a909f"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/nextBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="发布行程"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

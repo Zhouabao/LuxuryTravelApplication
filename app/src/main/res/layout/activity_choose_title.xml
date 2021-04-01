@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:errorView="@layout/layout_error_view"
     app:emptyView="@layout/layout_empty_view"
-    app:noNetworkView="@layout/no_network_view"
+    app:noNetworkView="@layout/layout_network_view"
     android:background="@color/colorWhite"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.ChooseTitleActivity">

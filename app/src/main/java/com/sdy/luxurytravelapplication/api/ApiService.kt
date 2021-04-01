@@ -13,12 +13,15 @@ import retrofit2.http.POST
  */
 interface ApiService {
 
+
+
+
+    /*************注册登录付费****************/
     /**
      * 获取登录配置开关信息
      */
     @POST("OpenApi/getVersion${Constants.END_BASE_URL}")
     fun getRegisterProcessType(): Observable<BaseResp<RegisterFileBean>>
-
 
 
     /**
@@ -31,7 +34,6 @@ interface ApiService {
     fun sendSms(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
     /**
      * 注册
      */
@@ -39,6 +41,21 @@ interface ApiService {
     @POST("OpenApi/LoginOrAlloc${Constants.END_BASE_URL}")
     fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
 
+
+    /**
+     * 注销账号
+     */
+    @FormUrlEncoded
+    @POST("Account/cancelAccount${Constants.END_BASE_URL}")
+    fun cancelAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 退出登录
+     * http://www.wanandroid.com/user/logout/json
+     */
+    @GET("user/logout/json")
+    fun logout(): Observable<BaseResp<Any>>
 
 
     /**
@@ -49,15 +66,12 @@ interface ApiService {
     fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
 
 
-
-
     /**
      * 门槛支付列表
      */
     @FormUrlEncoded
     @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL}")
     fun getThreshold(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
-
 
 
     /**
@@ -69,6 +83,9 @@ interface ApiService {
 
 
 
+
+
+    /*****************************广场**********************************/
 
     /**
      * 广场点赞/取消点赞
@@ -96,15 +113,12 @@ interface ApiService {
     fun squareTagList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareTagBean>?>>
 
 
-
-
     /**
      * 兴趣广场详情列表
      */
     @FormUrlEncoded
     @POST("Square/squareTagInfo${Constants.END_BASE_URL}")
     fun squareTagInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TagSquareListBean?>>
-
 
 
     /**
@@ -115,15 +129,12 @@ interface ApiService {
     fun checkBlock(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any?>>
 
 
-
-
     /**
      * 获取某一广场详情
      */
     @FormUrlEncoded
     @POST("square/squareInfoV13${Constants.END_BASE_URL}")
     fun getSquareInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SquareBean?>>
-
 
 
     /**
@@ -215,33 +226,62 @@ interface ApiService {
 
 
 
+    /******************伴游***********************/
+
     /**
-     * 注销账号
+     * 验证是否可以发布旅行计划
      */
     @FormUrlEncoded
-    @POST("Account/cancelAccount${Constants.END_BASE_URL}")
-    fun cancelAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
-    /**
-     * 退出登录
-     * http://www.wanandroid.com/user/logout/json
-     */
-    @GET("user/logout/json")
-    fun logout(): Observable<BaseResp<Any>>
-
-
-
+    @POST("Travel/checkPlan${Constants.END_BASE_URL}")
+    fun checkPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
 
 
     /**
-     * 获取个人积分，需要登录后访问
-     * https://www.wanandroid.com/lg/coin/userinfo/json
+     * 计划列表
      */
-    @GET("/lg/coin/userinfo/json")
-    fun getUserInfo(): Observable<BaseResp<Any>>
+    @FormUrlEncoded
+    @POST("Travel/planList${Constants.END_BASE_URL}")
+    fun planList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
+
+
+
+
+
+
+    /**
+     * 旅行计划详情
+     */
+    @FormUrlEncoded
+    @POST("Travel/planInfo${Constants.END_BASE_URL}")
+    fun planInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TravelPlanBean?>>
+
+
+
+
+    /**
+
+    旅行计划 发布选项
+     */
+    @FormUrlEncoded
+    @POST("Travel/planOptions${Constants.END_BASE_URL}")
+    fun planOptions(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PlanOptionsBean?>>
+
+
+    /**
+     * 发布旅行计划
+     */
+    @FormUrlEncoded
+    @POST("Travel/issuePlan${Constants.END_BASE_URL}")
+    fun issuePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+
+
+
 
 
     /**
@@ -297,9 +337,10 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Gifts/getGiftList${Constants.END_BASE_URL}")
     fun getGiftList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<GetGiftBean>>
-  /*
-    * 领取礼物
-    */
+
+    /*
+      * 领取礼物
+      */
     @FormUrlEncoded
     @POST("Gifts/getGift${Constants.END_BASE_URL}")
     fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckGreetBean>>
@@ -311,8 +352,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Gifts/refundGift${Constants.END_BASE_URL}")
     fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
 }

@@ -7,6 +7,7 @@ import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGuideBinding
+import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.zhpan.bannerview.BannerViewPager
 
 /**
@@ -19,7 +20,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
     private val guideBannerAdapter by lazy { GuideBannerAdapter() }
     override fun initView() {
-        (binding.bannerGuide as BannerViewPager<String>).apply {
+        (binding.bannerGuide as BannerViewPager<BannerGuideBean>).apply {
             adapter = guideBannerAdapter
             setIndicatorSliderWidth(SizeUtils.dp2px(8F))
             setIndicatorHeight(SizeUtils.dp2px(4F))
@@ -33,7 +34,12 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
             })
         }.create()
 
-        binding.bannerGuide.refreshData(UserManager.tempDatas)
+
+        val data = mutableListOf<BannerGuideBean>()
+        UserManager.tempDatas.filterIndexed { index, s ->
+            data.add(BannerGuideBean(s,"$index","111111${index}111111"))
+        }
+        binding.bannerGuide.refreshData(data)
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
 
         }

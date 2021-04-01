@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityJoinLuxuryBinding
+import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.zhpan.bannerview.BannerViewPager
@@ -77,7 +78,7 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
             }
 
 
-            (bannerLuxury as BannerViewPager<String>).apply {
+            (bannerLuxury as BannerViewPager<BannerGuideBean>).apply {
                 adapter = guideBannerAdapter
                 setIndicatorSliderWidth(SizeUtils.dp2px(8F))
                 setIndicatorHeight(SizeUtils.dp2px(4F))
@@ -85,7 +86,11 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
                 setLifecycleRegistry(lifecycle)
             }.create()
 
-            bannerLuxury.refreshData(UserManager.tempDatas)
+            val data = mutableListOf<BannerGuideBean>()
+            UserManager.tempDatas.filterIndexed { index, s ->
+                data.add(BannerGuideBean(s,"$index","111111${index}111111"))
+            }
+            bannerLuxury.refreshData(data)
         }
 
 

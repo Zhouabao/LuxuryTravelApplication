@@ -92,6 +92,8 @@ object UserManager {
         SPUtils.getInstance(Constants.SPNAME).remove("ishuman")
         SPUtils.getInstance(Constants.SPNAME).remove("iscall")
 
+        SPUtils.getInstance(Constants.SPNAME).remove("isTipDating")
+
         EventBus.getDefault().removeAllStickyEvents()//移除全部
     }
 
@@ -232,6 +234,13 @@ object UserManager {
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isFaced", false)
         set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("isFaced", isFaced)
 
+
+    /**
+     * 是否提示过旅行约会
+     */
+    var isTipDating: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isTipDating", false)
+        set(isTipDating) = SPUtils.getInstance(Constants.SPNAME).put("isTipDating", isTipDating)
 
     /**
      * 视频认证

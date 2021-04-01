@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:descendantFocusability="beforeDescendants"
+    android:background="@drawable/icon_travel_bg">
+
+
+    <TextView
+        android:id="@+id/travelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="海岛五日游来个人"
+        android:textColor="#ff333333"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/chatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="22dp"
+        android:src="@drawable/icon_chat"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/travelTitle" />
+
+    <ImageView
+        android:id="@+id/userAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_image_15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/travelTitle" />
+
+    <TextView
+        android:id="@+id/travelCost"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:inputType="text"
+        android:lines="1"
+        android:text="费用：男方支出/具体花销未知"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/travelRequire"
+        app:layout_constraintLeft_toRightOf="@id/userAvatar"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/travelRequire"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:inputType="text"
+        android:lines="1"
+        android:text="要求：身材火辣/性格开朗"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/travelAimbition"
+        app:layout_constraintLeft_toLeftOf="@id/travelCost"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintTop_toBottomOf="@id/travelCost" />
+
+    <TextView
+        android:id="@+id/travelAimbition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:lines="1"
+        android:text="目的：亲近自然"
+        android:textColor="#ffb6bcc6"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+        app:layout_constraintLeft_toLeftOf="@id/travelCost"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintTop_toBottomOf="@id/travelRequire" />
+
+    <TextView
+        android:id="@+id/travel_province"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:text="成都"
+        android:textColor="#ff1ed0a7"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintRight_toLeftOf="@id/airplane"
+        app:layout_constraintTop_toBottomOf="@id/userAvatar" />
+
+    <TextView
+        android:id="@+id/travelAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="天府三街福年广场"
+        android:textColor="#ffb6bcc6"
+        android:textSize="12sp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintRight_toLeftOf="@id/airplane"
+        app:layout_constraintTop_toBottomOf="@id/travel_dest_province" />
+
+
+    <ImageView
+        android:id="@+id/airplane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_travel_airplane"
+        app:layout_constraintBottom_toBottomOf="@id/travelDestAddress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/travel_dest_province" />
+
+    <TextView
+        android:id="@+id/travel_dest_province"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:text="成都"
+        android:textColor="#ff1ed0a7"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintLeft_toRightOf="@id/airplane"
+        app:layout_constraintTop_toBottomOf="@id/userAvatar" />
+
+    <TextView
+        android:id="@+id/travelDestAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="天府三街福年广场"
+        android:textColor="#ffb6bcc6"
+        android:textSize="12sp"
+        android:gravity="center"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintLeft_toRightOf="@id/airplane"
+        app:layout_constraintTop_toBottomOf="@id/travel_dest_province" />
+
+    <com.sdy.luxurytravelapplication.widgets.FindAudioView
+        android:layout_width="165dp"
+        android:id="@+id/travelAduio"
+        android:layout_height="48dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="22dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintTop_toBottomOf="@id/travelAddress" />
+
+    <TextView
+        android:id="@+id/travelDescr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="22dp"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="1.2"
+        android:lines="3"
+        android:text="成都出发三亚，随时都能走约起来，姑娘们约起来我包干懂的来"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintTop_toBottomOf="@id/travelAddress" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdy.luxurytravelapplication.widgets.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.TravelDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/barCl"
+            layout="@layout/layout_actionbar" />
+
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/showCommentLl"
+            app:layout_constraintTop_toBottomOf="@+id/barCl"
+            app:srlEnableAutoLoadMore="true"
+            app:srlEnableLoadMore="true"
+            app:srlEnableLoadMoreWhenContentNotFull="false"
+            app:srlEnableRefresh="true">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/squareScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/travelPlanRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        app:layout_constraintBottom_toTopOf="@id/commentList"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="1"
+                        android:layout_marginBottom="13dp"
+                        tools:listitem="@layout/item_travel" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/commentList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="60dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        tools:listitem="@layout/item_comment_child"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/showCommentLl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <EditText
+                android:id="@+id/showCommentEt"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rectangle_gray_21dp"
+                android:gravity="center_vertical"
+                android:hint="@string/say_your_feel"
+                android:maxLength="150"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:textColor="@color/color333"
+                android:textColorHint="@color/colorHintEdittext"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorWhite"
+    tools:context=".ui.activity.PublishTravelBeforeActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/bannerTravelRule"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:bvp_auto_play="false"
+        app:bvp_can_loop="false"
+        app:bvp_indicator_checked_color="@color/colorAccent"
+        app:bvp_indicator_gravity="center"
+        app:bvp_indicator_normal_color="#FFF6F7F9"
+        app:bvp_indicator_radius="2dp"
+        app:bvp_indicator_slide_mode="smooth"
+        app:bvp_indicator_style="round_rect"
+        app:bvp_round_corner="2dp"
+        android:layout_marginBottom="68dp"
+        app:layout_constraintBottom_toTopOf="@id/nextBtn"
+        app:layout_constraintTop_toBottomOf="@id/barCl"/>
+
+
+    <TextView
+        android:id="@+id/nextBtn"
+        android:layout_width="255dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:gravity="center"
+        android:text="下一个"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

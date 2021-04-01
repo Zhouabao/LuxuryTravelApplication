@@ -195,9 +195,6 @@ class MainActivity :
 
     }
 
-    override fun showUserInfo(bean: Any) {
-
-    }
 
     override fun onClick(v: View) {
         when (v) {

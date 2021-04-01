@@ -78,8 +78,8 @@ ext {
             "BannerViewPager"             : 'com.github.zhpanvip:BannerViewPager:3.5.0',
             "android-verificationcodeview": 'com.jyn.verificationcodeview:verificationcodeview:1.0.1',
             //倒计时
-            "count-down-timer"             : 'in.xiandan:count-down-timer:1.0.3',
-             //图片选择器
+            "count-down-timer"            : 'in.xiandan:count-down-timer:1.0.3',
+            //图片选择器
             "picture-library"             : 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.6',
             //刷新
             "smart-refresh"               : 'com.scwang.smart:refresh-layout-kernel:2.0.3',
@@ -127,9 +127,9 @@ ext {
             "nim-sdk"                     : 'com.netease.nimlib:basesdk:8.2.2',
             "nim-push"                    : 'com.netease.nimlib:push:8.2.2',
             //高德地图
-            "3dmap"                    : 'com.amap.api:3dmap:latest.integration',
+            "3dmap"                       : 'com.amap.api:3dmap:latest.integration',
             "location"                    : 'com.amap.api:location:latest.integration',
-            "search"                    : 'com.amap.api:search:latest.integration',
+            "search"                      : 'com.amap.api:search:latest.integration',
 
 //            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
 //            "logger"                : 'com.orhanobut:logger:2.1.1',

@@ -155,7 +155,7 @@ data class SquareBean(
     var member_id: Int? = null,
     var title_list: MutableList<TopicBean>? = mutableListOf(),
     var approve_type: Int = 0,// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证  5高额充值
-    val assets_audit_descr: String="",
+    val assets_audit_descr: String = "",
     var issweet: Boolean = true//是否是甜心圈
 ) : Serializable {
     companion object {
@@ -526,7 +526,6 @@ data class AllCommentBean(
 )
 
 
-
 /**
  * 媒体文件的参数
  */
@@ -565,3 +564,56 @@ data class ChooseTitleBean(
     val limit_cnt: Int?,
     val list: MutableList<LabelQualityBean>?
 )
+
+data class TravelCityBean(
+    val city_name: String = "",
+    val city_cnt: Int = 0,
+    val city_image: String = "",
+    var checked: Boolean = false
+)
+
+data class TravelPlanBean(
+    var accid: String = "",
+    var apply_cnt: Int = 0,
+    var avatar: String = "",
+    var content: String = "",
+    var content_type: Int = 0,
+    var cost_money: String = "",
+    var cost_type: String = "",
+    var create_time: String = "",
+    var date: String = "",
+    var dating_target: String = "",
+    var dating_title: String = "",
+    var goal_city: String = "",
+    var goal_province: String = "",
+    var id: Int = 0,
+    var like_cnt: Int = 0,
+    var nickname: String = "",
+    var purpose: String = "",
+    var rise_city: String = "",
+    var rise_province: String = ""
+) : Serializable
+
+data class BannerGuideBean(
+    val image: Any,
+    val title: String,
+    val descr: String
+)
+
+data class PlanOptionsBean(
+    var cost_money: List<String> = listOf(),
+    var cost_type: List<String> = listOf(),
+    var dating_target: List<String> = listOf(),
+    var purpose: List<String> = listOf()
+)
+
+
+data class ProviceBean(
+    var child: List<ProviceBean> = listOf(),
+    var code: String = "",
+    var name: String = ""
+) : IPickerViewData {
+    override fun getPickerViewText(): String {
+        return name
+    }
+}

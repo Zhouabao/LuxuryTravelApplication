@@ -17,7 +17,4 @@ class MainModel : BaseModel(), MainContract.Model {
         return RetrofitHelper.service.logout()
     }
 
-    override fun getUserInfo(): Observable<BaseResp<Any>> {
-        return RetrofitHelper.service.getUserInfo()
-    }
 }

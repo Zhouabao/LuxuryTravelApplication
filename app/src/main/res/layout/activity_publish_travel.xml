@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.PublishTravelActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <com.sdy.luxurytravelapplication.widgets.MultipleStatusView
+        android:id="@+id/stateTravel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/iv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_travel_publish_dest"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/startPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="4dp"
+                    android:hint="选择出发地"
+                    android:textColor="@color/color333"
+                    android:textColorHint="#ffc7cad4"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv1"
+                    app:layout_constraintTop_toTopOf="@id/iv1" />
+
+                <TextView
+                    android:id="@+id/destinationPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:hint="选择目的地"
+                    android:textColor="@color/color333"
+                    android:textColorHint="#ffc7cad4"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv1"
+                    app:layout_constraintLeft_toRightOf="@id/iv1" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/icon_travel_publish_airplane"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/chooseStartBtn"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chooseStartBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_down_with_white"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chooseDestinationBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_down_with_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="费用支出"
+                    android:textColor="@color/color333"
+                    android:textColorHint="#ffc7cad4"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chooseCostBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_down_with_white"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/require"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="对方个人要求"
+                    android:textColor="@color/color333"
+                    android:textColorHint="#ffc7cad4"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chooseRequireBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_down_with_white"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/aim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="旅行的目的"
+                    android:textColor="@color/color333"
+                    android:textColorHint="#ffc7cad4"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chooseAimBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_down_with_white"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/nextBtn"
+                android:layout_width="255dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/selector_button_29dp"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="下一步"
+                android:textColor="#ffffffff"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>
+</LinearLayout>

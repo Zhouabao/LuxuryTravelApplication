@@ -23,10 +23,4 @@ class MainPresenter : BasePresenter<MainContract.Model, MainContract.View>(),
 
     }
 
-    override fun getUserInfo() {
-        mModel?.getUserInfo()?.sss(mView, false, {
-            mView?.showUserInfo(it.data)
-        }, {})
-
-    }
 }

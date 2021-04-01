@@ -354,7 +354,7 @@ object GlideUtil {
          */
         fun loadImgCenterCrop(
             context: Context?,
-            url: String?,
+            url: Any?,
             tartgetImg: ImageView?
         ) {
             Glide.with(context!!)

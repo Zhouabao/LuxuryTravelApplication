@@ -16,16 +16,13 @@ interface MainContract {
 
     interface View : IView {
         fun showLogoutSuccess(success: Boolean)
-        fun showUserInfo(bean: Any)
     }
 
     interface Presenter : IPresenter<View> {
         fun logout()
-        fun getUserInfo()
     }
 
     interface Model : IModel {
         fun logout(): Observable<BaseResp<Any>>
-        fun getUserInfo(): Observable<BaseResp<Any>>
     }
 }

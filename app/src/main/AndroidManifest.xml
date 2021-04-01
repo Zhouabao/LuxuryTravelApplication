@@ -35,9 +35,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.LocationActivity"></activity>
+        <activity android:name=".ui.activity.PublishTravelEndActivity"></activity>
+        <activity android:name=".ui.activity.PublishTravelBeforeActivity" />
+        <activity android:name=".ui.activity.TravelDetailActivity" />
+        <activity android:name=".ui.activity.LocationActivity" />
         <activity android:name=".ui.activity.ChooseTitleActivity" />
         <activity android:name=".ui.activity.PublishActivity" />
+        <activity android:name=".ui.activity.PublishTravelActivity" />
         <activity android:name=".ui.activity.SquareCommentDetailActivity" />
         <activity android:name=".ui.activity.TagDetailCategoryActivity" />
         <activity android:name=".ui.activity.FindAllTagActivity" />
@@ -139,18 +143,19 @@
             android:name="com.chuanglan.shanyan_sdk.view.CTCCPrivacyProtocolActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="behind" />
-
-
-
-
-        <!-- *****************高德地图********************** -->
+            android:screenOrientation="behind" /> <!-- *****************高德地图********************** -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="3b6b810a7ad78b17f523bdd05279b48c" />
 
         <service android:name="com.amap.api.location.APSService" />
 
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
     </application>
 
 </manifest>

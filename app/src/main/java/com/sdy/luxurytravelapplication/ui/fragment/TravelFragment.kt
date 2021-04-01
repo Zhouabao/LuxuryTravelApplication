@@ -1,60 +1,182 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.sdy.luxurytravelapplication.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SizeUtils
+import com.google.android.material.appbar.AppBarLayout
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.constant.RefreshState
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.sdy.luxurytravelapplication.base.BaseMvpFragment
+import com.sdy.luxurytravelapplication.constant.Constants
+import com.sdy.luxurytravelapplication.constant.UserManager
+import com.sdy.luxurytravelapplication.databinding.FragmentTravelBinding
+import com.sdy.luxurytravelapplication.mvp.contract.TravelContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
+import com.sdy.luxurytravelapplication.mvp.presenter.TravelPresenter
+import com.sdy.luxurytravelapplication.ui.activity.PublishTravelActivity
+import com.sdy.luxurytravelapplication.ui.activity.PublishTravelBeforeActivity
+import com.sdy.luxurytravelapplication.ui.adapter.TravelAdapter
+import com.sdy.luxurytravelapplication.ui.adapter.TravelCityAdapter
+import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
+import org.jetbrains.anko.support.v4.startActivity
+import kotlin.math.abs
 
 /**
- * A simple [Fragment] subclass.
- * Use the [TravelFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * 伴游
  */
-class TravelFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class TravelFragment :
+    BaseMvpFragment<TravelContract.View, TravelContract.Presenter, FragmentTravelBinding>(),
+    TravelContract.View, View.OnClickListener, OnRefreshLoadMoreListener {
+    override fun createPresenter(): TravelContract.Presenter = TravelPresenter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val travelAdapter by lazy { TravelAdapter() }
+    private val travelCityAdapter by lazy { TravelCityAdapter() }
+    private val travelCityAdapter1 by lazy { TravelCityAdapter(true) }
+    private val datas by lazy { mutableListOf<TravelCityBean>() }
+
+    private val params by lazy {
+        hashMapOf(
+            "pagesize" to Constants.PAGESIZE,
+            "page" to 1,
+            "goal_city" to ""
+        )
+    }
+
+    override fun lazyLoad() {
+        binding.apply {
+            mLayoutStatusView = root
+            ClickUtils.applySingleDebouncing(
+                arrayOf(travelPublishBtn, collapseBtn, expandBtn),
+                this@TravelFragment
+            )
+
+            refreshTravel.setOnRefreshLoadMoreListener(this@TravelFragment)
+
+            travelPlanRv.layoutManager =
+                LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+            travelPlanRv.adapter = travelAdapter
+
+
+            travelCitys.layoutManager =
+                CenterLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            travelCitys.adapter = travelCityAdapter
+            travelCitys1.layoutManager = GridLayoutManager(activity!!, 5)
+            travelCitys1.adapter = travelCityAdapter1
+
+            repeat(4) {
+                UserManager.tempDatas.forEachIndexed { index, s ->
+                    datas.add(
+                        TravelCityBean(
+                            "$index",
+                            it * 13 + index * 10,
+                            s,
+                            it == 0 && index == 0
+                        )
+                    )
+                }
+            }
+            travelCityAdapter.setNewInstance(datas)
+            travelCityAdapter1.setNewInstance(datas)
+            travelCityAdapter.setOnItemClickListener { _, view, position ->
+                travelCityAdapter.data.forEach {
+                    it.checked = it == travelCityAdapter.data[position]
+                }
+                travelCityAdapter.notifyDataSetChanged()
+                travelCityAdapter1.notifyDataSetChanged()
+            }
+            travelCityAdapter1.setOnItemClickListener { _, view, position ->
+                travelCityAdapter1.data.forEach {
+                    it.checked = it == travelCityAdapter.data[position]
+                }
+                travelCitys.smoothScrollToPosition(position)
+                travelCityAdapter1.notifyDataSetChanged()
+                travelCityAdapter.notifyDataSetChanged()
+            }
+
+            userAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                LogUtils.d(
+                    "verticalOffset===$verticalOffset,44F=${SizeUtils.dp2px(70F)},44F=${SizeUtils.dp2px(
+                        44F
+                    )},44F=${userAppbar.height}},44F=${toolbar.height}"
+                )
+                citysCl.alpha = 1 - abs(verticalOffset) * 1F / (userAppbar.height - toolbar.height)
+            })
+        }
+
+        mLayoutStatusView?.showLoading()
+        mPresenter?.planList(params)
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            binding.expandBtn -> {
+                binding.travelListCl.isVisible = true
+            }
+            binding.collapseBtn -> {
+                binding.travelListCl.isVisible = false
+            }
+            binding.travelPublishBtn -> {
+                mPresenter?.checkPlan()
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_travel, container, false)
+    override fun checkPlan(result: Boolean) {
+        if (result) {
+            if (UserManager.isTipDating)
+                PublishTravelActivity.start(activity!!)
+            else
+                startActivity<PublishTravelBeforeActivity>()
+        }
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TravelFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TravelFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun planList(success: Boolean, datas: MutableList<TravelPlanBean>) {
+        if (success) {
+            mLayoutStatusView?.showContent()
+        } else {
+            mLayoutStatusView?.showError()
+        }
+        if (binding.refreshTravel.state == RefreshState.Loading) {
+            travelAdapter.addData(datas)
+            if (datas.size < Constants.PAGESIZE) {
+                binding.refreshTravel.finishLoadMoreWithNoMoreData()
+            } else {
+                binding.refreshTravel.finishLoadMore(success)
             }
+        } else {
+            travelAdapter.setNewInstance(datas)
+            if (datas.size < Constants.PAGESIZE) {
+                binding.refreshTravel.finishRefreshWithNoMoreData()
+            } else {
+                binding.refreshTravel.finishRefresh(success)
+            }
+        }
     }
+
+    private var page = 1
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        if (travelAdapter.data.size < Constants.PAGESIZE * page) {
+            refreshLayout.finishLoadMoreWithNoMoreData()
+        } else {
+            page++
+            params["page"] = page
+            mPresenter?.planList(params)
+        }
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        page = 1
+        params["page"] = page
+        refreshLayout.resetNoMoreData()
+        mPresenter?.planList(params)
+    }
+
 }
