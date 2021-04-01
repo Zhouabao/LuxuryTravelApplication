@@ -82,6 +82,22 @@ interface ApiService {
     fun indexTop(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexListBean>>
 
 
+    /**
+     * 对方个人页数据
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/userInfoCandy${Constants.END_BASE_URL}")
+    fun getMatchUserInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MatchBean?>>
+
+
+    /**
+     * 获取用户广场列表
+     */
+    @FormUrlEncoded
+    @POST("square/someoneSquareCandy${Constants.END_BASE_URL}")
+    fun someoneSquareCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
 
 
 
@@ -275,8 +291,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Travel/issuePlan${Constants.END_BASE_URL}")
     fun issuePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
 

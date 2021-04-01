@@ -617,3 +617,98 @@ data class ProviceBean(
         return name
     }
 }
+
+/**
+ * 匹配用户
+ */
+data class MatchBean(
+    var intention_icon: String = "",
+    var isvip: Int = 0,    //是否会员 true是 false不是
+    var isdirectvip: Boolean = false,    //是否铂金会员 true是 false不是
+    var isplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
+    var myisplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
+    var isfaced: Int = 0,  //0未认证/认证不成功     1认证通过     2认证中
+    var accid: String = "",
+    var age: Int? = 0,
+    var avatar: String? = null,
+    var distance: String? = null,
+    var face_str: String? = null,
+    var online_time: String? = null,
+    var gender: Int? = 0,
+    var nickname: String? = null,
+    var contact_way: Int = 0,
+    var mv_btn: Boolean = false, //是否有视频
+    var photos: ArrayList<String>? = null,
+    var sign: String? = null,
+    var constellation: String? = null,
+    var isfriend: Int?,
+    var isblock: Int = 1,//1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
+    var mycandy_amount: Int = 0,
+    var need_notice: Boolean = true,
+    var intention_title: String = "",
+    var personal_info: MutableList<DetailUserInfoBean> = mutableListOf(),
+    var birth: Int = 0,
+    var assets_audit_way: Int = 0,
+    val assets_audit_descr: String = "",
+    var approve_square_id: Int = 0,
+    var mv_url: String = "",
+    var mv_faced: Boolean = false,
+    var dating: DatingBean? = null
+) : Serializable
+
+data class DetailUserInfoBean(
+    var icon: String = "",
+    var title: String = "",
+    var content: String = ""
+)
+
+/**
+ * 广场兴趣列表
+ */
+data class DatingBean(
+    var accid: String = "",
+    var apply_cnt: Int = 0,
+    var city_name: String = "",
+    var content: String = "",
+    var icon: String = "",
+    var duration: Int = 0,
+    var content_type: Int = 0,
+    var cost_money: String = "",
+    var cost_type: String = "",
+    var dating_distance: String = "",
+    var private_chat_state: String = "",
+    var dating_target: String = "",
+    var dating_title: String = "",
+    var distance: String = "",
+    var follow_up: String = "",
+    var gender: Int = 0,
+    var isplatinumvip: Boolean = false,
+    var like_cnt: Int = 0,
+    var temp_like_cnt: Int = like_cnt,
+    var nickname: String = "",
+    var place: String = "",
+    var province_name: String = "",
+    var title: String = "",
+    var avatar: String = "",
+    var id: Int = 0,
+    var is_hot: Boolean = false,
+    var type: Int = TYPE_WOMAN,
+
+    var dating_type: Int = 0,
+    var isliked: Boolean = false,
+    var online_time: String = "",
+    var tempLike: Boolean = isliked,
+    var ranking_level: Int = 0,
+    var show_type: Boolean = false,
+    override var itemType: Int = if (show_type) {
+        TYPE_WOMAN
+    } else {
+        TYPE_MAN
+    }
+) : MultiItemEntity {
+    companion object {
+        const val TYPE_WOMAN = 1
+        const val TYPE_MAN = 2
+    }
+}
+
