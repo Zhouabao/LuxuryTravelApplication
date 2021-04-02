@@ -738,3 +738,63 @@ data class DatingBean(
     }
 }
 
+
+/**
+ * 首页数据
+ */
+data class IndexBean(
+    var accid: String = "",
+    var age: Int = 0,
+    var assets_audit_descr: String = "",
+    var assets_audit_way: Int = 0,//0 不是甜心圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
+    var avatar: String = "",
+    var constellation: String = "",
+    var contact_way: Int = 0,//	0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
+    var dating_title: String = "",
+    var direct_vip_expire: Int = 0,
+    var distance: String = "",
+    var face_str: String = "",
+    var gender: Int = 0,
+    var hb_time: Int = 0,
+    var intention_icon: String = "",
+    var intention_title: String = "",
+    var invitation_id: Int = 0,
+    var is_platinum: Int = 0,
+    var isdirectvip: Boolean = false,
+    var isfaced: Int = 0,
+    var isfriend: Boolean = false,
+    var ismv: Int = 0,
+    var isplatinumvip: Boolean = false,
+    var isvip: Boolean = false,
+    var member_level: Int = 0,
+    var mv_btn: Boolean = false,
+    var mv_faced: Boolean = false,
+    var mv_url: String = "",
+    var mv_url_state: Int = 0,
+    var nickname: String = "",
+    var online_time: String = "",
+    var platinum_vip_expire: Int = 0,
+    var private_chat_state: Boolean = false,
+    var ranking_level: Int = 0,
+    var sign: String = "",
+    var title: String = "",
+    var want: List<String> = listOf()
+)
+
+data class IndexRecommendBean(
+    var complete_percent: Int = 0,
+    var complete_percent_normal: Int = 0,
+    var has_face_url: Boolean = false,
+    var is_human: Boolean = false,
+    var isfaced: Int = 0,
+    var isplatinum: Boolean = false,
+    var isvip: Boolean = false,
+    var list: MutableList<IndexBean> = mutableListOf(),
+    var motion: Int = 0,
+    var my_candy_amount: Int = 0,
+    var my_mv_url: Boolean = false,
+    var ranking_level: Int = 0,
+    var today_pull_dating: Boolean = false,
+    var want_step_man_pull: Boolean = false
+)
+

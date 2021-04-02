@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
+import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.IndexRecommendContract
 import com.sdy.luxurytravelapplication.mvp.model.IndexRecommendModel
 
@@ -13,5 +14,11 @@ import com.sdy.luxurytravelapplication.mvp.model.IndexRecommendModel
 class IndexRecommendPresenter :
     BasePresenter<IndexRecommendContract.Model, IndexRecommendContract.View>(),
     IndexRecommendContract.Presenter {
-    override fun createModel(): IndexRecommendContract.Model?  = IndexRecommendModel()
+    override fun createModel(): IndexRecommendContract.Model? = IndexRecommendModel()
+    override fun recommendIndex(params: HashMap<String, Any>) {
+        mModel?.recommendIndex(params)?.ssss {
+            mView?.recommendIndex(it.data)
+        }
+
+    }
 }

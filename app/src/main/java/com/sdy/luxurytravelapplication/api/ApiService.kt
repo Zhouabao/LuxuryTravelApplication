@@ -82,6 +82,25 @@ interface ApiService {
     fun indexTop(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexListBean>>
 
 
+
+    /**
+     * 奢旅推荐页面
+     */
+    @FormUrlEncoded
+    @POST("Home/recommendIndex${Constants.END_BASE_URL_v2}")
+    fun recommendIndex(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexRecommendBean?>>
+
+
+    /**
+     * 奢旅推荐页面
+     */
+    @FormUrlEncoded
+    @POST("Sweetheart/indexListV5${Constants.END_BASE_URL_v2}")
+    fun sweetheart(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexRecommendBean?>>
+
+
+
+
     /**
      * 对方个人页数据
      */

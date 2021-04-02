@@ -10,8 +10,8 @@
     app:loadingView="@layout/layout_loading_view"
     app:noNetworkView="@layout/layout_network_view">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshIndex"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/viewBackground">
@@ -21,6 +21,6 @@
             android:id="@+id/recyclerView"
             style="@style/RecyclerViewStyle" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

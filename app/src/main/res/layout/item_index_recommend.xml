@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
@@ -21,9 +22,9 @@
 
     <ImageView
         android:id="@+id/userVideoIcon"
-        android:background="@drawable/shape_cover_right_10dp"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:background="@drawable/shape_cover_right_10dp"
         android:src="@drawable/icon_index_video"
         app:layout_constraintBottom_toBottomOf="@id/userAvatar"
         app:layout_constraintLeft_toLeftOf="@id/userAvatar" />
@@ -34,12 +35,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
-        android:text="别滢"
         android:textColor="#ff333333"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/userAvatar"
-        app:layout_constraintTop_toTopOf="@id/userAvatar" />
+        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        tools:text="别滢" />
 
     <TextView
         android:id="@+id/userTravelPlace"
@@ -52,19 +53,28 @@
         android:paddingTop="2dp"
         android:paddingRight="4dp"
         android:paddingBottom="2dp"
-        android:text="成都-三亚"
         android:textColor="#ff1ed0a7"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@id/userNickname"
         app:layout_constraintLeft_toRightOf="@id/userNickname"
-        app:layout_constraintTop_toTopOf="@id/userNickname" />
+        app:layout_constraintTop_toTopOf="@id/userNickname"
+        tools:text="成都-三亚" />
 
-    <ImageView
+    <TextView
         android:id="@+id/userVerifyLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:src="@drawable/icon_index_luxury"
+        android:background="@drawable/shape_rectangle_ffedb2_5dp"
+        android:drawableLeft="@drawable/icon_luxury"
+        android:drawablePadding="2dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="1dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="1dp"
+        android:text="奢旅圈"
+        android:textColor="#fffc9010"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@id/userNickname"
         app:layout_constraintLeft_toRightOf="@id/userTravelPlace"
         app:layout_constraintTop_toTopOf="@id/userNickname" />
@@ -84,11 +94,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="234m·女·天蝎座·30分钟前"
-        android:textColor="#ff1ed0a7"
+        android:textColor="#FFB6BCC6"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/userNickname"
-        app:layout_constraintTop_toBottomOf="@id/userNickname" />
+        app:layout_constraintTop_toBottomOf="@id/userNickname"
+        tools:text="234m·女·天蝎座·30分钟前" />
 
     <TextView
         android:id="@+id/userSign"
@@ -98,12 +108,12 @@
         android:layout_marginRight="10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="这是她的个性签名这是她的个性签名这是她的个性签名这是她的个性签名"
         android:textColor="#ff8a909f"
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="@id/userNickname"
         app:layout_constraintRight_toLeftOf="@id/moreBtn"
-        app:layout_constraintTop_toBottomOf="@id/userBasicInfo" />
+        app:layout_constraintTop_toBottomOf="@id/userBasicInfo"
+        tools:text="这是她的个性签名这是她的个性签名这是她的个性签名这是她的个性签名" />
 
     <ImageView
         android:id="@+id/moreBtn"
