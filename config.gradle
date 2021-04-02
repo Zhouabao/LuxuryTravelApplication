@@ -87,7 +87,7 @@ ext {
             "smart-refresh-footer"        : 'com.scwang.smart:refresh-footer-classics:2.0.3',
             "spinkit"                     : 'com.github.ybq:Android-SpinKit:1.2.0',
             //工具类
-            "blankj"                      : 'com.blankj:utilcodex:1.30.5',
+            "blankj"                      : 'com.blankj:utilcodex:1.30.6',
             //联动选择器
             "pickerview"                  : 'com.contrarywind:Android-PickerView:4.1.9',
             //lottie动画

@@ -16,7 +16,6 @@ import io.reactivex.Observable
  */
 class TargetUserModel : BaseModel(), TargetUserContract.Model {
     override fun getMatchUserInfo(target_accid: String): Observable<BaseResp<MatchBean?>> {
-
         return RetrofitHelper.service.getMatchUserInfo(hashMapOf("target_accid" to target_accid))
     }
 

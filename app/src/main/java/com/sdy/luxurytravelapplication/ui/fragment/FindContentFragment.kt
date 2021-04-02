@@ -69,7 +69,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             val emptyBinding = EmptyFriendLayoutBinding.inflate(layoutInflater)
             emptyBinding.emptyFriendTitle.text = getString(R.string.nearby_empty_content)
             emptyBinding.emptyFriendTip.text = getString(R.string.nearby_empty_content1)
-            emptyBinding.emptyImg.setImageResource(R.drawable.icon_verify_ing)
+            emptyBinding.emptyImg.setImageResource(R.drawable.icon_empty_square_comment)
             adapter.isUseEmpty = false
         }
     }

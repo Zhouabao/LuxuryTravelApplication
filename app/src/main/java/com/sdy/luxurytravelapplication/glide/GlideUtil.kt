@@ -281,7 +281,7 @@ object GlideUtil {
             url: Any?,
             tartgetImg: ImageView?,
             radius: Int,
-            type: RoundedCornersTransformation.CornerType?
+            type: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL
         ) {
             val multiTransformation: MultiTransformation<Bitmap> =
                 MultiTransformation<Bitmap>(

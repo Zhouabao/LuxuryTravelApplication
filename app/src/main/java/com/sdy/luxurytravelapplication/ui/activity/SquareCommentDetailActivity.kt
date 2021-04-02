@@ -767,8 +767,8 @@ class SquareCommentDetailActivity :
                 CommonFunction.checkChat(this, squareBean?.accid ?: "")
             }
             R.id.squareUserIv1 -> {
-//                if ((squareBean?.accid ?: "") != UserManager.accid)
-//                    MatchDetailActivity.start(this, squareBean?.accid ?: "")
+                if ((squareBean?.accid ?: "") != UserManager.accid)
+                    TargetUserActivity.start(this, squareBean?.accid ?: "")
             }
         }
     }

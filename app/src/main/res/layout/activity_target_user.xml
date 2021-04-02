@@ -14,415 +14,37 @@
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refreshTargetUser"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srlEnableRefresh="false">
 
-            <androidx.core.widget.NestedScrollView
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mySquareRv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/bigPhotosRv"
-                        android:layout_width="match_parent"
-                        android:layout_height="369dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:background="@drawable/shape_gradient_cover_bottom20dp"
-                        app:layout_constraintBottom_toBottomOf="@id/bigPhotosRv" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/smallPhotosRv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="15dp"
-                        app:layout_constraintBottom_toBottomOf="@id/bigPhotosRv"
-                        app:layout_constraintLeft_toLeftOf="@id/bigPhotosRv" />
-
-                    <TextView
-                        android:id="@+id/nickName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:text="这是我的昵称昵称"
-                        android:textColor="#ffffffff"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/smallPhotosRv"
-                        app:layout_constraintLeft_toLeftOf="@id/smallPhotosRv" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/verifyCl"
-                        android:layout_width="0dp"
-                        android:layout_height="87dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/ageCl"
-                        app:layout_constraintTop_toBottomOf="@id/bigPhotosRv">
-
-                        <TextView
-                            android:id="@+id/t11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/icon_luxury"
-                            android:drawablePadding="5dp"
-                            android:text="认证"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toTopOf="@id/verifyTitle"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/problemBtn"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <ImageView
-                            android:id="@+id/problemBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/icon_target_problem"
-                            app:layout_constraintBottom_toBottomOf="@id/t11"
-                            app:layout_constraintLeft_toRightOf="@id/t11"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/t11" />
-
-                        <TextView
-                            android:id="@+id/verifyTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="奢旅圈认证"
-                            android:textColor="#fffc9010"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toTopOf="@id/verifyBtn"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/t11" />
-
-                        <TextView
-                            android:id="@+id/verifyBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/shape_rectangle_ffedb2_9dp"
-                            android:paddingLeft="6dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="6dp"
-                            android:paddingBottom="1dp"
-                            android:text="查看认证"
-                            android:textColor="#fffc9010"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/verifyTitle" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/ageCl"
-                        android:layout_width="0dp"
-                        android:layout_height="87dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintLeft_toRightOf="@id/verifyCl"
-                        app:layout_constraintRight_toLeftOf="@id/distanceCl"
-                        app:layout_constraintTop_toBottomOf="@id/bigPhotosRv">
-
-                        <ImageView
-                            android:id="@+id/userGender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icon_trget_gender_man"
-                            app:layout_constraintBottom_toTopOf="@id/age"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@id/t1"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <TextView
-                            android:id="@+id/t1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="年龄"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="@id/userGender"
-                            app:layout_constraintLeft_toRightOf="@id/userGender"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/userGender"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <TextView
-                            android:id="@+id/age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="22岁"
-                            android:textColor="#ff7497ff"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/userGender" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <LinearLayout
-                        android:id="@+id/distanceCl"
-                        android:layout_width="0dp"
-                        android:layout_height="87dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintLeft_toRightOf="@id/ageCl"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bigPhotosRv">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/icon_target_location"
-                            android:drawablePadding="5dp"
-                            android:text="城市/距离"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="890m"
-                            android:textColor="#ff1ed0a7"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:id="@+id/userSign"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="15dp"
-                        android:text="这是我的个人介绍，最多显示三行吧 这是我的个人介绍，最多显示三行吧 这是我的个人介绍，最多显示三行吧 这是我的个人介绍，最多显示三行吧 这是我的个人介绍，最多显..."
-                        android:textColor="#ffb6bcc6"
-                        android:textSize="13sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/verifyCl" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/travelPlanCl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="8dp"
-                        android:background="@drawable/icon_target_travel_bg"
-                        app:layout_constraintTop_toBottomOf="@id/userSign">
-
-
-                        <TextView
-                            android:id="@+id/travelTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="22dp"
-                            android:text="海岛五日游来个人"
-                            android:textColor="#ff333333"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/detailBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="22dp"
-                            android:src="@drawable/icon_chat"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/travelTitle" />
-
-                        <TextView
-                            android:id="@+id/travel_province"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="41dp"
-                            android:gravity="center"
-                            android:text="成都"
-                            android:textColor="#ff1ed0a7"
-                            android:textSize="19sp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="@id/travelTitle"
-                            app:layout_constraintRight_toLeftOf="@id/airplane"
-                            app:layout_constraintTop_toBottomOf="@id/travelTitle" />
-
-                        <TextView
-                            android:id="@+id/travelAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="天府三街福年广场"
-                            android:textColor="#ffb6bcc6"
-                            android:textSize="12sp"
-                            app:layout_constraintLeft_toLeftOf="@id/travelTitle"
-                            app:layout_constraintRight_toLeftOf="@id/airplane"
-                            app:layout_constraintTop_toBottomOf="@id/travel_dest_province" />
-
-
-                        <ImageView
-                            android:id="@+id/airplane"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icon_travel_airplane"
-                            app:layout_constraintBottom_toBottomOf="@id/travelDestAddress"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/travel_dest_province" />
-
-                        <TextView
-                            android:id="@+id/travel_dest_province"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="41dp"
-                            android:gravity="center"
-                            android:text="成都"
-                            android:textColor="#ff1ed0a7"
-                            android:textSize="19sp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toRightOf="@id/airplane"
-                            app:layout_constraintRight_toRightOf="@id/detailBtn"
-                            app:layout_constraintTop_toBottomOf="@id/travelTitle" />
-
-                        <TextView
-                            android:id="@+id/travelDestAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="天府三街福年广场"
-                            android:textColor="#ffb6bcc6"
-                            android:textSize="12sp"
-                            app:layout_constraintLeft_toRightOf="@id/airplane"
-                            app:layout_constraintRight_toRightOf="@id/detailBtn"
-                            app:layout_constraintTop_toBottomOf="@id/travel_dest_province" />
-
-                        <com.sdy.luxurytravelapplication.widgets.FindAudioView
-                            android:id="@+id/travelAduio"
-                            android:layout_width="165dp"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="41dp"
-                            android:layout_marginBottom="22dp"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="@id/travelTitle"
-                            app:layout_constraintTop_toBottomOf="@id/travelAddress" />
-
-                        <TextView
-                            android:id="@+id/travelDescr"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="41dp"
-                            android:layout_marginBottom="22dp"
-                            android:gravity="center_vertical"
-                            android:lineSpacingMultiplier="1.2"
-                            android:lines="3"
-                            android:text="成都出发三亚，随时都能走约起来，姑娘们约起来我包干懂的来"
-                            android:textColor="#ff333333"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="@id/travelTitle"
-                            app:layout_constraintRight_toRightOf="@id/detailBtn"
-                            app:layout_constraintTop_toBottomOf="@id/travelAddress" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <TextView
-                        android:id="@+id/t22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:text="个人信息"
-                        android:textColor="#ff333333"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintLeft_toLeftOf="@id/nickName"
-                        app:layout_constraintTop_toBottomOf="@id/travelPlanCl" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/basicInfoRv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintLeft_toLeftOf="@id/nickName"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/t22" />
-
-                    <TextView
-                        android:id="@+id/t33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:text="个人信息"
-                        android:textColor="#ff333333"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintLeft_toLeftOf="@id/nickName"
-                        app:layout_constraintTop_toBottomOf="@id/basicInfoRv" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/mySquareRv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="15dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/t33" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.core.widget.NestedScrollView>
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
+        <View
+            android:id="@+id/vewCl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_target_top_cover"
+            app:layout_constraintBottom_toBottomOf="@id/barlCl"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/barlCl"
-            layout="@layout/layout_actionbar" />
+            layout="@layout/layout_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatCl"
@@ -433,7 +55,7 @@
             android:paddingTop="10dp"
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
 
 

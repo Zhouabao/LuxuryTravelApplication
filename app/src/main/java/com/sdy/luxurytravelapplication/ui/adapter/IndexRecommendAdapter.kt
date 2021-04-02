@@ -1,7 +1,9 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
@@ -19,6 +21,10 @@ class IndexRecommendAdapter :
                 binding.root.setBackgroundResource(R.drawable.icon_index_recommend_normal_bg)
             } else {
                 binding.root.setBackgroundResource(R.drawable.icon_index_recommend_luxury_bg)
+            }
+
+            ClickUtils.applySingleDebouncing(userAvatar){
+                TargetUserActivity.start(context,"")
             }
         }
 

@@ -17,7 +17,8 @@ object Constants {
     const val TEST = true
 
 
-    const val END_BASE_URL = "/v2.json"
+    const val END_BASE_URL = "/v1.json"
+    const val END_BASE_URL_v2 = "/v2.json"
 
 
 

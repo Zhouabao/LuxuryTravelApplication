@@ -6,9 +6,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.airbnb.lottie.LottieAnimationView
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.VibrateUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -23,6 +24,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareBean
 import com.sdy.luxurytravelapplication.ui.activity.SquareCommentDetailActivity
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -199,17 +201,19 @@ class RecommendSquareAdapter :
 //                                    position - headerLayoutCount
 //                                )
 //                        }
-                        SquareCommentDetailActivity.start(
-                            context,
-                            squareId = item.id,
-                            position = position,
-                            type = if (item.approve_type != 0) {
-                                SquareCommentDetailActivity.TYPE_SWEET
-                            } else {
-                                SquareCommentDetailActivity.TYPE_SQUARE
-                            },
-                            gender = item.gender
-                        )
+
+
+                SquareCommentDetailActivity.start(
+                    context,
+                    squareId = item.id,
+                    position = position,
+                    type = if (item.approve_type != 0) {
+                        SquareCommentDetailActivity.TYPE_SWEET
+                    } else {
+                        SquareCommentDetailActivity.TYPE_SQUARE
+                    },
+                    gender = item.gender
+                )
 //
 //                    }
 //                }
@@ -218,11 +222,7 @@ class RecommendSquareAdapter :
             }
 
             squareAvator.setOnClickListener {
-                if (UserManager.touristMode) {
-//                    TouristDialog(context).show()
-                } else {
-                }
-//                    MatchDetailActivity.start(context, item.accid)
+                TargetUserActivity.start(context, item.accid)
             }
         }
     }

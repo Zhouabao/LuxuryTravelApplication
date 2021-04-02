@@ -116,7 +116,7 @@ interface ApiService {
      *
      */
     @FormUrlEncoded
-    @POST("Square/squareEliteList${Constants.END_BASE_URL}")
+    @POST("Square/squareEliteList${Constants.END_BASE_URL_v2}")
     fun squareEliteList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
 
 
@@ -248,7 +248,7 @@ interface ApiService {
      * 验证是否可以发布旅行计划
      */
     @FormUrlEncoded
-    @POST("Travel/checkPlan${Constants.END_BASE_URL}")
+    @POST("Travel/checkPlan${Constants.END_BASE_URL_v2}")
     fun checkPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
@@ -258,7 +258,7 @@ interface ApiService {
      * 计划列表
      */
     @FormUrlEncoded
-    @POST("Travel/planList${Constants.END_BASE_URL}")
+    @POST("Travel/planList${Constants.END_BASE_URL_v2}")
     fun planList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
 
 
@@ -270,7 +270,7 @@ interface ApiService {
      * 旅行计划详情
      */
     @FormUrlEncoded
-    @POST("Travel/planInfo${Constants.END_BASE_URL}")
+    @POST("Travel/planInfo${Constants.END_BASE_URL_v2}")
     fun planInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TravelPlanBean?>>
 
 
@@ -281,7 +281,7 @@ interface ApiService {
     旅行计划 发布选项
      */
     @FormUrlEncoded
-    @POST("Travel/planOptions${Constants.END_BASE_URL}")
+    @POST("Travel/planOptions${Constants.END_BASE_URL_v2}")
     fun planOptions(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PlanOptionsBean?>>
 
 
@@ -289,7 +289,7 @@ interface ApiService {
      * 发布旅行计划
      */
     @FormUrlEncoded
-    @POST("Travel/issuePlan${Constants.END_BASE_URL}")
+    @POST("Travel/issuePlan${Constants.END_BASE_URL_v2}")
     fun issuePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
