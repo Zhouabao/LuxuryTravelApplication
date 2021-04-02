@@ -105,6 +105,7 @@ class TargetUserActivity :
             val manager1 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             manager1.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
             mySquareRv.layoutManager = manager1
+            mySquareRv.animation = null
             mySquareRv.adapter = adapter
             mySquareRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(

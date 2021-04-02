@@ -14,8 +14,9 @@
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refreshTargetUser"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/chatCl"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srlEnableRefresh="false">
