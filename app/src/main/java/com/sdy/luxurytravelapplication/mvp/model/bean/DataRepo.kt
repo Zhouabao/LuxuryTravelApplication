@@ -778,7 +778,7 @@ data class IndexBean(
     var ranking_level: Int = 0,
     var sign: String = "",
     var title: String = "",
-    var want: List<String> = listOf()
+    var want: MutableList<String> = mutableListOf()
 )
 
 data class IndexRecommendBean(
@@ -795,6 +795,10 @@ data class IndexRecommendBean(
     var my_mv_url: Boolean = false,
     var ranking_level: Int = 0,
     var today_pull_dating: Boolean = false,
-    var want_step_man_pull: Boolean = false
+    var want_step_man_pull: Boolean = false,
+
+
+    val is_honey: Boolean = false,
+    val progress: SweetProgressBean = SweetProgressBean()
 )
 

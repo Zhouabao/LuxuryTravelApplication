@@ -10,7 +10,7 @@
     app:noNetworkView="@layout/layout_network_view">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/refresh_luxury"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/viewBackground">

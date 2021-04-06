@@ -250,6 +250,22 @@ object UserManager {
         set(mvFaced) = SPUtils.getInstance(Constants.SPNAME).put("mvFaced", mvFaced)
 
 
+    var isvip: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isvip1", false)
+        set(vip) = SPUtils.getInstance(Constants.SPNAME).put("isvip1", vip)
+
+
+    //0未认证/认证不成功     1认证通过     2认证中
+    var isverify: Int
+        get() = SPUtils.getInstance(Constants.SPNAME).getInt("verify", 0)
+        set(verify) = SPUtils.getInstance(Constants.SPNAME).put("verify", verify)
+
+
+    //0未认证/认证不成功     1认证通过     2认证中
+    var HasFaceUrl: Int
+        get() = SPUtils.getInstance(Constants.SPNAME).getInt("verify", 0)
+        set(verify) = SPUtils.getInstance(Constants.SPNAME).put("verify", verify)
+
     /**
      * 是否有人脸
      */

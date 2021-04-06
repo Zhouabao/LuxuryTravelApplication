@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
+import com.sdy.luxurytravelapplication.event.RefreshSweetAddEvent
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
@@ -22,6 +24,8 @@ import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.ui.adapter.PeopleRecommendTopAdapter
 import com.sdy.luxurytravelapplication.ui.dialog.ToBeSelectedDialog
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -61,7 +65,7 @@ class IndexFragment :
 //            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
-                    addLuxuryCl.isVisible = position == 2
+                    addLuxuryCl.isVisible = position == 2 && !isHoney && isInitialize
                     indexContent.currentItem = position
                 }
 
@@ -115,5 +119,19 @@ class IndexFragment :
             }
         }
 
+    }
+
+    /**
+     * 刷新加入甜心圈显示
+     */
+    private var isHoney = false
+    private var isInitialize = false
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTopCardEvent(event: RefreshSweetAddEvent) {
+        isInitialize = true
+        isHoney = event.isHoney
+        if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
+            binding.addLuxuryCl.isVisible = !isHoney
     }
 }

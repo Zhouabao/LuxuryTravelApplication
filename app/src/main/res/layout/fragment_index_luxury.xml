@@ -15,14 +15,14 @@
         android:layout_height="match_parent">
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+            android:id="@+id/refresh_luxury"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/luxuryRv"
                 style="@style/RecyclerViewStyle"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:listitem="@layout/item_index_luxury" />

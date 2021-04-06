@@ -109,3 +109,8 @@ class AnnounceEvent(var serverSuccess: Boolean = false, var code: Int = 0)
 
 //重新上传内容的通知成功或者失败事件
 class RePublishEvent(var republish: Boolean, val context: String)
+
+
+
+//刷新加入甜心圈显示
+class RefreshSweetAddEvent(val isHoney: Boolean = false)
