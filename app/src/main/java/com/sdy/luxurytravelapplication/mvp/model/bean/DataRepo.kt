@@ -802,3 +802,61 @@ data class IndexRecommendBean(
     val progress: SweetProgressBean = SweetProgressBean()
 )
 
+
+data class MessageGiftBean(
+    var mid: String = "",
+    var id: Int = 0,
+    var state: Int = 0////state  2领取  3过期
+)
+data class AccostListBean(var list: MutableList<AccostBean> = mutableListOf())
+data class AccostBean(
+    var accid: String = "",
+    var avatar: String = "",
+    var icon: String = "",
+    var gender: Int = 0,
+    var unreadCnt: Int = 0,
+    var time: Long = 0L,
+    var nickname: String = "",
+    var content: String = ""
+)
+
+data class MessageListBean(
+    var title: String = "",
+    var msg: String = "",
+    var count: Int = 0,
+    var time: String = "",
+    var icon: Int = 0,
+    var id: String = ""
+)
+
+/*************消息列表**************/
+data class MessageListBean1(
+    var square_count: Int = 0,//评论未读数
+    var square_type: Int = 0,// 1广场点赞 2评论我的 3为我评论点赞的 4@我的列表
+    var square_time: String = "",
+    var square_nickname: String = "",
+    var chatup_list_lasttime: String = "",
+    var session_list_arr: MutableList<MessageGiftBean> = mutableListOf(),
+    var chatup_rid_list: MutableList<String> = mutableListOf(), //要剔除的id
+    var chatup_list: MutableList<AccostBean> = mutableListOf()
+)
+/**
+ * 广场消息列表
+ */
+data class SquareMsgBean(
+    var accid: String = "",
+    var avatar: String = "",
+    var category: Int = 0,
+    var click_cnt: Int = 0,
+    var content: String = "",
+    var cover_url: String = "",
+    var create_time: String = "",
+    var descr: String = "",
+    var id: Int = 0,
+    var is_read: Boolean = false,
+    var msg_id: Int = 0,
+    var status: Int = 0,
+    var amount: Int = 0,
+    var nickname: String = "",
+    var type: Int = 0
+)

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:background="@color/colorWhite">
+
+    <com.sdy.luxurytravelapplication.widgets.RoundImageView
+        android:id="@+id/squareAvator"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/default_image_15dp"
+        app:type="round"
+        app:borderRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/squareNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="付启婉"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/squareContent"
+        app:layout_constraintLeft_toRightOf="@id/squareAvator"
+        app:layout_constraintRight_toLeftOf="@id/squareIcon"
+        app:layout_constraintTop_toTopOf="@id/squareAvator" />
+
+
+    <TextView
+        android:id="@+id/squareContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="赞了你的动态"
+        android:textColor="#ff8a909f"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/squareAvator"
+        app:layout_constraintLeft_toLeftOf="@id/squareNickname"
+        app:layout_constraintRight_toLeftOf="@id/squareIcon"
+        app:layout_constraintTop_toBottomOf="@id/squareNickname" />
+
+    <ImageView
+        android:id="@+id/squareIcon"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/default_image_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/squareTypeVideo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icon_play_transparent"
+        app:layout_constraintBottom_toBottomOf="@id/squareIcon"
+        app:layout_constraintLeft_toLeftOf="@id/squareIcon"
+        app:layout_constraintRight_toRightOf="@id/squareIcon"
+        app:layout_constraintTop_toTopOf="@id/squareIcon" />
+
+    <TextView
+        android:id="@+id/squareTypeText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/color333"
+        android:textSize="8sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/squareIcon"
+        app:layout_constraintLeft_toLeftOf="@id/squareIcon"
+        app:layout_constraintRight_toRightOf="@id/squareIcon"
+        app:layout_constraintTop_toTopOf="@id/squareIcon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

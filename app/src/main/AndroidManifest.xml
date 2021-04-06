@@ -35,7 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.TargetUserActivity"></activity>
+        <activity android:name=".ui.activity.MessageSquareActivity"></activity>
+        <activity android:name=".ui.activity.AccostListActivity" />
+        <activity android:name=".ui.activity.TargetUserActivity" />
         <activity android:name=".ui.activity.PublishTravelEndActivity" />
         <activity android:name=".ui.activity.PublishTravelBeforeActivity" />
         <activity android:name=".ui.activity.TravelDetailActivity" />

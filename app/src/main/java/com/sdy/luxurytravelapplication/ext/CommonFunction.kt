@@ -13,16 +13,23 @@ import com.luck.picture.lib.style.PictureCropParameterStyle
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.attachment.MsgAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
+import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.callback.MyUMAuthCallback
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.event.UpdateContactBookEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
+import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
+import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment
+import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
+import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
@@ -125,6 +132,130 @@ object CommonFunction {
 //        if (ActivityUtils.isActivityExistsInStack(ContactBookActivity::class.java))
 //            EventBus.getDefault().post(UpdateContactBookEvent())
     }
+
+
+    /**
+     * 返回云信的消息
+     */
+    fun getRecentContent(
+        item: MsgAttachment? = null,
+        content: String? = "",
+        extionsion: Map<String, Any>,
+        msgTypeEnum: MsgTypeEnum,
+        remoteExtension: Map<String, Any> = hashMapOf()
+    ): String {
+        return when (msgTypeEnum) {
+            MsgTypeEnum.video -> {
+                ActivityUtils.getTopActivity().getString(R.string.msg_video)
+            }
+            MsgTypeEnum.audio -> {
+                ActivityUtils.getTopActivity().getString(R.string.msg_audio)
+            }
+            MsgTypeEnum.image -> {
+//                if (remoteExtension.isNotEmpty() && remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null)
+//                    ActivityUtils.getTopActivity().getString(R.string.msg_location)
+//                else
+                    ActivityUtils.getTopActivity().getString(R.string.msg_pic)
+            }
+            MsgTypeEnum.custom -> {
+                if (item == null) {
+                    content ?: ""
+                } else {
+                    when (item) {
+//                        is WarmingNoticeAttachment -> ""
+//            const val PIC = 1
+//        const val VIDEO = 2
+//        const val AUDIO = 3
+//        const val OFFICIAL_NOTICE = 4
+                        is ShareSquareAttachment -> {
+                            if (item.shareType == SquareBean.PIC) {
+                                ActivityUtils.getTopActivity().getString(R.string.share_pic)
+                            } else if (item.shareType == SquareBean.AUDIO) {
+                                ActivityUtils.getTopActivity().getString(R.string.share_audio)
+                            } else if (item.shareType == SquareBean.VIDEO) {
+                                ActivityUtils.getTopActivity().getString(R.string.share_video)
+                            } else {
+                                ActivityUtils.getTopActivity().getString(R.string.content_share)
+                            }
+                        }
+
+                        is SendGiftAttachment -> {
+                            val giftStatus =
+                                if (extionsion.isNotEmpty() && extionsion[SendGiftAttachment.KEY_STATUS] != null) {
+                                    extionsion[SendGiftAttachment.KEY_STATUS] as Int
+                                } else {
+                                    -1
+                                }
+                            when (giftStatus) {
+
+                                SendGiftAttachment.STATUS_RECEIVED -> {
+                                    ActivityUtils.getTopActivity()
+                                        .getString(R.string.content_gift_received)
+                                }
+                                SendGiftAttachment.STATUS_RETURNED -> {
+                                    ActivityUtils.getTopActivity()
+                                        .getString(R.string.content_gift_refund)
+                                }
+                                SendGiftAttachment.STATUS_TIMEOUT -> {
+                                    ActivityUtils.getTopActivity()
+                                        .getString(R.string.content_gift_timeout)
+                                }
+                                else -> {
+//                        SendGiftAttachment.STATUS_WAIT -> {
+                                    ActivityUtils.getTopActivity()
+                                        .getString(R.string.content_gift_wait_receive)
+                                }
+//                        else -> {
+//                            "『礼物消息』"
+//                        }
+                            }
+                        }
+
+//                        is SendWechatAttachment -> {
+//                            ActivityUtils.getTopActivity().getString(R.string.content_contact)
+//                        }
+                        else -> content ?: ""
+                    }
+                }
+            }
+            else -> {
+                content ?: ""
+            }
+        }
+
+    }
+
+    /**
+     * 返回云信的消息
+     */
+    fun getRecentContent(item: RecentContact): String {
+        return when (item.attachment) {
+//            is ChatHiAttachment ->
+//                when ((item.attachment as ChatHiAttachment).showType) {
+//                    ChatHiAttachment.CHATHI_CHATUP_FRIEND -> DemoCache.getContext()
+//                        .getString(R.string.msg_unlock_chat)
+//                    else -> ""
+//                }
+            is ShareSquareAttachment -> DemoCache.getContext().getString(R.string.msg_share_square)
+//            is ChatDatingAttachment -> DemoCache.getContext().getString(R.string.msg_dating_apply)
+            is SendGiftAttachment -> DemoCache.getContext().getString(R.string.msg_gift)
+//            is ContactAttachment -> (item.attachment as ContactAttachment).contactContent
+//            is ContactCandyAttachment -> {
+//                DemoCache.getContext().getString(R.string.msg_unlock_contact)
+//            }
+//            is SendCustomTipAttachment -> if ((item.attachment as SendCustomTipAttachment).content.isNullOrEmpty()) {
+//                DemoCache.getContext().getString(R.string.msg_prompt)
+//            } else {
+//                (item.attachment as SendCustomTipAttachment).content
+//            }
+//            is ChatUpAttachment -> {
+//                (item.attachment as ChatUpAttachment).chatUpContent
+//            }
+            else -> item.content
+        }
+    }
+
+
 
 
     fun getErrorMsg(context: Context): String {

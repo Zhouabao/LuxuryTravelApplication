@@ -516,4 +516,39 @@
     <string name="re_publish_for_fail_content">您有一条内容未成功发布，是否重新发布？</string>
     <string name="retry_upload">重新上传</string>
     <string name="publish_new_content">发布新内容</string>
+
+
+    <string name="msg_chat_up_gift">『搭讪礼物』</string>
+    <string name="msg_share_square">『动态分享内容』</string>
+    <string name="msg_candy_gift">『糖果礼物』</string>
+    <string name="msg_want_help">『心愿助力』</string>
+    <string name="msg_dating_apply">『活动报名』</string>
+    <string name="msg_unlock_chat">『聊天已解锁』</string>
+    <string name="msg_gift">『礼物消息』</string>
+    <string name="msg_unlock_contact">『解锁联系方式』</string>
+    <string name="msg_prompt">『消息提醒』</string>
+    <string name="share_pic">『图片分享』</string>
+    <string name="share_audio">『语音分享』</string>
+    <string name="share_video">『视频分享』</string>
+    <string name="content_share">『分享内容』</string>
+    <string name="msg_video">『视频消息』</string>
+    <string name="msg_audio">『语音消息』</string>
+    <string name="msg_location">『定位消息』</string>
+    <string name="msg_pic">『图片消息』</string>
+    <string name="content_gift_wait_receive"><![CDATA[<font color=\"red\">『礼物待领取』</font>]]></string>
+
+    <string name="assistant">官方助手</string>
+    <string name="no_assistant_msg">暂时没有助手消息哦</string>
+    <string name="squre_message">广场消息</string>
+    <string name="no_square_message">暂时没有广场消息哦</string>
+    <string name="someone_zan_your_square">%1$s 赞了你的动态</string>
+    <string name="someone_comment_your_square">%1$s 评论了你的动态</string>
+    <string name="someone_zan_your_comment">%1$s 赞了你的评论</string>
+    <string name="no_new_square">暂时没有新动态哦</string>
+    <string name="pass_verify">已通过认证</string>
+    <string name="new_hi_message">新的招呼消息</string>
+    <string name="empty_messgae">暂时没有消息</string>
+
+    <string name="zan_your_square">点赞了你的动态</string>
+    <string name="comment">评论\t</string>
 </resources>

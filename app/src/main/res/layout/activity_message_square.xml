@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MessageSquareActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/tabSquare"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tl_bar_color="@color/colorBackgroundGray"
+        app:tl_indicator_anim_enable="true"
+        app:tl_indicator_bounce_enable="false"
+        app:tl_indicator_color="@color/colorWhite"
+        app:tl_indicator_corner_radius="6dp"
+        app:tl_indicator_margin_bottom="3dp"
+        app:tl_indicator_margin_left="3dp"
+        app:tl_indicator_margin_right="3dp"
+        app:tl_indicator_margin_top="3dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textBold="SELECT"
+        app:tl_textSelectColor="@color/color333"
+        app:tl_textUnselectColor="#FFB6BCC6"
+        app:tl_textsize="16sp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpSquare"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+
+</LinearLayout>

@@ -114,3 +114,14 @@ class RePublishEvent(var republish: Boolean, val context: String)
 
 //刷新加入甜心圈显示
 class RefreshSweetAddEvent(val isHoney: Boolean = false)
+
+
+//首页更新红点消息
+class GetNewMsgEvent
+/**
+ * 更新招呼列表
+ */
+class UpdateHiEvent
+
+class UpdateAccostListEvent()
+

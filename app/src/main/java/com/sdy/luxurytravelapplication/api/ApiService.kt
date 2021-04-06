@@ -314,7 +314,49 @@ interface ApiService {
 
 
 
+    /**
+     * 所有的消息列表
+     */
+    @FormUrlEncoded
+    @POST("Tidings/messageCensuscandyend${Constants.END_BASE_URL}")
+    fun messageCensus(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MessageListBean1?>>
 
+
+
+    @FormUrlEncoded
+    @POST("Tidings/chatupList${Constants.END_BASE_URL}")
+    fun chatupList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<AccostListBean?>>
+
+    /**
+     * 删除搭讪
+     */
+    @FormUrlEncoded
+    @POST("Ticket/delChat${Constants.END_BASE_URL}")
+    fun delChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 广场消息列表
+     */
+    @FormUrlEncoded
+    @POST("tidings/squareListsEnd${Constants.END_BASE_URL}")
+    fun squareLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareMsgBean>>>
+
+    /**
+     * 标记广场消息已读
+     * （type  1点赞   2评论）
+     */
+    @FormUrlEncoded
+    @POST("Tidings/markSquareRead${Constants.END_BASE_URL}")
+    fun markSquareRead(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 删除广场消息
+     */
+    @FormUrlEncoded
+    @POST("Tidings/delSquareMsg${Constants.END_BASE_URL}")
+    fun delSquareMsg(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
     /**
