@@ -14,8 +14,6 @@ import retrofit2.http.POST
 interface ApiService {
 
 
-
-
     /*************注册登录付费****************/
     /**
      * 获取登录配置开关信息
@@ -66,13 +64,6 @@ interface ApiService {
     fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
 
 
-    /**
-     * 门槛支付列表
-     */
-    @FormUrlEncoded
-    @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL}")
-    fun getThreshold(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
-
 
     /**
      * 推荐10个
@@ -80,7 +71,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Home/topList${Constants.END_BASE_URL}")
     fun indexTop(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexListBean>>
-
 
 
     /**
@@ -99,8 +89,6 @@ interface ApiService {
     fun sweetheart(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexRecommendBean?>>
 
 
-
-
     /**
      * 对方个人页数据
      */
@@ -115,9 +103,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("square/someoneSquareCandy${Constants.END_BASE_URL}")
     fun someoneSquareCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
-
-
-
 
 
     /*****************************广场**********************************/
@@ -257,10 +242,6 @@ interface ApiService {
     fun getTagTitleList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChooseTitleBean>>
 
 
-
-
-
-
     /******************伴游***********************/
 
     /**
@@ -271,8 +252,6 @@ interface ApiService {
     fun checkPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
-
     /**
      * 计划列表
      */
@@ -281,18 +260,12 @@ interface ApiService {
     fun planList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
 
 
-
-
-
-
     /**
      * 旅行计划详情
      */
     @FormUrlEncoded
     @POST("Travel/planInfo${Constants.END_BASE_URL_v2}")
     fun planInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TravelPlanBean?>>
-
-
 
 
     /**
@@ -312,7 +285,7 @@ interface ApiService {
     fun issuePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
+    /******************************消息中心***********************************/
 
     /**
      * 所有的消息列表
@@ -320,7 +293,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Tidings/messageCensuscandyend${Constants.END_BASE_URL}")
     fun messageCensus(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MessageListBean1?>>
-
 
 
     @FormUrlEncoded
@@ -357,6 +329,161 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Tidings/delSquareMsg${Constants.END_BASE_URL}")
     fun delSquareMsg(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**********************消息中心****************************/
+
+    /**
+     * 解除匹配
+     */
+    @FormUrlEncoded
+    @POST("Relationship/removeFriend${Constants.END_BASE_URL}")
+    fun removeFriend(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+    /**
+     * 聊天界面添加好友
+     */
+    @FormUrlEncoded
+    @POST("Relationship/addFriend${Constants.END_BASE_URL}")
+    fun addFriend(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+    /**
+     * 添加星标好友
+     */
+    @FormUrlEncoded
+    @POST("Relationship/addStarTarget${Constants.END_BASE_URL}")
+    fun addStarTarget(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 移除星标好友
+     */
+    @FormUrlEncoded
+    @POST("Relationship/removeStarTarget${Constants.END_BASE_URL}")
+    fun removeStarTarget(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * type	1通话举报 2主页举报 3聊天内容举报 4广场动态举报 5广场评论举报
+     * content  当type为3和5 为举报内容 为4 广场动态的id
+     * photo 举报图片json串
+     * case_type 返回举报类型【色情涉黄/广告或垃圾信息。。。】
+     */
+    @FormUrlEncoded
+    @POST("Report/add${Constants.END_BASE_URL_v2}")
+    fun addReport(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+    /**
+     * 获取举报理由
+     */
+    @POST("OpenApi/getReportMsg${Constants.END_BASE_URL_v2}")
+    fun getReportMsg(): Observable<BaseResp<MutableList<String>>>
+
+
+
+
+
+    /**
+     * 赠送礼物
+     */
+    @FormUrlEncoded
+    @POST("Gift/giveGift${Constants.END_BASE_URL}")
+    fun giveGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendGiftBean>>
+
+    /**
+     * 礼物发送成功 客户端回调上传绑定消息id
+     */
+    @FormUrlEncoded
+    @POST("Gift/upGiftMsgId${Constants.END_BASE_URL}")
+    fun upGiftMsgId(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /*--------------------------------会员充值---------------------------------*/
+
+    /**
+     * 获取聊天🎁列表
+     */
+    @FormUrlEncoded
+    @POST("Gift/getGiftList${Constants.END_BASE_URL}")
+    fun getGiftList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<GetGiftBean>>
+
+    /*
+      * 领取礼物
+      */
+    @FormUrlEncoded
+    @POST("Gift/getGift${Constants.END_BASE_URL}")
+    fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckGreetBean>>
+
+
+    /**
+     * 拒绝领取礼物
+     */
+    @FormUrlEncoded
+    @POST("Gift/refundGift${Constants.END_BASE_URL}")
+    fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 获取会员支付方式
+     */
+    @FormUrlEncoded
+    @POST("pay_order/productLists${Constants.END_BASE_URL}")
+    fun productLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans?>>
+
+
+    /**
+     * 门槛支付列表
+     */
+    @FormUrlEncoded
+    @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL}")
+    fun getThreshold(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
+
+
+    /**
+     * 获取订单信息
+     */
+    @FormUrlEncoded
+    @POST("pay_order/createOrder${Constants.END_BASE_URL}")
+    fun createOrder(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PayBean>>
+
+    /**
+     * 充值价格列表
+     */
+    @FormUrlEncoded
+    @POST("PayOrder/candyRechargeList${Constants.END_BASE_URL_v2}")
+    fun candyRechargeList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans?>>
+
+
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST("Candy/withdraw${Constants.END_BASE_URL}")
+    fun withdraw(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<WithDrawSuccessBean?>>
+
+    /**
+     * 拉起提现
+     * Candy/pullWithdraw
+     */
+    @FormUrlEncoded
+    @POST("Candy/myCandy${Constants.END_BASE_URL}")
+    fun myCadny(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PullWithdrawBean?>>
+
+
+    /**
+     * 绑定支付宝账号
+     * Candy/saveWithdrawAccount
+     */
+    @FormUrlEncoded
+    @POST("Candy/saveWithdrawAccount${Constants.END_BASE_URL}")
+    fun saveWithdrawAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Alipay?>>
+
 
 
     /**
@@ -405,28 +532,6 @@ interface ApiService {
     @POST("Tidings/aideSendMsg${Constants.END_BASE_URL}")
     fun aideSendMsg(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
 
-
-    /**
-     * 获取聊天🎁列表
-     */
-    @FormUrlEncoded
-    @POST("Gifts/getGiftList${Constants.END_BASE_URL}")
-    fun getGiftList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<GetGiftBean>>
-
-    /*
-      * 领取礼物
-      */
-    @FormUrlEncoded
-    @POST("Gifts/getGift${Constants.END_BASE_URL}")
-    fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckGreetBean>>
-
-
-    /**
-     * 拒绝领取礼物
-     */
-    @FormUrlEncoded
-    @POST("Gifts/refundGift${Constants.END_BASE_URL}")
-    fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
 }

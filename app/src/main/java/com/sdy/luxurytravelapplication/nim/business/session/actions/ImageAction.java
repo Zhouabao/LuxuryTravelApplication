@@ -7,13 +7,13 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.sdy.luxurytravelapplication.ext.CommonFunction;
 import com.sdy.luxurytravelapplication.nim.business.session.constant.RequestCode;
 import com.sdy.luxurytravelapplication.nim.common.util.string.MD5;
 
 import java.io.File;
 import java.util.List;
 
-import static com.sdy.luxurytravelapplication.ext.CommonFunctionKt.onTakePhoto;
 
 /**
  * Created by hzxuwen on 2015/6/12.
@@ -30,7 +30,7 @@ public class ImageAction extends BaseAction {
 
     @Override
     public void onClick() {
-        onTakePhoto(getContainer().activity, PICK_IMAGE_COUNT,
+        CommonFunction.INSTANCE.onTakePhoto(getContainer().activity, PICK_IMAGE_COUNT,
                 makeRequestCode(RequestCode.PICK_IMAGE), PictureMimeType.ofVideo() & PictureMimeType.ofImage(), true, true);
     }
 

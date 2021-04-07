@@ -43,7 +43,7 @@ import com.sdy.luxurytravelapplication.nim.impl.customization.DefaultRecentCusto
 import com.sdy.luxurytravelapplication.nim.impl.provider.DefaultContactProvider;
 import com.sdy.luxurytravelapplication.nim.impl.provider.DefaultUserInfoProvider;
 import com.sdy.luxurytravelapplication.nim.support.glide.ImageLoaderKit;
-import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity;
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity;
 import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderBase;
 
 /**

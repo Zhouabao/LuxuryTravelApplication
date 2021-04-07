@@ -6,7 +6,7 @@ import android.view.WindowManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogUploadInfoNormalBinding
-import com.sdy.luxurytravelapplication.ext.onTakePhoto
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
 /**
@@ -77,7 +77,7 @@ class UploadInfoNormalDialog(val type: Int, val requesetCode: Int) :
             }
         }
         binding.tobeSelectedBtn.setOnClickListener {
-            onTakePhoto(ActivityUtils.getTopActivity(), 1, requesetCode)
+            CommonFunction.onTakePhoto(ActivityUtils.getTopActivity(), 1, requesetCode)
             dismiss()
         }
 

@@ -1,15 +1,13 @@
-package com.sdy.sweetdateapplication.nim.business.session.panel
+package com.sdy.luxurytravelapplication.nim.business.session.panel
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.os.Handler
 import android.os.SystemClock
 import android.text.TextUtils
 import android.util.Log
-import android.view.KeyEvent
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +15,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.kongzue.dialog.v3.MessageDialog
 import com.kongzue.dialog.v3.TipDialog
 import com.netease.nimlib.sdk.media.record.AudioRecorder
@@ -25,14 +25,15 @@ import com.netease.nimlib.sdk.media.record.IAudioRecordCallback
 import com.netease.nimlib.sdk.media.record.RecordType
 import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.databinding.LayoutNimInputBinding
 import com.sdy.luxurytravelapplication.mvp.model.bean.PublishWayBean
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
 import com.sdy.luxurytravelapplication.nim.business.emoji.IEmoticonSelectedListener
 import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.session.actions.BaseAction
-import com.sdy.luxurytravelapplication.nim.business.session.panel.ChatActionAdapter
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
+import com.sdy.luxurytravelapplication.ui.dialog.SendGiftDialog
 import java.io.File
 
 /**
@@ -43,7 +44,7 @@ import java.io.File
  */
 class ChatInputPanel(
     var container: Container,
-    val view: View,
+    val binding: LayoutNimInputBinding,
     val mediaActions: MutableList<BaseAction>,
     var customization: SessionCustomization
 ) : IEmoticonSelectedListener, IAudioRecordCallback {
@@ -63,7 +64,6 @@ class ChatInputPanel(
         this.customization = customization
     }
 
-    private lateinit var binding: LayoutNimInputBinding
     private fun init() {
         initTextEdit()
         initAudioRecordButton()
@@ -79,11 +79,11 @@ class ChatInputPanel(
         mutableListOf(
             PublishWayBean(false, R.drawable.icon_msg_voice, R.drawable.icon_msg_voice_selected),
             PublishWayBean(false, R.drawable.icon_msg_emoj, R.drawable.icon_msg_emoj_selected),
-            PublishWayBean(false, R.drawable.icon_msg_image, R.drawable.icon_msg_image_selected),
+            PublishWayBean(false, R.drawable.icon_msg_image, R.drawable.icon_msg_image),
             PublishWayBean(
                 false,
                 R.drawable.icon_msg_location,
-                R.drawable.icon_msg_location_selected
+                R.drawable.icon_msg_location
             ),
             PublishWayBean(false, R.drawable.icon_msg_call, R.drawable.icon_msg_call),
             PublishWayBean(false, R.drawable.icon_msg_gift, R.drawable.icon_msg_gift)
@@ -95,7 +95,8 @@ class ChatInputPanel(
     private fun initActionPanel(isRobot: Boolean = false) {
         adapter.setNewInstance(
             if (isRobot) {
-                actions.subList(0, actions.size - 2)
+                actions
+//                actions.subList(0, actions.size - 2)
             } else {
                 actions
             }
@@ -115,22 +116,13 @@ class ChatInputPanel(
             when (position) {
                 0 -> {
                     if (checkedData.checked) {
-                        if (PermissionUtils.isGranted(
-                                *PermissionConstants.getPermissions(
-                                    PermissionConstants.MICROPHONE
-                                )
-                            )
-                        )
-                            showAudioLayout()
-                        else
-                            PermissionUtils.permission(PermissionConstants.MICROPHONE)
-                                .callback { isAllGranted, granted, deniedForever, denied ->
-                                    if (isAllGranted) {
-                                        showAudioLayout()
-                                    }
+                        PermissionUtils.permission(PermissionConstants.MICROPHONE)
+                            .callback { isAllGranted, granted, deniedForever, denied ->
+                                if (isAllGranted) {
+                                    showAudioLayout()
                                 }
-                                .request()
-
+                            }
+                            .request()
                     } else {
                         hideAudioLayout()
                     }
@@ -150,12 +142,13 @@ class ChatInputPanel(
                     container.proxy.createVoiceCall()
                 }
                 5 -> {//点击赠送🎁
-//                    SendGiftDialog(container).show()
+                    SendGiftDialog(container).show()
                 }
             }
         }
     }
 
+    private var keyboardHeight = 0F
     private fun initTextEdit() {
         binding.editTextMessage.setHorizontallyScrolling(false)
         binding.editTextMessage.maxLines = 2

@@ -7,7 +7,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.sdy.luxurytravelapplication.ext.CommonFunctionKt;
+import com.sdy.luxurytravelapplication.ext.CommonFunction;
 import com.sdy.luxurytravelapplication.nim.business.session.constant.RequestCode;
 import com.sdy.luxurytravelapplication.nim.common.util.string.MD5;
 
@@ -24,7 +24,7 @@ public class VideoAction extends BaseAction {
 
     @Override
     public void onClick() {
-       CommonFunctionKt.onTakePhoto(getContainer().activity,1, RequestCode.GET_LOCAL_VIDEO, PictureMimeType.ofVideo());
+       CommonFunction.INSTANCE.onTakePhoto(getContainer().activity,1, RequestCode.GET_LOCAL_VIDEO, PictureMimeType.ofVideo());
     }
 
     /**

@@ -17,7 +17,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityUploadVerifyPublicBinding
-import com.sdy.luxurytravelapplication.ext.onTakePhoto
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyPublicContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetUploadBean
 import com.sdy.luxurytravelapplication.mvp.presenter.UploadVerifyPublicPresenter
@@ -123,7 +123,7 @@ class UploadVerifyPublicActivity :
         adappter.addChildClickViewIds(R.id.sweetPicDelete)
         adappter.setOnItemClickListener { _, view, position ->
             if (adappter.data[position].url.isEmpty()) {
-                onTakePhoto(
+                CommonFunction.onTakePhoto(
                     this@UploadVerifyPublicActivity, MAX_COUNT - (adappter.data.size - 1),
                     REQUEST_SQUARE_PIC, compress = true
                 )

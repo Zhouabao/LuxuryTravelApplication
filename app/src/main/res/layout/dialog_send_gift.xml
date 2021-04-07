@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_rectangle_white_top_15dp"
+    android:gravity="center"
+    android:minHeight="@dimen/mask_bubble_music_width"
+    android:orientation="vertical">
+
+
+    <com.sdy.luxurytravelapplication.widgets.RoundImageView
+        android:id="@+id/targetAvatar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/default_image_10dp"
+        app:borderRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:type="round" />
+
+    <TextView
+        android:id="@+id/targetNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/targetAvatar"
+        app:layout_constraintLeft_toRightOf="@id/targetAvatar"
+        app:layout_constraintTop_toTopOf="@id/targetAvatar"
+        tools:text="送给 对方昵称" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:background="#FFF6F7F9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/targetAvatar" />
+
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/vpGift"
+        android:layout_width="0dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="15dp"
+        android:minHeight="270dp"
+        android:overScrollMode="never"
+        app:bvp_auto_play="false"
+        app:bvp_can_loop="false"
+        app:bvp_indicator_checked_color="@color/colorAccent"
+        app:bvp_indicator_gravity="center"
+        app:bvp_indicator_normal_color="#FFF2F4F7"
+        app:bvp_indicator_radius="7dp"
+        app:bvp_indicator_slide_mode="normal"
+        app:bvp_indicator_style="circle"
+        app:bvp_page_style="normal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+    <TextView
+        android:id="@+id/goldAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/icon_gold_tender_small"
+        app:layout_constraintBottom_toBottomOf="@id/giveBtn"
+        app:layout_constraintLeft_toLeftOf="@id/targetAvatar"
+        app:layout_constraintTop_toTopOf="@id/giveBtn"
+        tools:text="9999" />
+
+    <TextView
+        android:id="@+id/giveBtn"
+        android:layout_width="68dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/shape_rectangle_green_15dp"
+        android:gravity="center"
+        android:text="@string/give"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vpGift" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

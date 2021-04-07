@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MessageInfoActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/chatDetailBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp">
+
+        <com.sdy.luxurytravelapplication.widgets.RoundImageView
+            android:id="@+id/civAvator"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_image_15dp"
+            app:borderRadius="15dp"
+            app:type="round" />
+
+
+        <TextView
+            android:id="@+id/chatName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/civAvator"
+            android:textColor="@color/color333"
+            android:textSize="14sp"
+            tools:text="Gregory Davis" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/icon_arrow_right_black"
+            android:drawablePadding="5dp"
+            android:text="@string/personal_main"
+            android:textColor="#ffc6cad4"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/flStar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center">
+
+
+        <Switch
+            android:id="@+id/friendStar"
+            android:layout_width="42dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:showText="false"
+            android:thumb="@drawable/switch_ios_thumb"
+            android:track="@drawable/selector_switch_ios_track" />
+
+        <TextView
+            android:id="@+id/llstar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/star_friend"
+            android:textColor="#ff222222"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/llNoBother"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|left"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/msg_diaturb"
+            android:textColor="#ff222222"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/friendNoBother"
+            android:layout_width="42dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:showText="false"
+            android:thumb="@drawable/switch_ios_thumb"
+            android:track="@drawable/selector_switch_ios_track" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/friendHistory"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:drawableRight="@drawable/icon_arrow_right_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/find_history"
+        android:textColor="#ff222222"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/friendHistoryClean"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:drawableRight="@drawable/icon_arrow_right_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/clean_history"
+        android:textColor="#ff222222"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/friendReport"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:drawableRight="@drawable/icon_arrow_right_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/reported"
+        android:textColor="#ff222222"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/friendDelete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:drawableRight="@drawable/icon_arrow_right_black"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/delete_friend"
+        android:textColor="#ff222222"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -2,12 +2,10 @@ package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
 import android.content.Context
 import android.graphics.Color
-import android.text.Html
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import androidx.core.view.isVisible
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.NIMSDK
 import com.netease.nimlib.sdk.RequestCallback
@@ -19,7 +17,6 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
-import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
 import com.sdy.luxurytravelapplication.nim.business.helper.MessageHelper
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
@@ -30,7 +27,6 @@ import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.holder.Recycle
 import com.sdy.luxurytravelapplication.nim.common.util.log.sdk.wrapper.NimLog
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
-import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
 import java.util.*
 
 /**

@@ -27,7 +27,7 @@ import com.sdy.luxurytravelapplication.databinding.ActivityPublishBinding
 import com.sdy.luxurytravelapplication.event.AnnounceEvent
 import com.sdy.luxurytravelapplication.event.RecordCompleteEvent
 import com.sdy.luxurytravelapplication.event.UploadEvent
-import com.sdy.luxurytravelapplication.ext.onTakePhoto
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.PublishContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.MediaBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
@@ -68,7 +68,6 @@ class PublishActivity :
         }
     }
 
-    private var keyboardHeight = 0F
     private var pickedPhotos: MutableList<MediaBean> = mutableListOf()
     private val pickedPhotoAdapter by lazy { ChoosePhotosAdapter(1) }//选中的封面
 
@@ -143,65 +142,6 @@ class PublishActivity :
             //初始化表情包
             initEmojRv()
 
-            KeyboardUtils.registerSoftInputChangedListener(this@PublishActivity) {
-                LogUtils.d("===================$it")
-                if (!binding.emojRv.isVisible) {
-                    if (it > 0) {
-                        keyboardHeight = it.toFloat()
-                        val animator =
-                            ObjectAnimator.ofFloat(
-                                publishBottomCl,
-                                "translationY",
-                                0F,
-                                -it.toFloat()
-                            )
-                        animator.duration = 200
-                        animator.start()
-                    } else {
-                        val animator =
-                            ObjectAnimator.ofFloat(
-                                publishBottomCl,
-                                "translationY",
-                                -keyboardHeight,
-                                0F
-                            )
-                        animator.duration = 200
-                        animator.start()
-                    }
-                } else {
-                    if (it > 0) {
-                        val animator0 =
-                            ObjectAnimator.ofFloat(
-                                publishBottomCl,
-                                "translationY",
-                                -keyboardHeight,
-                                0F
-                            )
-                        animator0.duration = 200
-                        animator0.start()
-                        val animator =
-                            ObjectAnimator.ofFloat(
-                                publishBottomCl,
-                                "translationY",
-                                0F,
-                                -SizeUtils.dp2px(35F).toFloat()
-                            )
-                        animator.duration = 200
-                        animator.start()
-                    } else {
-                        val animator =
-                            ObjectAnimator.ofFloat(
-                                publishBottomCl,
-                                "translationY",
-                                -SizeUtils.dp2px(235F).toFloat(),
-                                0F
-                            )
-                        animator.duration = 200
-                        animator.start()
-                    }
-                }
-            }
-
         }
     }
 
@@ -264,7 +204,7 @@ class PublishActivity :
                     }
                     .callback { isAllGranted, granted, deniedForever, denied ->
                         if (isAllGranted) {
-                            onTakePhoto(
+                            CommonFunction.onTakePhoto(
                                 this,
                                 MAX_PHOTO_SIZE - pickedPhotoAdapter.data.size,
                                 REQUSET_PHOTOS,
@@ -296,7 +236,7 @@ class PublishActivity :
                     }
                     .callback { isAllGranted, granted, deniedForever, denied ->
                         if (isAllGranted) {
-                            onTakePhoto(
+                            CommonFunction.onTakePhoto(
                                 this,
                                 1 - pickedPhotoAdapter.data.size,
                                 REQUSET_VIDEO,

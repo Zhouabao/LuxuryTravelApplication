@@ -1,4 +1,4 @@
-package com.sdy.sweetdateapplication.nim.business.session.activity
+package com.sdy.luxurytravelapplication.nim.business.session.activity
 
 import android.content.Context
 import android.content.Intent
@@ -10,14 +10,10 @@ import android.media.AudioManager
 import android.text.TextUtils
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
@@ -37,14 +33,12 @@ import com.netease.nimlib.sdk.msg.model.CustomNotification
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.netease.nimlib.sdk.msg.model.MessageReceipt
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.ui.adapter.ChatUserPhotoAdapter
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.ext.CommonFunction
-import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
@@ -62,11 +56,12 @@ import com.sdy.luxurytravelapplication.nim.business.preference.UserPreferences
 import com.sdy.luxurytravelapplication.nim.business.session.actions.BaseAction
 import com.sdy.luxurytravelapplication.nim.business.session.actions.ImageAction
 import com.sdy.luxurytravelapplication.nim.business.session.actions.LocationAction
+import com.sdy.luxurytravelapplication.nim.business.session.panel.ChatInputPanel
 import com.sdy.luxurytravelapplication.nim.business.session.panel.MessageListPanelEx
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
+import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
-import com.sdy.sweetdateapplication.nim.business.session.panel.ChatInputPanel
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -102,7 +97,6 @@ class ChatActivity :
     //modules
     lateinit var messageListPanel: MessageListPanelEx
     lateinit var inputPanel: ChatInputPanel
-    private val adapter by lazy { ChatUserPhotoAdapter() }
 
 //409 -> {// 用户被封禁
 //411 -> {//糖果余额不足
@@ -148,53 +142,55 @@ class ChatActivity :
 
     override fun createPresenter(): ChatContract.Presenter = ChatPresenter()
 
-    override fun initData() {
+
+    override fun initView() {
         initSensor()
-        initView()
+        val container = Container(this, sessionId, SessionTypeEnum.P2P, this, true)
+        val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
+
+        if (!this::messageListPanel.isInitialized) {
+            messageListPanel = MessageListPanelEx(container, binding, anchor)
+        } else {
+            messageListPanel.reload(container, anchor)
+        }
+
+        if (!this::inputPanel.isInitialized) {
+            inputPanel = ChatInputPanel(container, binding.inputCl, getActionList(), customization)
+        } else {
+            inputPanel.reload(container, customization)
+        }
+
+        inputPanel.switchRobotMode(isChatWithRobot())
+
         initViewAndClick()
+    }
+
+
+    override fun initData() {
         //单聊数据,包括个人信息
         requestBodyInfo()
         displayOnlineState()
         registerObservers(true)
-        if (!isChatWithRobot()) {
-            mPresenter?.getTargetInfo(sessionId)
-        } else {
-            binding.userInfoCl.isInvisible = false
-            binding.userInfoDetailCl.isVisible = false
-            binding.videoCallBtn.isVisible = false
-            binding.userNickname.isVisible = true
-            binding.userOnlineTime.isVisible = false
-            binding.expandInfoBtn.isVisible = false
-            GlideUtil.loadCircleImg(this, UserInfoHelper.getAvatar(sessionId), binding.userAvator)
-            binding.moreBtn.isVisible = false
-        }
     }
 
     override fun start() {
+        if (!isChatWithRobot()) {
+            mPresenter?.getTargetInfo(sessionId)
+        } else {
+            binding.barCl.rightIconBtn.isVisible = false
+        }
+
     }
 
 
     private fun initViewAndClick() {
         ClickUtils.applySingleDebouncing(
             arrayOf<View>(
-                binding.collapseBtn,
-                binding.expandInfoBtn,
-                binding.backBtn,
-                binding.moreBtn,
-                binding.videoCallBtn,
-                binding.videoCallBtn1,
-                binding.userAvator1,
-                binding.sendGiftNotice,
-                binding.userAvator, binding.likeBtn, binding.likeCloseBtn, binding.uplevelReplyCnt
+                binding.barCl.btnBack,
+                binding.barCl.rightIconBtn
             ), this
         )
-        KeyboardUtils.registerSoftInputChangedListener(this) {
-            showDetailInfoCl(it <= 0)
-        }
-
-        binding.userPhotosRv.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        binding.userPhotosRv.adapter = adapter
+        binding.barCl.divider.isVisible = true
     }
 
     private fun displayOnlineState() {
@@ -209,8 +205,7 @@ class ChatActivity :
             sessionId,
             SessionTypeEnum.P2P
         )
-        binding.userNickname.text = name
-        binding.userNickname1.text = name
+        binding.barCl.actionbarTitle.text = name
     }
 
     override fun onResume() {
@@ -251,7 +246,6 @@ class ChatActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         registerObservers(false)
         messageListPanel.onDestory()
         inputPanel.onDestroy()
@@ -291,26 +285,6 @@ class ChatActivity :
     }
 
 
-    override fun initView() {
-        val container = Container(this, sessionId, SessionTypeEnum.P2P, this, true)
-        val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
-
-        if (!this::messageListPanel.isInitialized) {
-            messageListPanel = MessageListPanelEx(container, binding.root, binding, anchor)
-        } else {
-            messageListPanel.reload(container, anchor)
-        }
-
-        if (!this::inputPanel.isInitialized) {
-            inputPanel = ChatInputPanel(container, binding.root, getActionList(), customization)
-        } else {
-            inputPanel.reload(container, customization)
-        }
-
-        inputPanel.switchRobotMode(isChatWithRobot())
-    }
-
-
     /**
      * ************************* 消息收发 **********************************
      */
@@ -345,7 +319,6 @@ class ChatActivity :
         messageListPanel.onIncomingMessage(messages)
         // 发送已读回执
         messageListPanel.sendReceipt()
-        showMemberFocus()
     }
 
 
@@ -410,7 +383,6 @@ class ChatActivity :
             messageListPanel.onPretendMsgSend(message)
         } else {
             messageListPanel.onMsgSend(message)
-            showMemberFocus()
         }
     }
 
@@ -541,69 +513,19 @@ class ChatActivity :
 
     override fun onClick(view: View) {
         when (view) {
-            binding.backBtn -> {
+            binding.barCl.btnBack -> {
                 onBackPressed()
             }
-            binding.collapseBtn -> {
-                showDetailInfoCl(false)
+            binding.barCl.rightIconBtn -> {
+                if (::chatInfoBean.isInitialized)
+                    MessageInfoActivity.start(
+                        this,
+                        sessionId,
+                        chatInfoBean.isfriend,
+                        chatInfoBean.stared
+                    )
             }
-            binding.expandInfoBtn -> {
-                showDetailInfoCl(true)
-            }
-            binding.userAvator1,
-            binding.userAvator -> {
-//                if (sessionId != Constants.ASSISTANT_ACCID)
-//                    TargetUserActivity.startToTarget(this, sessionId)
-            }
-            binding.videoCallBtn,
-            binding.videoCallBtn1 -> {
-                createVoiceCall()
-            }
-            binding.uplevelReplyCnt -> {
-//                if (!chatInfoBean.my_isfaced) {
-//                    if (chatInfoBean.my_face_state != 2)
-//                        if (chatInfoBean.has_face_url)
-//                            MyInfoActivity.start(this, true)
-//                        else
-//                            FaceLivenessExpActivity.startActivity(
-//                                this,
-//                                FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL
-//                            )
-//                    else
-//                        ToastUtil.toast("认证正在审核中，请等待")
-//                } else if (!chatInfoBean.mv_url) {
-//                    if (chatInfoBean.mv_url_state != 2)
-//                        MyPowerActivity.start(this)
-//                    else
-//                        ToastUtil.toast("认证正在审核中，请等待")
-//
-//                }
-            }
-            binding.moreBtn -> {
-//                if (::chatInfoBean.isInitialized)
-//                    MessageInfoActivity.start(
-//                        this,
-//                        sessionId,
-//                        chatInfoBean.isfriend,
-//                        chatInfoBean.stared
-//                    )
-            }
-            binding.likeCloseBtn -> {
-                binding.flashCallLikeCl.isVisible = false
-            }
-            binding.likeBtn -> {
-                mPresenter?.focus(sessionId, 1)
-            }
-            binding.sendGiftNotice -> {
-                binding.sendGiftNotice.isVisible = false
-            }
-        }
-    }
 
-    private fun showDetailInfoCl(isShow: Boolean) {
-        if (!isChatWithRobot()) {
-            binding.userInfoDetailCl.isVisible = isShow
-            binding.userInfoCl.isInvisible = isShow
         }
     }
 
@@ -734,12 +656,10 @@ class ChatActivity :
 
     override fun shouldCollapseInputPanel() {
         inputPanel.collapse(false)
-        showDetailInfoCl(true)
     }
 
     override fun onInputPanelExpand() {
         messageListPanel.scrollToBottom()
-        showDetailInfoCl(false)
     }
 
     override fun onReplyMessage(replyMsg: IMMessage) {
@@ -770,7 +690,6 @@ class ChatActivity :
 
     override fun focusResult(success: Boolean, isfocus: Boolean) {
         if (success) {
-            binding.flashCallLikeCl.isVisible = false
             sendLikeTipMessage(sessionId ?: "", false)
         }
     }
@@ -801,72 +720,9 @@ class ChatActivity :
                 UserManager.mvFaced = chatInfoBean.mv_url
                 UserManager.hasFaceUrl = chatInfoBean.has_face_url
 
-                GlideUtil.loadAvatorImg(this, chatInfoBean.avatar, binding.userAvator)
-                binding.userNickname.text = chatInfoBean.nickname
-                binding.userOnlineTime.text = chatInfoBean.online_time
-                GlideUtil.loadAvatorImg(this, chatInfoBean.avatar, binding.userAvator1)
-                binding.userNickname1.text = chatInfoBean.nickname
-                binding.userOnlineTime1.text = chatInfoBean.online_time
-                //年龄 身高 体重 职业
-                binding.userInfo.text =
-                    "${chatInfoBean.age}${if (!chatInfoBean.height.isNullOrEmpty()) {
-                        "/${chatInfoBean.height}"
-                    } else {
-                        ""
-                    }}${if (!chatInfoBean.weight.isNullOrEmpty()) {
-                        "/${chatInfoBean.weight}"
-                    } else {
-                        ""
-                    }}${if (!chatInfoBean.profession.isNullOrEmpty()) {
-                        "/${chatInfoBean.profession}"
-                    } else {
-                        ""
-                    }}"
-
+                binding.barCl.actionbarTitle.text = chatInfoBean.nickname
                 messageListPanel.sendWarmingNotice(chatInfoBean.chat_expend_aomount)
 
-                //顯示懸浮認證
-                if (UserManager.gender == 2 && (!chatInfoBean.my_isfaced || chatInfoBean.mv_url_state == 0)) {
-                    binding.verifyNoticeCl.isVisible = true
-
-                    if (!chatInfoBean.my_isfaced) {
-                        binding.uplevelReplyCnt.text = getString(R.string.authenticate_now)
-                        if (chatInfoBean.residue_msg_cnt == chatInfoBean.normal_chat_times) {
-                            binding.leftReplyCnt.text =
-                                getString(
-                                    R.string.unverify_only_some_can_chat,
-                                    chatInfoBean.normal_chat_times
-                                )
-                        } else {
-                            binding.leftReplyCnt.text =
-                                getString(
-                                    R.string.unverify_residue_count,
-                                    chatInfoBean.residue_msg_cnt
-                                )
-                        }
-                    } else {
-                        binding.uplevelReplyCnt.text = getString(R.string.verify_video)
-                        binding.leftReplyCnt.text =
-                            getString(
-                                R.string.unverify_today_residue_count,
-                                chatInfoBean.residue_msg_cnt
-                            )
-                    }
-                } else {
-                    binding.verifyNoticeCl.isVisible = false
-                }
-
-                //是男性并且对方没有回复，并且我房没发送过礼物，就持续弹出赠送礼物置顶弹窗
-                binding.sendGiftNotice.isVisible =
-                    UserManager.gender == 1 && !messageListPanel.hasReceiveMessage() && !messageListPanel.sendedGift() && messageListPanel.messageSize() > 0
-                adapter.leftCnt = chatInfoBean.photo.size - 5
-                if (chatInfoBean.photo.size > 5) {
-                    adapter.setNewInstance(chatInfoBean.photo.subList(0, 5).toMutableList())
-                } else {
-                    adapter.setNewInstance(chatInfoBean.photo.toMutableList())
-                }
-                binding.videoCallBtn.isVisible = chatInfoBean.istalk_btn
-                binding.videoCallBtn1.isVisible = chatInfoBean.istalk_btn
             }
             409 -> {
                 MessageDialog.show(
@@ -879,26 +735,11 @@ class ChatActivity :
                         false
                     }
             }
-            else->{
+            else -> {
                 ToastUtil.toast(msg)
             }
         }
 
-
-//        messageListPanel.setLastReceiveNoticeRealMan()
-    }
-
-
-    private var isShowFocus = false
-    private fun showMemberFocus() {
-        if (!isShowFocus) {
-            binding.flashCallLikeCl.isVisible =
-                UserManager.gender == 1 && ::chatInfoBean.isInitialized &&
-                        !chatInfoBean.isliked && messageListPanel.messageSize() >= 10
-        }
-        if (binding.flashCallLikeCl.isVisible) {
-            isShowFocus = true
-        }
     }
 
 

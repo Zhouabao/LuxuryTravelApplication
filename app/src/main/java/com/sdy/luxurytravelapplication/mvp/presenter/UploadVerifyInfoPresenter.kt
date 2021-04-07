@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyInfoContract
+import com.sdy.luxurytravelapplication.mvp.model.UploadVerifyInfoModel
 
 /**
  *    author : ZFM
@@ -12,4 +13,5 @@ import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyInfoContract
 class UploadVerifyInfoPresenter :
     BasePresenter<UploadVerifyInfoContract.Model, UploadVerifyInfoContract.View>(),
     UploadVerifyInfoContract.Presenter {
+    override fun createModel(): UploadVerifyInfoContract.Model? =UploadVerifyInfoModel()
 }

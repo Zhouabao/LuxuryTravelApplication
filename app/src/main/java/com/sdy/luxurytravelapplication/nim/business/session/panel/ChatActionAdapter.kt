@@ -11,7 +11,8 @@ import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
  *    desc   :
  *    version: 1.0
  */
-class ChatActionAdapter : BaseBindingQuickAdapter<PublishWayBean, ItemActionsLayoutBinding>(R.layout.item_actions_layout) {
+class ChatActionAdapter :
+    BaseBindingQuickAdapter<PublishWayBean, ItemActionsLayoutBinding>(R.layout.item_actions_layout) {
 
     override fun convert(binding: ItemActionsLayoutBinding, position: Int, item: PublishWayBean) {
         if (item.checked) {
@@ -19,5 +20,5 @@ class ChatActionAdapter : BaseBindingQuickAdapter<PublishWayBean, ItemActionsLay
         } else {
             binding.imageView.setImageResource(item.normalIcon)
         }
-        }
+    }
 }

@@ -246,9 +246,16 @@ data class SendGiftBean(
     var order_id: Int = 0,
     var checked: Boolean = false,
     var id: Int = 0,
-    var status: Int = 0
+    var status: Int = 0,
+    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf()
 )
 
+//本地发送的tip内容
+data class SendTipBean(
+    var content: String = "",
+    var ifSendUserShow: Boolean = false,
+    var showType: Int = 0
+)
 
 data class ChargeWayBeans(
     val icon_list: MutableList<VipDescr>? = mutableListOf(),
@@ -262,6 +269,7 @@ data class ChargeWayBeans(
     val mycandy_amount: Int = 0,
     val vip_express: String = "",
     val first_recharge: String = "",
+    val descr: String = "",
     val threshold_btn: Boolean = false,
     val isdirect: Boolean = false,
     val direct_cnt: Int = 0,
@@ -275,6 +283,26 @@ data class ChargeWayBeans(
     val experience_amount: String = "",
     val experience_time: String = ""
 )
+
+
+data class PayBean(
+    val order_id: String? = "",
+    val otn: String? = "",
+    val wechat: Wechat? = Wechat(),
+    val reqstr: String
+)
+
+data class Wechat(
+    val `package`: String? = "",
+    val appid: String? = "",
+    val noncestr: String? = "",
+    val partnerid: String? = "",
+    val prepayid: String? = "",
+    val sign: String? = "",
+    val timestamp: String? = ""
+)
+
+
 
 data class VipPowerBean(
     val icon_list: MutableList<VipDescr>? = mutableListOf(),
@@ -860,3 +888,49 @@ data class SquareMsgBean(
     var nickname: String = "",
     var type: Int = 0
 )
+
+
+/**
+ * 举报对象
+ */
+data class ReportBean(var reason: String, var checked: Boolean)
+
+/**
+ * 认证资料
+ */
+data class UploadInfoBean(
+    var defaultIcon: Int = -1,
+    var chooseIcon: String = "",
+    var duration: Int = 0,
+    var height: Int = 0,
+    var width: Int = 0,
+    var requestCode: Int = -1
+)
+/**
+ * 提现成功bean
+ */
+data class WithDrawSuccessBean(
+    var candy_amount: Int = 0,
+    var create_tme: String = "",
+    var money_amount: Float = 0F,
+    var trade_no: String = ""
+)
+
+/**
+ * 拉起提现bean
+ */
+data class PullWithdrawBean(
+    var alipay: Alipay? = null,
+    var has_unread: Boolean = false,
+    var is_withdraw: Boolean = false,//是否可以提现 true 可以 false 不可以
+    var candy_amount: Int = 0,
+    var red_balance_money: Float = 0.0F,
+    var money_amount: Float = 0.0F
+)
+
+data class Alipay(
+    var ali_account: String = "",
+    var nickname: String = "",
+    var phone: String = ""
+) : Serializable
+

@@ -19,7 +19,7 @@ import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityRegisterInfoOneBinding
-import com.sdy.luxurytravelapplication.ext.onTakePhoto
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.LoginInfoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
@@ -66,7 +66,7 @@ class RegisterInfoOneActivity :
     override fun onClick(v: View) {
         when (v) {
             binding.loginAvator -> {
-                onTakePhoto(
+                CommonFunction.onTakePhoto(
                     this,
                     1,
                     REQUEST_LOGIN_AVATOR,

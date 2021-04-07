@@ -11,7 +11,9 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.style.PictureCropParameterStyle
 import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.auth.AuthService
+import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
@@ -22,17 +24,22 @@ import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.callback.MyUMAuthCallback
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.event.UpdateContactBookEvent
+import com.sdy.luxurytravelapplication.event.CloseDialogEvent
+import com.sdy.luxurytravelapplication.event.RefreshGoldEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
+import com.sdy.luxurytravelapplication.http.RetrofitHelper
+import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
 import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment
+import com.sdy.luxurytravelapplication.nim.business.module.Container
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
-import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
+import com.sdy.luxurytravelapplication.ui.activity.CandyRechargeActivity
 import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
+import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.utils.UriUtils
-import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import org.greenrobot.eventbus.EventBus
@@ -49,7 +56,7 @@ import org.jetbrains.anko.newTask
 
 object CommonFunction {
 
-    fun checkChat(context1: Context, target_accid: String){}
+    fun checkChat(context1: Context, target_accid: String) {}
 
 
     /**
@@ -64,6 +71,118 @@ object CommonFunction {
     }
 
 
+    /**
+     * 发送礼物消息
+     */
+    fun sendGift(
+        target_accid: String,
+        sendGiftBean: SendGiftBean,
+        giftType: Int,
+        container: Container? = null
+    ) {
+        val params = hashMapOf<String, Any>()
+        params["target_accid"] = target_accid
+        params["gift_id"] = sendGiftBean.id
+        RetrofitHelper.service
+            .giveGift(params)
+            .ssss {
+                when (it.code) {
+                    200 -> {
+                        EventBus.getDefault().post(RefreshGoldEvent())
+                        /**
+                         * 发送礼物消息
+                         */
+                        val attachment = SendGiftAttachment()
+                        attachment.orderId = it.data.order_id
+                        attachment.giftId = sendGiftBean.id
+                        attachment.giftIcon = sendGiftBean.icon
+                        attachment.giftName = sendGiftBean.title
+                        attachment.giftAmount = sendGiftBean.amount
+                        attachment.giftType = giftType
+                        val extension = hashMapOf<String, Any>()
+                        extension[SendGiftAttachment.KEY_STATUS] =
+                            SendGiftAttachment.STATUS_WAIT
+                        val giftMessage =
+                            MessageBuilder.createCustomMessage(
+                                target_accid,
+                                SessionTypeEnum.P2P,
+                                attachment
+                            )
+                        giftMessage.localExtension = extension
+                        if (container != null) {
+                            if (container.proxy.sendMessage(giftMessage)) {
+//                                    sendGiftNotification(giftMessage, SendGiftAttachment.STATUS_WAIT)
+                                EventBus.getDefault().post(CloseDialogEvent())
+                                upMsgGiftId(giftMessage.uuid, it.data.order_id)
+                            }
+                        } else {
+                            NIMClient.getService(MsgService::class.java)
+                                .sendMessage(giftMessage, true)
+                                .setCallback(object : RequestCallback<Void?> {
+                                    override fun onSuccess(param: Void?) {
+//                                            sendGiftNotification(giftMessage,SendGiftAttachment.STATUS_WAIT)
+                                        EventBus.getDefault().post(CloseDialogEvent())
+                                        ChatActivity.start(
+                                            ActivityUtils.getTopActivity(),
+                                            target_accid
+                                        )
+                                        upMsgGiftId(giftMessage.uuid, it.data.order_id)
+
+                                    }
+
+                                    override fun onFailed(code: Int) {
+                                        ToastUtil.toast(
+                                            ActivityUtils.getTopActivity()
+                                                .getString(R.string.gift_send_fail)
+                                        )
+
+                                    }
+
+                                    override fun onException(exception: Throwable) {
+                                    }
+                                })
+                        }
+
+                    }
+                    419 -> { //糖果余额不足
+                       CandyRechargeActivity.gotoCandyRecharge(ActivityUtils.getTopActivity())
+                    }
+                    else -> {
+                        ToastUtil.toast(it.msg)
+                    }
+                }
+            }
+    }
+
+    /**
+     * 上传礼物的id给服务器
+     */
+    fun upMsgGiftId(uuid: String, order_id: Int) {
+        RetrofitHelper.service
+            .upGiftMsgId(
+                hashMapOf(
+                    "im_msg_id" to uuid,
+                    "order_id" to order_id
+                )
+            )
+    }
+
+
+    /**
+     * 支付结果回调数据
+     */
+    fun payResultNotify(context: Context) {
+        EventBus.getDefault().post(CloseDialogEvent())
+
+//        if (ActivityUtils.getTopActivity() is VipCenterActivity) {
+//            EventBus.getDefault().post(RefreshVipEvent())
+//        } else {
+            EventBus.getDefault().post(RefreshGoldEvent())
+            EventBus.getDefault().post(CloseDialogEvent())
+//        }
+
+
+    }
 
     /**
      * 三方登录设置
@@ -155,7 +274,7 @@ object CommonFunction {
 //                if (remoteExtension.isNotEmpty() && remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null)
 //                    ActivityUtils.getTopActivity().getString(R.string.msg_location)
 //                else
-                    ActivityUtils.getTopActivity().getString(R.string.msg_pic)
+                ActivityUtils.getTopActivity().getString(R.string.msg_pic)
             }
             MsgTypeEnum.custom -> {
                 if (item == null) {
@@ -256,8 +375,6 @@ object CommonFunction {
     }
 
 
-
-
     fun getErrorMsg(context: Context): String {
         return if (NetworkUtils.isConnected()) {
             context.getString(R.string.retry_load_error)
@@ -266,95 +383,95 @@ object CommonFunction {
         }
     }
 
-}
 
-
-/**
- * 拍照或者选取照片
- */
-@JvmOverloads
-fun onTakePhoto(
-    context: Context,
-    maxCount: Int,
-    requestCode: Int,
-    chooseMode: Int = PictureMimeType.ofImage(),
-    compress: Boolean = false,
-    showCamera: Boolean = true,
-    rotateEnable: Boolean = false,
-    cropEnable: Boolean = false,
-    minSeconds: Int = 5,
-    maxSeconds: Int = 2 * 60,
-    aspect_ratio_x: Int = 4,
-    aspect_ratio_y: Int = 5
-) {
-    PictureSelector.create(ActivityUtils.getTopActivity())
-        .openGallery(chooseMode)
-        .maxSelectNum(maxCount)
-        .minSelectNum(0)
-        .imageSpanCount(4)
-        .selectionMode(
-            if (maxCount > 1) {
-                PictureConfig.MULTIPLE
-            } else {
-                PictureConfig.SINGLE
-            }
-        )
-        .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
-        .previewImage(true)
-        .previewVideo(true)
-        .isCamera(showCamera)
-        .enableCrop(cropEnable)
-        .maxVideoSelectNum(1)
-        .compressSavePath(UriUtils.getCacheDir(context))
-        .compress(compress)
-        .videoMaxSecond(maxSeconds)
-        .videoMinSecond(minSeconds)
-        .minimumCompressSize(100)
-        .scaleEnabled(true)
+    /**
+     * 拍照或者选取照片
+     */
+    @JvmOverloads
+    fun onTakePhoto(
+        context: Context,
+        maxCount: Int,
+        requestCode: Int,
+        chooseMode: Int = PictureMimeType.ofImage(),
+        compress: Boolean = false,
+        showCamera: Boolean = true,
+        rotateEnable: Boolean = false,
+        cropEnable: Boolean = false,
+        minSeconds: Int = 5,
+        maxSeconds: Int = 2 * 60,
+        aspect_ratio_x: Int = 4,
+        aspect_ratio_y: Int = 5
+    ) {
+        PictureSelector.create(ActivityUtils.getTopActivity())
+            .openGallery(chooseMode)
+            .maxSelectNum(maxCount)
+            .minSelectNum(0)
+            .imageSpanCount(4)
+            .selectionMode(
+                if (maxCount > 1) {
+                    PictureConfig.MULTIPLE
+                } else {
+                    PictureConfig.SINGLE
+                }
+            )
+            .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
+            .previewImage(true)
+            .previewVideo(true)
+            .isCamera(showCamera)
+            .enableCrop(cropEnable)
+            .maxVideoSelectNum(1)
+            .compressSavePath(UriUtils.getCacheDir(context))
+            .compress(compress)
+            .videoMaxSecond(maxSeconds)
+            .videoMinSecond(minSeconds)
+            .minimumCompressSize(100)
+            .scaleEnabled(true)
 //            .showCropGrid(true)
 //            .showCropFrame(true)
-        .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
-        .rotateEnabled(rotateEnable)
+            .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
+            .rotateEnabled(rotateEnable)
 //            .cropImageWideHigh(4, 5)
-        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
-        .compressSavePath(UriUtils.getCacheDir(context))
-        .openClickSound(false)
-        .isUseCustomCamera(false)
-        .forResult(requestCode)
+            .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
+            .compressSavePath(UriUtils.getCacheDir(context))
+            .openClickSound(false)
+            .isUseCustomCamera(false)
+            .forResult(requestCode)
+    }
+
+    /**
+     * 单独拍照
+     */
+    fun openCamera(
+        context: Context,
+        requestCode: Int,
+        chooseMode: Int = 1,
+        compress: Boolean = false,
+        rotateEnable: Boolean = false,
+        cropEnable: Boolean = false
+    ) {
+        // 裁剪主题
+        val mCropParameterStyle = PictureCropParameterStyle(
+            ContextCompat.getColor(context, R.color.colorBlack),
+            ContextCompat.getColor(context, R.color.colorBlack),
+            ContextCompat.getColor(context, R.color.colorWhite),
+            true
+        )
+
+        PictureSelector.create(context as Activity)
+            .openCamera(chooseMode)
+            .enableCrop(cropEnable)
+            .rotateEnabled(rotateEnable)
+            .setPictureCropStyle(mCropParameterStyle) // 动态自定义裁剪主题
+            .theme(R.style.picture_default_style)
+//            .cropImageWideHigh(4, 5)
+            .withAspectRatio(4, 5)
+            .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
+            .compressSavePath(UriUtils.getCacheDir(context))
+            .cameraFileName("${TimeUtils.getNowMills()}.png")
+            .compress(compress)
+            .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
+            .compressSavePath(UriUtils.getCacheDir(context))
+            .forResult(requestCode)
+    }
 }
 
-/**
- * 单独拍照
- */
-fun openCamera(
-    context: Context,
-    requestCode: Int,
-    chooseMode: Int = 1,
-    compress: Boolean = false,
-    rotateEnable: Boolean = false,
-    cropEnable: Boolean = false
-) {
-    // 裁剪主题
-    val mCropParameterStyle = PictureCropParameterStyle(
-        ContextCompat.getColor(context, R.color.colorBlack),
-        ContextCompat.getColor(context, R.color.colorBlack),
-        ContextCompat.getColor(context, R.color.colorWhite),
-        true
-    )
-
-    PictureSelector.create(context as Activity)
-        .openCamera(chooseMode)
-        .enableCrop(cropEnable)
-        .rotateEnabled(rotateEnable)
-        .setPictureCropStyle(mCropParameterStyle) // 动态自定义裁剪主题
-        .theme(R.style.picture_default_style)
-//            .cropImageWideHigh(4, 5)
-        .withAspectRatio(4, 5)
-        .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
-        .compressSavePath(UriUtils.getCacheDir(context))
-        .cameraFileName("${TimeUtils.getNowMills()}.png")
-        .compress(compress)
-        .loadImageEngine(GlideEngine.createGlideEngine())// 自定义图片加载引擎
-        .compressSavePath(UriUtils.getCacheDir(context))
-        .forResult(requestCode)
-}

@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyPublicContract
+import com.sdy.luxurytravelapplication.mvp.model.UploadVerifyPublicModel
 
 /**
  *    author : ZFM
@@ -12,4 +13,5 @@ import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyPublicContract
 class UploadVerifyPublicPresenter :
     BasePresenter<UploadVerifyPublicContract.Model, UploadVerifyPublicContract.View>(),
     UploadVerifyPublicContract.Presenter {
+    override fun createModel(): UploadVerifyPublicContract.Model? =UploadVerifyPublicModel()
 }

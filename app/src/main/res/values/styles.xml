@@ -90,4 +90,16 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+
+    <!--微信支付 -->
+    <style name="wx_theme" parent="AppTheme">
+        <!--<style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">-->
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
 </resources>

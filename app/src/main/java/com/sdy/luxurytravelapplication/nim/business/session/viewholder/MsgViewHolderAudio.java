@@ -23,6 +23,7 @@ import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.adapter.BaseMu
 import com.sdy.luxurytravelapplication.nim.common.util.sys.ScreenUtil;
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil;
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl;
+import com.sdy.luxurytravelapplication.utils.UriUtils;
 
 /**
  * Created by zhoujianghua on 2015/8/5.
@@ -95,7 +96,7 @@ public class MsgViewHolderAudio extends MsgViewHolderBase {
             setFrameGravity(durationLabel, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 
 //            containerView.setBackgroundResource(NimUIKitImpl.getOptions().messageLeftBackground);
-            containerView.setPadding(ScreenUtil.dip2px(15), ScreenUtil.dip2px(8), ScreenUtil.dip2px(10), ScreenUtil.dip2px(8));
+            containerView.setPadding(ScreenUtil.dip2px(10), ScreenUtil.dip2px(12), ScreenUtil.dip2px(10), ScreenUtil.dip2px(12));
             animationView.setBackgroundResource(R.drawable.nim_audio_animation_list_left);
             durationLabel.setTextColor(Color.BLACK);
 
@@ -165,7 +166,7 @@ public class MsgViewHolderAudio extends MsgViewHolderBase {
     }
 
     public static int getAudioMaxEdge() {
-        return (int) (0.6 * ScreenUtil.screenMin);
+        return (int) (0.5 * ScreenUtil.screenMin);
     }
 
     public static int getAudioMinEdge() {
@@ -206,9 +207,8 @@ public class MsgViewHolderAudio extends MsgViewHolderBase {
 
     private void updateTime(long milliseconds) {
         long seconds = TimeUtil.getSecondsByMilliseconds(milliseconds);
-
         if (seconds >= 0) {
-            durationLabel.setText(seconds + "\"");
+            durationLabel.setText(UriUtils.INSTANCE.getShowTime((int) seconds));
         } else {
             durationLabel.setText("");
         }

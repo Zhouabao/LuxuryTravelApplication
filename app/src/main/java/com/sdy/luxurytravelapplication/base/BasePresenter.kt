@@ -25,7 +25,7 @@ abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleOb
     /**
      * 创建 Model
      */
-    open fun createModel(): M? = null
+    abstract fun createModel(): M?
 
     /**
      * 是否使用 EventBus

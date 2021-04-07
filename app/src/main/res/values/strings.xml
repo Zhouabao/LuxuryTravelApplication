@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">奢旅</string>
 
+    <!-- 友盟配置-->
+    <string name="UMENG_APPID">5fa117eb1c520d30739f6f79</string>
+    <string name="UMENG_APP_SECRET">7bc4c2d146e193981b4e7fde5081ffee</string>
+    <!-- 微信配置-->
+    <string name="WECHAT_APPID">wx60458b95420980eb</string>
+    <!--高德地图配置-->
+    <string name="AMAP_APPID">7f513ba1f61f25688a68f00c3561e5e1</string>
 
     <string name="empty_view_hint">暂无数据</string>
     <string name="error_view_hint">加载失败</string>
@@ -551,4 +558,30 @@
 
     <string name="zan_your_square">点赞了你的动态</string>
     <string name="comment">评论\t</string>
+    <string name="personal_main">个人主页</string>
+    <string name="upload_shot_pic">请上传截图</string>
+    <string name="report_why">举报原因描述</string>
+    <string name="input_report_reason_why">请详细填写举报该用户的具体原因，我们会第一时间认真核实并处理</string>
+    <string name="commit_report">提交举报</string>
+    <string name="upload_pic_fail_please_retry">图片上传失败，请重新尝试</string>
+    <string name="give">赠送</string>
+    <string name="gift_send_fail">🎁发送失败</string>
+    <string name="candy_balance">旅券余额</string>
+    <string name="candy_usage">旅券可用于：发起旅游计划、赠送礼物、解锁</string>
+    <string name="original_price">原价</string>
+    <string name="first_charge_save">首充立减</string>
+    <string name="cost">价值</string>
+    <string name="money_unit">元</string>
+    <string name="confirm_pay">确认支付</string>
+    <string name="pay_alipay">支付宝</string>
+    <string name="other_pay_way">其他支付方式</string>
+    <string name="pay_wechat">微信支付</string>
+    <string name="unload_wechat">你没有安装微信</string>
+    <string name="pay_result">支付结果</string>
+    <string name="pay_success">支付成功</string>
+    <string name="pay_cancel">支付取消</string>
+    <string name="pay_error">支付出错，请重新支付！</string>
+    <string name="pay_checking">支付结果确认中</string>
+    <string name="pay_fail">支付失败</string>
+    <string name="sure_send_left">你确定赠送「 %1$s 」吗？</string>
 </resources>

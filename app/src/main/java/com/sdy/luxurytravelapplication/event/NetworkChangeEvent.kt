@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.event
 
 import android.content.Context
 import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
 import java.io.File
 
 /**
@@ -125,3 +126,18 @@ class UpdateHiEvent
 
 class UpdateAccostListEvent()
 
+
+
+/**
+ * 点击选中赠送礼物事件
+ */
+class UpdateChatCallGiftEvent(
+    val giftbean: SendGiftBean,
+    val parentPosition: Int,
+    val childPosition: Int
+)
+
+class CloseDialogEvent
+
+
+class WxpayResultEvent(val code: Int)

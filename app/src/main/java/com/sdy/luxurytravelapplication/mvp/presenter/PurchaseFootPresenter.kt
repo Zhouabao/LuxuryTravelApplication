@@ -3,6 +3,7 @@ package com.sdy.luxurytravelapplication.mvp.presenter
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.PurchaseFootContract
+import com.sdy.luxurytravelapplication.mvp.model.PurchaseFootModel
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 
 /**
@@ -22,4 +23,6 @@ class PurchaseFootPresenter :
                 ToastUtil.toast(it.msg)
         }
     }
+
+    override fun createModel(): PurchaseFootContract.Model? = PurchaseFootModel()
 }

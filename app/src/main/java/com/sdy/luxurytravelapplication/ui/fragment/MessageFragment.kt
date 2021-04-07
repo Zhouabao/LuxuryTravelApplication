@@ -41,6 +41,7 @@ import com.sdy.luxurytravelapplication.ui.activity.MessageSquareActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MessageCenterAllAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListHeadAdapter
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -145,7 +146,7 @@ class MessageFragment :
                         0 -> {//官方助手
                             NIMClient.getService(MsgService::class.java)
                                 .clearUnreadCount(Constants.ASSISTANT_ACCID, SessionTypeEnum.P2P)
-//                        ChatActivity.start(activity!!, Constants.ASSISTANT_ACCID)
+                        ChatActivity.start(activity!!, Constants.ASSISTANT_ACCID)
 
                         }
                         1 -> {

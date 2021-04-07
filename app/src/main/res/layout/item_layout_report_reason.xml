@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reportType"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@color/colorWhite"
+    android:drawableRight="@drawable/icon_arrow_right_black"
+    android:drawablePadding="10dp"
+    android:gravity="center_vertical"
+    android:padding="15dp"
+    android:textColor="#ff333333"
+    android:textSize="14sp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="人身攻击或恶意骚扰" />
+
+

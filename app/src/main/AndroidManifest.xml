@@ -31,31 +31,78 @@
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.MessageSquareActivity"></activity>
-        <activity android:name=".ui.activity.AccostListActivity" />
-        <activity android:name=".ui.activity.TargetUserActivity" />
-        <activity android:name=".ui.activity.PublishTravelEndActivity" />
-        <activity android:name=".ui.activity.PublishTravelBeforeActivity" />
-        <activity android:name=".ui.activity.TravelDetailActivity" />
-        <activity android:name=".ui.activity.LocationActivity" />
-        <activity android:name=".ui.activity.ChooseTitleActivity" />
-        <activity android:name=".ui.activity.PublishActivity" />
-        <activity android:name=".ui.activity.PublishTravelActivity" />
-        <activity android:name=".ui.activity.SquareCommentDetailActivity" />
-        <activity android:name=".ui.activity.TagDetailCategoryActivity" />
-        <activity android:name=".ui.activity.FindAllTagActivity" />
-        <activity android:name=".ui.activity.SweetHeartVerifyingActivity" />
-        <activity android:name=".ui.activity.UploadVerifyPublicActivity" />
-        <activity android:name=".ui.activity.UploadVerifyInfoActivity" />
-        <activity android:name=".ui.activity.ChooseVerifyActivity" />
-        <activity android:name=".ui.activity.JoinLuxuryActivity" />
-        <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.PurchaseFootActivity" />
-        <activity android:name=".ui.activity.InviteCodeActivity" />
+        <activity android:name=".ui.activity.CandyRechargeActivity"></activity>
+        <activity android:name=".ui.activity.ReportReasonUploadActivity" />
+        <activity android:name=".ui.activity.ReportReasonActivity" />
+        <activity android:name=".ui.activity.MessageInfoActivity" />
+        <activity
+            android:name=".ui.activity.MessageSquareActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.AccostListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.TargetUserActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.PublishTravelEndActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.PublishTravelBeforeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.TravelDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.LocationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.ChooseTitleActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.PublishActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.PublishTravelActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.SquareCommentDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.TagDetailCategoryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.FindAllTagActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.SweetHeartVerifyingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.UploadVerifyPublicActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.UploadVerifyInfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.ChooseVerifyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.JoinLuxuryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.PurchaseFootActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.InviteCodeActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GuideActivity"
             android:launchMode="singleTop" />
@@ -92,6 +139,29 @@
         <activity
             android:name=".ui.activity.RegisterInfoTwoActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/wx_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="@string/WECHAT_APPID" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+
+
 
         <meta-data
             android:name="design_width_in_dp"
@@ -121,9 +191,8 @@
             android:launchMode="singleTop"
             android:theme="@style/DarkTheme" />
         <activity
-            android:name="com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity"
-            android:launchMode="singleTop"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:name=".nim.business.session.activity.ChatActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.chuanglan.shanyan_sdk.view.CmccLoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -160,5 +229,10 @@
             android:name="design_height_in_dp"
             android:value="640" />
     </application>
+
+    <queries>
+        <package android:name="com.eg.android.AlipayGphone" />
+        <package android:name="hk.alipay.wallet" />
+    </queries>
 
 </manifest>

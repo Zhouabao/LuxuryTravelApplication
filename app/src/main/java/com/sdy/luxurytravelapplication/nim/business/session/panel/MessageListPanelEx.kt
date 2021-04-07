@@ -9,7 +9,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.kongzue.dialog.v3.BottomMenu
@@ -50,7 +49,7 @@ import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.SaveNetPhotoUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
-import com.sdy.sweetdateapplication.nim.business.session.activity.ChatActivity
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -65,7 +64,6 @@ import kotlin.collections.ArrayList
  */
 class MessageListPanelEx @JvmOverloads constructor(
     private var container: Container,
-    private val rootView: View,
     private val binding: ActivityChatBinding,
     private val anchor: IMMessage? = null,
     val recordOnly: Boolean = false,//仅显示消息记录，不接收和发送消息
@@ -358,18 +356,6 @@ class MessageListPanelEx @JvmOverloads constructor(
     fun isSessionMode(): Boolean {
         return !recordOnly && !remote
     }
-
-
-    /**
-     * 是否存在有接收到的消息
-     */
-    fun hasReceiveMessage() = adapter.data.indexOfFirst { it.direct == MsgDirectionEnum.In } != -1
-
-    /**
-     * 是否发送过礼物
-     */
-    fun sendedGift() =
-        adapter.data.indexOfFirst { it.attachment is SendGiftAttachment && it.direct == MsgDirectionEnum.Out } != -1
 
     fun messageSize(): Int {
         return adapter.data.size

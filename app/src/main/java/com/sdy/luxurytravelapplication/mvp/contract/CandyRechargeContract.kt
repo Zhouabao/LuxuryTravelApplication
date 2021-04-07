@@ -1,0 +1,30 @@
+package com.sdy.luxurytravelapplication.mvp.contract
+
+import com.sdy.luxurytravelapplication.base.IModel
+import com.sdy.luxurytravelapplication.base.IPresenter
+import com.sdy.luxurytravelapplication.base.IView
+import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
+import com.sdy.luxurytravelapplication.mvp.model.bean.ChargeWayBeans
+import io.reactivex.Observable
+
+/**
+ *    author : ZFM
+ *    date   : 2021/4/719:30
+ *    desc   :
+ *    version: 1.0
+ */
+interface CandyRechargeContract {
+    interface View : IView {
+        fun giftRechargeList(data: ChargeWayBeans?)
+
+    }
+
+    interface Presenter : IPresenter<View> {
+        fun giftRechargeList()
+    }
+
+    interface Model : IModel {
+
+        fun giftRechargeList(): Observable<BaseResp<ChargeWayBeans?>>
+    }
+}
