@@ -84,6 +84,10 @@ public class TimeUtil {
         return getDateTimeString(milliseconds, "yyyyMMdd");
     }
 
+    public static String getDateStringChinese(long milliseconds) {
+        return getDateTimeString(milliseconds, "yyyy年MM月dd日");
+    }
+
     public static String getTimeString(long milliseconds) {
         return getDateTimeString(milliseconds, "HHmmss");
     }

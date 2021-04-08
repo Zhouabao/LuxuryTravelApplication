@@ -73,12 +73,13 @@ object UserManager {
         SPUtils.getInstance(Constants.SPNAME).remove("birth")
 
 
-        SPUtils.getInstance(Constants.SPNAME).remove("isVip")
         SPUtils.getInstance(Constants.SPNAME).remove("isFootVip")
         SPUtils.getInstance(Constants.SPNAME).remove("isFaced")
         SPUtils.getInstance(Constants.SPNAME).remove("hasFaceUrl")
         SPUtils.getInstance(Constants.SPNAME).remove("living_btn")
         SPUtils.getInstance(Constants.SPNAME).remove("mvFaced")
+        SPUtils.getInstance(Constants.SPNAME).remove("isPtvip")
+        SPUtils.getInstance(Constants.SPNAME).remove("isvip1")
 
 
         SPUtils.getInstance(Constants.SPNAME).remove("myVerifyBtn")
@@ -151,6 +152,9 @@ object UserManager {
     var touristMode: Boolean = false
     val tempDatas = arrayListOf(
         "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2509550317,2669241293&fm=26&gp=0.jpg",
+        "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
+        "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
+        "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
         "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1459307042,2397699953&fm=26&gp=0.jpg",
         "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3167430823,2130012097&fm=26&gp=0.jpg"
     )
@@ -253,6 +257,10 @@ object UserManager {
     var isvip: Boolean
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isvip1", false)
         set(vip) = SPUtils.getInstance(Constants.SPNAME).put("isvip1", vip)
+
+    var isPtvip: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isPtvip", false)
+        set(vip) = SPUtils.getInstance(Constants.SPNAME).put("isPtvip", vip)
 
 
     //0未认证/认证不成功     1认证通过     2认证中

@@ -6,14 +6,14 @@ import android.view.View
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
 import com.sdy.luxurytravelapplication.mvp.presenter.MainPresenter
-import com.sdy.luxurytravelapplication.ui.dialog.CompleteInfoDialog
+import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.ui.fragment.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -66,7 +66,7 @@ class MainActivity :
             add(FindFragment())
             add(TravelFragment())
             add(MessageFragment())
-            add(MineFragment())
+            add(UserCenterFragment())
         }
     }
 
@@ -79,13 +79,13 @@ class MainActivity :
     override fun initView() {
         binding.apply {
             ClickUtils.applySingleDebouncing(
-                arrayOf(indexBtn, findBtn, messageBtn,travelBtn, mineBtn),
+                arrayOf(indexBtn, findBtn, messageBtn, travelBtn, mineBtn),
                 this@MainActivity
             )
             vpMain.apply {
                 offscreenPageLimit = 5
                 isUserInputEnabled = false
-                adapter = MainPager2Adapter(this@MainActivity,fragments)
+                adapter = MainPager2Adapter(this@MainActivity, fragments)
                 currentItem = 0
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
@@ -103,9 +103,17 @@ class MainActivity :
     private fun updateTabChecked(position: Int, fromVp: Boolean = false) {
         if (checkedPosition == position)
             return
+        if (position == 4) {
+            (fragments[position] as UserCenterFragment).userCenterVisible = true
+            if (!(fragments[position] as UserCenterFragment).appbarTop)
+                BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
+        } else {
+            BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorWhite))
+        }
 
-        if (!fromVp)
+        if (!fromVp) {
             binding.vpMain.setCurrentItem(position, false)
+        }
         when (position) {
             0 -> {
                 binding.tabIndexTv.setTextColor(Color.parseColor("#FF1ED0A7"))
@@ -185,7 +193,6 @@ class MainActivity :
 
 
     }
-
 
 
     override fun start() {

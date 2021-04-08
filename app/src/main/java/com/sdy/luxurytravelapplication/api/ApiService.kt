@@ -460,6 +460,62 @@ interface ApiService {
     fun candyRechargeList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans?>>
 
 
+
+
+
+    /*******************************个人中心*****************************************/
+    /**
+     * 获取联系方式
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/getContact${Constants.END_BASE_URL}")
+    fun getContact(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ContactWayBean?>>
+
+    /**
+     * 设置联系方式
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/setContact${Constants.END_BASE_URL}")
+    fun setContact(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
+
+    /**
+     * 个人中心
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/myInfoCandyV231${Constants.END_BASE_URL}")
+    fun myInfoCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<UserInfoBean?>>
+
+
+    /**
+     * 我的动态
+     */
+    @FormUrlEncoded
+    @POST("square/aboutMeSquareV13${Constants.END_BASE_URL}")
+    fun aboutMeSquare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SquareListBean?>>
+
+
+    /**
+     * 我的动态糖果版
+     */
+    @FormUrlEncoded
+    @POST("square/aboutMeSquareCandy${Constants.END_BASE_URL}")
+    fun aboutMeSquareCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
+
+    /**
+     * 我的计划列表
+     */
+    @FormUrlEncoded
+    @POST("Travel/myPlan${Constants.END_BASE_URL_v2}")
+    fun myPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
+
+
+
+
+
+
+
     /**
      * 提现
      */

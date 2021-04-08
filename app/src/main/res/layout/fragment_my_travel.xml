@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdy.luxurytravelapplication.widgets.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    app:errorView="@layout/layout_error_view"
+    app:loadingView="@layout/layout_loading_view"
+    app:noNetworkView="@layout/layout_network_view"
+    tools:context=".ui.fragment.TravelFragment">
+
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshTravel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/travelPlanRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_travel" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+</com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

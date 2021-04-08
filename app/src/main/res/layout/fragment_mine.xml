@@ -1,14 +1,451 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MineFragment">
+    tools:context=".ui.fragment.UserCenterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/settingCl"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/myNickname0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="这是我的昵称"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/shareBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/icon_user_share_white"
+                app:layout_constraintRight_toLeftOf="@id/settingBtn"
+                app:layout_constraintTop_toTopOf="@id/settingBtn" />
+
+            <ImageView
+                android:id="@+id/settingBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:src="@drawable/icon_setting_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#FFF7F8F9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settingCl">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/userAppbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:elevation="0dp">
+
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    android:minHeight="0dp"
+                    app:collapsedTitleGravity="left"
+                    app:contentScrim="@color/colorTransparent"
+                    app:expandedTitleGravity="center"
+                    app:expandedTitleMarginEnd="64dp"
+                    app:expandedTitleMarginStart="48dp"
+                    app:expandedTitleTextAppearance="@style/matchdetailTitleExpandStyle"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/myNickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="#ffffffff"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@id/mySign"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/myAvatar"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="这是我的昵称" />
+
+                        <ImageView
+                            android:id="@+id/userVip"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/icon_vip"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@id/myNickname"
+                            app:layout_constraintLeft_toRightOf="@id/myNickname"
+                            app:layout_constraintTop_toTopOf="@id/myNickname" />
+
+                        <ImageView
+                            android:id="@+id/userPtVip"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/icon_vip_connnect"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@id/myNickname"
+                            app:layout_constraintLeft_toRightOf="@id/userVip"
+                            app:layout_constraintTop_toTopOf="@id/myNickname" />
+
+                        <TextView
+                            android:id="@+id/mySign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:textColor="#ffffffff"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/myAvatar"
+                            app:layout_constraintLeft_toLeftOf="@id/myNickname"
+                            app:layout_constraintTop_toBottomOf="@id/myNickname"
+                            tools:text="这里是我的个性签名" />
+
+
+                        <com.sdy.luxurytravelapplication.widgets.RoundImageView
+                            android:id="@+id/myAvatar"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/default_image_15dp"
+                            app:borderRadius="15dp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:type="round" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@drawable/shape_rectangle_stroke_white_15dp"
+                            app:layout_constraintBottom_toBottomOf="@id/myAvatar"
+                            app:layout_constraintLeft_toLeftOf="@id/myAvatar"
+                            app:layout_constraintRight_toRightOf="@id/myAvatar"
+                            app:layout_constraintTop_toTopOf="@id/myAvatar" />
+
+                        <ImageView
+                            android:id="@+id/myInfoEditBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_user_edit"
+                            app:layout_constraintBottom_toBottomOf="@id/myAvatar"
+                            app:layout_constraintLeft_toLeftOf="@id/myAvatar" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/femalePowerCl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/icon_woman_power_bg"
+                            android:gravity="center_vertical"
+                            android:paddingTop="17dp"
+                            android:paddingBottom="17dp"
+                            android:visibility="invisible"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/myAvatar">
+
+                            <TextView
+                                android:id="@+id/t1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="个人权益"
+                                android:textColor="#ff1ed0a7"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/powerContact"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/icon_user_contact_not"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/t1"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/powerVideo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/icon_user_video_not"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/powerContact"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/powerVerify"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|left"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_user_verify_not"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/powerVideo"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/addPowerBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/shape_rectangle_green_16dp"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:text="增加曝光权益"
+                                android:textColor="#ffffffff"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <LinearLayout
+                            android:id="@+id/malePowerLl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/icon_woman_power_bg"
+                            android:gravity="center_vertical"
+                            android:paddingTop="17dp"
+                            android:paddingBottom="17dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/myAvatar">
+
+                            <ImageView
+                                android:id="@+id/vipLevelLogo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/icon_vip" />
+
+                            <TextView
+                                android:id="@+id/vipLevelSaveCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:text="黄金会员丨已为你节省300个糖果"
+                                android:textColor="#FFFFD57D"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:id="@+id/isVipPowerBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/shape_rectangle_gold_16dp"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/my_privilege"
+                                android:textColor="#FF4B3022"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="102dp"
+                            android:background="@color/colorWhite"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/femalePowerCl">
+
+                            <TextView
+                                android:id="@+id/userTravelCard"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/icon_user_travel_card"
+                                android:drawablePadding="5dp"
+                                android:text="我的旅券"
+                                android:textColor="#ff333333"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintHorizontal_chainStyle="spread"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/view1"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/view1"
+                                android:layout_width="2dp"
+                                android:layout_height="32dp"
+                                android:background="@color/colorBackgroundGray"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/userTravelCard"
+                                app:layout_constraintRight_toLeftOf="@id/userVisit"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/userVisit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/view1"
+                                app:layout_constraintRight_toLeftOf="@id/view2"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/userVisitRv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:orientation="horizontal"
+                                    android:overScrollMode="never"
+                                    app:layout_constraintLeft_toLeftOf="@id/tvVisit"
+                                    app:layout_constraintRight_toRightOf="@id/tvVisit"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvVisit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="看过我的"
+                                    android:textColor="@color/color333"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/userVisitRv" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="2dp"
+                                android:layout_height="32dp"
+                                android:background="@color/colorBackgroundGray"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/userVisit"
+                                app:layout_constraintRight_toLeftOf="@id/userFootprint"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/userFootprint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/icon_user_footprint"
+                                android:drawablePadding="5dp"
+                                android:text="我的足迹"
+                                android:textColor="#ff333333"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/view2"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <FrameLayout
+                    android:id="@+id/flMySquareAndTag"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorWhite">
+
+                    <com.flyco.tablayout.SegmentTabLayout
+                        android:id="@+id/tabMySquareAndTag"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_rectangle_f7f8fa_8dp"
+                        app:tl_bar_color="@color/colorBackgroundGray"
+                        app:tl_indicator_anim_enable="true"
+                        app:tl_indicator_bounce_enable="false"
+                        app:tl_indicator_color="@color/colorWhite"
+                        app:tl_indicator_corner_radius="6dp"
+                        app:tl_indicator_margin_bottom="3dp"
+                        app:tl_indicator_margin_left="3dp"
+                        app:tl_indicator_margin_right="3dp"
+                        app:tl_indicator_margin_top="3dp"
+                        app:tl_tab_space_equal="true"
+                        app:tl_textBold="SELECT"
+                        app:tl_textSelectColor="@color/color333"
+                        app:tl_textUnselectColor="#FFB6BCC6"
+                        app:tl_textsize="14sp" />
+                </FrameLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpMySquareAndTag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

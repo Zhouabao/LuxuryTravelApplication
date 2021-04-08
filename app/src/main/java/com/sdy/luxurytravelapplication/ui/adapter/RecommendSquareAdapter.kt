@@ -6,10 +6,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.airbnb.lottie.LottieAnimationView
 import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.VibrateUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -29,7 +27,7 @@ import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
 
-class RecommendSquareAdapter :
+class RecommendSquareAdapter(var mine: Boolean = false) :
     BaseBindingQuickAdapter<RecommendSquareBean, ItemFindRecommendBinding>(R.layout.item_find_recommend) {
     override fun convert(
         binding: ItemFindRecommendBinding,

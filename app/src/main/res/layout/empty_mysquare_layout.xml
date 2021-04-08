@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="217dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="7dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mySquareDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="3月9日，星期二"
+            android:textColor="#ffb6bcc6"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/emptyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="发个动态吧"
+            android:textColor="#ff333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="记录生活点滴，有助于大家全面了解你"
+            android:textColor="#ffb6bcc6"
+            android:textSize="12sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addSquareBtn"
+            android:layout_width="255dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/shape_1ed0a7_29dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/addSqaureTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_user_add_square_empty"
+                android:drawablePadding="5dp"
+                android:text="发布动态"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

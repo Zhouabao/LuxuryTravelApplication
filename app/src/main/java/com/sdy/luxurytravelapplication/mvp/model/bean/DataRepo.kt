@@ -64,7 +64,24 @@ data class Userinfo(
     var avatar: String = "",
     var birth: Int = 0,
     var gender: Int = 0,
-    var nickname: String = ""
+    var nickname: String = "",
+    val accid: String = "",
+    val allvisit: Int = 0,
+    val face_audit_state: Int? = 0,
+    val isvip: Boolean = false,
+    val isplatinum: Boolean = false,
+    val isdirectvip: Boolean = false,
+    val todayvisit: Int = 0,
+    val vip_express: String = "",
+    val platinum_vip_express: String = "",
+    var isfaced: Int = -1,//   0 未认证 1通过 2机审中 3人审中 4被拒（弹框）
+    var contact_way: Int = 0,//  联系方式  0  没有 1 电话 2微信 3 qq
+    var mv_faced: Int = 0,//      0 没有视频/拒绝   1视频通过  2视频审核中
+    var identification: Int = 0,// int（认证分数）
+    var percent_complete: Int = 0,// float（百分比例如 80.99）
+    var intention: LabelQualityBean? = null, //意向
+    var my_candy_amount: Int = 0,
+    var my_candy_amount_str: String = ""
 )
 
 /**
@@ -166,6 +183,12 @@ data class SquareBean(
         const val OFFICIAL_NOTICE = 4
     }
 }
+
+
+
+data class SquareListBean(
+    var list: MutableList<SquareBean> = mutableListOf()
+)
 
 data class VideoJson(
     val duration: Int = 0,
@@ -934,3 +957,29 @@ data class Alipay(
     var phone: String = ""
 ) : Serializable
 
+
+data class ContactWayBean(
+    var contact_way: Int = 0,
+    var contact_way_str: String = "",
+    var contact_way_content: String = "",
+    var contact_way_hide: Int = 0
+)
+
+
+data class UserInfoBean(
+    val mytags_count: Int = 0,//兴趣个数 *    desc   : 个人中心请求model
+    val label_quality: MutableList<LabelQuality> = mutableListOf(),//展示的兴趣
+    val userinfo: Userinfo? = null,
+    val sign: String? = "",
+    val power_url: String = "",
+    val platinum_vip_str: String = "",
+    val red_packet_btn: Boolean = false,
+    val hide_distance: Boolean = false,//（true开启隐藏  false  关闭隐藏）
+    val hide_book: Boolean = false,//（ true 屏蔽通讯录     false  关闭隐藏通讯录）
+    val greet_status: Boolean = false,//true 开启招呼认证 false关闭招呼认证
+    val threshold_btn: Boolean = false,//门槛是否开启
+    val free_show: Boolean = false,//  true（显示）  false(模糊)
+    val vip_descr: MutableList<VipDescr>? = mutableListOf(),//会员权益描述
+    val platinum_vip_descr: MutableList<VipDescr>? = mutableListOf(),//黄金会员权益描述
+    var visitlist: MutableList<String> = mutableListOf()//看过我的头像列表
+)
