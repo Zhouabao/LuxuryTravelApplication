@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.CandyRechargeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChargeWayBeans
+import com.sdy.luxurytravelapplication.mvp.model.bean.PullWithdrawBean
 import io.reactivex.Observable
 
 /**
@@ -14,8 +15,11 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class CandyRechargeModel : BaseModel(), CandyRechargeContract.Model {
-    override fun giftRechargeList(): Observable<BaseResp<ChargeWayBeans?>> {
+    override fun myCadny(): Observable<BaseResp<PullWithdrawBean?>> {
+        return RetrofitHelper.service.myCadny(hashMapOf())
+    }
 
+    override fun giftRechargeList(): Observable<BaseResp<ChargeWayBeans?>> {
         return RetrofitHelper.service.candyRechargeList(hashMapOf())
     }
 }

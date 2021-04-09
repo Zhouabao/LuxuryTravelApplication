@@ -65,11 +65,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             //android 瀑布流
             if (type == TYPE_RECOMMEND)
                 adapter.setHeaderView(initHeadBannerView())
-            adapter.setEmptyView(R.layout.empty_friend_layout)
-            val emptyBinding = EmptyFriendLayoutBinding.inflate(layoutInflater)
-            emptyBinding.emptyFriendTitle.text = getString(R.string.nearby_empty_content)
-            emptyBinding.emptyFriendTip.text = getString(R.string.nearby_empty_content1)
-            emptyBinding.emptyImg.setImageResource(R.drawable.icon_empty_square_comment)
+            adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.isUseEmpty = false
         }
     }

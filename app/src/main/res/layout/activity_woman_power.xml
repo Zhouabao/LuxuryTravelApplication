@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF151920"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.WomanPowerActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <FrameLayout
+        android:id="@+id/powerContactBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:alpha="1"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/powerVerifyBtn"
+        app:layout_constraintTop_toBottomOf="@id/barCl">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_power_contact"
+            android:drawablePadding="5dp"
+            android:text="联系方式"
+            android:textColor="#ffffffff"
+            android:textSize="13sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/powerVerifyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        app:layout_constraintLeft_toRightOf="@id/powerContactBtn"
+        app:layout_constraintRight_toLeftOf="@id/powerVideoBtn"
+        app:layout_constraintTop_toTopOf="@id/powerContactBtn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_power_verify"
+            android:drawablePadding="5dp"
+            android:text="真人认证"
+            android:textColor="#ffffffff"
+            android:textSize="13sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/powerVideoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        app:layout_constraintLeft_toRightOf="@id/powerVerifyBtn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/powerContactBtn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_power_video"
+            android:drawablePadding="5dp"
+            android:text="视频介绍"
+            android:textColor="#ffffffff"
+            android:textSize="13sp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/powerArrowContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_arrow_white_up"
+        app:layout_constraintBottom_toTopOf="@id/powerCl"
+        app:layout_constraintLeft_toLeftOf="@id/powerContactBtn"
+        app:layout_constraintRight_toRightOf="@id/powerContactBtn" />
+
+    <ImageView
+        android:id="@+id/powerArrowVerify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@drawable/icon_arrow_white_up"
+        app:layout_constraintBottom_toTopOf="@id/powerCl"
+        app:layout_constraintLeft_toLeftOf="@id/powerVerifyBtn"
+        app:layout_constraintRight_toRightOf="@id/powerVerifyBtn" />
+
+    <ImageView
+        android:id="@+id/powerArrowVideo"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_arrow_white_up"
+        app:layout_constraintBottom_toTopOf="@id/powerCl"
+        app:layout_constraintLeft_toLeftOf="@id/powerVideoBtn"
+        app:layout_constraintRight_toRightOf="@id/powerVideoBtn" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/powerCl"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_rectangle_white_15dp"
+        app:layout_constraintDimensionRatio="345:477"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/powerContactBtn">
+
+        <ImageView
+            android:id="@+id/powerIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            app:layout_constraintBottom_toTopOf="@id/addPowerBtn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/addPowerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_button_bottom_15dp"
+            android:gravity="center"
+            android:text="变更联系方式"
+            android:enabled="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

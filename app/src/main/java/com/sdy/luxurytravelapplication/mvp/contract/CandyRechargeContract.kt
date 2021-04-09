@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChargeWayBeans
+import com.sdy.luxurytravelapplication.mvp.model.bean.PullWithdrawBean
 import io.reactivex.Observable
 
 /**
@@ -16,15 +17,23 @@ import io.reactivex.Observable
 interface CandyRechargeContract {
     interface View : IView {
         fun giftRechargeList(data: ChargeWayBeans?)
-
+        fun onMyCadnyResult(candyCount: PullWithdrawBean?)
     }
 
     interface Presenter : IPresenter<View> {
         fun giftRechargeList()
+
+        /**
+         * 查询我的糖果
+         */
+        fun myCadny()
     }
 
     interface Model : IModel {
-
+        /**
+         * 查询我的糖果
+         */
+        fun myCadny(): Observable<BaseResp<PullWithdrawBean?>>
         fun giftRechargeList(): Observable<BaseResp<ChargeWayBeans?>>
     }
 }

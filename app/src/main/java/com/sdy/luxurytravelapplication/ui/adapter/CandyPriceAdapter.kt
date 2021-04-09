@@ -27,7 +27,7 @@ class CandyPriceAdapter :
                     .create()
 
                 SpanUtils.with(candyPrice)
-                    .append("${context.getString(R.string.original_price)}${item.original_price},")
+                    .append("${context.getString(R.string.original_price)}${item.original_price}，")
                     .setStrikethrough()
                     .append(context.getString(R.string.first_charge_save))
                     .append("${BigDecimal(item.original_price).minus(BigDecimal(item.discount_price))}")

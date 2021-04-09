@@ -284,7 +284,7 @@
     <string name="under_review">审核中</string>
     <string name="refused">已拒绝</string>
     <string name="withdraw_success">已打款</string>
-    <string name="withdraw_id">TXID：%1$s</string>
+    <string name="withdraw_id">提现ID:</string>
     <string name="withdraw_money">提现 %1$d 元</string>
     <string name="recharge">充值</string>
     <string name="withdraw">提现</string>
@@ -449,7 +449,7 @@
     <string name="one_or_more_figure_pic">照片将对外展示，注意照片尺度过大或导致无法通过认证</string>
 
     <string name="nearby_empty">这里暂时还没有人~</string>
-    <string name="nearby_empty_content">这里暂时没有人</string>
+    <string name="nearby_empty_content">什么也没有</string>
     <string name="nearby_empty_content1">过会儿再来看看吧</string>
 
     <string name="sweet_figure_title">学历认证</string>
@@ -592,4 +592,45 @@
     <string name="vip_buy">获取</string>
     <string name="vip_gold">黄金会员</string>
     <string name="vip_connection_card">至尊直联卡</string>
+    <string name="bind_now">添加联系方式</string>
+    <string name="change">变更联系方式</string>
+    <string name="verify_now">立即认证</string>
+    <string name="please_verify">请先认证</string>
+    <string name="replace_video">替换视频</string>
+    <string name="record_video">录制视频</string>
+    <string name="checking">审核中</string>
+    <string name="verify_pass">您已通过认证</string>
+    <string name="verify_checking">认证审核中...</string>
+    <string name="video_checking_waiting">视频正在审核中，请耐心等待</string>
+    <string name="video_verify_first_then_introduce">请先完成真人认证再录制视频介绍</string>
+    <string name="real_verify">真人认证</string>
+
+
+    <string name="input_money">输入金额</string>
+    <string name="withdraw_money_tv">提现金额</string>
+    <string name="gold_withdraw">金币提现</string>
+    <string name="withdraw_all">全部提现</string>
+    <string name="receive_alipay">收款支付宝</string>
+    <string name="click_bind">点击绑定</string>
+    <string name="confirm_withdraw">确认提现</string>
+    <string name="apply_withdraw_success">申请提现成功</string>
+    <string name="withdraw_id1">提现ID:</string>
+    <string name="apply_time">申请时间:</string>
+    <string name="withdraw_amount">提现金额:</string>
+    <string name="cost_coin">消耗金币:</string>
+    <string name="coin_amount">%1$d颗</string>
+    <string name="exchange_money">兑换金额:</string>
+    <string name="withdraw_max">可提现金额不能大于 %1$.2f</string>
+    <string name="can_withdraw">可提现¥%1$.2f</string>
+    <string name="click_input">点击填写</string>
+    <string name="apply_waiting_time">审核通过后七个工作日内到账，请耐心等待</string>
+    <string name="cost_candy">消耗旅券:</string>
+    <string name="count_unit">个</string>
+    <string name="alipay_account">支付宝账号</string>
+    <string name="please_input_alipay_account">填写支付宝账号</string>
+    <string name="name">姓名</string>
+    <string name="alipay_real_name">支付宝实名认证的姓名</string>
+    <string name="contact">联系方式</string>
+    <string name="please_input_your_contact">填写您的联系方式</string>
+    <string name="alipay_bind">绑定支付宝</string>
 </resources>

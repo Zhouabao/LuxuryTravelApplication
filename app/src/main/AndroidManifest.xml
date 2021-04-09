@@ -41,7 +41,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.VipChargeActivity"></activity>
+        <activity android:name=".ui.activity.SettingsActivity"></activity>
+        <activity android:name=".ui.activity.MyInviteActivity" />
+        <activity android:name=".ui.activity.BindAlipayAccountActivity" />
+        <activity android:name=".ui.activity.CandyRecordActivity" />
+        <activity android:name=".ui.activity.WomanPowerActivity" />
+        <activity android:name=".ui.activity.VipChargeActivity" />
         <activity android:name=".ui.activity.CandyRechargeActivity" />
         <activity android:name=".ui.activity.ReportReasonUploadActivity" />
         <activity android:name=".ui.activity.ReportReasonActivity" />

@@ -963,6 +963,8 @@ data class PullWithdrawBean(
 data class Alipay(
     var ali_account: String = "",
     var nickname: String = "",
+    var wth_account: String = "",
+    var account_descr: String = "",
     var phone: String = ""
 ) : Serializable
 
@@ -991,4 +993,20 @@ data class UserInfoBean(
     val vip_descr: MutableList<VipDescr>? = mutableListOf(),//会员权益描述
     val platinum_vip_descr: MutableList<VipDescr>? = mutableListOf(),//黄金会员权益描述
     var visitlist: MutableList<String> = mutableListOf()//看过我的头像列表
+)
+
+
+
+/**
+ * 交易流水对象
+ */
+data class BillBean(
+    var affect_candy: Int = 0,
+    var create_time: String = "",
+    var intro: String = "",
+    var type_title: String = "",
+    var id: Int = 0,
+    var info: String = "",
+    var icon: String = "",
+    var type: Int = 0
 )

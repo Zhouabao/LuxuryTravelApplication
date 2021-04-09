@@ -16,8 +16,13 @@ class CandyRechargePresenter :
     CandyRechargeContract.Presenter {
     override fun createModel(): CandyRechargeContract.Model? = CandyRechargeModel()
     override fun giftRechargeList() {
-        mModel?.giftRechargeList()?.ssss (mView,true){
+        mModel?.giftRechargeList()?.ssss{
             mView?.giftRechargeList(it.data)
         }
+    }
+
+    override fun myCadny() {
+
+        mModel?.myCadny()?.ssss (mView, true) { mView?.onMyCadnyResult(it.data) }
     }
 }

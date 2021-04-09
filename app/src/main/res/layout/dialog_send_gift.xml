@@ -75,7 +75,7 @@
         android:drawablePadding="5dp"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
-        app:drawableStartCompat="@drawable/icon_gold_tender_small"
+        app:drawableStartCompat="@drawable/icon_travel_card_small"
         app:layout_constraintBottom_toBottomOf="@id/giveBtn"
         app:layout_constraintLeft_toLeftOf="@id/targetAvatar"
         app:layout_constraintTop_toTopOf="@id/giveBtn"

@@ -129,30 +129,31 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                 SpanUtils.with(binding.goldAmount)
                     .append("${it.data.my_coin_amount}")
                     .append("\t\t充值")
-                    .setClickSpan(object : ClickableSpan() {
+                    .setClickSpan(object :ClickableSpan(){
                         override fun onClick(widget: View) {
                             CandyRechargeActivity.gotoCandyRecharge(context)
                         }
-                    })
-                binding.goldAmount.text = "${it.data.my_coin_amount}"
-                gifts.addAll(it.data.list)
-                val cnt = gifts.size / 8 + if (gifts.size % 8 == 0) {
-                    0
-                } else {
-                    1
-                }
-                for (index in 0 until cnt) {
-                    if (index == cnt - 1 && gifts.size % 8 != 0) {
-                        datas.add(gifts.subList(index * 8, index * 8 + gifts.size % 8))
-                    } else {
-                        datas.add(gifts.subList(index * 8, (index + 1) * 8))
-                    }
-                }
-                (binding.vpGift as BannerViewPager<List<SendGiftBean>>).refreshData(datas)
-            }
-        }
 
+                    })
+                    .create()
+            }
+            gifts.addAll(it.data.list)
+            val cnt = gifts.size / 8 + if (gifts.size % 8 == 0) {
+                0
+            } else {
+                1
+            }
+            for (index in 0 until cnt) {
+                if (index == cnt - 1 && gifts.size % 8 != 0) {
+                    datas.add(gifts.subList(index * 8, index * 8 + gifts.size % 8))
+                } else {
+                    datas.add(gifts.subList(index * 8, (index + 1) * 8))
+                }
+            }
+            (binding.vpGift as BannerViewPager<List<SendGiftBean>>).refreshData(datas)
+        }
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updateGiftCheckState(event: UpdateChatCallGiftEvent) {

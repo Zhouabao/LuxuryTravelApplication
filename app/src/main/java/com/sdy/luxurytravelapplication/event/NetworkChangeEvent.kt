@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.event
 
 import android.content.Context
 import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.sdy.luxurytravelapplication.mvp.model.bean.Alipay
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
 import java.io.File
 
@@ -141,3 +142,9 @@ class CloseDialogEvent
 
 
 class WxpayResultEvent(val code: Int)
+
+
+/**
+ * 获取支付宝账号事件总线
+ */
+class GetAlipayAccountEvent(val account: Alipay)

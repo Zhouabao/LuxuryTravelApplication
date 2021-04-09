@@ -38,7 +38,7 @@ class FindAllTagActivity :
             rvTagSquare.layoutManager = layoutManager
             rvTagSquare.adapter = adapter
             adapter.headerWithEmptyEnable = false
-            adapter.setEmptyView(R.layout.empty_friend_layout)
+            adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.isUseEmpty = false
             adapter.setOnItemClickListener { _, view, position ->
 //                if (UserManager.touristMode) {

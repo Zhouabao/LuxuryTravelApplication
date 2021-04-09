@@ -20,7 +20,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.UserInfoBean
 import com.sdy.luxurytravelapplication.mvp.presenter.UserCenterPresenter
-import com.sdy.luxurytravelapplication.ui.activity.VipChargeActivity
+import com.sdy.luxurytravelapplication.ui.activity.*
 import com.sdy.luxurytravelapplication.ui.adapter.MainPagerAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.VisitUserAvatorAdater
 import org.jetbrains.anko.support.v4.startActivity
@@ -274,8 +274,10 @@ class UserCenterFragment :
     override fun onClick(v: View) {
         when (v) {
             binding.shareBtn -> {
+                startActivity<MyInviteActivity>()
             }
             binding.settingBtn -> {
+                startActivity<SettingsActivity>()
             }
             binding.myAvatar -> {
             }
@@ -284,11 +286,18 @@ class UserCenterFragment :
             binding.userFootprint -> {
             }
             binding.userTravelCard -> {
+                CandyRechargeActivity.gotoCandyRecharge(activity!!, CandyRechargeActivity.TYPE_MINE)
             }
-            binding.isVipPowerBtn->{
+            binding.isVipPowerBtn -> {
                 startActivity<VipChargeActivity>()
             }
             binding.addPowerBtn -> {
+                startActivity<WomanPowerActivity>(
+                    "contact" to userInfoBean?.userinfo?.contact_way,
+                    "verify" to userInfoBean?.userinfo?.isfaced,
+                    "video" to userInfoBean?.userinfo?.mv_faced,
+                    "url" to userInfoBean?.power_url
+                )
             }
         }
 

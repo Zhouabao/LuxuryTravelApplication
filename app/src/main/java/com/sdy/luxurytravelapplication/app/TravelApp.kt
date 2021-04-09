@@ -82,6 +82,7 @@ class TravelApp : Application() {
                 .setReboundDuration(200)
                 .setEnableHeaderTranslationContent(false)
                 .setDisableContentWhenRefresh(true)
+                .setEnableLoadMoreWhenContentNotFull(false)
                 .setDisableContentWhenLoading(true)
         }
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->

@@ -46,6 +46,9 @@ import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.text.ParseException
 
 /**
  *    author : ZFM
@@ -69,6 +72,21 @@ object CommonFunction {
         val intent = activity.intentFor<WelcomeActivity>().clearTask().newTask()
         activity.startActivity(intent)
     }
+
+
+    fun startToFace(
+        context: Context,
+        type: Int =0,
+        requestCode: Int = -1
+    ) {
+//        if (requestCode != -1)
+//            IDVerifyActivity.startActivityForResult(context as Activity, type, requestCode)
+//        else
+//            IDVerifyActivity.startActivity(context, type)
+    }
+
+
+
 
 
     /**
@@ -473,5 +491,25 @@ object CommonFunction {
             .compressSavePath(UriUtils.getCacheDir(context))
             .forResult(requestCode)
     }
+
+
+    /**
+     * 字符串 千位符
+     *
+     * @param num
+     * @return
+     */
+    fun num2thousand(num: String): String {
+        var numStr = "";
+        val nf = NumberFormat.getInstance();
+        try {
+            val df = DecimalFormat("#,###");
+            numStr = df.format(nf.parse(num));
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return numStr;
+    }
+
 }
 

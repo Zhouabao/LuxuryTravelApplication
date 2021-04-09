@@ -36,7 +36,7 @@ interface ApiService {
      * 注册
      */
     @FormUrlEncoded
-    @POST("OpenApi/LoginOrAlloc${Constants.END_BASE_URL}")
+    @POST("OpenApi/LoginOrAlloc${Constants.END_BASE_URL_v2}")
     fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
 
 
@@ -510,8 +510,20 @@ interface ApiService {
     @POST("Travel/myPlan${Constants.END_BASE_URL_v2}")
     fun myPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
 
+    /**
+     * 流水记录
+     */
+    @FormUrlEncoded
+    @POST("Candy/myBillList${Constants.END_BASE_URL}")
+    fun myBillList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<BillBean>?>>
 
-
+    /**
+     * 拉起提现
+     * Candy/pullWithdraw
+     */
+    @FormUrlEncoded
+    @POST("Candy/myCandy${Constants.END_BASE_URL}")
+    fun myCadny(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PullWithdrawBean?>>
 
 
 
@@ -522,14 +534,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Candy/withdraw${Constants.END_BASE_URL}")
     fun withdraw(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<WithDrawSuccessBean?>>
-
-    /**
-     * 拉起提现
-     * Candy/pullWithdraw
-     */
-    @FormUrlEncoded
-    @POST("Candy/myCandy${Constants.END_BASE_URL}")
-    fun myCadny(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PullWithdrawBean?>>
 
 
     /**

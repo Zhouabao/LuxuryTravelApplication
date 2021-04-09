@@ -98,7 +98,7 @@ class TravelDetailActivity :
                 )
             )
 
-            adapter.setEmptyView(R.layout.empty_layout_comment)
+            adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.addChildClickViewIds(R.id.llCommentDianzanBtn, R.id.commentReplyBtn)
             adapter.setOnItemLongClickListener { adapter, view, position ->
                 showCommentDialog(position)
