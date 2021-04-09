@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vipStateCl"
+            android:background="@drawable/shape_gradient_vip_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/vipBg"
+                android:layout_width="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="345:150"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/icon_vip_bg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/powerCnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="39dp"
+                android:text="尊享8项特权"
+                android:textColor="#ffa6651b"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="@id/vipBg"
+                app:layout_constraintTop_toTopOf="@id/vipBg" />
+
+            <TextView
+                android:id="@+id/vipState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:text="暂未激活"
+                android:textColor="#ffa6651b"
+                android:textSize="12sp"
+                app:layout_constraintRight_toRightOf="@id/vipBg"
+                app:layout_constraintTop_toTopOf="@id/vipBg" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/vipAvatar"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginBottom="19dp"
+                android:src="@drawable/default_avator_image"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="1dp"
+                app:layout_constraintBottom_toBottomOf="@id/vipBg"
+                app:layout_constraintLeft_toLeftOf="@id/powerCnt" />
+
+            <TextView
+                android:id="@+id/vipDescr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="开通可为您节省11旅券，约合6元"
+                android:textColor="#ffa6651b"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/vipAvatar"
+                app:layout_constraintLeft_toRightOf="@id/vipAvatar"
+                app:layout_constraintTop_toTopOf="@id/vipAvatar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/priceRv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/buyBtn"
+            android:layout_width="325dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/gradient_buy_vip_bg"
+            android:gravity="center"
+            android:text="¥178 获取黄金会员"
+            android:textColor="#ffffffff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/powerLeftBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_vip_left_bg" />
+
+            <TextView
+                android:id="@+id/powerCnt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="拥有8项特权"
+                android:textColor="#fff2b710"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/powerRightBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_vip_right_bg" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/powerRv"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

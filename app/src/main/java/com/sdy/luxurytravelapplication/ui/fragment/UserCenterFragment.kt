@@ -20,8 +20,10 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.UserInfoBean
 import com.sdy.luxurytravelapplication.mvp.presenter.UserCenterPresenter
+import com.sdy.luxurytravelapplication.ui.activity.VipChargeActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MainPagerAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.VisitUserAvatorAdater
+import org.jetbrains.anko.support.v4.startActivity
 import kotlin.math.abs
 
 
@@ -65,6 +67,7 @@ class UserCenterFragment :
                     myInfoEditBtn,
                     userFootprint,
                     userTravelCard,
+                    isVipPowerBtn,
                     addPowerBtn
                 ), this@UserCenterFragment
             )
@@ -281,6 +284,9 @@ class UserCenterFragment :
             binding.userFootprint -> {
             }
             binding.userTravelCard -> {
+            }
+            binding.isVipPowerBtn->{
+                startActivity<VipChargeActivity>()
             }
             binding.addPowerBtn -> {
             }

@@ -588,4 +588,8 @@
     <string name="tab_square">动态</string>
     <string name="tab_activities">旅行计划</string>
     <string name="my_privilege">我的权益</string>
+    <string name="vip_renew">续费</string>
+    <string name="vip_buy">获取</string>
+    <string name="vip_gold">黄金会员</string>
+    <string name="vip_connection_card">至尊直联卡</string>
 </resources>

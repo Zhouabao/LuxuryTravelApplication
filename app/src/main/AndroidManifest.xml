@@ -24,6 +24,11 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <queries>
+        <package android:name="com.eg.android.AlipayGphone" />
+        <package android:name="hk.alipay.wallet" />
+    </queries>
+
     <application
         android:name=".app.TravelApp"
         android:allowBackup="true"
@@ -36,7 +41,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.CandyRechargeActivity"></activity>
+        <activity android:name=".ui.activity.VipChargeActivity"></activity>
+        <activity android:name=".ui.activity.CandyRechargeActivity" />
         <activity android:name=".ui.activity.ReportReasonUploadActivity" />
         <activity android:name=".ui.activity.ReportReasonActivity" />
         <activity android:name=".ui.activity.MessageInfoActivity" />
@@ -159,10 +165,6 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-
-
-
-
         <meta-data
             android:name="design_width_in_dp"
             android:value="360" />
@@ -229,10 +231,5 @@
             android:name="design_height_in_dp"
             android:value="640" />
     </application>
-
-    <queries>
-        <package android:name="com.eg.android.AlipayGphone" />
-        <package android:name="hk.alipay.wallet" />
-    </queries>
 
 </manifest>

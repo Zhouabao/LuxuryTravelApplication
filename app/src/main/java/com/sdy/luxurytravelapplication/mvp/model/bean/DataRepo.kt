@@ -280,14 +280,23 @@ data class SendTipBean(
     var showType: Int = 0
 )
 
+data class VipPurchaseBean(
+    val icon_list: MutableList<VipDescr> = mutableListOf(),
+    val list: MutableList<ChargeWayBean> = mutableListOf(),//会员按月购买
+    val paylist: MutableList<PaywayBean> = mutableListOf(),
+    val isvip: Boolean = false,
+    val vip_express: String = "",
+    val vip_save_str: String = ""
+)
+
 data class ChargeWayBeans(
-    val icon_list: MutableList<VipDescr>? = mutableListOf(),
-    val list: MutableList<ChargeWayBean>? = mutableListOf(),//会员按月购买
-    val pt_icon_list: MutableList<VipDescr>? = mutableListOf(),
-    val direct_icon_list: MutableList<VipDescr>? = mutableListOf(),
-    val pt_list: MutableList<ChargeWayBean>? = mutableListOf(),//会员按月购买
-    val direct_list: MutableList<ChargeWayBean>? = mutableListOf(),//会员按月购买
-    val paylist: MutableList<PaywayBean>? = mutableListOf(),
+    val icon_list: MutableList<VipDescr> = mutableListOf(),
+    val list: MutableList<ChargeWayBean> = mutableListOf(),//会员按月购买
+    val pt_icon_list: MutableList<VipDescr> = mutableListOf(),
+    val direct_icon_list: MutableList<VipDescr> = mutableListOf(),
+    val pt_list: MutableList<ChargeWayBean> = mutableListOf(),//会员按月购买
+    val direct_list: MutableList<ChargeWayBean> = mutableListOf(),//会员按月购买
+    val paylist: MutableList<PaywayBean> = mutableListOf(),
     val isvip: Boolean = false,
     val mycandy_amount: Int = 0,
     val vip_express: String = "",
@@ -338,8 +347,8 @@ data class VipPowerBean(
 
 ) {
     companion object {
-        const val TYPE_PT_VIP = 1
         const val TYPE_GOLD_VIP = 0
+        const val TYPE_PT_VIP = 1
     }
 }
 

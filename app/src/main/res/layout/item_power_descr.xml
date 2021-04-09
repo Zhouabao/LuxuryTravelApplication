@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/powerImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_default_avator" />
+
+    <TextView
+        android:id="@+id/powerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="每日免费聊天"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#FFFAC66F"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/powerContent"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:lines="2"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="每天个免费聊天机会"
+        android:textColor="#FF666973"
+        android:textSize="12sp" />
+
+
+</LinearLayout>
