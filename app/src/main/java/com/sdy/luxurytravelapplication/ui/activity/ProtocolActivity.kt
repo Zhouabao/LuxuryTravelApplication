@@ -28,14 +28,13 @@ class ProtocolActivity : BaseActivity<ActivityProtocolBinding>() {
 
     private val type by lazy { intent.getIntExtra("type", TYPE_PRIVACY_PROTOCOL) }
 
-    private val barBinding: LayoutActionbarBinding = LayoutActionbarBinding.inflate(layoutInflater)
     override fun initData() {
         when (type) {
             TYPE_PRIVACY_PROTOCOL -> {
-                barBinding.actionbarTitle.text = resources.getString(R.string.privacy_title)
+                binding.  actionbarCl.actionbarTitle.text = resources.getString(R.string.privacy_title)
             }
             TYPE_USER_PROTOCOL -> {
-                barBinding.actionbarTitle.text = resources.getString(R.string.user_title)
+                binding.     actionbarCl.actionbarTitle.text = resources.getString(R.string.user_title)
             }
         }
 
@@ -43,7 +42,7 @@ class ProtocolActivity : BaseActivity<ActivityProtocolBinding>() {
     }
 
     override fun initView() {
-        barBinding.btnBack.setOnClickListener {
+        binding.actionbarCl.btnBack.setOnClickListener {
             finish()
         }
         initWebview()
@@ -102,7 +101,7 @@ class ProtocolActivity : BaseActivity<ActivityProtocolBinding>() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)
                 if (!title.isNullOrEmpty())
-                    barBinding.actionbarTitle.text = title
+                    binding.actionbarCl.actionbarTitle.text = title
             }
         }
 

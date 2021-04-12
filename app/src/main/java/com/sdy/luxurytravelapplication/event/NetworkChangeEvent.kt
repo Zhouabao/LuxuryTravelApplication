@@ -148,3 +148,8 @@ class WxpayResultEvent(val code: Int)
  * 获取支付宝账号事件总线
  */
 class GetAlipayAccountEvent(val account: Alipay)
+
+/**
+ * 更新设置
+ */
+class UpdateSettingEvent

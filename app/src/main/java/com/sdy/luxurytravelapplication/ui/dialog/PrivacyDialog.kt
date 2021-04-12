@@ -14,6 +14,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogPrivacyBinding
 import com.sdy.luxurytravelapplication.ui.activity.ProtocolActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.jetbrains.anko.startActivity
 
 /**
  *    author : ZFM
@@ -42,6 +43,7 @@ class PrivacyDialog(context: Context) :
 
         val clickSpanProtocol = object : ClickableSpan() {
             override fun onClick(p0: View) {
+
                 val intent = Intent(context, ProtocolActivity::class.java)
                 intent.putExtra("type", ProtocolActivity.TYPE_USER_PROTOCOL)
                 context.startActivity(intent)

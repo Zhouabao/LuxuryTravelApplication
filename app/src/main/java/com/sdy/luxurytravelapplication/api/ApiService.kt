@@ -545,21 +545,151 @@ interface ApiService {
     fun saveWithdrawAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Alipay?>>
 
 
+    /*******************************设置****************************/
+    /**
+     * 设置开关
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/mySettings${Constants.END_BASE_URL}")
+    fun mySettings(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SettingsBean?>>
+
+
+
+    /**
+     * 设置用户的短信/隐身/私聊接收状态
+     */
+    @FormUrlEncoded
+    @POST("UserSet/switchSet${Constants.END_BASE_URL}")
+    fun switchSet(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 获取通讯录
+     */
+    @FormUrlEncoded
+    @POST("relationship/getLists${Constants.END_BASE_URL}")
+    fun getContactLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ContactDataBean?>>
+
+
+    /**
+     * 获取黑名单
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/blackList${Constants.END_BASE_URL}")
+    fun myShieldingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<BlackBean>?>>
+
+
+    /**
+     * 解除拉黑
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/removeBlock${Constants.END_BASE_URL}")
+    fun removeBlock(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 屏蔽通讯录
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/blockedAddressBook${Constants.END_BASE_URL}")
+    fun blockedAddressBook(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 屏蔽距离
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/isHideDistance${Constants.END_BASE_URL}")
+    fun isHideDistance(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+    /**
+     * 版本更新
+     */
+    @FormUrlEncoded
+    @POST("OpenApi/getVersion${Constants.END_BASE_URL}")
+    fun getVersion(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<VersionBean?>>
+
+
+
+
+    /**
+     * 获取用户的二维码照片
+     */
+    @FormUrlEncoded
+    @POST("UserSet/getQrCode${Constants.END_BASE_URL}")
+    fun getQrCode(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<QRCodeBean>>
+
+
+    /**
+     * 广场点赞评论提醒开关
+     */
+    @FormUrlEncoded
+    @POST("Relationship/squareNotifySwitch${Constants.END_BASE_URL}")
+    fun squareNotifySwitch(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 招呼的开关
+     */
+    @FormUrlEncoded
+    @POST("Relationship/greetSwitch${Constants.END_BASE_URL}")
+    fun greetSwitch(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /*--------------------------------账号相关---------------------------------*/
+
+    /**
+     * 获取账号相关信息
+     */
+    @FormUrlEncoded
+    @POST("Account/getAccountInfo${Constants.END_BASE_URL}")
+    fun getAccountInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<AccountBean>>
+
+
+    /**
+     * 更改手机号
+     */
+    @FormUrlEncoded
+    @POST("Account/changeAccount${Constants.END_BASE_URL}")
+    fun changeAccount(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 微信解绑
+     */
+    @FormUrlEncoded
+    @POST("Account/unbundWeChat${Constants.END_BASE_URL}")
+    fun unbundWeChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
 
     /**
      * 微信绑定
      */
-    @POST("Account/bundSocial${Constants.END_BASE_URL}")
     @FormUrlEncoded
-    fun bundSocial(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+    @POST("Account/bundWeChat${Constants.END_BASE_URL}")
+    fun bundWeChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<WechatNameBean>>
 
 
     /**
-     * 微信绑定
+     * 发送短信验证码(新)
      */
-    @POST("Account/bundSocial${Constants.END_BASE_URL}")
     @FormUrlEncoded
-    fun register(@FieldMap params: HashMap<String, String>): Observable<BaseResp<Any>>
+    @POST("OpenApi/SendSms${Constants.END_BASE_URL}")
+    fun sendSms(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RegisterTooManyBean?>>
+
+    /**
+     * 注销原因(新)
+     */
+    @FormUrlEncoded
+    @POST("Account/getCauseList${Constants.END_BASE_URL}")
+    fun getCauseList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<LoginOffCauseBeans>>
+
 
     /**
      * 动态喜欢（关注）

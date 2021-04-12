@@ -1010,3 +1010,99 @@ data class BillBean(
     var icon: String = "",
     var type: Int = 0
 )
+
+data class ContactDataBean(
+    var list: MutableList<ContactBean>? = mutableListOf(),
+    var asterisk: MutableList<ContactBean>? = mutableListOf()
+)
+
+data class ContactBean(
+    var nickname: String = "",
+    var stared: Boolean = false,
+    var accid: String = "",
+    var avatar: String = "",
+    var member_level: Int = 0,
+    var index: String = ""
+//    var index: String? = Cn2Spell.getPinYinFirstLetter(nickname).toUpperCase()
+)
+
+data class BlackBean(
+    val accid: String = "",
+    val age: Int = 0,
+    val avatar: String = "",
+    val constellation: String = "",
+    val gender: Int = 0,
+    val isvip: Int = 0,
+    val nickname: String = ""
+)
+
+
+//设置中心开关
+data class SettingsBean(
+    var hide_distance: Boolean = false,//（true开启隐藏  false  关闭隐藏）
+    var hide_book: Boolean = false,//（ true 屏蔽通讯录     false  关闭隐藏通讯录）
+    val greet_switch: Boolean = false,//true 开启招呼 false关闭招呼
+    val sms_state: Boolean = false,//true 开启短信通知 false关闭短信通知
+    val greet_status: Boolean = false,//true 开启招呼认证 false关闭招呼认证
+    val notify_square_like_state: Boolean = true,//true 开启招呼认证 false关闭招呼认证
+    val notify_square_comment_state: Boolean = true,//true 开启招呼认证 false关闭招呼认证
+    val wechat_tem_state: Boolean = false,//true 是否开启推送模板消息 true false
+    val we_openid: Boolean = false,//true 	是否绑定公众号 true绑定 false 没有绑定
+    val invisible_state: StateBean = StateBean(),// 选中的隐身状态
+    val invisible_list: MutableList<StateBean> = mutableListOf(),// 1 不隐身 2 离线时间隐身 3 一直隐身
+    val private_chat_state: StateBean = StateBean(),//选中的私聊权限
+    val private_chat_list: MutableList<StateBean> = mutableListOf()// 1 不隐身 2 离线时间隐身 3 一直隐身
+)
+
+data class QRCodeBean(val url:String)
+
+data class StateBean(
+    var id: Int = 0,
+    var title: String = ""
+) : IPickerViewData {
+    override fun getPickerViewText(): String {
+        return title
+    }
+}
+
+data class VersionBean(val version: String)
+
+/**
+ * 账户信息
+ */
+data class AccountBean(
+    var phone: String = "",
+    var wechat: String = ""
+)
+
+
+data class WechatNameBean(
+    var nickname: String = ""
+)
+
+
+/**
+ * 注销原因
+ */
+data class LoginOffCauseBeans(
+    var descr: String = "",
+    var list: MutableList<String> = mutableListOf()
+)
+
+
+
+data class RegisterTooManyBean(val countdown_time: Int = 0)
+
+
+/**
+ * 手机区号bean
+ */
+data class CountryCodeBean(
+    var code: Int = 0,
+    var en: String = "",
+    var locale: String = "",
+    var pinyin: String = "",
+    var sc: String = "",
+    var tc: String = "",
+    var index: String = ""
+)

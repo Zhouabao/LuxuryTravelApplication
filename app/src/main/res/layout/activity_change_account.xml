@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ChangeAccountActivity">
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+
+    <View
+        android:id="@+id/newPhoneEt1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/shape_rectangle_gray_15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl" />
+
+    <EditText
+        android:id="@+id/newPhoneEt"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toRightOf="@id/newPhoneEt1"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:lines="1"
+        android:layout_marginLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/color333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/countryCodeTv"
+        app:layout_constraintTop_toTopOf="@id/newPhoneEt1" />
+
+
+    <TextView
+        android:id="@+id/countryCodeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/shape_white_11dp"
+        android:drawableRight="@drawable/icon_arrow_down_black"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="+86"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/newPhoneEt1"
+        app:layout_constraintLeft_toLeftOf="@id/newPhoneEt1"
+        app:layout_constraintTop_toTopOf="@id/newPhoneEt" />
+
+    <EditText
+        android:id="@+id/newVerifyCodeEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/shape_rectangle_gray_15dp"
+        android:gravity="center_vertical"
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:lines="1"
+        android:padding="15dp"
+        android:textColor="@color/color333"
+        android:textColorHint="#ffc7cad4"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newPhoneEt" />
+
+    <TextView
+        android:id="@+id/verifycodeBtn"
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/shape_white_11dp"
+        android:gravity="center"
+        android:text="获取验证码"
+        android:textColor="#ffc6cad4"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/newVerifyCodeEt"
+        app:layout_constraintRight_toRightOf="@id/newVerifyCodeEt"
+        app:layout_constraintTop_toTopOf="@id/newVerifyCodeEt" />
+
+    <TextView
+        android:id="@+id/confirmChangeBtn"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_button_29dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newVerifyCodeEt" />
+
+
+    <TextView
+        android:id="@+id/loginOff"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="34dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
+        android:text="@string/account_login_offtip1"
+        android:textColor="#ffbec2c2"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/newPhoneEt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

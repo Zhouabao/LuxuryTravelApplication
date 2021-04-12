@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AccountAboutActivity">
+
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/moreInfoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/account_title"
+            android:textColor="#FF333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/phoneCl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/shape_rectangle_gray_15dp"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/moreInfoTitle">
+
+            <ImageView
+                android:id="@+id/telIv"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:src="@drawable/icon_account_phone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/telTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/account_phone_num"
+                android:textColor="@color/color_black_333333"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/telIv"
+                app:layout_constraintTop_toTopOf="@id/telIv" />
+
+            <TextView
+                android:id="@+id/telNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffc8c8c8"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/telIv"
+                app:layout_constraintLeft_toLeftOf="@id/telTitle"
+                tools:text="186****0000" />
+
+            <TextView
+                android:id="@+id/telChangeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_11dp"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingTop="10dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="10dp"
+                android:text="@string/account_change_phone"
+                android:textColor="#FF8A909F"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/telIv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/telIv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="微信绑定"
+            android:textColor="#FF333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/phoneCl" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/shape_rectangle_gray_15dp"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/t2">
+
+            <ImageView
+                android:id="@+id/wechatIv"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+
+                android:src="@drawable/icon_wechat1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/wechatTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/account_wechat"
+                android:textColor="@color/color_black_333333"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/wechatIv"
+                app:layout_constraintTop_toTopOf="@id/wechatIv" />
+
+            <TextView
+                android:id="@+id/wechatNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffc8c8c8"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/wechatIv"
+                app:layout_constraintLeft_toLeftOf="@id/wechatTitle"
+                tools:text="186****0000" />
+
+            <TextView
+                android:id="@+id/wechatChangeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_11dp"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingTop="10dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="10dp"
+                tools:text="@string/account_unbind"
+                android:textColor="#FF8A909F"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/wechatIv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/wechatIv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

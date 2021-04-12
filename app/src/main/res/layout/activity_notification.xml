@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.NotificationActivity">
+
+    <include
+        android:id="@+id/barC"
+        layout="@layout/layout_actionbar" />
+
+    <TextView
+        android:id="@+id/moreInfoPush"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDivider"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/push_toggle_tip"
+        android:textColor="@color/colorGrayText"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/barC" />
+
+    <TextView
+        android:id="@+id/openPushBtn"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="@string/accept_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moreInfoPush" />
+
+    <TextView
+        android:id="@+id/openPushStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:text="@string/not_open"
+        android:textColor="#ffc8c8c8"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/openPushBtn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/openPushBtn" />
+
+
+    <TextView
+        android:id="@+id/moreInfoSquare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDivider"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/square_push"
+        android:textColor="@color/colorGrayText"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/openPushBtn" />
+
+
+    <Switch
+        android:id="@+id/switchDianzan"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="15dp"
+        android:enabled="false"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/tvSwitchDianzan"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSwitchDianzan" />
+
+    <TextView
+        android:id="@+id/tvSwitchDianzan"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:text="@string/zan_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moreInfoSquare" />
+
+
+    <Switch
+        android:id="@+id/switchComment"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:enabled="false"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/tvSwitchComment"
+        app:layout_constraintRight_toRightOf="@id/switchDianzan"
+        app:layout_constraintTop_toTopOf="@id/tvSwitchComment" />
+
+
+    <TextView
+        android:id="@+id/tvSwitchComment"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:text="@string/comment_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSwitchDianzan" />
+
+    <TextView
+        android:id="@+id/moreInfoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDivider"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/push_type"
+        android:textColor="@color/colorGrayText"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tvSwitchComment" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="@string/reply_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/switchReply"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/switchReply" />
+
+    <Switch
+        android:id="@+id/switchReply"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:checked="true"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moreInfoTitle" />
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="@string/voice_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchReply" />
+
+    <Switch
+        android:id="@+id/switchMusic"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="15dp"
+        android:checked="true"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/t1"
+        app:layout_constraintRight_toRightOf="@id/switchReply"
+        app:layout_constraintTop_toTopOf="@id/t1" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="@string/virate_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
+
+    <Switch
+        android:id="@+id/switchVibrator"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:checked="true"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/t2"
+        app:layout_constraintRight_toRightOf="@id/switchMusic"
+        app:layout_constraintTop_toTopOf="@id/t2" />
+
+
+    <TextView
+        android:id="@+id/wechatTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDivider"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/wechat_push"
+        android:textColor="@color/colorGrayText"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/t2" />
+
+
+    <Switch
+        android:id="@+id/switchWechat"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:checked="false"
+        android:enabled="false"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/switchWechatBtn"
+        app:layout_constraintRight_toRightOf="@id/switchMusic"
+        app:layout_constraintTop_toTopOf="@id/switchWechatBtn" />
+
+
+    <TextView
+        android:id="@+id/switchWechatBtn"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="@string/wechat_receive_message"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wechatTv" />
+
+    <TextView
+        android:id="@+id/wechatPublicTv"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="@string/jitang_wechat_public"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/switchWechatBtn" />
+
+    <TextView
+        android:id="@+id/wechatPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="15dp"
+        android:text="@string/bind_now"
+        android:textColor="#ffc8c8c8"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/wechatPublicTv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/wechatPublicTv" />
+
+
+    <TextView
+        android:id="@+id/other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDivider"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/other"
+        android:textColor="@color/colorGrayText"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/wechatPublicTv" />
+
+
+    <Switch
+        android:id="@+id/switchMessage"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:checked="true"
+        android:enabled="false"
+        android:showText="false"
+        android:thumb="@drawable/switch_ios_thumb"
+        android:track="@drawable/selector_switch_ios_track"
+        app:layout_constraintBottom_toBottomOf="@id/switchMessageBtn"
+        app:layout_constraintRight_toRightOf="@id/switchMusic"
+        app:layout_constraintTop_toTopOf="@id/switchMessageBtn" />
+
+    <TextView
+        android:id="@+id/switchMessageBtn"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="@string/message_push"
+        android:textColor="@color/color333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/other" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

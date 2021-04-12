@@ -15,6 +15,7 @@ import com.sdy.luxurytravelapplication.databinding.ActivityVerifycodeBinding
 import com.sdy.luxurytravelapplication.mvp.contract.VerifycodeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.presenter.VerifycodePresenter
+import com.sdy.luxurytravelapplication.ui.dialog.LoginOffSuccessDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.jetbrains.anko.startActivity
 
@@ -116,6 +117,9 @@ class VerifycodeActivity :
     }
 
     override fun cancelAccountResult(success: Boolean) {
+        if (success) {
+            LoginOffSuccessDialog().show()
+        }
     }
 
     override fun loginIMResult(loginInfo: LoginInfo?, success: Boolean) {
@@ -134,7 +138,7 @@ class VerifycodeActivity :
             val params = hashMapOf<String, Any>(
                 "uni_account" to phone,
                 "code" to content,
-                "descr" to openid
+                "descr" to intent.getStringExtra("descr")!!
             )
             mPresenter?.cancelAccount(params)
         } else {//登录

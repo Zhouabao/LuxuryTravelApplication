@@ -12,7 +12,11 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
 import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 
 /**
  *    author : ZFM
@@ -145,7 +149,8 @@ object UserManager {
         touristMode = false
         clearLoginData()
         NIMClient.getService(AuthService::class.java).logout()
-        ActivityUtils.startLauncherActivity()
+        val intent = activity.intentFor<WelcomeActivity>().clearTask().newTask()
+        activity.startActivity(intent)
 //            activity.startActivity<SplashActivity>()
     }
 

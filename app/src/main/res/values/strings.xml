@@ -592,7 +592,7 @@
     <string name="vip_buy">获取</string>
     <string name="vip_gold">黄金会员</string>
     <string name="vip_connection_card">至尊直联卡</string>
-    <string name="bind_now">添加联系方式</string>
+    <string name="bind_now">立即绑定</string>
     <string name="change">变更联系方式</string>
     <string name="verify_now">立即认证</string>
     <string name="please_verify">请先认证</string>
@@ -633,4 +633,66 @@
     <string name="contact">联系方式</string>
     <string name="please_input_your_contact">填写您的联系方式</string>
     <string name="alipay_bind">绑定支付宝</string>
+    <string name="empty_contact1">通讯录为空</string>
+    <string name="login_out">退出登录</string>
+    <string name="is_confirm_login_out">是否确认退出登录？</string>
+    <string name="hide_mode">隐身模式</string>
+    <string name="privacy_chat">私聊权限</string>
+
+    <string name="check_update">检查更新</string>
+    <string name="has_new_version">有版本更新</string>
+    <string name="contact_us">联系我们</string>
+    <string name="android_versio">for Android V%1$s</string>
+    <string name="copyright_2020">Copyright© 2020\n 成都霜冻夜科技有限公司 版权所有</string>
+    <string name="about">关于</string>
+
+    <string name="notification_title">消息提醒</string>
+    <string name="has_open">已开启</string>
+    <string name="not_open">未开启</string>
+    <string name="push_toggle_tip">开启或关闭推送通知，需要到系统设置-通知中心设置</string>
+    <string name="accept_push">接受推送通知</string>
+    <string name="square_push">广场通知</string>
+    <string name="zan_push">点赞提醒</string>
+    <string name="comment_push">评论提醒</string>
+    <string name="push_type">通知类型</string>
+    <string name="reply_push">回复提醒</string>
+    <string name="voice_push">音效通知</string>
+    <string name="virate_push">震动通知</string>
+    <string name="other">其他</string>
+    <string name="message_push">短信通知</string>
+    <string name="wechat_push">微信推送</string>
+    <string name="wechat_receive_message">微信接收消息通知</string>
+    <string name="jitang_wechat_public">奢旅微信公众账号</string>
+    <string name="Binded">已绑定</string>
+    <string name="Bind_now">去绑定</string>
+    <string name="focus_sugartown">开启微信推送需要先关注奢媛微信公众号\n 请保存二维码并使用微信扫一扫关注绑定</string>
+    <string name="save_and_goto_wechat">保存并前往微信扫码</string>
+    <string name="black_title">黑名单</string>
+    <string name="remove_black_success">解除拉黑成功！</string>
+
+
+    <string name="account_title">账号相关</string>
+    <string name="account_not_bind">未绑定</string>
+    <string name="account_bind_wechat">绑定微信</string>
+    <string name="account_bind_success">绑定成功</string>
+    <string name="account_unbind">解除绑定</string>
+    <string name="account_unbind_success">解绑成功</string>
+    <string name="account_wechat">微信</string>
+    <string name="account_change_phone">变更号码</string>
+    <string name="account_phone_num">手机号码</string>
+    <string name="dissolve_wechat">解除绑定可能会影响账号使用</string>
+    <string name="tip">提示</string>
+    <string name="reget_verify_code">重新获取</string>
+    <string name="seconds_resend">%1$d秒后重发</string>
+    <string name="account_change_title">变更账号</string>
+    <string name="account_confirm_change">确认变更</string>
+    <string name="account_login_offtip1">如需注销当前帐号，请直接选择“</string>
+    <string name="account_login_offtip2">注销账号</string>
+    <string name="account_login_offtip3"> ”\n账号一经注销，您的账号将不会再被任何人看到，并且聊天记录会被清空，\n请谨慎操作。</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="choose_country_or_region">选择国家和地区</string>
+    <string name="login_off_tip">您的账号已提交注销申请，将于X年X月X日注销成功。注销成功前，您可随时登录恢复账号正常使用，15天不登录则将自动注销账号及清空全部数据\n\n 您即将离开奢媛，我们非常不舍，同时想知道您离开的原因，我们会努力提升自己，期待您再次使用</string>
+    <string name="login_off_success">注销成功</string>
+    <string name="login_off_success_content">15天内登录可取消注销\n过期数据将全部清空且不可恢复</string>
+
 </resources>
