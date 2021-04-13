@@ -41,7 +41,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.MyInfoActivity"></activity>
+        <activity android:name=".ui.activity.ChangeUserContactActivity"></activity>
+        <activity android:name=".ui.activity.NickNameActivity" />
+        <activity android:name=".ui.activity.MyInfoActivity" />
         <activity android:name=".ui.activity.MyVisitActivity" />
         <activity android:name=".ui.activity.MyFootPrintActivity" />
         <activity android:name=".ui.activity.CountryCodeActivity" />

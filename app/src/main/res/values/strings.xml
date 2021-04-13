@@ -719,10 +719,10 @@
     <string name="show_colorful_name">介绍写得好，聊天不会少</string>
     <string name="more_info">更多信息</string>
     <string name="complete_progres">完成度</string>
-    <string name="nickname_title">更改昵称</string>
-    <string name="nickname_change_tip">好名字可以让你的朋友更容易记住你</string>
+    <string name="nickname_title">昵称</string>
+    <string name="nickname_change_tip">输入您的新昵称</string>
     <string name="about_me_title">关于我</string>
-    <string name="about_me_tip">介绍你自己，关于你的平凡与另类，关于你的隐秘与渴望，关于你的压抑与释放...关于你的压抑与释放..</string>
+    <string name="about_me_tip">介绍写的好，聊天不会少</string>
     <string name="nickname_change">更改昵称</string>
     <string name="replace_and_auto_commit">替换头像照片后自动进入重新审核</string>
     <string name="avatar">头像</string>
@@ -749,4 +749,17 @@
     <string name="only_for_plat_verification">采集仅用于平台验证不会对其他用户公开</string>
     <string name="review_fail_please_retry">认证审核提交失败，请重新进入认证</string>
     <string name="review_submit_success">审核提交成功</string>
+
+
+    <string name="contact_title">更改联系方式</string>
+    <string name="contact_picker_title">联系方式</string>
+    <string name="contact_phone">手机号</string>
+    <string name="contact_wechat">微信</string>
+    <string name="contact_QQ">QQ</string>
+    <string name="contact_change_success">修改成功！</string>
+    <string name="contact_input">请填写您的联系方式</string>
+    <string name="contact_lier_tip">注意：填写虚假账号可能导致封号</string>
+    <string name="contact_is_hide">我的联系方式是否隐藏</string>
+
+
 </resources>

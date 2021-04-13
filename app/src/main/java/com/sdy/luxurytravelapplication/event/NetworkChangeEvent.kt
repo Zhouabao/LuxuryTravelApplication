@@ -161,3 +161,9 @@ class UserCenterEvent(var refresh: Boolean)
 
 //账号异常认证事件通知
 class AccountDangerEvent(val type: Int)
+
+
+
+
+//更新用户联系方式
+class UserCenterContactEvent(var contact_way: Int)

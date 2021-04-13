@@ -16,6 +16,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMineBinding
+import com.sdy.luxurytravelapplication.event.UserCenterContactEvent
 import com.sdy.luxurytravelapplication.event.UserCenterEvent
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
@@ -325,5 +326,17 @@ class UserCenterFragment :
             mPresenter?.myInfoCandy()
     }
 
-
+    //更新用户联系方式
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUserCenterContactEvent(event: UserCenterContactEvent) {
+        userInfoBean?.userinfo?.contact_way = event.contact_way
+//        binding.contactWayMan.isVisible = UserManager.gender == 1
+//        if (userInfoBean?.userinfo?.contact_way == 0) {
+//            binding.  contactWayIv.setImageResource(R.drawable.icon_female_contact_no_small)
+//            binding.   contactWayMan.setImageResource(R.drawable.icon_female_contact_no_small)
+//        } else {
+//            binding.  contactWayMan.setImageResource(R.drawable.icon_female_contact_open_small)
+//            binding.  contactWayIv.setImageResource(R.drawable.icon_female_contact_open_small)
+//        }
+    }
 }

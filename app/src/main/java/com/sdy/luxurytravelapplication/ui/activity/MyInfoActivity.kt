@@ -49,6 +49,8 @@ import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.DividerItemDecoration
 import com.sdy.luxurytravelapplication.widgets.OnRecyclerItemClickListener
 import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -545,28 +547,28 @@ class MyInfoActivity :
 
 
             R.id.userNickName -> {//昵称
-//                startActivityForResult<NickNameActivity>(
-//                    102,
-//                    "type" to 1,
-//                    "content" to userNickName.text.toString()
-//                )
+                startActivityForResult<NickNameActivity>(
+                    102,
+                    "type" to 1,
+                    "content" to binding.userNickName.text.toString()
+                )
             }
 
             R.id.userBirth -> { //生日
                 showCalender(binding.userBirth)
             }
             R.id.userNickSign -> {//关于我
-//                startActivityForResult<UserIntroduceActivity>(
-//                    105,
-//                    "content" to "${userNickSign.text}",
-//                    "from" to UserIntroduceActivity.USERCENTER
-//                )
+                startActivityForResult<NickNameActivity>(
+                    105,
+                    "type" to 2,
+                    "content" to binding.userNickSign.text.toString()
+                )
             }
             R.id.rightTextBtn -> {
                 updatePhotos(0)
             }
             R.id.userContact -> { //更改用户的联系方式
-//                startActivity<ChangeUserContactActivity>()
+                startActivity<ChangeUserContactActivity>()
             }
 
         }
