@@ -91,4 +91,8 @@ object Constants {
     //官方助手id
     const val ASSISTANT_ACCID = "xapp_01"
 
+
+    //百度人脸认证
+    var licenseID = "jitang-new-face-android"
+    var licenseFileName = "idl-license.face-android"
 }

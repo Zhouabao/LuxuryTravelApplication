@@ -3,11 +3,12 @@ package com.sdy.luxurytravelapplication.ui.activity
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGuideBinding
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
+import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.zhpan.bannerview.BannerViewPager
 
 /**
@@ -37,11 +38,11 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
         val data = mutableListOf<BannerGuideBean>()
         UserManager.tempDatas.filterIndexed { index, s ->
-            data.add(BannerGuideBean(s,"$index","111111${index}111111"))
+            data.add(BannerGuideBean(s, "$index", "111111${index}111111"))
         }
         binding.bannerGuide.refreshData(data)
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
-
+            FaceLivenessExpActivity.startActivity(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
         }
     }
 

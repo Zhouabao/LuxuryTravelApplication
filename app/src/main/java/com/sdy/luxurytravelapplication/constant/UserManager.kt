@@ -1,7 +1,6 @@
 package com.sdy.luxurytravelapplication.constant
 
 import android.content.Context
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SPUtils
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.auth.AuthService
@@ -10,6 +9,7 @@ import com.qiniu.android.storage.UpCancellationSignal
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
+import com.sdy.luxurytravelapplication.nim.config.preference.UserPreferences
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
 import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
@@ -336,15 +336,55 @@ object UserManager {
 
     private fun initNotificationConfig() {
         // 初始化消息提醒
-//        NIMClient.toggleNotification(UserPreferences.getNotificationToggle())
-////        // 加载状态栏配置
-//        var statusBarNotificationConfig = UserPreferences.getStatusConfig()
-//        if (statusBarNotificationConfig == null) {
-//            statusBarNotificationConfig = DemoCache.getNotificationConfig()
-//            UserPreferences.setStatusConfig(statusBarNotificationConfig)
-//        }
-////        //更新配置
-//        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig)
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle())
+//        // 加载状态栏配置
+        var statusBarNotificationConfig = UserPreferences.getStatusConfig()
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = DemoCache.getNotificationConfig()
+            UserPreferences.setStatusConfig(statusBarNotificationConfig)
+        }
+//        //更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig)
     }
 
+
+    //是否需要强制替换头像
+    fun saveNeedChangeAvator(isNeedChangeAvator: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("isNeedChangeAvator", isNeedChangeAvator)
+    }
+
+    fun isNeedChangeAvator(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isNeedChangeAvator", false)
+    }
+
+    //是否已经强制替换过头像
+    fun saveForceChangeAvator(isForceChangeAvator: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("isForceChangeAvator", isForceChangeAvator)
+    }
+
+    fun isForceChangeAvator(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isForceChangeAvator", false)
+    }
+    /**
+     * 是否是异常账号
+     */
+    fun saveAccountDanger(danger: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("accountDanger", danger)
+    }
+
+    fun getAccountDanger(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("accountDanger", false)
+    }
+
+
+    /**
+     * 是否是账号异常头像不通过
+     */
+    fun saveAccountDangerAvatorNotPass(danger: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("AccountDangerAvatorNotPass", danger)
+    }
+
+    fun getAccountDangerAvatorNotPass(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("AccountDangerAvatorNotPass", false)
+    }
 }

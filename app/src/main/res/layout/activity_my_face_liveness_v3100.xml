@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/liveness_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/faceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:text="@string/living_detect"
+        android:textColor="#ff191919"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/faceContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="#ffb5b7b9"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceTitle"
+        tools:text="我们将采集一段活体信息以校队你是真人\n采集仅用于平台验证不会对其他用户公开" />
+
+
+    <FrameLayout
+        android:id="@+id/mFrameLayout"
+        android:layout_width="238dp"
+        android:layout_height="238dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/faceCoverIv" />
+
+
+    <com.baidu.idl.face.platform.ui.widget.FaceDetectRoundView
+        android:id="@+id/mFaceDetectRoundView"
+        android:layout_width="238dp"
+        android:layout_height="238dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/faceCoverIv" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/faceCoverIv"
+        android:layout_width="238dp"
+        android:layout_height="238dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icon_living_face_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceContent" />
+
+    <TextView
+        android:id="@+id/faceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textColor="#ff191919"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mFaceDetectRoundView" />
+
+
+    <TextView
+        android:id="@+id/faceNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/faceType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textColor="#fffb1919"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faceType" />
+
+    <RelativeLayout
+        android:id="@+id/faceBeginRl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mFaceDetectRoundView">
+
+
+        <TextView
+            android:id="@+id/facePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:drawableTop="@drawable/icon_face_middle_phone"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/front_phone"
+            android:textColor="#ff333333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/faceLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/facePhone"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@id/facePhone"
+            android:drawableTop="@drawable/icon_face_light"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/sufficient_light"
+            android:textColor="#ff333333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/faceFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/facePhone"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@id/faceLight"
+            android:drawableTop="@drawable/icon_face_full_face"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/face_shining"
+            android:textColor="#ff333333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/startFaceBtn"
+            android:layout_width="235dp"
+            android:layout_height="56dp"
+            android:layout_below="@id/facePhone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_1ed0a7_29dp"
+            android:gravity="center"
+            android:text="@string/start_living"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

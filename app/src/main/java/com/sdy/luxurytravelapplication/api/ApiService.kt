@@ -3,10 +3,7 @@ package com.sdy.luxurytravelapplication.api
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.mvp.model.bean.*
 import io.reactivex.Observable
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by chenxz on 2018/4/21.
@@ -706,6 +703,67 @@ interface ApiService {
     @FormUrlEncoded
     @POST("UserSet/myVisitingList${Constants.END_BASE_URL}")
     fun myVisitingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<VisitorBean>?>>
+
+
+
+
+
+    /**
+     * 个人信息
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/personalInfoCandy${Constants.END_BASE_URL_v2}")
+    fun personalInfoCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<UserInfoSettingBean?>>
+
+
+    /**
+     * 修改个人信息
+     */
+    @FormUrlEncoded
+    @POST("memberInfo/savePersonal${Constants.END_BASE_URL}")
+    fun savePersonal(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
+
+
+    /**
+     *   保存相册信息
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/savePersonalCandy${Constants.END_BASE_URL}")
+    fun addPhotoV2(@FieldMap params: MutableMap<String, Any?>?): Observable<BaseResp<Any>>
+
+
+    /**
+     * 单张相册上传
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/addPhotoWall${Constants.END_BASE_URL}")
+    fun addPhotoWall(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MyPhotoBean?>>
+
+
+    /**
+     * 注册上传头像和相册
+     * moreMatchBean: MoreMatchBean? = null
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/registerAddPhoto${Constants.END_BASE_URL}")
+    fun registerAddPhoto(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MoreMatchBean?>>
+
+
+    /**
+     * 获取职业列表
+     */
+    @POST("OpenApi/getOccupationList${Constants.END_BASE_URL}")
+    fun getOccupationList(): Observable<BaseResp<MutableList<String>?>>
+
+    /**
+     * 获取模板签名
+     */
+    @FormUrlEncoded
+    @POST("OpenApi/getSignTemplate${Constants.END_BASE_URL}")
+    fun getSignTemplate(
+        @Field("page") page: Int,
+        @Field("gender") gender: Int
+    ): Observable<BaseResp<MutableList<LabelQualityBean>?>>
 
 
 

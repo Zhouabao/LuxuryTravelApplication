@@ -16,6 +16,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMineBinding
+import com.sdy.luxurytravelapplication.event.UserCenterEvent
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.UserInfoBean
@@ -23,6 +24,8 @@ import com.sdy.luxurytravelapplication.mvp.presenter.UserCenterPresenter
 import com.sdy.luxurytravelapplication.ui.activity.*
 import com.sdy.luxurytravelapplication.ui.adapter.MainPagerAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.VisitUserAvatorAdater
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 import kotlin.math.abs
 
@@ -280,11 +283,11 @@ class UserCenterFragment :
             binding.settingBtn -> {
                 startActivity<SettingsActivity>()
             }
-            binding.myAvatar -> {//个人资料
+            //个人资料
+            binding.myInfoEditBtn, binding.myAvatar -> {
+                startActivity<MyInfoActivity>()
             }
-            binding.myInfoEditBtn -> {
-            }
-            binding.userVisit->{ //我的访客
+            binding.userVisit -> { //我的访客
                 startActivity<MyVisitActivity>(
                     "isVip" to (userInfoBean?.userinfo?.isplatinum ?: false),
                     "today" to userInfoBean?.userinfo?.todayvisit,
@@ -313,5 +316,14 @@ class UserCenterFragment :
         }
 
     }
+
+
+    //更新用户中心信息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRefreshEvent(event: UserCenterEvent) {
+        if (!UserManager.touristMode)
+            mPresenter?.myInfoCandy()
+    }
+
 
 }

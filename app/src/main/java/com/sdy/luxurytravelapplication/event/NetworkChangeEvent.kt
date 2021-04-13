@@ -153,3 +153,11 @@ class GetAlipayAccountEvent(val account: Alipay)
  * 更新设置
  */
 class UpdateSettingEvent
+
+
+//更新用户中心信息
+class UserCenterEvent(var refresh: Boolean)
+
+
+//账号异常认证事件通知
+class AccountDangerEvent(val type: Int)

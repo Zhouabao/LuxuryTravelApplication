@@ -1140,3 +1140,87 @@ data class MyCommentBean(
     var type: Int = 0,
     var accid: String = ""
 )
+
+
+
+
+/**
+ * 个人中心信息
+ */
+data class UserInfoSettingBean(
+    var answer_list: MutableList<AnswerBean> = mutableListOf(),
+    var avatar: String = "",
+    var birth: String = "",
+    var constellation: String = "",
+    var face_state: Boolean = false,
+    var gender: Int = 0,
+    var mv_faced: Int = 0, //新增字段 认证状态 0 未认证且无视频 1 认证通过的 2 认证中 3认证不通过-需要更换头像认证
+    var job: String = "",
+    var nickname: String = "",
+    var photos: MutableList<String> = mutableListOf(),
+    var photos_wall: MutableList<MyPhotoBean> = mutableListOf(),
+    var qiniu_domain: String = "",
+    var score_rule: ScoreRule = ScoreRule(),
+    var sign: String = ""
+)
+
+
+data class AnswerBean(
+    var child: MutableList<FindTagBean> = mutableListOf(),
+    var find_tag: FindTagBean? = null,
+    var id: Int = 0,
+    var title: String = "",
+    var point: Int = 0,
+    var descr: String = ""
+)
+
+data class FindTagBean(
+    var id: Int = -1,
+    var title: String = ""
+) : IPickerViewData {
+    override fun getPickerViewText(): String {
+        return title
+    }
+}
+
+data class ScoreRule(
+    var about: Int = 0,
+    var base: Int = 0,
+    var base_total: Int = 0,
+    var me: Int = 0,
+    var photo: Int = 0,
+    var total: Int = 0
+)
+
+
+/**
+ * 照片墙
+ */
+data class MyPhotoBean(
+    var has_face: Int = 0,//1 没有 2 有
+    var id: Int = 0,
+    var url: String = "",
+    var photoScore: Int = 0,
+    override var itemType: Int = PHOTO
+) : MultiItemEntity {
+    companion object {
+        const val COVER = 1
+        const val PHOTO = 2
+    }
+}
+
+
+data class MoreMatchBean(
+    var city_name: String = "",
+    var gender_str: String = "",
+    var people_amount: Int = 0,
+    var avatar: String = "",
+    var nickname: String = "",
+    var gender: Int = 0,
+    var birth: Int = 0,
+    var force_vip: Boolean = false,
+    var threshold: Boolean = false,
+    var living_btn: Boolean = false,//  true  需要活体   false  不需要活体
+    var isvip: Boolean = false,
+    var share_btn: String = ""//分享开关是否显示
+) : Serializable

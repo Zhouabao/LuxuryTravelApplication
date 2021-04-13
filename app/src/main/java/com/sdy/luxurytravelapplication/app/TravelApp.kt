@@ -11,6 +11,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.multidex.MultiDex
 import com.alibaba.fastjson.JSONObject
+import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
 import com.kongzue.dialog.util.DialogSettings
@@ -73,6 +74,9 @@ class TravelApp : Application() {
             val app = context.applicationContext as TravelApp
             return app.refWatcher
         }
+
+        public var livenessList = mutableListOf<LivenessTypeEnum>()
+        public var isLivewnessRandom = false
     }
 
     init {
@@ -138,6 +142,13 @@ class TravelApp : Application() {
                         }
             }
         }
+    }
+
+
+    init {
+        livenessList.add(LivenessTypeEnum.Mouth)
+        livenessList.add(LivenessTypeEnum.HeadLeft)
+        livenessList.add(LivenessTypeEnum.HeadRight)
     }
 
     /**

@@ -24,8 +24,8 @@ import io.reactivex.disposables.Disposable
  */
 
 fun <T : BaseBean> Observable<T>.ss(
-    model: IModel?,
-    view: IView?,
+    model: IModel?=null,
+    view: IView?=null,
     isShowLoading: Boolean = true,
     onSuccess: (T) -> Unit
 ) {
@@ -74,7 +74,7 @@ fun <T : BaseBean> Observable<T>.ss(
 }
 
 fun <T : BaseBean> Observable<T>.sss(
-    view: IView?,
+    view: IView? = null,
     isShowLoading: Boolean = true,
     onSuccess: (T) -> Unit,
     onError: ((T) -> Unit)? = null

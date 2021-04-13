@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MyInfoActivity">
+
+
+    <include
+        android:id="@+id/barCl"
+        layout="@layout/layout_actionbar" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="42dp"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/userPhotosRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp">
+
+
+                    <TextView
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="@string/basic_info"
+                        android:textColor="@color/color333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bgNickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_f7f8fa_15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                    <TextView
+                        android:id="@+id/moreInfoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/nickname"
+                        android:textColor="@color/color333"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/bgNickname"
+                        app:layout_constraintLeft_toLeftOf="@id/bgNickname"
+                        app:layout_constraintTop_toTopOf="@id/bgNickname" />
+
+
+                    <TextView
+                        android:id="@+id/userNickName"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="5dp"
+                        android:drawableRight="@drawable/icon_arrow_right_setting"
+                        android:drawablePadding="20dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#FF8A909F"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/bgNickname"
+                        app:layout_constraintTop_toTopOf="@id/bgNickname"
+                        tools:text="Rollinc" />
+
+                    <View
+                        android:id="@+id/bgGender"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_f7f8fa_15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bgNickname" />
+
+
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/gender"
+                        android:textColor="@color/color333"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/bgGender"
+                        app:layout_constraintLeft_toLeftOf="@id/bgGender"
+                        app:layout_constraintTop_toTopOf="@id/bgGender" />
+
+
+                    <TextView
+                        android:id="@+id/userGender"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="65dp"
+                        android:drawablePadding="20dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#FF8A909F"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/bgGender"
+                        app:layout_constraintTop_toTopOf="@id/bgGender"
+                        tools:text="男" />
+
+
+                    <View
+                        android:id="@+id/bgBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_f7f8fa_15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bgGender" />
+
+
+                    <TextView
+                        android:id="@+id/t3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/birthday"
+                        android:textColor="@color/color333"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/bgBirth"
+                        app:layout_constraintLeft_toLeftOf="@id/bgBirth"
+                        app:layout_constraintRight_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintTop_toTopOf="@id/bgBirth" />
+
+
+                    <TextView
+                        android:id="@+id/userBirth"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:drawableRight="@drawable/icon_arrow_right_setting"
+                        android:drawablePadding="20dp"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#FF8A909F"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/userNickName"
+                        app:layout_constraintTop_toTopOf="@id/bgBirth"
+                        tools:text="1993/07/15" />
+
+                    <View
+                        android:id="@+id/bgContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_f7f8fa_15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bgBirth" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/contact_way"
+                        android:textColor="@color/color333"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/bgContact"
+                        app:layout_constraintLeft_toLeftOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintTop_toTopOf="@id/bgContact" />
+
+
+                    <TextView
+                        android:id="@+id/userContact"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:drawableRight="@drawable/icon_arrow_right_setting"
+                        android:drawablePadding="20dp"
+                        android:gravity="center_vertical|right"
+                        android:hint="@string/click_hide_or_change"
+                        android:textColor="#FF8A909F"
+                        android:textColorHint="#FFC6CAD4"
+                        android:textSize="15sp"
+                        app:layout_constraintLeft_toRightOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/userNickName"
+                        app:layout_constraintTop_toTopOf="@id/bgContact" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/colorDivider"
+                        app:layout_constraintLeft_toLeftOf="@id/moreInfoTitle"
+                        app:layout_constraintRight_toRightOf="@id/userNickName"
+                        app:layout_constraintTop_toBottomOf="@id/userBirth" />
+
+
+                    <TextView
+                        android:id="@+id/tsign"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="@string/about_me"
+                        android:textColor="@color/color333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bgContact" />
+
+
+                    <TextView
+                        android:id="@+id/userNickSign"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/shape_f7f8fa_15dp"
+                        android:gravity="start"
+                        android:hint="@string/show_colorful_name"
+                        android:lineSpacingMultiplier="1.2"
+                        android:minHeight="85dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="#FF8A909F"
+                        android:textColorHint="#FFC6CAD4"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tsign" />
+
+
+                    <TextView
+                        android:id="@+id/tmore"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="@string/more_info"
+                        android:textColor="@color/color333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/userNickSign" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMoreInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:overScrollMode="never"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tmore" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@color/colorWhite">
+
+            <ProgressBar
+                android:id="@+id/userFinishProgress"
+                style="@style/progressBarHorizontal11"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="61dp"
+                android:layout_marginRight="15dp"
+                android:progress="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/complete_progres"
+                android:textColor="#ff333333"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/userScore20"
+                android:layout_width="53dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="61dp"
+                android:background="@drawable/shape_stroke_white_green_11dp"
+                android:drawableLeft="@drawable/icon_air_plane"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:text="0%"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorDivider" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/verifyNotice"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:background="#FFFFEFE7"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/replace_and_auto_commit"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+
+    </FrameLayout>
+
+
+</LinearLayout>

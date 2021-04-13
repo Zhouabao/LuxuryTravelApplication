@@ -68,7 +68,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     testImplementation rootProject.ext.testDeps["junit"]
     androidTestImplementation rootProject.ext.testDeps["runner"]
     androidTestImplementation rootProject.ext.testDeps["espresso-core"]
@@ -89,5 +88,6 @@ dependencies {
         exclude group: 'glide-parent'
     }
     debugImplementation rootProject.ext.testDeps["debug-db"]
+    implementation project(path: ':faceplatform-ui')
 
 }
