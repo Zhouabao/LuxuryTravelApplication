@@ -28,6 +28,7 @@ import java.util.*
 class MyFindContentFragment :
     BaseMvpFragment<MyFindContentContract.View, MyFindContentContract.Presenter, FragmentMyFindContentBinding>(),
     MyFindContentContract.View, OnRefreshLoadMoreListener {
+
     override fun createPresenter(): MyFindContentContract.Presenter = MyFindContentPresenter()
 
 

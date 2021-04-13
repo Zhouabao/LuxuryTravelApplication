@@ -694,5 +694,20 @@
     <string name="login_off_tip">您的账号已提交注销申请，将于X年X月X日注销成功。注销成功前，您可随时登录恢复账号正常使用，15天不登录则将自动注销账号及清空全部数据\n\n 您即将离开奢媛，我们非常不舍，同时想知道您离开的原因，我们会努力提升自己，期待您再次使用</string>
     <string name="login_off_success">注销成功</string>
     <string name="login_off_success_content">15天内登录可取消注销\n过期数据将全部清空且不可恢复</string>
+    <string name="my_foot_print">我的足迹</string>
+    <string name="tab_zan">点赞</string>
+    <string name="tab_comment">评论</string>
+    <string name="has_copy_to_board">已复制内容到粘贴板</string>
 
+    <string name="visit_me">看过我的</string>
+    <string name="today_visit">今天来过</string>
+    <string name="all_visir">所有访客</string>
+    <string name="visit_cnt">来访次数</string>
+    <string name="gender_man">男</string>
+    <string name="gender_woman">女</string>
+
+    <string name="today_expose">今日曝光量：%1$d</string>
+    <string name="unlock_to_see">解锁查看</string>
+    <string name="today_visit1">今日来访：%1$d</string>
+    <string name="all_visit_1">总来访：%1$d</string>
 </resources>

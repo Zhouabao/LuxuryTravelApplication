@@ -32,11 +32,16 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     BaseMvpFragment<FindContentContract.View, FindContentContract.Presenter, FragmentFindContentBinding>(),
     FindContentContract.View, OnRefreshLoadMoreListener {
     override fun createPresenter(): FindContentContract.Presenter = FindContentPresenter()
-
+    //    	1推荐 2附近 3最新 4喜欢  5我的点赞 6我的动态  7动态
     companion object {
         const val TYPE_RECOMMEND = 1
         const val TYPE_NEARBY = 2
         const val TYPE_NEWEST = 3
+
+        const val TYPE_LIKE = 4
+        const val TYPE_ZAN = 5
+        const val TYPE_MINE = 6
+        const val TYPE_COMMENT = 7
     }
 
     private val adapter by lazy { RecommendSquareAdapter() }

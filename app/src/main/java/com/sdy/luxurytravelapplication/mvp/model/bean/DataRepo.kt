@@ -185,7 +185,6 @@ data class SquareBean(
 }
 
 
-
 data class SquareListBean(
     var list: MutableList<SquareBean> = mutableListOf()
 )
@@ -333,7 +332,6 @@ data class Wechat(
     val sign: String? = "",
     val timestamp: String? = ""
 )
-
 
 
 data class VipPowerBean(
@@ -868,6 +866,7 @@ data class MessageGiftBean(
     var id: Int = 0,
     var state: Int = 0////state  2领取  3过期
 )
+
 data class AccostListBean(var list: MutableList<AccostBean> = mutableListOf())
 data class AccostBean(
     var accid: String = "",
@@ -900,6 +899,7 @@ data class MessageListBean1(
     var chatup_rid_list: MutableList<String> = mutableListOf(), //要剔除的id
     var chatup_list: MutableList<AccostBean> = mutableListOf()
 )
+
 /**
  * 广场消息列表
  */
@@ -938,6 +938,7 @@ data class UploadInfoBean(
     var width: Int = 0,
     var requestCode: Int = -1
 )
+
 /**
  * 提现成功bean
  */
@@ -994,7 +995,6 @@ data class UserInfoBean(
     val platinum_vip_descr: MutableList<VipDescr>? = mutableListOf(),//黄金会员权益描述
     var visitlist: MutableList<String> = mutableListOf()//看过我的头像列表
 )
-
 
 
 /**
@@ -1054,7 +1054,7 @@ data class SettingsBean(
     val private_chat_list: MutableList<StateBean> = mutableListOf()// 1 不隐身 2 离线时间隐身 3 一直隐身
 )
 
-data class QRCodeBean(val url:String)
+data class QRCodeBean(val url: String)
 
 data class StateBean(
     var id: Int = 0,
@@ -1090,7 +1090,6 @@ data class LoginOffCauseBeans(
 )
 
 
-
 data class RegisterTooManyBean(val countdown_time: Int = 0)
 
 
@@ -1105,4 +1104,39 @@ data class CountryCodeBean(
     var sc: String = "",
     var tc: String = "",
     var index: String = ""
+)
+
+
+data class MyCommentList(
+    val list: MutableList<MyCommentBean> = mutableListOf()
+)
+
+/**
+ * 访客
+ */
+data class VisitorBean(
+    val accid: String? = "",
+    val age: Int? = 0,
+    val avatar: String? = "",
+    val constellation: String? = "",
+    val distance: String? = "",
+    val gender: Int? = 0,
+    val isvip: Int? = 0,
+    val nickname: String? = "",
+    val visitcount: Int? = 0
+)
+
+data class MyCommentBean(
+    var avatar: String = "",
+    var content: String = "",
+    var cover_url: String = "",
+    var create_time: String = "",
+    var id: Int = 0,
+    var nickname: String = "",
+    var reply_content: String = "",
+    var replyed_nickname: String = "",
+    var square_descr: String = "",
+    var square_id: Int = 0,
+    var type: Int = 0,
+    var accid: String = ""
 )

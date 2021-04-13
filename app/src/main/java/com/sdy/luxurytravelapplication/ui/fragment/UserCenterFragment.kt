@@ -65,6 +65,7 @@ class UserCenterFragment :
                     settingBtn,
                     myAvatar,
                     myInfoEditBtn,
+                    userVisit,
                     userFootprint,
                     userTravelCard,
                     isVipPowerBtn,
@@ -279,19 +280,29 @@ class UserCenterFragment :
             binding.settingBtn -> {
                 startActivity<SettingsActivity>()
             }
-            binding.myAvatar -> {
+            binding.myAvatar -> {//个人资料
             }
             binding.myInfoEditBtn -> {
             }
-            binding.userFootprint -> {
+            binding.userVisit->{ //我的访客
+                startActivity<MyVisitActivity>(
+                    "isVip" to (userInfoBean?.userinfo?.isplatinum ?: false),
+                    "today" to userInfoBean?.userinfo?.todayvisit,
+                    "all" to userInfoBean?.userinfo?.allvisit,
+                    "freeShow" to userInfoBean?.free_show,
+                    "from" to MyVisitActivity.FROM_TOP_RECOMMEND
+                )
             }
-            binding.userTravelCard -> {
+            binding.userFootprint -> { //我的足迹
+                startActivity<MyFootPrintActivity>()
+            }
+            binding.userTravelCard -> {//我的旅券
                 CandyRechargeActivity.gotoCandyRecharge(activity!!, CandyRechargeActivity.TYPE_MINE)
             }
-            binding.isVipPowerBtn -> {
-                startActivity<VipChargeActivity>()
+            binding.isVipPowerBtn -> {//会员权益
+                VipChargeActivity.start(activity!!)
             }
-            binding.addPowerBtn -> {
+            binding.addPowerBtn -> {//获取更多权益
                 startActivity<WomanPowerActivity>(
                     "contact" to userInfoBean?.userinfo?.contact_way,
                     "verify" to userInfoBean?.userinfo?.isfaced,

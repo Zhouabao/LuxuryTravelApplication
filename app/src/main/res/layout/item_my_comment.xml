@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/footIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/default_avator_image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/footNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="付启婉"
+        android:textColor="#FF666973"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/footIcon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/footIcon" />
+
+
+    <TextView
+        android:id="@+id/footTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="158cm/44kg/就想交友"
+        android:textColor="#FFC6CAD4"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/footIcon"
+        app:layout_constraintLeft_toLeftOf="@id/footNickname"
+        app:layout_constraintRight_toRightOf="@id/footNickname"
+        app:layout_constraintTop_toBottomOf="@id/footNickname" />
+
+    <TextView
+        android:id="@+id/footContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="未来可期未来可期未来可期未来可期未来可期未来可期未来可期"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/footIcon" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_rectangle_f7f8fa_10dp"
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/footContent">
+
+        <ImageView
+            android:id="@+id/findIcon"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/default_image_10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="15dp"
+            app:layout_constraintRight_toLeftOf="@id/findContent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/findIconType"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_play_transparent"
+            app:layout_constraintBottom_toBottomOf="@id/findIcon"
+            app:layout_constraintLeft_toLeftOf="@id/findIcon"
+            app:layout_constraintRight_toRightOf="@id/findIcon"
+            app:layout_constraintTop_toTopOf="@id/findIcon" />
+
+        <TextView
+            android:id="@+id/findUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="动态发布者ID"
+            android:textColor="#FF8A909F"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/findContent"
+            app:layout_constraintBottom_toTopOf="@id/findContent"
+            app:layout_constraintRight_toRightOf="@id/findContent"
+            app:layout_constraintTop_toTopOf="@id/findIcon" />
+
+        <TextView
+            android:id="@+id/findContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="这里是动态文本这里是动态文本…"
+            android:textColor="#FF8A909F"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/findIcon"
+            app:layout_constraintBottom_toBottomOf="@id/findIcon"
+            app:layout_constraintRight_toLeftOf="@id/findSeeBtn"
+            app:layout_constraintTop_toBottomOf="@id/findUserName" />
+
+        <ImageView
+            android:id="@+id/findSeeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_right_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.content.Context
 import android.graphics.Color
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.BarUtils
@@ -10,6 +11,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.ChargeWayBeans
 import com.sdy.luxurytravelapplication.mvp.model.bean.VipPurchaseBean
 import com.sdy.luxurytravelapplication.mvp.presenter.VipChargePresenter
 import com.sdy.luxurytravelapplication.ui.adapter.VipPowerAdapter
+import org.jetbrains.anko.startActivity
 
 /**
  * 会员权益及购买页面
@@ -17,7 +19,12 @@ import com.sdy.luxurytravelapplication.ui.adapter.VipPowerAdapter
 class VipChargeActivity :
     BaseMvpActivity<VipChargeContract.View, VipChargeContract.Presenter, ActivityVipPowerBinding>(),
     VipChargeContract.View {
+    companion object {
+        fun start(context: Context) {
+            context.startActivity<VipChargeActivity>()
+        }
 
+    }
 
     private val adapter by lazy { VipPowerAdapter() }
 

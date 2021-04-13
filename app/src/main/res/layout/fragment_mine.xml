@@ -352,6 +352,7 @@
                                     android:layout_height="30dp"
                                     android:orientation="horizontal"
                                     android:overScrollMode="never"
+                                    android:clickable="false"
                                     app:layout_constraintLeft_toLeftOf="@id/tvVisit"
                                     app:layout_constraintRight_toRightOf="@id/tvVisit"
                                     app:layout_constraintTop_toTopOf="parent" />

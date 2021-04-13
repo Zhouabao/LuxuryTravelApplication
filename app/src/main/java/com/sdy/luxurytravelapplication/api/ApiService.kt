@@ -491,7 +491,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("square/aboutMeSquareV13${Constants.END_BASE_URL}")
-    fun aboutMeSquare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SquareListBean?>>
+    fun aboutMeSquare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
 
 
     /**
@@ -689,6 +689,26 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Account/getCauseList${Constants.END_BASE_URL}")
     fun getCauseList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<LoginOffCauseBeans>>
+
+
+
+    /**
+     * 我的评论
+     */
+    @FormUrlEncoded
+    @POST("square/myCommentList${Constants.END_BASE_URL}")
+    fun myCommentList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MyCommentList?>>
+
+
+    /**
+     * 来访记录
+     */
+    @FormUrlEncoded
+    @POST("UserSet/myVisitingList${Constants.END_BASE_URL}")
+    fun myVisitingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<VisitorBean>?>>
+
+
+
 
 
     /**
