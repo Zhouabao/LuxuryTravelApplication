@@ -130,6 +130,7 @@ ext {
             "3dmap"                       : 'com.amap.api:3dmap:latest.integration',
             "location"                    : 'com.amap.api:location:latest.integration',
             "search"                      : 'com.amap.api:search:latest.integration',
+            "gpuimage"                    : 'org.wysaid:gpuimage-plus:2.6.3',
 
 //            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
 //            "logger"                : 'com.orhanobut:logger:2.1.1',

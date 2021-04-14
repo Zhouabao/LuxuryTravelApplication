@@ -163,7 +163,7 @@ class UploadVerifyPublicActivity :
                 finish()
             }
             binding.barCl.rightTextBtn -> {
-                startActivity<SweetHeartVerifyingActivity>()
+                SweetHeartVerifyingActivity.start(this,type)
 //                mPresenter.uploadPhoto(adappter.data[index].url, index)
             }
             binding.normalCloseBtn -> {

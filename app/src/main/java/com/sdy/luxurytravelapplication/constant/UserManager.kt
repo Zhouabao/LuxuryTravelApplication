@@ -300,7 +300,8 @@ object UserManager {
                 avatar.isEmpty() || avatar.contains(Constants.DEFAULT_AVATAR) ||
                 gender == -1 ||
                 SPUtils.getInstance(Constants.SPNAME).getInt("birth") == -1
-                || (gender == 2 && living_btn))
+                /*|| (gender == 2 && living_btn)*/
+                )
     }
 
 

@@ -1224,3 +1224,17 @@ data class MoreMatchBean(
     var isvip: Boolean = false,
     var share_btn: String = ""//分享开关是否显示
 ) : Serializable
+
+
+data class VideoVerifyBannerBean(
+    var content: String = "",
+    var title: String = "",
+    var icon: Int = 0,
+    var id: Int = 0
+) : Serializable
+
+data class CopyMvBean(
+    val mv_url: String = "",
+    val mv_url_cover: String = "",
+    var list: MutableList<VideoVerifyBannerBean> = mutableListOf()
+) : Serializable

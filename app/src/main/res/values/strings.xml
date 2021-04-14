@@ -440,6 +440,13 @@
     <string name="verify_title_car">豪车认证</string>
     <string name="verify_title_figure">身材认证</string>
     <string name="verify_title_job">职业认证</string>
+    <string name="verify_title_idcard">身份认证</string>
+    <string name="verify_title_video">视频认证</string>
+    <string name="video_under_review">视频审核中</string>
+    <string name="verify_title_voice">声音认证</string>
+    <string name="audio_under_review">声音审核中</string>
+    <string name="verify_real">真人认证</string>
+    <string name="verify_real_under_review">真人认证审核中</string>
     <string name="sweet_rich_to_be_friend">听说你很有钱，她们想和你做朋友</string>
     <string name="sweet_car_to_be_friend">听说你的车很漂亮，她们想和你做朋友</string>
     <string name="sweet_education_rich">听说你读过很多书见过许多人</string>
@@ -760,6 +767,21 @@
     <string name="contact_input">请填写您的联系方式</string>
     <string name="contact_lier_tip">注意：填写虚假账号可能导致封号</string>
     <string name="contact_is_hide">我的联系方式是否隐藏</string>
-
+    <string name="system_unsupport_video">当前系统版本暂不支持视频拍摄功能</string>
+    <string name="video_verify">视频认证</string>
+    <string name="start_record">开始录制视频</string>
+    <string name="record_fail">录制视频失败</string>
+    <string name="start_record_video">开始录制视频</string>
+    <string name="click_play">点击播放</string>
+    <string name="permission_title">权限开启</string>
+    <string name="permission_audio_and_camera">需要语音和摄像头权限</string>
+    <string name="click_pause">点击暂停</string>
+    <string name="video_submit_fail_please_retry">视频提交失败，请重新进入录制</string>
+    <string name="min_duration">时长不能小于%1$ds</string>
+    <string name="verify_title_personal_info">个人信息</string>
+    <string name="verify_title_education">学历认证</string>
+    <string name="verify_title_assets">资产认证</string>
+    <string name="verify_title_luxury_car">豪车认证</string>
+    <string name="verify_title_wechat">微信认证</string>
 
 </resources>

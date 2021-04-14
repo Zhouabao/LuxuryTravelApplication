@@ -84,8 +84,8 @@
         android:id="@+id/powerArrowVerify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:src="@drawable/icon_arrow_white_up"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/powerCl"
         app:layout_constraintLeft_toLeftOf="@id/powerVerifyBtn"
         app:layout_constraintRight_toRightOf="@id/powerVerifyBtn" />
@@ -93,9 +93,9 @@
     <ImageView
         android:id="@+id/powerArrowVideo"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_arrow_white_up"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/powerCl"
         app:layout_constraintLeft_toLeftOf="@id/powerVideoBtn"
         app:layout_constraintRight_toRightOf="@id/powerVideoBtn" />
@@ -107,8 +107,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/shape_rectangle_white_15dp"
-        app:layout_constraintDimensionRatio="345:477"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/powerContactBtn">
@@ -116,9 +117,10 @@
         <ImageView
             android:id="@+id/powerIcon"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_margin="15dp"
-            app:layout_constraintBottom_toTopOf="@id/addPowerBtn"
+            android:src="@drawable/icon_power_contact_img"
+            app:layout_constraintDimensionRatio="315:389"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -128,9 +130,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/selector_button_bottom_15dp"
+            android:enabled="false"
             android:gravity="center"
             android:text="变更联系方式"
-            android:enabled="false"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:textStyle="bold"

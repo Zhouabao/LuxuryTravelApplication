@@ -768,6 +768,22 @@ interface ApiService {
 
 
 
+    /**
+     * 上传视频介绍
+     */
+    @FormUrlEncoded
+    @POST("Home/uploadMv${Constants.END_BASE_URL}")
+    fun uploadMv(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+    /**
+     * 获取上传视频的标准视频
+     */
+    @FormUrlEncoded
+    @POST("Home/normalMv${Constants.END_BASE_URL}")
+    fun normalMv(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CopyMvBean?>>
+
+
+
 
     /**
      * 动态喜欢（关注）

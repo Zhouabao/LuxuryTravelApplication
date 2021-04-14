@@ -38,6 +38,7 @@ import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.CandyRechargeActivity
+import com.sdy.luxurytravelapplication.ui.activity.VideoIntroduceActivity
 import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.utils.UriUtils
@@ -84,6 +85,15 @@ object CommonFunction {
             FaceLivenessExpActivity.startActivity(context as Activity, type, requestCode)
         else
             FaceLivenessExpActivity.startActivity(context, type)
+    }
+    /**
+     * 录制视频介绍
+     */
+    fun startToVideoIntroduce(
+        context: Context,
+        requestCode: Int = -1
+    ) {
+        VideoIntroduceActivity.start(context, requestCode)
     }
 
 

@@ -105,4 +105,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CircleProgressView">
+        <attr name="cp_radius" format="dimension" />
+        <attr name="strokeCWidth" format="dimension" />
+        <attr name="ringColor" format="color" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
 </resources>

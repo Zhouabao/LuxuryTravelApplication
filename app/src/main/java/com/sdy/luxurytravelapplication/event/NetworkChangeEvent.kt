@@ -167,3 +167,15 @@ class AccountDangerEvent(val type: Int)
 
 //更新用户联系方式
 class UserCenterContactEvent(var contact_way: Int)
+
+
+
+class UpdateApproveEvent()
+
+//女性是否录制视频
+class FemaleVideoEvent(val videoState: Int)
+
+//置顶卡片
+class TopCardEvent(val showTop: Boolean)
+//刷新甜心圈认证状态
+class RefreshSweetEvent()
