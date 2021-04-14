@@ -1,5 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,12 +13,13 @@ import com.sdy.luxurytravelapplication.databinding.ActivityWomanPowerBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.jetbrains.anko.startActivityForResult
 
 /**
  * 女性权益
  */
 class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnClickListener {
-    private val contact by lazy { intent.getIntExtra("contact", 0) }//联系方式  0  没有 1 电话 2微信 3 qq
+    private var contact = 0
     private var verify = 0
     private var video = 0
     private val url by lazy { intent.getStringExtra("url") ?: "" }
@@ -29,6 +32,7 @@ class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnCli
     override fun initData() {
         video = intent.getIntExtra("video", 0)
         verify = intent.getIntExtra("verify", 0)
+        contact = intent.getIntExtra("contact", 0) //联系方式  0  没有 1 电话 2微信 3 qq
         GlideUtil.loadImg(this@WomanPowerActivity, url, binding.powerIcon)
 
         currentPosition = 0
@@ -83,8 +87,7 @@ class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnCli
             binding.addPowerBtn -> {
                 when (currentPosition) {
                     0 -> { //联系方式
-//                        startActivityForResult<ChangeUserContactActivity>(REQUEST_ACCOUNT)
-
+                        startActivityForResult<ChangeUserContactActivity>(REQUEST_ACCOUNT)
                     }
                     1 -> { //真人认证
                         when (verify) {
@@ -99,7 +102,7 @@ class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnCli
                             }
                         }
                     }
-                    2 -> { //真人认证
+                    2 -> { //视频认证
                         when (verify) {
                             1 -> {
                                 ToastUtil.toast(getString(R.string.verify_pass))
@@ -119,6 +122,23 @@ class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnCli
 
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        binding.apply {
+            if (resultCode == Activity.RESULT_OK) {
+                if (requestCode == REQUEST_ACCOUNT) {
+                    if (data?.getIntExtra("contact", 0) != 0) {
+                        contact = data!!.getIntExtra("contact", 0)
+                    }
+                } else if (requestCode == REQUEST_VERIFY) {
+                    if (data?.getIntExtra("verify", 0) != 0) {
+                        verify = data!!.getIntExtra("verify", 0)
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * 修改按钮内容以及样式

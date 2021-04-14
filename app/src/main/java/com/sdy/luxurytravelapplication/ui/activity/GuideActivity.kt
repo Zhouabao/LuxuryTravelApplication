@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGuideBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
@@ -42,7 +43,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
         }
         binding.bannerGuide.refreshData(data)
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
-            FaceLivenessExpActivity.startActivity(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
+            CommonFunction.startToFace(this,FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
         }
     }
 

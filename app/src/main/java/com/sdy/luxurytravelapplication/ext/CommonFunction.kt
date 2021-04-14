@@ -28,6 +28,7 @@ import com.sdy.luxurytravelapplication.event.CloseDialogEvent
 import com.sdy.luxurytravelapplication.event.RefreshGoldEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
@@ -79,10 +80,10 @@ object CommonFunction {
         type: Int =0,
         requestCode: Int = -1
     ) {
-//        if (requestCode != -1)
-//            IDVerifyActivity.startActivityForResult(context as Activity, type, requestCode)
-//        else
-//            IDVerifyActivity.startActivity(context, type)
+        if (requestCode != -1)
+            FaceLivenessExpActivity.startActivity(context as Activity, type, requestCode)
+        else
+            FaceLivenessExpActivity.startActivity(context, type)
     }
 
 

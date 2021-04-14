@@ -13,6 +13,7 @@ import com.baidu.idl.face.platform.listener.IInitCallback
 import com.baidu.idl.face.platform.model.ImageInfo
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
+import com.kongzue.dialog.v3.MessageDialog
 import com.kongzue.dialog.v3.WaitDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
@@ -25,6 +26,7 @@ import com.sdy.luxurytravelapplication.ui.activity.MainActivity
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -40,40 +42,43 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
         @JvmOverloads
         fun startActivity(
             context1: Context,
-            type: Int = TYPE_ACCOUNT_NORMAL
+            type: Int = TYPE_ACCOUNT_NORMAL,
+            requestCode: Int = -1
         ) {
-            context1.startActivity<FaceLivenessExpActivity>("type" to type)
 //            if (type == TYPE_LIVE_CAPTURE) {
+                if (requestCode != -1)
+                    (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
+                        requestCode,
+                        "type" to type
+                    )
+                else
+                    context1.startActivity<FaceLivenessExpActivity>("type" to type)
 //            } else {
-//            }
-//                if (!UserManager.isHasFaceUrl()) {
-//                    CommonAlertDialog.Builder(context1)
-//                        .setIconVisible(false)
-//                        .setCancelIconIsVisibility(true)
-//                        .setTitle("认证提醒")
-//                        .setContent("审核将与用户头像做比对，请确认头像为本人\n验证信息只用作审核，不会对外展示")
-//                        .setConfirmText("确定")
-//                        .setCancelText("取消")
-//                        .setOnConfirmListener(object : CommonAlertDialog.OnConfirmListener {
-//                            override fun onClick(dialog: Dialog) {
-//                                dialog.dismiss()
-//                                context1.startActivity<IDVerifyActivity>(
+//                if (!UserManager.hasFaceUrl) {
+//                    MessageDialog.show(
+//                        context1 as AppCompatActivity,
+//                        "认证提醒",
+//                        "审核将与用户头像做比对，请确认头像为本人\n验证信息只用作审核，不会对外展示",
+//                        "确定",
+//                        "取消"
+//                    )
+//                        .setOnOkButtonClickListener { _, v ->
+//                            if (requestCode != -1)
+//                                (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
+//                                    requestCode,
 //                                    "type" to type
 //                                )
-//                            }
-//                        })
-//                        .setOnCancelListener(object : CommonAlertDialog.OnConfirmListener,
-//                            CommonAlertDialog.OnCancelListener {
-//                            override fun onClick(dialog: Dialog) {
-//                                dialog.dismiss()
-//                            }
-//
-//                        })
-//                        .create()
-//                        .show()
+//                            else
+//                                context1.startActivity<FaceLivenessExpActivity>("type" to type)
+//                            false
+//                        }
+//                        .setOnCancelButtonClickListener { _, v ->
+//                            false
+//                        }
 //                } else {
 //                    HumanVerfiyDialog(context1, type, true).show()
 //                }
+//            }
         }
 
     }
