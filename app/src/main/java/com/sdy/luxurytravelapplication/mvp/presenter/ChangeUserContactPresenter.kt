@@ -21,7 +21,7 @@ class ChangeUserContactPresenter :
 
     override fun getContact() {
 
-        mModel?.getContact()?.ssss {
+        mModel?.getContact()?.ssss(mView,true) {
             mView?.onGetContactResult(it.data)
         }
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
@@ -39,16 +40,14 @@ class ChangeUserContactActivity :
             barCl.rightTextBtn.isVisible = true
             barCl.rightTextBtn.text = getString(R.string.save)
             barCl.rightTextBtn.setTextColor(Color.WHITE)
+            barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
             barCl.actionbarTitle.text = getString(R.string.contact_title)
 
-            contactImg.setOnClickListener(this@ChangeUserContactActivity)
-            contactImgMore.setOnClickListener(this@ChangeUserContactActivity)
-            barCl.btnBack.setOnClickListener(this@ChangeUserContactActivity)
-            barCl.rightTextBtn.setOnClickListener(this@ChangeUserContactActivity)
+            ClickUtils.applySingleDebouncing(arrayOf(contactImg,contactImgMore,barCl.btnBack,barCl.rightTextBtn),this@ChangeUserContactActivity)
 
             contactEt.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    barCl.rightTextBtn.isEnabled = !s.toString().isEmpty()
+                    barCl.rightTextBtn.isEnabled = s.toString().isNotEmpty()
                 }
 
                 override fun beforeTextChanged(
@@ -153,7 +152,7 @@ class ChangeUserContactActivity :
                     contactEt.setSelection(contactEt.text.length)
                 }
 
-//            是隐藏就开，默认不隐藏( 1 显示 2隐藏)
+                //  是隐藏就开，默认不隐藏( 1 显示 2隐藏)
                 switchShowContact.isChecked = data.contact_way_hide == 2
                 getCandy.isVisible = !data.contact_way_str.isNullOrEmpty()
                 getCandy.text = data.contact_way_str
