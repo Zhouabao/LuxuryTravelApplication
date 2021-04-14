@@ -294,7 +294,7 @@ class UserCenterFragment :
                     "today" to userInfoBean?.userinfo?.todayvisit,
                     "all" to userInfoBean?.userinfo?.allvisit,
                     "freeShow" to userInfoBean?.free_show,
-                    "from" to MyVisitActivity.FROM_TOP_RECOMMEND
+                    "from" to MyVisitActivity.FROM_ME
                 )
             }
             binding.userFootprint -> { //我的足迹

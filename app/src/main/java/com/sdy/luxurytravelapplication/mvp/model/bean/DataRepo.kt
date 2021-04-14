@@ -1115,15 +1115,18 @@ data class MyCommentList(
  * 访客
  */
 data class VisitorBean(
-    val accid: String? = "",
-    val age: Int? = 0,
-    val avatar: String? = "",
-    val constellation: String? = "",
-    val distance: String? = "",
-    val gender: Int? = 0,
-    val isvip: Int? = 0,
-    val nickname: String? = "",
-    val visitcount: Int? = 0
+    var accid: String = "",
+    var age: Int = 0,
+    var avatar: String = "",
+    var constellation: String = "",
+    var distance: String = "",
+    var gender: Int = 0,
+    var height: String = "",
+    var isvip: Int = 0,
+    var member_id: Int = 0,
+    var nickname: String = "",
+    var visitcount: Int = 0,
+    var weight: String = ""
 )
 
 data class MyCommentBean(
@@ -1238,3 +1241,19 @@ data class CopyMvBean(
     val mv_url_cover: String = "",
     var list: MutableList<VideoVerifyBannerBean> = mutableListOf()
 ) : Serializable
+
+/*我的邀请记录*/
+data class MyInviteBean(
+    var all_cnt: Int = 0,
+    var coin_all_amount: Int = 0,
+    var invite_list: MutableList<Invite> = mutableListOf(),
+    var now_amount: Int = 0,
+    var invite_rule:String="",
+    var invite_url:String="",
+    var residue_cnt: Int = 0
+)
+
+data class Invite(
+    var accid: String = "",
+    var avatar: String = ""
+)

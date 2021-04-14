@@ -35,6 +35,7 @@ class CandyRechargeActivity :
     companion object {
         const val TYPE_MINE = -1
         const val TYPE_CHARGE = 1
+        const val TYPE_INVITE = 2
         fun gotoCandyRecharge(context: Context, type: Int = TYPE_CHARGE) {
             context.startActivity<CandyRechargeActivity>("type" to type)
 //        RechargeCandyDialog(context).show()

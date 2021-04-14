@@ -30,13 +30,8 @@ class MyVisitActivity : BaseActivity<ActivityMyVisitBinding>() {
     private val mStack = arrayListOf<Fragment>()
     private val titles by lazy {
         if (from == FROM_TOP_RECOMMEND) arrayOf(
-            getString(R.string.today_visit) + intent.getIntExtra(
-                "today",
-                0
-            ), getString(R.string.all_visir) + intent.getIntExtra(
-                "all",
-                0
-            )
+            getString(R.string.today_visit) + "\t${intent.getIntExtra("today", 0)}",
+            getString(R.string.all_visir) + "\t${intent.getIntExtra("all", 0)}"
         ) else {
             arrayOf(getString(R.string.all_visir))
         }
@@ -54,7 +49,6 @@ class MyVisitActivity : BaseActivity<ActivityMyVisitBinding>() {
     }
 
     private fun initFragment() {
-
         if (from == FROM_TOP_RECOMMEND)
             mStack.add(
                 MyTodayVisitFragment(
@@ -80,29 +74,40 @@ class MyVisitActivity : BaseActivity<ActivityMyVisitBinding>() {
                 vpMyVisit.offscreenPageLimit = 2
                 tabMyVisit.setTabData(titles)
                 tabMyVisit.isVisible = true
+                tabMyVisit.setOnTabSelectListener(object : OnTabSelectListener {
+                    override fun onTabSelect(position: Int) {
+                        vpMyVisit.currentItem = position
+                    }
+
+                    override fun onTabReselect(position: Int) {
+                    }
+
+                })
+                tabMyVisit.currentTab = 0
+                tabMyVisit.setOnTabSelectListener(object : OnTabSelectListener {
+                    override fun onTabSelect(position: Int) {
+
+                    }
+
+                    override fun onTabReselect(position: Int) {
+                        vpMyVisit.currentItem = position
+                    }
+
+                })
             } else {
                 vpMyVisit.offscreenPageLimit = 1
                 tabMyVisit.isVisible = false
             }
-            tabMyVisit.setOnTabSelectListener(object :OnTabSelectListener{
-                override fun onTabSelect(position: Int) {
 
-                }
+            vpMyVisit.currentItem = 0
 
-                override fun onTabReselect(position: Int) {
-                   vpMyVisit.currentItem=position
-                }
-
-            })
-
-            vpMyVisit.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
+            vpMyVisit.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    tabMyVisit.currentTab = position
+                    if (tabMyVisit.isVisible)
+                        tabMyVisit.currentTab = position
                 }
             })
-            tabMyVisit.currentTab=0
-            vpMyVisit.currentItem = 0
         }
     }
 

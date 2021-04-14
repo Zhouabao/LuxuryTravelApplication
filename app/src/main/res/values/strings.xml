@@ -784,4 +784,17 @@
     <string name="verify_title_luxury_car">豪车认证</string>
     <string name="verify_title_wechat">微信认证</string>
 
+
+    <string name="send_a_pic_in_app">%1$s 在奢媛发了一张照片</string>
+    <string name="hurry_to_see_this">「你先抓紧看看这个」</string>
+    <string name="send_a_square_in_app">%1$s 在奢媛发了动态</string>
+    <string name="send_a_video_in_app">%1$s 在奢媛发了一段视频</string>
+    <string name="send_a_audio_in_app">%1$s 在奢媛发了一段语音</string>
+    <string name="share_fail">分享失败</string>
+    <string name="share_jitang_friend">奢媛好友</string>
+    <string name="share_wechat_friend">微信好友</string>
+    <string name="share_wechat_zone">朋友圈</string>
+    <string name="share_sina">微博</string>
+    <string name="qqZone">QQ空间</string>
+    <string name="delete">删除</string>
 </resources>

@@ -507,6 +507,14 @@ interface ApiService {
     @POST("Travel/myPlan${Constants.END_BASE_URL_v2}")
     fun myPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
 
+
+    /**
+     * 我的邀请记录
+     */
+    @FormUrlEncoded
+    @POST("Invite/myInvite${Constants.END_BASE_URL_v2}")
+    fun myInvite(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MyInviteBean?>>
+
     /**
      * 流水记录
      */
@@ -693,7 +701,7 @@ interface ApiService {
      * 我的评论
      */
     @FormUrlEncoded
-    @POST("square/myCommentList${Constants.END_BASE_URL}")
+    @POST("square/myCommentList${Constants.END_BASE_URL_v2}")
     fun myCommentList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MyCommentList?>>
 
 
@@ -701,7 +709,7 @@ interface ApiService {
      * 来访记录
      */
     @FormUrlEncoded
-    @POST("UserSet/myVisitingList${Constants.END_BASE_URL}")
+    @POST("MemberInfo/myVisitedList${Constants.END_BASE_URL_v2}")
     fun myVisitingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<VisitorBean>?>>
 
 

@@ -111,4 +111,16 @@
         <attr name="ringColor" format="color" />
         <attr name="textColor" format="color" />
     </declare-styleable>
+
+
+    <declare-styleable name="ProgressWithTopText">
+        <attr name="startProgress" format="float|reference" />
+        <attr name="scurrProgress" format="float|reference" />
+        <attr name="endProgress" format="float|reference" />
+        <attr name="progressTextSize" format="reference|dimension" />
+        <attr name="backColor" format="color|reference" />
+        <attr name="foreColor" format="color|reference" />
+        <attr name="progressTextColor" format="color|reference" />
+        <attr name="rectCorn" format="dimension|reference" />
+    </declare-styleable>
 </resources>

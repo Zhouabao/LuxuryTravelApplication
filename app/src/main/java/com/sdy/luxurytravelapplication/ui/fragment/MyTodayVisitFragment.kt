@@ -1,9 +1,11 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
+import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.SizeUtils
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener
@@ -68,7 +70,7 @@ class MyTodayVisitFragment(
             refreshLayout.setOnRefreshListener(this@MyTodayVisitFragment)
             refreshLayout.setOnLoadMoreListener(this@MyTodayVisitFragment)
 
-            visitRv.layoutManager = GridLayoutManager(activity!!, 2, RecyclerView.VERTICAL, false)
+            visitRv.layoutManager = LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             visitRv.adapter = visitAdapter
             visitAdapter.setEmptyView(R.layout.layout_empty_view)
 
@@ -97,6 +99,12 @@ class MyTodayVisitFragment(
             visitTodayCount.text = getString(R.string.today_visit1, today)
             visitAllCount.text = getString(R.string.all_visit_1, all)
         }
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.topMargin = SizeUtils.dp2px(20F)
+        headBinding.root.layoutParams = params
         return headBinding.root
     }
 

@@ -4,174 +4,281 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activity.MyInviteActivity">
 
     <include
         android:id="@+id/barCl"
         layout="@layout/layout_actionbar" />
 
-    <ImageView
-        android:id="@+id/bg"
+    <com.sdy.luxurytravelapplication.widgets.MultipleStatusView
+        android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:src="@drawable/icon_invite_bg"
-        app:layout_constraintDimensionRatio="375:88"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barCl" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barCl">
 
-    <TextView
-        android:id="@+id/inviteTimes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:text="您当前有1次邀请机会"
-        android:textColor="#ffffffff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/inviteDescr"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bg"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/inviteDescr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="点击邀请好友将邀请码发送给好友"
-        android:textColor="#ffffffff"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@id/bg"
-        app:layout_constraintLeft_toLeftOf="@id/inviteTimes"
-        app:layout_constraintTop_toBottomOf="@id/inviteTimes" />
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@drawable/icon_invite_bg"
+                app:layout_constraintDimensionRatio="375:88"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/inviteTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="您当前有1次邀请机会"
+                android:textColor="#ffffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/inviteDescr"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bg"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/inviteDescr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="点击邀请好友将邀请码发送给好友"
+                android:textColor="#ffffffff"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bg"
+                app:layout_constraintLeft_toLeftOf="@id/inviteTimes"
+                app:layout_constraintTop_toBottomOf="@id/inviteTimes" />
 
 
-    <TextView
-        android:id="@+id/inviteBtn"
-        android:layout_width="88dp"
-        android:layout_height="32dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/shape_rectangle_white_15dp"
-        android:gravity="center"
-        android:text="邀请好友"
-        android:textColor="@color/colorAccent"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/bg"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bg" />
+            <TextView
+                android:id="@+id/inviteBtn"
+                android:layout_width="88dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/shape_rectangle_white_15dp"
+                android:gravity="center"
+                android:text="邀请好友"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/bg"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bg" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/inviteTimesCl"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/icon_invite_item_bg"
-        app:layout_constraintDimensionRatio="108:109"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/invitedCl"
-        app:layout_constraintTop_toBottomOf="@id/bg">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/inviteTimesCl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/icon_invite_item_bg"
+                app:layout_constraintDimensionRatio="108:109"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/invitedCl"
+                app:layout_constraintTop_toBottomOf="@id/bg">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="我的邀请码*5"
-            android:textColor="#ffffffff"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/myInviteTimes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="我的邀请码*5"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/inviteRewardProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:progress="0"
-            android:progressDrawable="@drawable/progress_invite_2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.jaygoo.widget.RangeSeekBar
+                    android:id="@+id/inviteRewardProgress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:rsb_gravity="bottom"
+                    app:rsb_indicator_arrow_size="5dp"
+                    app:rsb_indicator_background_color="@color/colorAccent"
+                    app:rsb_indicator_height="wrap_content"
+                    app:rsb_indicator_margin="4dp"
+                    app:rsb_indicator_padding_bottom="2dp"
+                    app:rsb_indicator_padding_left="4dp"
+                    app:rsb_indicator_padding_right="4dp"
+                    app:rsb_indicator_padding_top="2dp"
+                    app:rsb_indicator_radius="5dp"
+                    app:rsb_indicator_show_mode="alwaysShow"
+                    app:rsb_indicator_text_color="@color/colorWhite"
+                    app:rsb_indicator_text_size="13sp"
+                    app:rsb_indicator_width="wrap_content"
+                    app:rsb_max="100"
+                    app:rsb_min="0"
+                    app:rsb_min_interval="1"
+                    app:rsb_mode="single"
+                    app:rsb_progress_color="@color/colorAccent"
+                    app:rsb_progress_default_color="#FFC9F3E8"
+                    app:rsb_progress_height="8dp"
+                    app:rsb_progress_radius="4dp"
+                    app:rsb_thumb_drawable="@drawable/gradient_light_green_5dp"
+                    app:rsb_thumb_height="8dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/invitedCl"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/icon_invite_item_bg"
-        app:layout_constraintDimensionRatio="108:109"
-        app:layout_constraintLeft_toRightOf="@id/inviteTimesCl"
-        app:layout_constraintRight_toLeftOf="@id/inviteRewardCl"
-        app:layout_constraintTop_toBottomOf="@id/bg">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/invitedCl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/icon_invite_item_bg"
+                app:layout_constraintDimensionRatio="108:109"
+                app:layout_constraintLeft_toRightOf="@id/inviteTimesCl"
+                app:layout_constraintRight_toLeftOf="@id/inviteRewardCl"
+                app:layout_constraintTop_toBottomOf="@id/bg">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="我邀请的"
-            android:textColor="#ffffffff"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="我邀请的"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/invitedRv"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/invitedRv"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/inviteRewardCl"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/icon_invite_item_bg"
-        app:layout_constraintDimensionRatio="108:109"
-        app:layout_constraintLeft_toRightOf="@id/invitedCl"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bg">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/inviteRewardCl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/icon_invite_item_bg"
+                app:layout_constraintDimensionRatio="108:109"
+                app:layout_constraintLeft_toRightOf="@id/invitedCl"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bg">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="金币奖励"
-            android:textColor="#ffffffff"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="金币奖励"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/inviteRewardCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:text="300"
-            android:textColor="#ff1ed0a7"
-            android:textSize="33sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/inviteRewardCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="300"
+                    android:textColor="#ff1ed0a7"
+                    android:textSize="33sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/purchaseBtn"
+                android:layout_width="325dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape_1ed0a7_29dp"
+                android:gravity="center"
+                android:text="立即充值"
+                android:textColor="#ffffffff"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inviteTimesCl" />
+
+            <TextView
+                android:id="@+id/inviteBtn1"
+                android:layout_width="325dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_stroke_1ed0a7_29dp"
+                android:gravity="center"
+                android:text="邀请好友"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/purchaseBtn" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0dp"
+                android:layout_height="147dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/shape_f7f8fa_15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inviteBtn1" />
+
+            <TextView
+                android:id="@+id/t1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/icon_invite_airplane_left"
+                android:drawableRight="@drawable/icon_invite_airplane_right"
+                android:drawablePadding="10dp"
+                android:text="邀请规则"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view1" />
+
+            <TextView
+                android:id="@+id/inviteRule"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#ff8a909f"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="@id/view1"
+                app:layout_constraintRight_toRightOf="@id/view1"
+                app:layout_constraintTop_toBottomOf="@id/t1"
+                tools:text="每净充值100元即可获得一次邀请机会，可分享至多人或者群组，邀请码填写使用后失效并绑定至好友，每成功邀请一位好友即赠送100糖果，糖果可用于搭讪、聊天、赠送对方礼物" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

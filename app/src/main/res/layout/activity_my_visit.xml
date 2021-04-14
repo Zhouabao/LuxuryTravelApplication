@@ -34,7 +34,7 @@
         app:tl_textBold="SELECT"
         app:tl_textSelectColor="@color/color333"
         app:tl_textUnselectColor="#FFB6BCC6"
-        app:tl_textsize="16sp" />
+        app:tl_textsize="14sp" />
 
     <View
         android:layout_width="match_parent"

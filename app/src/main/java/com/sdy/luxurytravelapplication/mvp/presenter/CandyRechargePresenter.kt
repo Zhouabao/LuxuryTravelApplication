@@ -22,7 +22,6 @@ class CandyRechargePresenter :
     }
 
     override fun myCadny() {
-
         mModel?.myCadny()?.ssss (mView, true) { mView?.onMyCadnyResult(it.data) }
     }
 }

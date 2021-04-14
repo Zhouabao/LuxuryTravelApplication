@@ -17,10 +17,10 @@ class MyCommentAdapter :
         binding.apply {
 
             GlideUtil.loadCircleImg(context, item.avatar, footIcon)
-            footContent.text = item.content
-            footNickname.text = item.nickname
+            footContent.text = item.reply_content
+            footNickname.text = item.replyed_nickname
             footTime.text = item.create_time
-            findContent.text = item.content
+            findContent.text = item.square_descr
             findUserName.text = item.nickname
             when (item.type) {
                 1 -> {//图片

@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Environment
 import android.os.Process
@@ -15,6 +16,7 @@ import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
 import com.kongzue.dialog.util.DialogSettings
+import com.kongzue.dialog.util.TextInfo
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -105,8 +107,11 @@ class TravelApp : Application() {
             ClassicsFooter(context).setFinishDuration(200).setDrawableSize(20F)
         }
 
+//        DialogSettings.buttonPositiveTextInfo = TextInfo().setFontColor(Color.parseColor("#1ED0A7"))
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS
         DialogSettings.theme = DialogSettings.THEME.LIGHT
+//        DialogSettings.init()
+//        DialogSettings.buttonTextInfo = TextInfo().setFontColor(Color.parseColor("#FFC6CAD4"))
     }
 
 

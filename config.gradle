@@ -131,6 +131,9 @@ ext {
             "location"                    : 'com.amap.api:location:latest.integration',
             "search"                      : 'com.amap.api:search:latest.integration',
             "gpuimage"                    : 'org.wysaid:gpuimage-plus:2.6.3',
+            //进度条
+            "RangeSeekBar"                    : 'com.github.Jay-Goo:RangeSeekBar:3.0.0',
+            "segmentedbar"                    : 'com.zhouyou:segmentedbar:1.0.9',
 
 //            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
 //            "logger"                : 'com.orhanobut:logger:2.1.1',

@@ -18,24 +18,33 @@ class MyTodayVisitAdater(val freeShow: Boolean) :
             if (freeShow) {
                 visitHideName.visibility = View.GONE
                 visitHideInfo.visibility = View.GONE
-                GlideUtil.loadAvatorImg(context, item.avatar ?: "", visitImg)
+                GlideUtil.loadImg(context, item.avatar, visitImg)
             } else {
                 visitHideName.visibility = View.VISIBLE
                 visitHideInfo.visibility = View.VISIBLE
                 Glide.with(context)
-                    .load(item.avatar ?: "")
+                    .load(item.avatar)
                     .apply(RequestOptions.bitmapTransform(BlurTransformation(1, 10)))
                     .into(visitImg)
             }
 
-            visitName.text = "${item.nickname}"
-            visitInfo.text = "${item.age}\t/\t${if (item.gender == 1) {
-                context.getString(R.string.gender_man)
-            } else {
-                context.getString(R.string.gender_woman)
-            }}\t/\t${item.constellation}\t/\t${item.distance}"
-            visitCount.text = "${item.visitcount}"
-            visitVip.isVisible = (item.isvip ?: 0) == 1
+            visitName.text = item.nickname
+            visitInfo.text =
+                "${item.height}${if (item.height.isNotEmpty()) {
+                    "/"
+                } else {
+                    ""
+                }}${item.weight}${if (item.weight.isNotEmpty()) {
+                    "/"
+                } else {
+                    ""
+                }}${if (item.gender == 1) {
+                    context.getString(R.string.gender_man)
+                } else {
+                    context.getString(R.string.gender_woman)
+                }}/${item.distance}"
+            visitCount.text = "${item.visitcount}次"
+            visitVip.isVisible = item.isvip == 1
 
         }
 
