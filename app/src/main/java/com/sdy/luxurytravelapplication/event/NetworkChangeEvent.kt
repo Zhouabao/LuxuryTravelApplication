@@ -11,6 +11,7 @@ import java.io.File
  */
 class NetworkChangeEvent(var isConnected: Boolean)
 
+class CloseRegVipEvent(val paySuccess: Boolean)
 
 /**
  * 图片保存成功通知

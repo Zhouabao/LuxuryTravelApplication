@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
@@ -20,16 +21,20 @@ import com.sdy.luxurytravelapplication.ui.fragment.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
+import org.jetbrains.anko.startActivity
 
 class MainActivity :
     BaseMvpActivity<MainContract.View, MainContract.Presenter, ActivityMainBinding>(),
     MainContract.View, View.OnClickListener {
     companion object {
         fun startToMain(context: Context, clearTop: Boolean = true) {
-            if (clearTop)
-                context.startActivity(context.intentFor<MainActivity>().clearTask().newTask())
-            else
-                context.startActivity(context.intentFor<MainActivity>())
+//            if (clearTop)
+//                context.startActivity(context.intentFor<MainActivity>().clearTask().newTask())
+//            else
+//                context.startActivity(context.intentFor<MainActivity>())
+//            context.startActivity<MainActivity>()
+            ActivityUtils.finishToActivity(MainActivity::class.java,false)
+//            ActivityUtils.finishOtherActivities(MainActivity::class.java, false)
         }
     }
 
@@ -73,7 +78,7 @@ class MainActivity :
     }
 
     override fun initData() {
-        GlideUtil.loadAvatorImg(this,UserManager.avatar,binding.tabMine)
+        GlideUtil.loadAvatorImg(this, UserManager.avatar, binding.tabMine)
 
 //        CompleteInfoDialog().show()
     }

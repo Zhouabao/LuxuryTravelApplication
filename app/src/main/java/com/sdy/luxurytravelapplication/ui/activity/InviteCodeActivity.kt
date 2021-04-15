@@ -1,31 +1,47 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.content.Context
 import android.view.View
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.KeyboardUtils
 import com.jyn.vcview.VerificationCodeView
-import com.sdy.luxurytravelapplication.base.BaseActivity
+import com.sdy.luxurytravelapplication.base.BaseMvpActivity
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityInviteCodeBinding
+import com.sdy.luxurytravelapplication.mvp.contract.InviteCodeContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.MoreMatchBean
+import com.sdy.luxurytravelapplication.mvp.presenter.InviteCodePresenter
 import org.jetbrains.anko.startActivity
 
 /**
  * 请输入验证码
  */
-class InviteCodeActivity : BaseActivity<ActivityInviteCodeBinding>(),
+class InviteCodeActivity :
+    BaseMvpActivity<InviteCodeContract.View, InviteCodeContract.Presenter, ActivityInviteCodeBinding>(),
+    InviteCodeContract.View,
     VerificationCodeView.OnCodeFinishListener {
+    private val moreMatchBean by lazy { intent.getSerializableExtra("moreMatchBean") as MoreMatchBean }
 
-    override fun initData() {
-
+    companion object {
+        fun start(context: Context, moreMatchBean: MoreMatchBean) {
+            context.startActivity<InviteCodeActivity>("moreMatchBean" to moreMatchBean)
+        }
     }
 
-    override fun initView() {
+    override fun initData() {
         ClickUtils.applySingleDebouncing(arrayOf(binding.nextBtn, binding.noInviteCodeBtn)) {
             when (it) {
                 binding.nextBtn -> {
-                    MainActivity.startToMain(this,true)
+                    moreMatchBean.apply {
+                        UserManager.savePersonalInfo(avatar, birth, gender, nickname)
+                    }
+                    MainActivity.startToMain(this, true)
                 }
                 binding.noInviteCodeBtn -> {
-                    startActivity<PurchaseFootActivity>()
+                    PurchaseFootActivity.start(
+                        this,
+                        moreMatchBean,
+                        PurchaseFootActivity.FROM_REGISTER_OPEN_VIP
+                    )
                 }
             }
         }
@@ -34,19 +50,23 @@ class InviteCodeActivity : BaseActivity<ActivityInviteCodeBinding>(),
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        KeyboardUtils.showSoftInput(binding.inviteCodeView.getChildAt(0))
-    }
 
     override fun start() {
     }
 
-    override fun onComplete(view: View?, content: String?) {
-
+    override fun onComplete(view: View?, content: String) {
+        mPresenter?.checkCode(content)
     }
 
     override fun onTextChange(view: View?, content: String) {
         binding.nextBtn.isEnabled = content.length == 4
+    }
+
+    override fun createPresenter(): InviteCodeContract.Presenter {
+        return InviteCodePresenter()
+    }
+
+    override fun checkCode(success: Boolean) {
+        MainActivity.startToMain(this)
     }
 }

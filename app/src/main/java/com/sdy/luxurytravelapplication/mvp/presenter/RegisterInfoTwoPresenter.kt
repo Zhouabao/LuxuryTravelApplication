@@ -32,7 +32,7 @@ class RegisterInfoTwoPresenter :
         mModel?.getRegisterProcessType()?.ss(mModel, mView) {
             mView?.apply {
                 if (it.code == 200) {
-                    getRegisterProcessType(it.data)
+                    getRegisterProcessType(it.data?: mutableListOf())
                 }
 
             }

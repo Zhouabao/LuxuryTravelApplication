@@ -6,17 +6,19 @@ import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.qiniu.android.storage.UpCancellationSignal
+import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
+import com.sdy.luxurytravelapplication.mvp.model.bean.MoreMatchBean
 import com.sdy.luxurytravelapplication.nim.config.preference.UserPreferences
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
-import com.sdy.luxurytravelapplication.ui.activity.MainActivity
-import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
+import com.sdy.luxurytravelapplication.ui.activity.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
+import org.jetbrains.anko.startActivity
 
 /**
  *    author : ZFM
@@ -114,31 +116,45 @@ object UserManager {
 
         DemoCache.setAccount(nothing?.account)
 
-        //昵称 生日 性别 头像
-        savePersonalInfo(data.userinfo)
 
         //初始化消息提醒配置
         initNotificationConfig()
 
-        MainActivity.startToMain(context)
-//        if (data.userinfo.gender == 0) {
-//            context.startActivity<RegisterInfoOneActivity>()
-//        } else if (data.userinfo.nickname.isNullOrEmpty()) {
-//            context.startActivity<RegisterInfoTwoActivity>()
-//        } else if (data.userinfo.gender == 1) {
-//            //todo 男性判断是否付费
-//        } else if (data.userinfo.gender == 2) {
-//            //todo 女性判断是否做过活体认证
-//            living_btn = data.extra_data.living_btn
-////            FaceLivenessExpActivity.startActivity(
-////                context,
-////                FaceLivenessExpActivity.TYPE_LIVE_CAPTURE
-////            )
-//        } else {
-////            SelfVoiceIntroduceActivity.start(context,SelfVoiceIntroduceActivity.FROM_REGISTER)
-////            context.startActivity<SelfVoiceIntroduceActivity>()
-//            MainActivity.startToMain(context)
-//        }
+        if (data.userinfo.gender == 0) {
+            context.startActivity<RegisterInfoOneActivity>()
+        } else if (data.userinfo.nickname.isNullOrEmpty()) {
+            context.startActivity<RegisterInfoTwoActivity>()
+        } else if (data.userinfo.gender == 1) {
+            //todo 男性判断是否付费
+            if (data.extra_data.threshold && !data.extra_data.isvip) {
+                data.extra_data.apply {
+                    data.userinfo.apply {
+                        InviteCodeActivity.start(
+                            context,
+                            MoreMatchBean(nickname, gender, birth, avatar,threshold, living_btn, isvip)
+                        )
+                    }
+                }
+            } else {
+                //昵称 生日 性别 头像
+                data.userinfo.apply {
+                    savePersonalInfo(avatar, birth, gender, nickname)
+                }
+                MainActivity.startToMain(context)
+            }
+
+        } else if (data.userinfo.gender == 2) {
+            //todo 女性判断是否做过活体认证
+            living_btn = data.extra_data.living_btn
+            if (living_btn)
+                CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
+        } else {
+            //昵称 生日 性别 头像
+            data.userinfo.apply {
+                savePersonalInfo(avatar, birth, gender, nickname)
+            }
+            MainActivity.startToMain(context)
+        }
     }
 
 
@@ -324,15 +340,15 @@ object UserManager {
     /**
      * 登录成功保存个人信息
      */
-    fun savePersonalInfo(userinfo: Userinfo) {
-        if (userinfo.avatar.isNotEmpty() && !userinfo.avatar.contains(Constants.DEFAULT_AVATAR))
-            avatar = userinfo.avatar
-        if (userinfo.birth != 0)
-            SPUtils.getInstance(Constants.SPNAME).put("birth", userinfo.birth)
-        if (userinfo.gender != 0)
-            SPUtils.getInstance(Constants.SPNAME).put("gender", userinfo.gender)
-        if (userinfo.nickname.isNotEmpty())
-            SPUtils.getInstance(Constants.SPNAME).put("nickname", userinfo.nickname)
+    fun savePersonalInfo(avatar: String, birth: Int, gender: Int, nickname: String) {
+        if (avatar.isNotEmpty() && !avatar.contains(Constants.DEFAULT_AVATAR))
+            this.avatar = avatar
+        if (birth != 0)
+            SPUtils.getInstance(Constants.SPNAME).put("birth", birth)
+        if (gender != 0)
+            SPUtils.getInstance(Constants.SPNAME).put("gender", gender)
+        if (nickname.isNotEmpty())
+            SPUtils.getInstance(Constants.SPNAME).put("nickname", nickname)
     }
 
     private fun initNotificationConfig() {
@@ -366,6 +382,7 @@ object UserManager {
     fun isForceChangeAvator(): Boolean {
         return SPUtils.getInstance(Constants.SPNAME).getBoolean("isForceChangeAvator", false)
     }
+
     /**
      * 是否是异常账号
      */

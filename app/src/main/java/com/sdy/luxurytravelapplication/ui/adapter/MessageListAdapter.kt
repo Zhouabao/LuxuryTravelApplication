@@ -75,13 +75,13 @@ class MessageListAdapter :
                 .getUserInfo(item.contactId) as NimUserInfo?)?.extensionMap
             if (!extensionMap.isNullOrEmpty() && extensionMap["assets_audit_way"] != null && extensionMap["assets_audit_way"] != 0) {
                 sweetLogo.isVisible = true
-                if (extensionMap["assets_audit_way"] == 1 || extensionMap["assets_audit_way"] == 2 || extensionMap["assets_audit_way"] == 5) {
-                    sweetLogo.imageAssetsFolder = "images_sweet_logo_man"
-                    sweetLogo.setAnimation("data_sweet_logo_man.json")
-                } else {
-                    sweetLogo.imageAssetsFolder = "images_sweet_logo_woman"
-                    sweetLogo.setAnimation("data_sweet_logo_woman.json")
-                }
+//                if (extensionMap["assets_audit_way"] == 1 || extensionMap["assets_audit_way"] == 2 || extensionMap["assets_audit_way"] == 5) {
+//                    sweetLogo.imageAssetsFolder = "images_sweet_logo_man"
+//                    sweetLogo.setAnimation("data_sweet_logo_man.json")
+//                } else {
+//                    sweetLogo.imageAssetsFolder = "images_sweet_logo_woman"
+//                    sweetLogo.setAnimation("data_sweet_logo_woman.json")
+//                }
 
                 if (sweetLogo.tag != null) {
                     sweetLogo.removeOnAttachStateChangeListener(sweetLogo.tag as View.OnAttachStateChangeListener)

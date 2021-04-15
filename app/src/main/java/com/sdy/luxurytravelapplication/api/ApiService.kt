@@ -37,6 +37,16 @@ interface ApiService {
     fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
 
 
+
+    /**
+     * 男性进入首页后获取想要的列表
+     */
+    @FormUrlEncoded
+    @POST("Home/getManTaps${Constants.END_BASE_URL}")
+    fun getManTaps(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<MyTapsBean>?>>
+
+
+
     /**
      * 注销账号
      */
@@ -57,8 +67,16 @@ interface ApiService {
      * 注册填写个人信息
      */
     @FormUrlEncoded
-    @POST("MemberInfo/setProfileCandy${Constants.END_BASE_URL}")
+    @POST("MemberInfo/setProfileCandy${Constants.END_BASE_URL_v2}")
     fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
+
+
+    /**
+     * 验证邀请码
+     */
+    @FormUrlEncoded
+    @POST("Home/checkCode${Constants.END_BASE_URL_v2}")
+    fun checkCode(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
 
 
     /**
@@ -263,7 +281,7 @@ interface ApiService {
     fun getTagTitleList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChooseTitleBean>>
 
 
-    /******************伴游***********************/
+    /****************************伴游****************************/
 
     /**
      * 验证是否可以发布旅行计划
@@ -454,7 +472,7 @@ interface ApiService {
      * 门槛支付列表
      */
     @FormUrlEncoded
-    @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL}")
+    @POST("PayOrder/getThresholdEnd${Constants.END_BASE_URL_v2}")
     fun getThreshold(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
 
 
@@ -721,20 +739,13 @@ interface ApiService {
     fun personalInfoCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<UserInfoSettingBean?>>
 
 
-    /**
-     * 修改个人信息
-     */
-    @FormUrlEncoded
-    @POST("memberInfo/savePersonal${Constants.END_BASE_URL}")
-    fun savePersonal(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
-
 
     /**
-     *   保存相册信息
+     *   修改个人信息
      */
     @FormUrlEncoded
-    @POST("MemberInfo/savePersonalCandy${Constants.END_BASE_URL}")
-    fun addPhotoV2(@FieldMap params: MutableMap<String, Any?>?): Observable<BaseResp<Any>>
+    @POST("MemberInfo/savePersonalCandy${Constants.END_BASE_URL_v2}")
+    fun savePersonalCandy(@FieldMap params: MutableMap<String, Any?>?): Observable<BaseResp<Any>>
 
 
     /**
@@ -743,15 +754,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("MemberInfo/addPhotoWall${Constants.END_BASE_URL}")
     fun addPhotoWall(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MyPhotoBean?>>
-
-
-    /**
-     * 注册上传头像和相册
-     * moreMatchBean: MoreMatchBean? = null
-     */
-    @FormUrlEncoded
-    @POST("MemberInfo/registerAddPhoto${Constants.END_BASE_URL}")
-    fun registerAddPhoto(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MoreMatchBean?>>
 
 
     /**

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".ui.activity.PurchaseFootActivity">
 
     <View
@@ -12,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/shape_gradient_foot_cover"
-        app:layout_constraintBottom_toTopOf="@id/priceBg"
+        app:layout_constraintDimensionRatio="375:350"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,26 +35,30 @@
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
         android:text="软件内容为私人定制约会\n老用户邀请或购买邀请码才可进入"
         android:textColor="#ffffffff"
         android:textSize="14sp"
-        android:lineSpacingMultiplier="1.2"
-        app:layout_constraintBottom_toBottomOf="@id/coverBg"
+        app:layout_constraintBottom_toTopOf="@id/priceBg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/priceBg"
-        android:layout_width="325dp"
-        android:layout_height="91dp"
+        android:layout_width="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="325:91"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/icon_bg_foot_price"
-        app:layout_constraintBottom_toTopOf="@id/buyBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -110,32 +115,57 @@
 
 
     <TextView
+        android:id="@+id/t11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="今日剩余邀请码"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priceBg" />
+
+    <TextView
+        android:id="@+id/leftCodeTv"
+        android:layout_width="177dp"
+        android:layout_height="57dp"
+        app:layout_constraintTop_toBottomOf="@id/t11"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_background_13dp"
+        android:gravity="center"
+        android:textColor="#FFB6BCC6"
+        android:textSize="33sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="0/200" />
+
+    <TextView
         android:id="@+id/buyBtn"
         android:layout_width="255dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/shape_1ed0a7_29dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_button_29dp"
         android:gravity="center"
         android:text="购买邀请码"
         android:textColor="#ffffffff"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/whyPayBtn"
+        app:layout_constraintTop_toBottomOf="@id/leftCodeTv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/whyPayBtn"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/buyBtn"
         android:layout_width="255dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/shape_stroke_1ed0a7_29dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="为什么要付费"
         android:textColor="@color/colorAccent"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

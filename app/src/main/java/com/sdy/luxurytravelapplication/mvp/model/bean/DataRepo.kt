@@ -47,12 +47,25 @@ data class LoginOffCauseBean(
     var list: MutableList<String> = mutableListOf()
 )
 
+
+data class MyTapsBean(
+    var icon: String = "",
+    var id: Int = 0,
+    var use_cnt: Int = 0,
+    var title: String = "",
+    var child: ArrayList<MyTapsBean> = arrayListOf()
+) : IPickerViewData {
+    override fun getPickerViewText(): String {
+        return title
+    }
+}
+
 data class ExtraData(
     var birth: Int = 0,
     var city_name: String = "",
     var im_token: String = "",
     var isvip: Boolean = false,
-    var living_btn: Boolean = false,
+    var living_btn: Boolean = false,//  true  需要活体   false  不需要活体
     var supplement: Int = 0,
     var threshold: Boolean = false,
     var invite_code: Boolean = false,
@@ -305,6 +318,8 @@ data class ChargeWayBeans(
     val isdirect: Boolean = false,
     val direct_cnt: Int = 0,
     val same_sex_cnt: Int = 0,
+    val invite_code_all: Int = 0,
+    val invite_code_residue: Int = 0,
     val direct_vip_express: String = "",
     val isplatinum: Boolean = false,
     val platinum_save_str: String = "",
@@ -314,6 +329,8 @@ data class ChargeWayBeans(
     val experience_amount: String = "",
     val experience_time: String = ""
 )
+
+
 
 
 data class PayBean(
@@ -1214,17 +1231,14 @@ data class MyPhotoBean(
 
 
 data class MoreMatchBean(
-    var city_name: String = "",
-    var gender_str: String = "",
-    var people_amount: Int = 0,
-    var avatar: String = "",
     var nickname: String = "",
     var gender: Int = 0,
     var birth: Int = 0,
-    var force_vip: Boolean = false,
+    var avatar: String = "",
     var threshold: Boolean = false,
     var living_btn: Boolean = false,//  true  需要活体   false  不需要活体
     var isvip: Boolean = false,
+    var people_amount: Int = 0,
     var share_btn: String = ""//分享开关是否显示
 ) : Serializable
 

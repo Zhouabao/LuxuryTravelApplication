@@ -23,7 +23,6 @@ import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.LoginInfoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.Userinfo
 import com.sdy.luxurytravelapplication.mvp.presenter.LoginInfoPresenter
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import java.text.SimpleDateFormat
@@ -206,14 +205,7 @@ class RegisterInfoOneActivity :
         if (success) {
             setPersonalBean.apply {
                 UserManager.living_btn = this!!.living_btn
-                UserManager.savePersonalInfo(
-                    Userinfo(
-                        avatar,
-                        birth,
-                        gender,
-                        nickname
-                    )
-                )
+                RegisterInfoTwoActivity.start(this@RegisterInfoOneActivity)
             }
         }
 

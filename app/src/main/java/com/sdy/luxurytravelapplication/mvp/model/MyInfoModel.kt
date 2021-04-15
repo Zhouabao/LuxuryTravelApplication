@@ -29,7 +29,7 @@ class MyInfoModel : BaseModel(), MyInfoContract.Model {
         type: Int
     ): Observable<BaseResp<Any>> {
         params["photos"] = Gson().toJson(photos)
-        return RetrofitHelper.service.addPhotoV2(params)
+        return RetrofitHelper.service.savePersonalCandy(params)
     }
 
     override fun addPhotoWall(

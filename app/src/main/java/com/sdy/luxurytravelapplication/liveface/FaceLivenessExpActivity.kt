@@ -13,7 +13,6 @@ import com.baidu.idl.face.platform.listener.IInitCallback
 import com.baidu.idl.face.platform.model.ImageInfo
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
-import com.kongzue.dialog.v3.MessageDialog
 import com.kongzue.dialog.v3.WaitDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
@@ -46,13 +45,13 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
             requestCode: Int = -1
         ) {
 //            if (type == TYPE_LIVE_CAPTURE) {
-                if (requestCode != -1)
-                    (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
-                        requestCode,
-                        "type" to type
-                    )
-                else
-                    context1.startActivity<FaceLivenessExpActivity>("type" to type)
+            if (requestCode != -1)
+                (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
+                    requestCode,
+                    "type" to type
+                )
+            else
+                context1.startActivity<FaceLivenessExpActivity>("type" to type)
 //            } else {
 //                if (!UserManager.hasFaceUrl) {
 //                    MessageDialog.show(
@@ -302,6 +301,9 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
             when (type) {
                 TYPE_LIVE_CAPTURE -> { //活体检测提交成功
                     UserManager.living_btn = false
+                    it.data.apply {
+                        UserManager.savePersonalInfo(avatar, birth, gender, nickname)
+                    }
                     MainActivity.startToMain(this@FaceLivenessExpActivity)
                 }
 

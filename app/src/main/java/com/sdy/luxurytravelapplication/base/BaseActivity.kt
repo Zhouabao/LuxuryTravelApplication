@@ -92,7 +92,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * 是否使用 EventBus
      */
-    open fun useEventBus(): Boolean = false
+    open fun useEventBus(): Boolean = true
 
     /**
      * 是否需要显示 TipView
@@ -280,9 +280,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        if (mTipView.parent != null) {
-            mWindowManager.removeView(mTipView)
-        }
+//        if (this::mTipView.isInitialized && mTipView.parent != null) {
+//            mWindowManager.removeView(mTipView)
+//        }
     }
 
 }

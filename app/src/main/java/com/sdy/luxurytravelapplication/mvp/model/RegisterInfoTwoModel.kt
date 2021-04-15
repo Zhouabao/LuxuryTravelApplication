@@ -4,6 +4,7 @@ import com.sdy.luxurytravelapplication.base.BaseModel
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.RegisterInfoTwoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
+import com.sdy.luxurytravelapplication.mvp.model.bean.MyTapsBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterFileBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import io.reactivex.Observable
@@ -20,8 +21,7 @@ class RegisterInfoTwoModel : BaseModel(), RegisterInfoTwoContract.Model {
         return RetrofitHelper.service.setPersonal(params)
     }
 
-    override fun getRegisterProcessType(): Observable<BaseResp<RegisterFileBean>> {
-
-        return  RetrofitHelper.service.getRegisterProcessType()
+    override fun getRegisterProcessType(): Observable<BaseResp<MutableList<MyTapsBean>?>> {
+        return  RetrofitHelper.service.getManTaps(hashMapOf())
     }
 }

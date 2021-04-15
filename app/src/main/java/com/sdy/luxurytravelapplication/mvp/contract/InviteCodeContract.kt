@@ -13,20 +13,19 @@ import io.reactivex.Observable
  *    desc   :
  *    version: 1.0
  */
-interface PurchaseFootContract {
+interface InviteCodeContract {
     interface Presenter : IPresenter<View> {
-        fun getThreshold(params: HashMap<String, Any>)
-
+        fun checkCode(code: String)
 
     }
 
     interface View : IView {
-        fun getThresholdResult(chargeWayBeans: ChargeWayBeans)
+        fun checkCode(success: Boolean)
 
     }
 
     interface Model : IModel {
-        fun getThreshold(params: HashMap<String, Any>): Observable<BaseResp<ChargeWayBeans>>
+        fun checkCode(code: String): Observable<BaseResp<Any>>
 
     }
 }

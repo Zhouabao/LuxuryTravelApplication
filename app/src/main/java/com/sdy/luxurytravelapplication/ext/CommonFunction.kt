@@ -25,6 +25,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.callback.MyUMAuthCallback
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.event.CloseDialogEvent
+import com.sdy.luxurytravelapplication.event.CloseRegVipEvent
 import com.sdy.luxurytravelapplication.event.RefreshGoldEvent
 import com.sdy.luxurytravelapplication.glide.GlideEngine
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
@@ -38,6 +39,7 @@ import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.activity.CandyRechargeActivity
+import com.sdy.luxurytravelapplication.ui.activity.PurchaseFootActivity
 import com.sdy.luxurytravelapplication.ui.activity.VideoIntroduceActivity
 import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
@@ -71,6 +73,7 @@ object CommonFunction {
         NimUIKit.logout()
         NIMClient.getService(AuthService::class.java).logout()
         UserManager.clearLoginData()
+//        ActivityUtils.finishOtherActivities(WelcomeActivity::class.java,false)
         val intent = activity.intentFor<WelcomeActivity>().clearTask().newTask()
         activity.startActivity(intent)
     }
@@ -201,6 +204,12 @@ object CommonFunction {
      * 支付结果回调数据
      */
     fun payResultNotify(context: Context) {
+        if (ActivityUtils.getTopActivity() is PurchaseFootActivity) {
+            EventBus.getDefault().post(CloseRegVipEvent(true))
+        } else {
+
+
+
         EventBus.getDefault().post(CloseDialogEvent())
 
 //        if (ActivityUtils.getTopActivity() is VipCenterActivity) {
@@ -209,6 +218,7 @@ object CommonFunction {
             EventBus.getDefault().post(RefreshGoldEvent())
             EventBus.getDefault().post(CloseDialogEvent())
 //        }
+        }
 
 
     }

@@ -6,6 +6,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGetMoreMatchBinding
+import com.sdy.luxurytravelapplication.mvp.model.bean.MoreMatchBean
 import org.jetbrains.anko.startActivity
 
 /**
@@ -13,15 +14,16 @@ import org.jetbrains.anko.startActivity
  */
 class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
     companion object {
-        fun start(context: Context, peopleCnt: Int) {
-            context.startActivity<GetMoreMatchActivity>("peopleCnt" to peopleCnt)
+        fun start(context: Context, moreMatchBean: MoreMatchBean) {
+            context.startActivity<GetMoreMatchActivity>("moreMatchBean" to moreMatchBean)
         }
     }
 
+    private val moreMatchBean by lazy { intent.getSerializableExtra("moreMatchBean") as MoreMatchBean }
     override fun initData() {
         binding.userCnt.text = getString(
             R.string.user_cnt,
-            intent.getIntExtra("peopleCnt", 0),
+            moreMatchBean.people_amount,
             if (UserManager.gender == 1) {
                 "女性"
             } else
@@ -34,8 +36,8 @@ class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
     }
 
     override fun initView() {
-        ClickUtils.applySingleDebouncing(binding.nextBtn){
-            startActivity<GuideActivity>()
+        ClickUtils.applySingleDebouncing(binding.nextBtn) {
+            GuideActivity.start(this, moreMatchBean)
         }
     }
 
