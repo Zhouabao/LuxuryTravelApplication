@@ -5,7 +5,6 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.MyCollectionAndLikeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.SquareListBean
 import io.reactivex.Observable
 
 /**
@@ -16,6 +15,6 @@ import io.reactivex.Observable
  */
 class MyCollectionAndLikeModel : BaseModel(), MyCollectionAndLikeContract.Model {
     override fun getMySquare(params: HashMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>> {
-        return RetrofitHelper.service.aboutMeSquare(params)
+        return RetrofitHelper.service.myCollectionAndLike(params)
     }
 }

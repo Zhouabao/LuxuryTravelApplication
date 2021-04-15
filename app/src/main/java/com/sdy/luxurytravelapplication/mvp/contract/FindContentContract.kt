@@ -23,11 +23,11 @@ interface FindContentContract {
     }
 
     interface Presenter : IPresenter<View> {
-        fun squareEliteList(params: HashMap<String, Any>)
+        fun squareEliteList(params: HashMap<String, Any>,type:Int)
 //        fun checkBlock()
     }
 
     interface Model : IModel {
-        fun squareEliteList(params: HashMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+        fun squareEliteList(params: HashMap<String, Any>,type:Int): Observable<BaseResp<RecommendSquareListBean?>>
     }
 }

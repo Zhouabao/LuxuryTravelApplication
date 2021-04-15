@@ -46,8 +46,8 @@ class FindFragment :
     private val titles by lazy {
         arrayOf(
             getString(R.string.tab_recommend),
-            getString(R.string.tab_nearby),
-            getString(R.string.tab_sweet)
+            getString(R.string.near),
+            getString(R.string.newest)
         )
     }
 

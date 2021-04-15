@@ -1,7 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -12,7 +11,6 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
-import com.sdy.luxurytravelapplication.databinding.EmptyFriendLayoutBinding
 import com.sdy.luxurytravelapplication.databinding.FragmentFindContentBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewRecommendBannerBinding
 import com.sdy.luxurytravelapplication.mvp.contract.FindContentContract
@@ -32,6 +30,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     BaseMvpFragment<FindContentContract.View, FindContentContract.Presenter, FragmentFindContentBinding>(),
     FindContentContract.View, OnRefreshLoadMoreListener {
     override fun createPresenter(): FindContentContract.Presenter = FindContentPresenter()
+
     //    	1推荐 2附近 3最新 4喜欢  5我的点赞 6我的动态  7动态
     companion object {
         const val TYPE_RECOMMEND = 1
@@ -67,16 +66,14 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             findRv.layoutManager = manager
             findRv.adapter = adapter
 
-            //android 瀑布流
-            if (type == TYPE_RECOMMEND)
-                adapter.setHeaderView(initHeadBannerView())
+
             adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.isUseEmpty = false
         }
     }
 
     override fun lazyLoad() {
-        mPresenter?.squareEliteList(params)
+        mPresenter?.squareEliteList(params, type)
     }
 
     private fun initHeadBannerView(): View {
@@ -97,14 +94,14 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         page++
         params["page"] = page
-        mPresenter?.squareEliteList(params)
+        mPresenter?.squareEliteList(params, type)
 
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         page = 1
         params["page"] = page
-        mPresenter?.squareEliteList(params)
+        mPresenter?.squareEliteList(params, type)
     }
 
 
@@ -116,12 +113,16 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
         }
 
         if (binding.refreshFind.state != RefreshState.Loading) {
-            if ((data?.banner ?: mutableListOf()).size == 0) {
-                adapter.headerLayout?.isVisible = false
-            } else {
-                adapter.headerLayout?.isVisible = true
+            //android 瀑布流
+            if (type == TYPE_RECOMMEND && !data?.banner.isNullOrEmpty()) {
+                adapter.setHeaderView(initHeadBannerView())
                 topicAdapter.setNewInstance(data?.banner)
             }
+//            if ((data?.banner ?: mutableListOf()).size == 0) {
+//                adapter.headerLayout?.isVisible = false
+//            } else {
+//                adapter.headerLayout?.isVisible = true
+//            }
         }
         if (binding.refreshFind.state == RefreshState.Refreshing) {
             adapter.data.clear()

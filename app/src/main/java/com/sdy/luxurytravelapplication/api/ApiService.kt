@@ -61,7 +61,6 @@ interface ApiService {
     fun setPersonal(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SetPersonalBean>>
 
 
-
     /**
      * 推荐10个
      */
@@ -71,7 +70,7 @@ interface ApiService {
 
 
     /**
-     * 奢旅推荐页面
+     * 首页推荐
      */
     @FormUrlEncoded
     @POST("Home/recommendIndex${Constants.END_BASE_URL_v2}")
@@ -79,7 +78,14 @@ interface ApiService {
 
 
     /**
-     * 奢旅推荐页面
+     * 首页同城页面
+     */
+    @FormUrlEncoded
+    @POST("Home/theSameCity${Constants.END_BASE_URL_v2}")
+    fun theSameCity(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<IndexRecommendBean?>>
+
+    /**
+     * 首页奢旅圈
      */
     @FormUrlEncoded
     @POST("Sweetheart/indexListV5${Constants.END_BASE_URL_v2}")
@@ -90,7 +96,7 @@ interface ApiService {
      * 对方个人页数据
      */
     @FormUrlEncoded
-    @POST("MemberInfo/userInfoCandy${Constants.END_BASE_URL}")
+    @POST("MemberInfo/userInfoCandy${Constants.END_BASE_URL_v2}")
     fun getMatchUserInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MatchBean?>>
 
 
@@ -105,20 +111,38 @@ interface ApiService {
     /*****************************广场**********************************/
 
     /**
-     * 广场点赞/取消点赞
-     */
-    @FormUrlEncoded
-    @POST("square/squareLikes${Constants.END_BASE_URL}")
-    fun getSquareLike(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
-    /**
      * 推荐广场
      *
      */
     @FormUrlEncoded
     @POST("Square/squareEliteList${Constants.END_BASE_URL_v2}")
     fun squareEliteList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
+    /**
+     * 附近动态
+     *
+     */
+    @FormUrlEncoded
+    @POST("Square/squareNearly${Constants.END_BASE_URL_v2}")
+    fun squareNearly(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
+    /**
+     * 最新动态
+     *
+     */
+    @FormUrlEncoded
+    @POST("Square/squareNewestLists${Constants.END_BASE_URL_v2}")
+    fun squareNewestLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+
+    /**
+     * 广场点赞/取消点赞
+     */
+    @FormUrlEncoded
+    @POST("square/squareLikes${Constants.END_BASE_URL}")
+    fun getSquareLike(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
     /**
@@ -371,15 +395,11 @@ interface ApiService {
     fun addReport(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
     /**
      * 获取举报理由
      */
     @POST("OpenApi/getReportMsg${Constants.END_BASE_URL_v2}")
     fun getReportMsg(): Observable<BaseResp<MutableList<String>>>
-
-
-
 
 
     /**
@@ -395,8 +415,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Gift/upGiftMsgId${Constants.END_BASE_URL}")
     fun upGiftMsgId(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
     /*--------------------------------会员充值---------------------------------*/
@@ -422,8 +440,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Gift/refundGift${Constants.END_BASE_URL}")
     fun refundGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
     /**
@@ -457,9 +473,6 @@ interface ApiService {
     fun candyRechargeList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChargeWayBeans?>>
 
 
-
-
-
     /*******************************个人中心*****************************************/
     /**
      * 获取联系方式
@@ -484,20 +497,19 @@ interface ApiService {
 
 
     /**
-     * 我的动态
+     * 我的点赞 我
      */
     @FormUrlEncoded
     @POST("square/aboutMeSquareV13${Constants.END_BASE_URL}")
-    fun aboutMeSquare(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+    fun myCollectionAndLike(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
 
 
     /**
-     * 我的动态糖果版
+     * 我的动态
      */
     @FormUrlEncoded
     @POST("square/aboutMeSquareCandy${Constants.END_BASE_URL}")
     fun aboutMeSquareCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
-
 
 
     /**
@@ -531,8 +543,6 @@ interface ApiService {
     fun myCadny(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<PullWithdrawBean?>>
 
 
-
-
     /**
      * 提现
      */
@@ -559,15 +569,12 @@ interface ApiService {
     fun mySettings(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<SettingsBean?>>
 
 
-
     /**
      * 设置用户的短信/隐身/私聊接收状态
      */
     @FormUrlEncoded
     @POST("UserSet/switchSet${Constants.END_BASE_URL}")
     fun switchSet(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
     /**
@@ -594,8 +601,6 @@ interface ApiService {
     fun removeBlock(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
-
-
     /**
      * 屏蔽通讯录
      */
@@ -617,8 +622,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("OpenApi/getVersion${Constants.END_BASE_URL}")
     fun getVersion(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<VersionBean?>>
-
-
 
 
     /**
@@ -643,8 +646,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Relationship/greetSwitch${Constants.END_BASE_URL}")
     fun greetSwitch(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
-
-
 
 
     /*--------------------------------账号相关---------------------------------*/
@@ -696,7 +697,6 @@ interface ApiService {
     fun getCauseList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<LoginOffCauseBeans>>
 
 
-
     /**
      * 我的评论
      */
@@ -711,9 +711,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("MemberInfo/myVisitedList${Constants.END_BASE_URL_v2}")
     fun myVisitingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<VisitorBean>?>>
-
-
-
 
 
     /**
@@ -774,8 +771,6 @@ interface ApiService {
     ): Observable<BaseResp<MutableList<LabelQualityBean>?>>
 
 
-
-
     /**
      * 上传视频介绍
      */
@@ -789,8 +784,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Home/normalMv${Constants.END_BASE_URL}")
     fun normalMv(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CopyMvBean?>>
-
-
 
 
     /**
@@ -823,7 +816,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Tidings/aideSendMsg${Constants.END_BASE_URL}")
     fun aideSendMsg(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
-
 
 
 }

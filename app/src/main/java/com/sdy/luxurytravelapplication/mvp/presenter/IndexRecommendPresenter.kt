@@ -15,8 +15,8 @@ class IndexRecommendPresenter :
     BasePresenter<IndexRecommendContract.Model, IndexRecommendContract.View>(),
     IndexRecommendContract.Presenter {
     override fun createModel(): IndexRecommendContract.Model? = IndexRecommendModel()
-    override fun recommendIndex(params: HashMap<String, Any>) {
-        mModel?.recommendIndex(params)?.ssss {
+    override fun recommendIndex(params: HashMap<String, Any>,type:Int) {
+        mModel?.recommendIndex(params,type)?.ssss {
             mView?.recommendIndex(it.data)
         }
 

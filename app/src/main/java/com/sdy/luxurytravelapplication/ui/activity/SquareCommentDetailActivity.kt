@@ -45,6 +45,7 @@ import com.sdy.luxurytravelapplication.mvp.presenter.SquareCommentDetailPresente
 import com.sdy.luxurytravelapplication.ui.adapter.ListSquareImgsAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MultiListCommentAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareTitleAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.MoreActionNewDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.switchplay.SwitchUtil
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -389,7 +390,7 @@ class SquareCommentDetailActivity :
     private fun initAudio() {
         binding.audioCl.prepareAudio(
             squareBean!!.audio_json!!.get(0).url,
-            squareBean!!.audio_json!!.get(0).duration,autoPlay = true
+            squareBean!!.audio_json!!.get(0).duration, autoPlay = true
         )
     }
 
@@ -773,7 +774,80 @@ class SquareCommentDetailActivity :
         }
     }
 
+
+    /**
+     * 展示更多操作对话框
+     */
     private fun showMoreDialog() {
+        MoreActionNewDialog(
+            this,
+            squareBean,
+            shareCallback = object : MoreActionNewDialog.ShareCallBack {
+                override fun delete() {
+                    val params = hashMapOf<String, Any>("square_id" to squareBean!!.id!!)
+                    mPresenter?.removeMySquare(params)
+
+                }
+
+                override fun report() {
+//                    发起举报请求
+                    val params = hashMapOf<String, Any>(
+                        "type" to if (squareBean!!.iscollected == 0) {
+                            1
+                        } else {
+                            2
+                        },
+                        "square_id" to squareBean!!.id!!
+                    )
+                    mPresenter?.getSquareReport(params)
+                }
+
+            }).showDialog()
+//        moreActionDialog.show()
+//        val binding = moreActionDialog.binding
+//
+//        binding.apply {
+//            if (squareBean!!.accid == UserManager.accid) {
+//                delete.visibility = View.VISIBLE
+//                report.visibility = View.GONE
+//            } else {
+//                delete.visibility = View.GONE
+//                report.visibility = View.VISIBLE
+//            }
+//            delete.setOnClickListener {
+//                val params = hashMapOf<String, Any>("square_id" to squareBean!!.id!!)
+//                mPresenter?.removeMySquare(params)
+//                moreActionDialog.dismiss()
+//
+//            }
+//
+//            report.setOnClickListener {
+//                MessageDialog.show(
+//                    this@SquareCommentDetailActivity,
+//                    R.string.report_square,
+//                    R.string.report_square_title,
+//                    R.string.report,
+//                    R.string.cancel
+//                )
+//                    .setOnOkButtonClickListener { _, v ->
+//                        //发起举报请求
+//                        val params = hashMapOf<String, Any>(
+//                            "type" to if (squareBean!!.iscollected == 0) {
+//                                1
+//                            } else {
+//                                2
+//                            },
+//                            "square_id" to squareBean!!.id!!
+//                        )
+//                        mPresenter?.getSquareReport(params)
+//                        false
+//                    }
+//                    .setOnCancelButtonClickListener { _, v ->
+//                        false
+//                    }
+//            }
+//            moreActionDialog.dismiss()
+//        }
 
 
     }

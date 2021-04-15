@@ -41,7 +41,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.VideoIntroduceActivity"></activity>
+        <activity android:name=".ui.activity.ContactBookActivity"></activity>
+        <activity android:name=".ui.activity.VideoIntroduceActivity" />
         <activity android:name=".ui.activity.ChangeUserContactActivity" />
         <activity android:name=".ui.activity.NickNameActivity" />
         <activity android:name=".ui.activity.MyInfoActivity" />

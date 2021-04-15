@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_rectangle_white_top_15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/shareTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="分享到"
+        android:textColor="#ff191919"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <HorizontalScrollView
+        android:id="@+id/shareHsv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/transpondWechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:drawableTop="@drawable/icon_share_wechat"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/share_wechat_friend"
+                android:textColor="#FF888D92"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/transpondWechatZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableTop="@drawable/icon_share_wechat_circle"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/share_wechat_zone"
+                android:textColor="#FF888D92"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/transpondWebo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableTop="@drawable/icon_share_weibo"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/share_sina"
+                android:textColor="#FF888D92"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/transpondQQ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableTop="@drawable/icon_share_qq"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/contact_QQ"
+                android:textColor="#FF888D92"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/transpondQQZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:drawableTop="@drawable/icon_share_qq_zone"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/qqZone"
+                android:textColor="#FF888D92"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/shareHsvView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorDivider"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/transpondFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:drawableTop="@drawable/icon_share_friend"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="奢旅好友"
+            android:textColor="#FF888D92"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:drawableTop="@drawable/icon_share_copy"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/report"
+            android:textColor="#FF888D92"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:drawableTop="@drawable/icon_share_delete"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="#FF888D92"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

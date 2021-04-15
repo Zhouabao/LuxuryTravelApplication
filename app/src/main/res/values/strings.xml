@@ -26,7 +26,7 @@
     <string name="no_data">暂无数据</string>
     <string name="no_network">网络异常</string>
     <string name="no_network_tip">请检查网络后点击重新加载</string>
-    <string name="data_error">数据获取失败</string>
+    <string name="data_error">数据获取失败，点击重试</string>
     <string name="network_unavailable_tip">网络连接不可用,请检查网络设置!</string>
 
     <string name="location_is_not_available">位置服务未开启</string>
@@ -797,4 +797,17 @@
     <string name="share_sina">微博</string>
     <string name="qqZone">QQ空间</string>
     <string name="delete">删除</string>
+
+    <string name="copy_link">复制链接</string>
+    <string name="link_has_copy">分享链接已复制</string>
+    <string name="report_square">确认举报该条动态？</string>
+    <string name="search_contact">搜索联系人</string>
+    <string name="choose_friend">选择好友</string>
+    <string name="contact_book">通讯录</string>
+    <string name="assist">官方小助手</string>
+    <string name="send_to">发送给</string>
+    <string name="leave_message_to_friend">给朋友留言</string>
+    <string name="transpond_success">转发成功！</string>
+    <string name="near">附近</string>
+    <string name="newest">最新</string>
 </resources>

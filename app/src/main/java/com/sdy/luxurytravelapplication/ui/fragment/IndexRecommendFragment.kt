@@ -52,7 +52,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
     }
 
     override fun lazyLoad() {
-        mPresenter?.recommendIndex(params)
+        mPresenter?.recommendIndex(params,type)
     }
 
     override fun recommendIndex(indexRecommendBean: IndexRecommendBean?) {
@@ -89,7 +89,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
         } else {
             page++
             params["page"] = page
-            mPresenter?.recommendIndex(params)
+            mPresenter?.recommendIndex(params,type)
         }
     }
 
@@ -97,7 +97,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
         page = 1
         params["page"] = page
         refreshLayout.resetNoMoreData()
-        mPresenter?.recommendIndex(params)
+        mPresenter?.recommendIndex(params,type)
     }
 
 }

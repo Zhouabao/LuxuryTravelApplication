@@ -1250,6 +1250,9 @@ data class MyInviteBean(
     var now_amount: Int = 0,
     var invite_rule:String="",
     var invite_url:String="",
+    var invite_title:String="",
+    var invite_descr:String="",
+    var invite_pic:String="",
     var residue_cnt: Int = 0
 )
 

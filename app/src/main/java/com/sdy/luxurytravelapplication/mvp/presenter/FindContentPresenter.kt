@@ -14,9 +14,9 @@ import com.sdy.luxurytravelapplication.mvp.model.FindContentModel
 class FindContentPresenter : BasePresenter<FindContentContract.Model, FindContentContract.View>(),
     FindContentContract.Presenter {
 
-    override fun createModel(): FindContentContract.Model?  = FindContentModel()
-    override fun squareEliteList(params: HashMap<String, Any>) {
-        mModel?.squareEliteList(params)?.ssss(mView,false){
+    override fun createModel(): FindContentContract.Model? = FindContentModel()
+    override fun squareEliteList(params: HashMap<String, Any>, type: Int) {
+        mModel?.squareEliteList(params, type)?.ssss(mView, false) {
             if (it.code == 200) {
                 mView?.onGetSquareRecommendResult(it.data, true)
             } else {
