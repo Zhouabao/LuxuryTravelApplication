@@ -60,13 +60,14 @@ class IndexFragment :
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter
             titleIndex.setTabData(titles)
-            indexContent.adapter = MainPager2Adapter(activity!!, fragments)
-            indexContent.isUserInputEnabled = false
+            vpIndex.adapter = MainPager2Adapter(activity!!, fragments)
+            vpIndex.isUserInputEnabled = false
+            vpIndex.offscreenPageLimit = titles.size
 //            titleIndex.setTabData(titles, activity!!, R.id.indexContent, fragments)
             titleIndex.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     addLuxuryCl.isVisible = position == 2 && !isHoney && isInitialize
-                    indexContent.currentItem = position
+                    vpIndex.currentItem = position
                 }
 
                 override fun onTabReselect(position: Int) {
@@ -74,7 +75,7 @@ class IndexFragment :
 
             })
             titleIndex.currentTab = 0
-            indexContent.currentItem = 0
+            vpIndex.currentItem = 0
 
             ClickUtils.applySingleDebouncing(
                 arrayOf(addLuxuryBtn, tobeSelectedBtn),

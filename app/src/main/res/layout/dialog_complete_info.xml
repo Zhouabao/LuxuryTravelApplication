@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
@@ -8,30 +9,52 @@
     android:orientation="vertical"
     android:paddingBottom="20dp">
 
-    <ImageView
+    <com.sdy.luxurytravelapplication.widgets.RoundImageView
+        android:id="@+id/userAvator"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/icon_complete_info" />
+        android:src="@drawable/default_image_15dp"
+        app:borderRadius="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:type="round" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/icon_complete_info"
+        app:layout_constraintBottom_toBottomOf="@id/userAvator"
+        app:layout_constraintRight_toRightOf="@id/userAvator" />
 
 
     <TextView
+        android:id="@+id/t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="完善个人信息"
         android:textColor="#333333"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userAvator" />
 
     <TextView
+        android:id="@+id/completePercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="您目前个人信息未完善，请优先补充个人信息，\n信息填充率大于60%的用户才会对外优先展示"
+        android:text="@string/complete_precent"
         android:textColor="#ffb6bcc6"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t1" />
 
     <TextView
         android:id="@+id/completeInfoBtn"
@@ -43,7 +66,10 @@
         android:gravity="center"
         android:text="去完善"
         android:textColor="#ffffffff"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completePercent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

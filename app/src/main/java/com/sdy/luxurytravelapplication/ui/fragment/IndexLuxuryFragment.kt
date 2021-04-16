@@ -15,6 +15,7 @@ import com.sdy.luxurytravelapplication.mvp.contract.IndexLuxuryContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexLuxuryPresenter
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.adapter.IndexLuxuryAdapter
 import org.greenrobot.eventbus.EventBus
 
@@ -45,7 +46,6 @@ class IndexLuxuryFragment :
             refreshLuxury.setOnRefreshLoadMoreListener(this@IndexLuxuryFragment)
             luxuryRv.layoutManager =linearLayoutManager
             luxuryRv.adapter = adapter
-
             luxuryRv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)

@@ -31,36 +31,63 @@ class IndexRecommendAdapter :
 
             userNickname.text = item.nickname
             userSign.text = item.sign
+            userVideoIcon.isVisible = item.mv_btn
             GlideUtil.loadRoundImgCenterCrop(context, item.avatar, userAvatar, SizeUtils.dp2px(10f))
-            userVerifyLevel.isVisible = item.face_str.isNotEmpty()
-            userVerifyLevel.text = item.face_str
-            if (item.isfaced == 1) {
-                userVerifyLevel.setBackgroundResource(R.drawable.shape_rectangle_ffedb2_5dp)
-                userVerifyLevel.setTextColor(Color.parseColor("#FFFC9010"))
-                userVerifyLevel.setCompoundDrawablesWithIntrinsicBounds(
-                    context.resources.getDrawable(R.drawable.icon_luxury),
-                    null,
-                    null,
-                    null
-                )
-            } else {
-                userVerifyLevel.setBackgroundResource(R.drawable.shape_rectangle_fff0f2_5dp)
-                userVerifyLevel.setTextColor(Color.parseColor("#FFFF6B82"))
-                userVerifyLevel.setCompoundDrawablesWithIntrinsicBounds(
-                    context.resources.getDrawable(R.drawable.icon_index_beauty),
-                    null,
-                    null,
-                    null
-                )
+            userVerifyLevel.isVisible = item.face_type == 2 || item.face_type == 3
+            //	0没有认证 1活体 2 真人 3 颜值 4奢旅
+            when (item.face_type) {
+                3 -> {
+                    userVerifyLevel.isVisible = true
+                    userVerifyLevel.setBackgroundResource(R.drawable.shape_rectangle_ffedb2_5dp)
+                    userVerifyLevel.setTextColor(Color.parseColor("#FFFC9010"))
+                    userVerifyLevel.text = "颜值认证"
+                    userVerifyLevel.setCompoundDrawablesWithIntrinsicBounds(
+                        context.getDrawable(R.drawable.icon_beauty),
+                        null,
+                        null,
+                        null
+                    )
+                }
+                4 -> {
+                    userVerifyLevel.isVisible = true
+                    userVerifyLevel.setBackgroundResource(R.drawable.shape_rectangle_fff0f2_5dp)
+                    userVerifyLevel.setTextColor(Color.parseColor("#FFFF6B82"))
+                    userVerifyLevel.text = "奢旅圈"
+                    userVerifyLevel.setTextColor(Color.parseColor("#FFFC9010"))
+                    userVerifyLevel.setCompoundDrawablesWithIntrinsicBounds(
+                        context.getDrawable(R.drawable.icon_luxury),
+                        null,
+                        null,
+                        null
+                    )
+                }
+                else -> {
+                    userVerifyLevel.isVisible = false
+                }
+
             }
 
-
             if (item.gender == 1) {
-                userContact.isVisible = item.isplatinumvip
-                userContact.setImageResource(R.drawable.icon_index_vip)
+                userContact.isVisible = item.isplatinumvip || item.isdirectvip
+                if (item.isplatinumvip) {
+                    userContact.setImageResource(R.drawable.icon_index_vip)
+                } else {
+                    userContact.setImageResource(R.drawable.icon_vip_connnect)
+                }
             } else {
+                //联系方式  0  没有 1 电话 2微信 3 qq
                 userContact.isVisible = item.contact_way != 0
-                userContact.setImageResource(R.drawable.icon_index_wechat)
+                when (item.contact_way) {
+                    1 -> {
+                        userContact.setImageResource(R.drawable.icon_index_phone)
+                    }
+                    2 -> {
+                        userContact.setImageResource(R.drawable.icon_index_wechat)
+                    }
+                    3 -> {
+                        userContact.setImageResource(R.drawable.icon_index_qq)
+                    }
+                }
             }
 
             SpanUtils.with(userBasicInfo).append(item.distance)
@@ -98,7 +125,7 @@ class IndexRecommendAdapter :
                 .append(item.online_time)
                 .create()
 
-            ClickUtils.applySingleDebouncing(userAvatar) {
+            ClickUtils.applySingleDebouncing(root) {
                 TargetUserActivity.start(context, item.accid)
             }
 

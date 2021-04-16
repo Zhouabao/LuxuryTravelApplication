@@ -5,26 +5,28 @@ import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemTargetSmallPhotoBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
+import com.sdy.luxurytravelapplication.mvp.model.bean.UserPhotoBean
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
  * 对方个人页小图模式
  */
 class TargetSmallPhotoAdapter :
-    BaseBindingQuickAdapter<String, ItemTargetSmallPhotoBinding>(R.layout.item_target_small_photo) {
+    BaseBindingQuickAdapter<UserPhotoBean, ItemTargetSmallPhotoBinding>(R.layout.item_target_small_photo) {
     override fun convert(
         binding: ItemTargetSmallPhotoBinding,
         position: Int,
-        item: String
+        item: UserPhotoBean
     ) {
         binding.apply {
             GlideUtil.loadRoundImgCenterCrop(
                 context,
-                item,
+                item.avatar,
                 smallImg,
                 SizeUtils.dp2px(10F)
             )
-            checkedView.isVisible = position == 0
+            checkedView.isVisible = item.checked
+            videoLogo.isVisible = item.isVideo
         }
     }
 

@@ -91,7 +91,7 @@ class MainActivity :
                 this@MainActivity
             )
             vpMain.apply {
-                offscreenPageLimit = 5
+                offscreenPageLimit = fragments.size
                 isUserInputEnabled = false
                 adapter = MainPager2Adapter(this@MainActivity, fragments)
                 currentItem = 0

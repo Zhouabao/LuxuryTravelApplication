@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.google.android.flexbox.*
 import com.kongzue.dialog.v3.MessageDialog
@@ -23,18 +24,21 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityTargetUserBinding
-import com.sdy.luxurytravelapplication.databinding.EmptyFriendLayoutBinding
 import com.sdy.luxurytravelapplication.databinding.ItemTargetTopBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.TargetUserContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.MatchBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.UserPhotoBean
 import com.sdy.luxurytravelapplication.mvp.presenter.TargetUserPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.TargetBaseInfoAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.TargetBigPhotoAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.TargetSmallPhotoAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.VerifyLevelDescrDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.startActivity
 
 /**
@@ -78,6 +82,10 @@ class TargetUserActivity :
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     smallPhotosRv.smoothScrollToPosition(position)
+                    smallPhotoAdapter.data.forEach {
+                        it.checked = it == smallPhotoAdapter.data[position]
+                    }
+                    smallPhotoAdapter.notifyDataSetChanged()
                 }
             })
             smallPhotosRv.layoutManager =
@@ -85,6 +93,15 @@ class TargetUserActivity :
             smallPhotosRv.adapter = smallPhotoAdapter
             smallPhotoAdapter.setOnItemClickListener { _, view, position ->
                 bigPhotosRv.currentItem = position
+                smallPhotoAdapter.data.forEach {
+                    it.checked = it == smallPhotoAdapter.data[position]
+                }
+                smallPhotoAdapter.notifyDataSetChanged()
+
+            }
+
+            ClickUtils.applySingleDebouncing(problemBtn) {
+                VerifyLevelDescrDialog().show()
             }
         }
         return headBinding.root
@@ -95,6 +112,7 @@ class TargetUserActivity :
             mLayoutStatusView = root
             BarUtils.addMarginTopEqualStatusBarHeight(barlCl.root)
             barlCl.actionbarTitle.setTextColor(Color.WHITE)
+            barlCl.actionbarTitle.textSize = 13F
             barlCl.btnBack.setImageResource(R.drawable.icon_back_white)
             barlCl.rightIconBtn.isVisible = true
             barlCl.root.setBackgroundColor(Color.TRANSPARENT)
@@ -144,19 +162,118 @@ class TargetUserActivity :
             if (this@TargetUserActivity::matchBean.isInitialized) {
                 barlCl.actionbarTitle.text = matchBean.online_time
                 baseInfoAdapter.setNewInstance(matchBean.personal_info)
-                bigPhotoAdapter.setNewInstance(matchBean.photos)
-                smallPhotoAdapter.setNewInstance(matchBean.photos)
+                bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
+                    if (matchBean.mv_btn) {
+                        add(UserPhotoBean(true, matchBean.mv_url, true))
+                    }
+                    matchBean.photos.forEachWithIndex { index, s ->
+                        add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
+                    }
+                })
+
+                smallPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
+                    if (matchBean.mv_btn) {
+                        add(UserPhotoBean(true, matchBean.mv_url, true))
+                    }
+                    matchBean.photos.forEachWithIndex { index, s ->
+                        add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
+                    }
+                })
                 headBinding.apply {
                     nickName.text = matchBean.nickname
                     age.text = "${matchBean.age}岁"
                     distance.text = matchBean.distance
                     userSign.text = matchBean.sign
+                    if (matchBean.gender == 2) {
+                        userGender.setImageResource(R.drawable.icon_trget_gender_woman)
+                    } else {
+                        userGender.setImageResource(R.drawable.icon_trget_gender_man)
+                    }
                     if (matchBean.dating != null) {
-                        travelTitle.text = matchBean.dating!!.title
+                        matchBean.dating!!.apply {
+                            travelTitle.text = dating_title
+                            travelProvince.text = rise_province
+                            travelAddress.text = rise_city
+                            travelDestProvince.text = goal_province
+                            travelDestAddress.text = goal_city
+                            travelDescr.text = content
+                            ClickUtils.applySingleDebouncing(detailBtn) {
+                                TravelDetailActivity.start(this@TargetUserActivity, dating_id = id)
+                            }
+                        }
                         travelPlanCl.isVisible = true
                     } else {
                         travelPlanCl.isVisible = false
                     }
+
+                    //	0没有认证 1活体 2 真人 3 颜值 4奢旅
+                    when (matchBean.face_type) {
+                        2 -> {
+                            verifyCl.isVisible = true
+                            verifyTitle.text = "真人认证"
+                            verifyTitle.setTextColor(Color.parseColor("#FF1ED0A7"))
+                            t11.setCompoundDrawablesWithIntrinsicBounds(
+                                getDrawable(R.drawable.icon_real_people),
+                                null,
+                                null,
+                                null
+                            )
+                            verifyBtn.isVisible = false
+                        }
+                        3 -> {
+                            verifyCl.isVisible = true
+                            verifyTitle.text = "颜值认证"
+                            verifyTitle.setTextColor(Color.parseColor("#FFFF6B82"))
+                            t11.setCompoundDrawablesWithIntrinsicBounds(
+                                getDrawable(R.drawable.icon_beauty),
+                                null,
+                                null,
+                                null
+                            )
+                            verifyBtn.isVisible = false
+                        }
+                        4 -> {
+                            verifyCl.isVisible = true
+                            verifyTitle.text = "奢旅圈认证"
+                            verifyTitle.setTextColor(Color.parseColor("#FFFC9010"))
+                            t11.setCompoundDrawablesWithIntrinsicBounds(
+                                getDrawable(R.drawable.icon_luxury),
+                                null,
+                                null,
+                                null
+                            )
+                            verifyBtn.isVisible = true
+                        }
+                        else -> {
+                            verifyCl.isVisible = false
+                        }
+
+                    }
+
+                    //联系方式  0  没有 1 电话 2微信 3 qq
+                    if (matchBean.contact_way != 0) {
+                        contactBtn.isVisible = true
+                        when (matchBean.contact_way) {
+                            1 -> {
+                                contactWay.setImageResource(R.drawable.icon_target_phone)
+                            }
+                            2 -> {
+                                contactWay.setImageResource(R.drawable.icon_target_wechat)
+                            }
+                            3 -> {
+                                contactWay.setImageResource(R.drawable.icon_target_qq)
+                            }
+                        }
+                        ClickUtils.applySingleDebouncing(contactBtn) {
+                            CommonFunction.checkUnlockIntroduceVideo(
+                                this@TargetUserActivity,
+                                matchBean.accid
+                            )
+                        }
+                    } else {
+                        contactBtn.isVisible = false
+                    }
+
                 }
 
             }

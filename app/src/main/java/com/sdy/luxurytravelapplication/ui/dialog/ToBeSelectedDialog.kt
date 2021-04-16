@@ -3,13 +3,16 @@ package com.sdy.luxurytravelapplication.ui.dialog
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.DialogToBeSelectedBinding
-import com.sdy.luxurytravelapplication.ui.activity.ChooseVerifyActivity
+import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.glide.GlideUtil
+import com.sdy.luxurytravelapplication.ui.activity.VipChargeActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
-import org.jetbrains.anko.startActivity
 
 /**
  *    author : ZFM
@@ -47,21 +50,33 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
             binding.selectedTitle.text = "您已成为精选用户"
             binding.selectedContent.text = "已有20人通过精选用户看到了你"
             binding.tobeSelectedBtn.text = "谁看过我"
+            binding.selectedLogo.isVisible = true
+            GlideUtil.loadRoundImgCenterCrop(
+                context,
+                UserManager.avatar,
+                binding.userAvatar,
+                SizeUtils.dp2px(25F)
+            )
         } else {
             if (UserManager.gender == 1) {
                 binding.selectedTitle.text = "成为精选用户"
                 binding.selectedContent.text = "成为高级会员，让女生第一眼看到你"
                 binding.tobeSelectedBtn.text = "开通黄金会员"
+                //成为精选用户
+                ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
+                    VipChargeActivity.start(context)
+                    dismiss()
+                }
             } else {
                 binding.selectedTitle.text = "成为精选用户"
                 binding.selectedContent.text = "上传视频介绍，让优质男性用户第一眼就看到你"
                 binding.tobeSelectedBtn.text = "上传视频介绍"
+                //成为精选用户
+                ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
+                    CommonFunction.startToVideoIntroduce(context)
+                    dismiss()
+                }
             }
-        }
-        //成为精选用户
-        ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
-            context.startActivity<ChooseVerifyActivity>()
-            dismiss()
         }
 
 

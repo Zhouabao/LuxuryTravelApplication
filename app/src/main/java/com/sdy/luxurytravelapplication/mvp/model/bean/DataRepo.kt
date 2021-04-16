@@ -48,7 +48,6 @@ data class LoginOffCauseBean(
 )
 
 
-
 data class MyTapsBean(
     var child: ArrayList<String> = arrayListOf(),
     var `field`: String = "",
@@ -325,8 +324,6 @@ data class ChargeWayBeans(
     val experience_amount: String = "",
     val experience_time: String = ""
 )
-
-
 
 
 data class PayBean(
@@ -693,7 +690,6 @@ data class ProviceBean(
  * 匹配用户
  */
 data class MatchBean(
-    var intention_icon: String = "",
     var isvip: Int = 0,    //是否会员 true是 false不是
     var isdirectvip: Boolean = false,    //是否铂金会员 true是 false不是
     var isplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
@@ -707,29 +703,35 @@ data class MatchBean(
     var online_time: String = "",
     var gender: Int = 0,
     var nickname: String = "",
-    var contact_way: Int = 0,
+    var contact_way: Int = 0, //联系方式  0  没有 1 电话 2微信 3 qq
     var mv_btn: Boolean = false, //是否有视频
+    var mv_detail_url: String = "",
+    var mv_url: String = "",
+    var mv_faced: Boolean = false,
     var photos: ArrayList<String> = arrayListOf(),
     var sign: String = "",
     var constellation: String = "",
     var isfriend: Int = 0,
     var isblock: Int = 1,//1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
     var mycandy_amount: Int = 0,
-    var need_notice: Boolean = true,
-    var intention_title: String = "",
     var personal_info: MutableList<DetailUserInfoBean> = mutableListOf(),
     var birth: Int = 0,
     var assets_audit_way: Int = 0,
     val assets_audit_descr: String = "",
-    var approve_square_id: Int = 0,
-    var mv_url: String = "",
-    var mv_faced: Boolean = false,
+    var face_type: Int = 0,//	0没有认证 1活体 2 真人 3 颜值 4奢旅
+    var approve_square_id: Int = 0,//满足是face_type 为4的时侯可以查看动态详情
     var dating: DatingBean? = null,
-
-    var gift_list: MutableList<GiftBean> = mutableListOf(),
-    var label_quality: MutableList<LabelQuality> = mutableListOf()
-
+    var gift_list: MutableList<GiftBean> = mutableListOf()
 )
+
+/*用戶相冊*/
+data class UserPhotoBean(
+    var checked: Boolean,
+    var avatar: String,
+    var isVideo: Boolean = false,
+    var mv_detail_url: String = "" //针对视频
+)
+
 
 data class LabelQuality(
     var icon: String = "",
@@ -764,78 +766,44 @@ data class DetailUserInfoBean(
  */
 data class DatingBean(
     var accid: String = "",
-    var apply_cnt: Int = 0,
-    var city_name: String = "",
-    var content: String = "",
-    var icon: String = "",
-    var duration: Int = 0,
-    var content_type: Int = 0,
-    var cost_money: String = "",
-    var cost_type: String = "",
-    var dating_distance: String = "",
-    var private_chat_state: String = "",
-    var dating_target: String = "",
-    var dating_title: String = "",
-    var distance: String = "",
-    var follow_up: String = "",
-    var gender: Int = 0,
-    var isplatinumvip: Boolean = false,
-    var like_cnt: Int = 0,
-    var temp_like_cnt: Int = like_cnt,
-    var nickname: String = "",
-    var place: String = "",
-    var province_name: String = "",
-    var title: String = "",
     var avatar: String = "",
+    var content: String = "",
+    var content_type: Int = 0,
+    var dating_title: String = "",
+    var detail_address: String = "",
+    var duration: Int = 0,
+    var goal_city: String = "",
+    var goal_province: String = "",
     var id: Int = 0,
-    var is_hot: Boolean = false,
-    var type: Int = TYPE_WOMAN,
-
-    var dating_type: Int = 0,
-    var isliked: Boolean = false,
-    var online_time: String = "",
-    var tempLike: Boolean = isliked,
-    var ranking_level: Int = 0,
-    var show_type: Boolean = false,
-    override var itemType: Int = if (show_type) {
-        TYPE_WOMAN
-    } else {
-        TYPE_MAN
-    }
-) : MultiItemEntity {
-    companion object {
-        const val TYPE_WOMAN = 1
-        const val TYPE_MAN = 2
-    }
-}
+    var rise_city: String = "",
+    var rise_province: String = ""
+)
 
 
 /**
  * 首页数据
  */
 data class IndexBean(
+    var assets_audit_way: Int = 0,//0 不是甜心圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
+    var contact_way: Int = 0,//	0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
+    var face_type: Int = 0,  //	0没有认证 1活体 2 真人 3 颜值 4奢旅
     var accid: String = "",
     var age: Int = 0,
     var assets_audit_descr: String = "",
-    var assets_audit_way: Int = 0,//0 不是甜心圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
     var avatar: String = "",
     var constellation: String = "",
-    var contact_way: Int = 0,//	0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
+    var dating_content: String = "",
     var dating_title: String = "",
+    var detail_address: String = "",
     var direct_vip_expire: Int = 0,
     var distance: String = "",
-    var face_str: String = "",
     var gender: Int = 0,
-    var hb_time: Int = 0,
-    var intention_icon: String = "",
-    var intention_title: String = "",
     var invitation_id: Int = 0,
-    var is_platinum: Int = 0,
-    var isdirectvip: Boolean = false,
     var isfaced: Int = 0,
     var isfriend: Boolean = false,
     var ismv: Int = 0,
     var isplatinumvip: Boolean = false,
+    var isdirectvip: Boolean = false,
     var isvip: Boolean = false,
     var member_level: Int = 0,
     var mv_btn: Boolean = false,
@@ -849,7 +817,7 @@ data class IndexBean(
     var ranking_level: Int = 0,
     var sign: String = "",
     var title: String = "",
-    var want: MutableList<String> = mutableListOf()
+    var want: MutableList<String> = mutableListOf<String>()
 )
 
 data class IndexRecommendBean(
@@ -1158,8 +1126,6 @@ data class MyCommentBean(
 )
 
 
-
-
 /**
  * 个人中心信息
  */
@@ -1258,11 +1224,11 @@ data class MyInviteBean(
     var coin_all_amount: Int = 0,
     var invite_list: MutableList<Invite> = mutableListOf(),
     var now_amount: Int = 0,
-    var invite_rule:String="",
-    var invite_url:String="",
-    var invite_title:String="",
-    var invite_descr:String="",
-    var invite_pic:String="",
+    var invite_rule: String = "",
+    var invite_url: String = "",
+    var invite_title: String = "",
+    var invite_descr: String = "",
+    var invite_pic: String = "",
     var residue_cnt: Int = 0
 )
 
@@ -1270,3 +1236,60 @@ data class Invite(
     var accid: String = "",
     var avatar: String = ""
 )
+
+
+/**
+ * 糖果解锁验证
+ */
+data class UnlockCheckBean(
+    var isnew_friend: Boolean = false,
+    var isplatinumvip: Boolean = false,
+    var mv_url: String = "",
+    var amount: Int = 0
+)
+
+
+/*验证报名旅行*/
+data class CheckPublishDatingBean(
+    var is_publish: Boolean = false,
+    var dating_amount: Int = 0,//报名邀约糖果数
+    var isplatinum: Boolean = false,//是否黄金会员 true 是 false 不是
+    var private_chat: Boolean = false,//该邀约是否设置黄金会员访问 true设置 false没有设置
+    var residue_cnt: Int = 0,//	是否剩余免费次数
+    val datingId: Int,
+    val content: String,
+    val icon: String
+)
+
+/*报名旅行计划*/
+data class ApplyDatingBean(
+    val datingId: Int,
+    val title: String,
+    val content: String,
+    val icon: String
+)
+
+data class UnlockBean(
+    var isnew_friend: Boolean = false,
+    var contact_way: Int,
+    var contact_content: String
+)
+
+data class ChatUpBean(
+    var chat_amount: Int = 0,
+    var plat_cnt: Int = 0,
+    var online: Boolean = false,
+    var contact_amount: Int = 0,
+    var direct_residue_cnt: Int = 0,
+    var contact: String = "",
+    var contact_way: Int = 0,//联系方式 int 0 没有 1 手机 2微信 3 qq
+    var avatar: String = "",
+    var isplatinum: Boolean = false,
+    var ishoney: Boolean = false,
+    var isdirect: Boolean = false, //是否是直连卡
+    var vip_normal_cnt: Int = 0, //开通vip获得的聊天次数
+    var private_chat_btn: Boolean = false  //
+
+
+)
+

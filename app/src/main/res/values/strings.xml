@@ -814,4 +814,5 @@
     <string name="upload_clear_pic">上传清晰的本人照片作为头像会极大提高匹配率</string>
     <string name="take_picture">拍摄</string>
     <string name="choose_from_ablum">从相册选择</string>
+    <string name="complete_precent">您目前个人信息未完善，请优先补充个人信息，\n信息填充率大于%1$d\%的用户才会对外优先展示</string>
 </resources>

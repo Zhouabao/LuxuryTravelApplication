@@ -55,6 +55,7 @@ class FindFragment :
     override fun lazyLoad() {
         binding.apply {
             content.isUserInputEnabled = false
+            content.offscreenPageLimit = fragments.size
             content.adapter = MainPager2Adapter(activity!!, fragments)
             tabFind.setTabData(titles)
 //            tabFind.setTabData(titles, activity!!, R.id.content, fragments)
@@ -133,8 +134,6 @@ class FindFragment :
     }
 
 
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRePublishEvent(event: RePublishEvent) {
         if (UserManager.publishState == 1) {//正在发布中
@@ -188,7 +187,8 @@ class FindFragment :
         UserManager.publishState = 1
         LogUtils.e(UserManager.publishParams["comment"])
         val tempComment =
-            Gson().fromJson<ArrayList<String>>(UserManager.publishParams["comment"].toString(),
+            Gson().fromJson<ArrayList<String>>(
+                UserManager.publishParams["comment"].toString(),
                 object : TypeToken<ArrayList<String>>() {}.type
             )
         when {

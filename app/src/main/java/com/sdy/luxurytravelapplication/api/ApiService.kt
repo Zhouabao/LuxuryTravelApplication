@@ -324,6 +324,22 @@ interface ApiService {
     fun issuePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
+
+    /**
+     * 验证旅行报名
+     */
+    @FormUrlEncoded
+    @POST("Dating/checkDatingapply${Constants.END_BASE_URL}")
+    fun checkDatingapply(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckPublishDatingBean?>>
+
+    /**
+     * 报名旅行
+     */
+    @FormUrlEncoded
+    @POST("Dating/datingApply${Constants.END_BASE_URL}")
+    fun datingApply(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ApplyDatingBean?>>
+
+
     /******************************消息中心***********************************/
 
     /**
@@ -818,6 +834,51 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Tidings/aideSendMsg${Constants.END_BASE_URL}")
     fun aideSendMsg(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+    /**
+     * 验证解锁联系方式
+     *
+     */
+    @FormUrlEncoded
+    @POST("Home/checkContactV231${Constants.END_BASE_URL}")
+    fun checkUnlockContact(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChatUpBean?>>
+
+
+    /**
+     * 验证解锁视频介绍
+     */
+    @FormUrlEncoded
+    @POST("Candy/checkUnlockMvV231${Constants.END_BASE_URL}")
+    fun checkUnlockMv(hashMapOf: HashMap<String, String>): Observable<BaseResp<UnlockCheckBean?>>
+
+
+    /**
+     * 解锁联系方式
+     */
+    @FormUrlEncoded
+    @POST("Home/unlockContact${Constants.END_BASE_URL}")
+    fun unlockContact(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<UnlockBean?>>
+
+
+    /**
+     * 解锁聊天
+     */
+    @FormUrlEncoded
+    @POST("Home/unlockChat${Constants.END_BASE_URL}")
+    fun unlockChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<UnlockBean?>>
+
+
+
+    /**
+     *
+     * 验证解锁聊天
+     *
+     */
+    @FormUrlEncoded
+    @POST("Home/checkChatV231${Constants.END_BASE_URL}")
+    fun checkChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChatUpBean?>>
 
 
 }

@@ -81,10 +81,10 @@
 
     <ImageView
         android:id="@+id/userContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_marginLeft="5dp"
-        android:src="@drawable/icon_vip"
+        android:src="@drawable/icon_vip_connnect"
         app:layout_constraintLeft_toRightOf="@id/userVerifyLevel"
         app:layout_constraintTop_toTopOf="@id/userNickname" />
 

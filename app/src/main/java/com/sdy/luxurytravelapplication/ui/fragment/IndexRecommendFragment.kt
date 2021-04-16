@@ -12,7 +12,9 @@ import com.sdy.luxurytravelapplication.databinding.FragmentIndexRecommendBinding
 import com.sdy.luxurytravelapplication.mvp.contract.IndexRecommendContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexRecommendPresenter
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.adapter.IndexRecommendAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.CompleteInfoDialog
 
 
 /**
@@ -52,9 +54,10 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
     }
 
     override fun lazyLoad() {
-        mPresenter?.recommendIndex(params,type)
+        mPresenter?.recommendIndex(params, type)
     }
 
+    private var showComplete = false
     override fun recommendIndex(indexRecommendBean: IndexRecommendBean?) {
         if (indexRecommendBean == null) {
             if (binding.refreshIndex.state == RefreshState.Refreshing) {
@@ -79,6 +82,9 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
                 mLayoutStatusView?.showContent()
                 adapter.setNewInstance(indexRecommendBean.list)
             }
+            if (type == TYPE_RECOMMEND && indexRecommendBean.complete_percent < indexRecommendBean.complete_percent_normal && !showComplete) {
+                CompleteInfoDialog(indexRecommendBean.complete_percent_normal).show()
+            }
         }
 
     }
@@ -89,7 +95,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
         } else {
             page++
             params["page"] = page
-            mPresenter?.recommendIndex(params,type)
+            mPresenter?.recommendIndex(params, type)
         }
     }
 
@@ -97,7 +103,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
         page = 1
         params["page"] = page
         refreshLayout.resetNoMoreData()
-        mPresenter?.recommendIndex(params,type)
+        mPresenter?.recommendIndex(params, type)
     }
 
 }

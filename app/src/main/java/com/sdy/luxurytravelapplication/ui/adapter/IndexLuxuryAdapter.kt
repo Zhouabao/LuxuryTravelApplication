@@ -3,12 +3,16 @@ package com.sdy.luxurytravelapplication.ui.adapter
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ItemIndexLuxuryBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
@@ -23,9 +27,31 @@ class IndexLuxuryAdapter :
         binding.apply {
             onlineTime.text = item.online_time
             userNickname.text = item.nickname
+            userTravelPlace.isVisible = item.dating_title.isNotEmpty()
             userTravelPlace.text = item.dating_title
-            userContact.isVisible = item.contact_way != 0
+            if (UserManager.gender == 1) {
+                userContact.isVisible = item.isplatinumvip || item.isdirectvip
+                if (item.isplatinumvip) {
+                    userContact.setImageResource(R.drawable.icon_vip_connnect)
+                } else if (item.isdirectvip) {
+                    userContact.setImageResource(R.drawable.icon_vip_connnect)
+                }
+            } else {
+                userContact.isVisible = item.contact_way != 0
+                when (item.contact_way) {
+                    1 -> {
+                        userContact.setImageResource(R.drawable.icon_index_phone)
+                    }
+                    2 -> {
+                        userContact.setImageResource(R.drawable.icon_index_wechat)
+                    }
+                    3 -> {
+                        userContact.setImageResource(R.drawable.icon_index_qq)
+                    }
+                }
+            }
             SpanUtils.with(userBasicInfo).append(item.distance)
+                .setForegroundColor(context.resources.getColor(R.color.colorAccent))
                 .append(
                     if (item.distance.isNotEmpty()) {
                         "·"
@@ -55,7 +81,32 @@ class IndexLuxuryAdapter :
             userLabelRv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             val adapter = LuxuryBaseInfoAdapter()
             adapter.setNewInstance(item.want)
-            userLabelRv.adapter =adapter
+            userLabelRv.adapter = adapter
+
+            if (UserManager.gender == 2) {
+                if (item.contact_way != 0) {
+                    contactBtn.text = "获取联系方式"
+                    contactBtn.isVisible = true
+                    ClickUtils.applySingleDebouncing(contactBtn) {
+                        CommonFunction.checkUnlockContact(context, item.accid, item.gender)
+                    }
+
+                } else if (item.mv_btn) {
+                    contactBtn.text = "视频介绍"
+                    contactBtn.isVisible = true
+                    ClickUtils.applySingleDebouncing(contactBtn) {
+                        CommonFunction.checkUnlockIntroduceVideo(context, item.accid)
+                    }
+                } else {
+                    contactBtn.isVisible = false
+                }
+            } else {
+                contactBtn.isVisible = false
+            }
+
+            ClickUtils.applySingleDebouncing(root) {
+                TargetUserActivity.start(context, item.accid)
+            }
         }
     }
 }
