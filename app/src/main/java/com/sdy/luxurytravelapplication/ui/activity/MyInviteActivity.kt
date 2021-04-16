@@ -1,15 +1,9 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
-import android.graphics.Color
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.kongzue.dialog.util.TextInfo
-import com.kongzue.dialog.v3.MessageDialog
-import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMyInviteBinding
@@ -17,10 +11,8 @@ import com.sdy.luxurytravelapplication.mvp.contract.MyInviteContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.Invite
 import com.sdy.luxurytravelapplication.mvp.model.bean.MyInviteBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyInvitePresenter
-import com.sdy.luxurytravelapplication.nim.common.util.sys.ClipboardUtil
 import com.sdy.luxurytravelapplication.ui.adapter.InviteUserAvatorAdater
 import com.sdy.luxurytravelapplication.ui.dialog.MoreActionNewDialog
-import com.sdy.luxurytravelapplication.utils.ToastUtil
 
 /**
  * 我的邀请

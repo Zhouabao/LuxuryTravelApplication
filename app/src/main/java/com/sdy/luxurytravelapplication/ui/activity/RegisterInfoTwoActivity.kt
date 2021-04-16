@@ -72,7 +72,7 @@ class RegisterInfoTwoActivity :
                     binding.travelAim,
                     travelAims[0].child,
                     travelAims[0].title,
-                    "shelv_want_one"
+                    travelAims[0].field
                 )
             }
             binding.travelPatener -> {
@@ -80,15 +80,15 @@ class RegisterInfoTwoActivity :
                     binding.travelPatener,
                     travelAims[1].child,
                     travelAims[1].title,
-                    "shelv_want_two"
+                    travelAims[1].field
                 )
             }
             binding.travelKeepTime -> {
                 showPickerView(
                     binding.travelKeepTime,
                     travelAims[2].child,
-                    travelAims[1].title,
-                    "shelv_want_three"
+                    travelAims[2].title,
+                    travelAims[2].field
                 )
             }
             binding.nextBtn -> {
@@ -103,13 +103,13 @@ class RegisterInfoTwoActivity :
 
     private fun showPickerView(
         textview: TextView,
-        data: ArrayList<MyTapsBean>,
+        data: ArrayList<String>,
         title: String,
         paramName: String
     ) {
         KeyboardUtils.hideSoftInput(this)
         val pvOptions = OptionsPickerBuilder(this) { options1, _, _, _ ->
-            textview.text = data[options1].title
+            textview.text = data[options1]
             params[paramName] = data[options1]
             checkConfirmEnable()
         }
@@ -120,7 +120,7 @@ class RegisterInfoTwoActivity :
             .setCancelColor(resources.getColor(R.color.color_c6cad4))
             .setTitleSize(16)
             .setTitleBgColor(Color.WHITE)
-            .build<MyTapsBean>()
+            .build<String>()
         pvOptions.setPicker(data)
         pvOptions.show()
 
@@ -153,6 +153,11 @@ class RegisterInfoTwoActivity :
     override fun getRegisterProcessType(data: MutableList<MyTapsBean>) {
         if (data.isNotEmpty()) {
             travelAims.addAll(data)
+            binding.apply {
+                travelAim.hint = data[0].title
+                travelPatener.hint = data[1].title
+                travelKeepTime.hint = data[2].title
+            }
         }
 
     }

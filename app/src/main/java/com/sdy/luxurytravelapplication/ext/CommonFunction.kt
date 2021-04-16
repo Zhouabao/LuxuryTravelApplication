@@ -486,7 +486,9 @@ object CommonFunction {
         chooseMode: Int = 1,
         compress: Boolean = false,
         rotateEnable: Boolean = false,
-        cropEnable: Boolean = false
+        cropEnable: Boolean = false,
+        aspect_ratio_x: Int = 4,
+        aspect_ratio_y: Int = 5
     ) {
         // 裁剪主题
         val mCropParameterStyle = PictureCropParameterStyle(
@@ -503,7 +505,7 @@ object CommonFunction {
             .setPictureCropStyle(mCropParameterStyle) // 动态自定义裁剪主题
             .theme(R.style.picture_default_style)
 //            .cropImageWideHigh(4, 5)
-            .withAspectRatio(4, 5)
+            .withAspectRatio(aspect_ratio_x, aspect_ratio_y)
             .isAndroidQTransform(true)//是否需要处理Android Q 拷贝至应用沙盒的操作
             .compressSavePath(UriUtils.getCacheDir(context))
             .cameraFileName("${TimeUtils.getNowMills()}.png")

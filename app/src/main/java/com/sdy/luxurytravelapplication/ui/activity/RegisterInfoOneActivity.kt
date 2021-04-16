@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.kongzue.dialog.v3.MessageDialog
 import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
@@ -24,6 +25,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.LoginInfoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import com.sdy.luxurytravelapplication.mvp.presenter.LoginInfoPresenter
+import com.sdy.luxurytravelapplication.ui.dialog.UploadAvatorDialog
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,14 +67,8 @@ class RegisterInfoOneActivity :
     override fun onClick(v: View) {
         when (v) {
             binding.loginAvator -> {
-                CommonFunction.onTakePhoto(
-                    this,
-                    1,
-                    REQUEST_LOGIN_AVATOR,
-                    cropEnable = true,
-                    aspect_ratio_x = 1,
-                    aspect_ratio_y = 1
-                )
+                UploadAvatorDialog().show()
+
             }
             binding.loginBirthday -> {
                 showBirthdayPicker()
@@ -183,7 +179,8 @@ class RegisterInfoOneActivity :
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 //选择照片
-                REQUEST_LOGIN_AVATOR -> {
+                PictureConfig.CHOOSE_REQUEST,
+                PictureConfig.REQUEST_CAMERA -> {
                     if (data != null) {
                         avatarPath = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P
                             && !PictureSelector.obtainMultipleResult(data)[0].androidQToPath.isNullOrEmpty()

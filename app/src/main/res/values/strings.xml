@@ -810,4 +810,8 @@
     <string name="transpond_success">转发成功！</string>
     <string name="near">附近</string>
     <string name="newest">最新</string>
+    <string name="upload_img">上传照片</string>
+    <string name="upload_clear_pic">上传清晰的本人照片作为头像会极大提高匹配率</string>
+    <string name="take_picture">拍摄</string>
+    <string name="choose_from_ablum">从相册选择</string>
 </resources>

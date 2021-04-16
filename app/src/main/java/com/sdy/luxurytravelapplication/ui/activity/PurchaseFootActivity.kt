@@ -105,6 +105,7 @@ class PurchaseFootActivity :
                 .setBold()
                 .setStrikethrough()
                 .create()
+            binding.footNowPrice.typeface = Typeface.createFromAsset(assets, "DIN_Alternate_Bold.ttf")
             binding.footNowPrice.text = "¥${if (chargeWayBeans[0].type == 1) {
                 chargeWayBeans[0].original_price
             } else {

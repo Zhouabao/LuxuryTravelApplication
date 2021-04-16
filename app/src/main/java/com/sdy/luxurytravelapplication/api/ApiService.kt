@@ -42,7 +42,7 @@ interface ApiService {
      * 男性进入首页后获取想要的列表
      */
     @FormUrlEncoded
-    @POST("Home/getManTaps${Constants.END_BASE_URL}")
+    @POST("Home/getManTaps${Constants.END_BASE_URL_v2}")
     fun getManTaps(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<MyTapsBean>?>>
 
 

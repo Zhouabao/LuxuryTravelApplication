@@ -309,7 +309,7 @@ class VideoIntroduceActivity :
 
 
     private fun requestVideoPermissions() {
-        PermissionUtils.permission(
+        PermissionUtils.permissionGroup(
             PermissionConstants.STORAGE,
             PermissionConstants.CAMERA,
             PermissionConstants.MICROPHONE

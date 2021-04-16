@@ -48,17 +48,13 @@ data class LoginOffCauseBean(
 )
 
 
+
 data class MyTapsBean(
-    var icon: String = "",
-    var id: Int = 0,
-    var use_cnt: Int = 0,
-    var title: String = "",
-    var child: ArrayList<MyTapsBean> = arrayListOf()
-) : IPickerViewData {
-    override fun getPickerViewText(): String {
-        return title
-    }
-}
+    var child: ArrayList<String> = arrayListOf(),
+    var `field`: String = "",
+    var title: String = ""
+
+)
 
 data class ExtraData(
     var birth: Int = 0,
