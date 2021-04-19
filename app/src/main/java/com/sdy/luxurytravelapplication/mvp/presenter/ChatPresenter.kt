@@ -16,13 +16,13 @@ import com.sdy.luxurytravelapplication.mvp.model.ChatModel
 class ChatPresenter : BasePresenter<ChatContract.Model, ChatContract.View>(),
     ChatContract.Presenter {
     override fun createModel(): ChatContract.Model? = ChatModel()
-    override fun focus(target_accid: String, state: Int) {
-        mModel?.focus(target_accid, state)?.sss(mView, false, {
-            mView?.focusResult(true, state == 1)
-        }, {
-            mView?.focusResult(false, state == 1)
-        })
-    }
+//    override fun focus(target_accid: String, state: Int) {
+//        mModel?.focus(target_accid, state)?.sss(mView, false, {
+//            mView?.focusResult(true, state == 1)
+//        }, {
+//            mView?.focusResult(false, state == 1)
+//        })
+//    }
 
     override fun getTargetInfo(accid: String) {
         mModel?.getTargetInfo(accid)?.ssss(mView, true) {

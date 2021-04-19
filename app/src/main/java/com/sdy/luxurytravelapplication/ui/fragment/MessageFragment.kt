@@ -34,6 +34,8 @@ import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.api.model.contact.ContactChangedObserver
 import com.sdy.luxurytravelapplication.nim.api.model.main.OnlineStateChangeObserver
 import com.sdy.luxurytravelapplication.nim.api.model.user.UserInfoObserver
+import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment
+import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.activity.AccostListActivity
@@ -264,11 +266,11 @@ class MessageFragment :
                 while (iterator.hasNext()) {
                     val message = iterator.next()
                     val isSend = message.direct == MsgDirectionEnum.Out
-//                    if ((message.attachment is SendCustomTipAttachment && (message.attachment as SendCustomTipAttachment).ifSendUserShow != isSend)
-//                        || (message.attachment is ContactAttachment && message.direct == MsgDirectionEnum.Out)
-//                    ) {
-//                        NIMClient.getService(MsgService::class.java).deleteMsgSelf(message, "")
-//                    }
+                    if ((message.attachment is SendCustomTipAttachment && (message.attachment as SendCustomTipAttachment).ifSendUserShow != isSend)
+                        || (message.attachment is ContactAttachment && message.direct == MsgDirectionEnum.Out)
+                    ) {
+                        NIMClient.getService(MsgService::class.java).deleteMsgSelf(message, "")
+                    }
                 }
             }
         }

@@ -5,11 +5,17 @@ package com.sdy.luxurytravelapplication.nim.attachment;
  */
 public interface CustomAttachmentType {
     // 多端统一
-    int WarmingNotice = 7;//温馨提示
-    int Gift = 8;//礼物
-    int ShareSquare = 9;//动态分享
-    int ShareSquareAndroid = 1;//动态分享
-    int ShareWechat = 6;//微信号码发送
+    int ShareSquare = 1;//动态分享1
+    int Gift = 2;//礼物
+    int SendTip = 3; // 发送tip消息
+    int WishHelp = 4; // 心愿助力
+    int ChatContact = 5;// 联系方式
+    int AccostGift = 6;// 搭讪礼物
+    int ChatContactCandy = 7;// 联系方式赠送糖果
+    int ChatDating = 8;// 约会
+    int ChatUp = 9;// 搭讪语发送
+
+
 
 
     int RedPacket = -5;

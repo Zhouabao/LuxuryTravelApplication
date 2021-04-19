@@ -13,6 +13,57 @@
         android:background="#FFF6F7F9" />
 
 
+    <LinearLayout
+        android:id="@+id/unlockContactLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp">
+
+        <ImageView
+            android:id="@+id/contactIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/icon_wechat1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/she_left_contact_way"
+            android:textColor="#ff191919"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/unlockContactBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_green_14dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="3dp"
+            android:paddingRight="14dp"
+            android:paddingBottom="3dp"
+            android:text="@string/watch"
+            android:textColor="#ffffffff"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/closeContactBtn"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_close_light_gray"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
     <EditText
         android:id="@+id/editTextMessage"
         android:layout_width="match_parent"

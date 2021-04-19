@@ -5,23 +5,25 @@ import com.alibaba.fastjson.JSONObject
 /**
  *    author : ZFM
  *    date   : 2020/10/2011:29
- *    desc   :
+ *    desc   :搭讪语消息
  *    version: 1.0
  */
-class WarmingNoticeAttachment : CustomAttachment(CustomAttachmentType.WarmingNotice) {
-    var name: String = ""//appname
+class ChatUpAttachment(var chatUpContent: String = "") :
+    CustomAttachment(CustomAttachmentType.ChatUp) {
+
 
     companion object {
-        const val KEY_APPNAME = "name"
+        const val KEY_CHAT_UP_CONTENT = "chatUpContent"
+
     }
 
     override fun packData(): JSONObject {
         val data = JSONObject()
-        data.put("appname", name)
+        data[KEY_CHAT_UP_CONTENT] = chatUpContent
         return data
     }
 
     override fun parseData(data: JSONObject) {
-        name = data.getString(KEY_APPNAME)
+        chatUpContent = data.getString(KEY_CHAT_UP_CONTENT)
     }
 }

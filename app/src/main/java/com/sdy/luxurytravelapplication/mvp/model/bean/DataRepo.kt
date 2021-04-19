@@ -206,34 +206,47 @@ data class VideoJson(
 ) : Serializable
 
 
+data class ChatGiftStateBean(
+    var cate_type: Int = 0,//cate_type  1 礼物  2助力
+    var id: Int = 0,
+    var state: Int = 0//state  2领取  3过期
+)
 /**
  * 聊天获取用户信息
  */
 data class ChatInfoBean(
-    var accid: String = "",
-    var age: Int = 0,
-    var approve_chat_times: Int = 0,
+    var approve_time: Long = 0L,
     var avatar: String = "",
-    var gender: Int = 0,
-    var height: String = "",
     var isfriend: Boolean = false,
-    var isliked: Boolean = false,
-    var islimit: Boolean = false, //为true才限制,为false就让他发
-    var mv_url: Boolean = false,
-    var my_isfaced: Boolean = false,
-    var my_face_state: Int = 0,//  0 未认证  1认证   2审核中
-    var mv_url_state: Int = 0,//  0 未认证  1认证   2审核中
-    var nickname: String = "",
-    var has_face_url: Boolean = false,
+    var islimit: Boolean = false,
     var normal_chat_times: Int = 0,
-    var online_time: String = "",
-    var photo: List<String> = listOf(),
-    var profession: String = "",
-    var chat_expend_aomount: Int = 0,  //聊天消耗金币数目
-    var residue_msg_cnt: Int = 0,
+    var residue_msg_cnt: Int = 0,//剩余可发送的招呼消息次数
+    var matching_content: String = "",
+    var matching_icon: String = "",
+    var approve_chat_times: Int = 0,//认证后可聊天的人次数
+    var mv_state: Int = 0,//视频介绍0 没有 1 通过  2审核中
+    var my_gender: Int = 0,
+    var my_isfaced: Boolean = false,
+    var square_cnt: Int = 0,
     var stared: Boolean = false,
-    var istalk_btn: Boolean = false,//是否显示闪聊按钮
-    var weight: String = ""
+    var target_gender: Int = 0,
+    var target_isfaced: Boolean = false,
+    var both_gift_list: MutableList<ChatGiftStateBean> = mutableListOf(),
+    var is_send_msg: Boolean = false,
+    var chatup_amount: Int = 0,//搭讪支付的糖果
+    var lockbtn: Boolean = false,//	true 弹出解锁聊天 false不弹出
+    var force_isvip: Boolean = false,
+    var chat_expend_amount: Int = 0,//1要显示 2不显示
+    var chat_expend_time: Long = 0L,
+    var plat_cnt: Int = 0,//剩余的搭讪的次数
+    var isplatinum: Boolean = false,
+    var private_chat_state: Boolean = false,
+    var isdirect: Boolean = false,
+    var unlock_contact_way: Int = 0, //是否有联系方式
+    var unlock_popup_str: String = "", //	我是否被别人解锁弹框 大于0 弹框显示糖果数目
+    var is_unlock_contact: Boolean = false,//是否解锁过联系方式
+    var target_ishoney: Boolean = false//	true 是甜心圈 fals 不是甜心圈
+
 )
 
 /**
@@ -257,27 +270,32 @@ data class FocusBean(
 
 
 data class GetGiftBean(
-    var list: List<SendGiftBean> = listOf(),
+    var list: List<GiftBean> = listOf(),
     var my_coin_amount: Int = 0
 )
 
 
 data class CheckGreetBean(
     var contact_way: String = "",
-    var gift_list: ArrayList<SendGiftBean> = arrayListOf()
+    var gift_list: ArrayList<GiftBean> = arrayListOf()
+)
+data class SendGiftOrderBean(
+    var order_id: Int = 0,
+    var amount: Int = 0,
+    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf()
 )
 
 
 //礼物对象
-data class SendGiftBean(
-    var icon: String = "",
-    var title: String = "",
+data class GiftBean(
     var amount: Int = 0,
-    var order_id: Int = 0,
-    var checked: Boolean = false,
+    var count: Int = 0,
+    var icon: String = "",
     var id: Int = 0,
-    var status: Int = 0,
-    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf()
+    var min_amount: Int = 0,
+    var title: String = "",
+    var cnt: Int = 0,
+    var checked: Boolean = false
 )
 
 //本地发送的tip内容
@@ -740,19 +758,17 @@ data class LabelQuality(
 ) : Serializable
 
 
-/**
- * 礼物
- */
-data class GiftBean(
+
+
+/*查询礼物领取状态*/
+data class GiftStateBean(
     var amount: Int = 0,
-    var count: Int = 0,
+    var account_candy: Int = 0,
     var icon: String = "",
-    var id: Int = 0,
-    var min_amount: Int = 0,
-    var title: String = "",
-    var cnt: Int = 0,
-    var checked: Boolean = false
-) : Serializable
+    var state: Int = 0,
+    var title: String = ""
+)
+
 
 
 data class DetailUserInfoBean(

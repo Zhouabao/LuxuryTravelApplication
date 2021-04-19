@@ -6,7 +6,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.sdy.luxurytravelapplication.nim.api.model.recent.RecentCustomization;
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment;
-import com.sdy.luxurytravelapplication.nim.attachment.SendWechatAttachment;
+import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment;
 import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class DefaultRecentCustomization extends RecentCustomization {
                     return "[礼物消息]";
                 } else if (recent.getAttachment() instanceof ShareSquareAttachment) {
                     return "[动态分享消息]";
-                } else if (recent.getAttachment() instanceof SendWechatAttachment) {
+                } else if (recent.getAttachment() instanceof ContactAttachment) {
                     return "[联系方式消息]";
                 } else {
                     return "";

@@ -22,14 +22,14 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class ChatModel : BaseModel(), ChatContract.Model {
-    override fun focus(target_accid: String, state: Int): Observable<BaseResp<FocusBean>> {
-        return RetrofitHelper.service.memberFocus(
-            hashMapOf(
-                "target_accid" to target_accid,
-                "type" to state
-            )
-        )
-    }
+//    override fun focus(target_accid: String, state: Int): Observable<BaseResp<FocusBean>> {
+//        return RetrofitHelper.service.memberFocus(
+//            hashMapOf(
+//                "target_accid" to target_accid,
+//                "type" to state
+//            )
+//        )
+//    }
 
     override fun getTargetInfo(accid: String): Observable<BaseResp<ChatInfoBean>> {
         return RetrofitHelper.service.getTargetInfo(hashMapOf("target_accid" to accid))

@@ -10,6 +10,7 @@ import android.media.AudioManager
 import android.text.TextUtils
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils
@@ -19,16 +20,15 @@ import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.RequestCallback
-import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.MsgServiceObserve
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.attachment.VideoAttachment
+import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
-import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
 import com.netease.nimlib.sdk.msg.model.CustomNotification
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.netease.nimlib.sdk.msg.model.MessageReceipt
@@ -42,13 +42,14 @@ import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
 import com.sdy.luxurytravelapplication.mvp.presenter.ChatPresenter
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.api.model.contact.ContactChangedObserver
 import com.sdy.luxurytravelapplication.nim.api.model.main.OnlineStateChangeObserver
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
 import com.sdy.luxurytravelapplication.nim.api.model.user.UserInfoObserver
-import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
+import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment
 import com.sdy.luxurytravelapplication.nim.business.audio.MessageAudioControl
 import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.module.ModuleProxy
@@ -61,6 +62,8 @@ import com.sdy.luxurytravelapplication.nim.business.session.panel.MessageListPan
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
+import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
+import com.sdy.luxurytravelapplication.ui.dialog.VideoAddChatTimeDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -333,19 +336,6 @@ class ChatActivity :
         if (payload != null) {
             message.pushPayload = payload
         }
-
-        if (message.msgType != MsgTypeEnum.tip && message.msgType != MsgTypeEnum.notification && message.msgType != MsgTypeEnum.custom && expend_coin > 0) {
-            val extension =
-                if (message.localExtension.isNullOrEmpty()) hashMapOf<String, Any>() else message.localExtension
-            extension[COIN_RECEIVE_STATE] = SendGiftAttachment.STATUS_WAIT
-            message.localExtension = extension
-            // 添加金币超时时间 添加金币数目
-            val remoteExtension =
-                if (message.remoteExtension.isNullOrEmpty()) hashMapOf<String, Any>() else message.remoteExtension
-            remoteExtension[COIN_CNT] = expend_coin
-            remoteExtension[COIN_TIMEOUT_TIME] = deadline
-            message.remoteExtension = remoteExtension
-        }
     }
 
     fun appendPushConfigAndSend(message: IMMessage, deadline: Int, expend_coin: Int) {
@@ -517,12 +507,12 @@ class ChatActivity :
                 onBackPressed()
             }
             binding.barCl.rightIconBtn -> {
-                if (::chatInfoBean.isInitialized)
+                if (::nimBean.isInitialized)
                     MessageInfoActivity.start(
                         this,
                         sessionId,
-                        chatInfoBean.isfriend,
-                        chatInfoBean.stared
+                        nimBean.isfriend,
+                        nimBean.stared
                     )
             }
 
@@ -531,42 +521,16 @@ class ChatActivity :
 
 
     private fun canSendMsg(): Boolean {
-        if (::chatInfoBean.isInitialized && chatInfoBean.islimit) {
-            if (!chatInfoBean.my_isfaced || chatInfoBean.mv_url_state == 0) {
-                MessageDialog.show(
-                    this, getString(R.string.chat_cnt_use_up), if (!chatInfoBean.my_isfaced) {
-                        getString(R.string.to_get_more_by_verify)
-                    } else if (!chatInfoBean.mv_url) {
-                        getString(R.string.to_get_more_by_video)
-                    } else {
-                        getString(R.string.today_has_used_up)
-                    },
-                    getString(R.string.ok), getString(R.string.cancel)
-                ).setOnOkButtonClickListener { baseDialog, v ->
-//                    if (chatInfoBean.my_face_state == 0) {
-//                        if (chatInfoBean.has_face_url)
-//                            MyInfoActivity.start(this, true)
-//                        else
-//                            FaceLivenessExpActivity.startActivity(
-//                                this,
-//                                FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL
-//                            )
-//                    } else if (chatInfoBean.mv_url_state == 0) {
-//                        MyPowerActivity.start(this)
-//                    } else {
-//                        ToastUtil.toast("认证正在审核中，请等待")
-//                    }
-                    false
-                }
-                    .setOnCancelButtonClickListener { baseDialog, v ->
-                        false
-                    }
-                return false
-            } else {
-                return true
-            }
+        // 发起方并且次数为0 禁止发送
+        return if (nimBean.islimit) {
+            // 如果没有认证就弹认证才能聊天,如果认证了就查看是否添加了认证视频
+            if (!nimBean.my_isfaced)
+                VerifyAddChatDialog(this, nimBean.approve_chat_times).show()
+            else if (nimBean.mv_state == 0)
+                VideoAddChatTimeDialog(this).show()
+            false
         } else {
-            return true
+            true
         }
     }
 
@@ -688,40 +652,13 @@ class ChatActivity :
     }
 
 
-    override fun focusResult(success: Boolean, isfocus: Boolean) {
-        if (success) {
-            sendLikeTipMessage(sessionId ?: "", false)
-        }
-    }
-
-
-    fun sendLikeTipMessage(send_accid: String, isReceive: Boolean) {
-        if (!chatInfoBean.isliked) {
-            val tipMessage = MessageBuilder.createTipMessage(send_accid, SessionTypeEnum.P2P)
-            tipMessage.content = if (isReceive) {
-                getString(R.string.receive_like_tip)
-            } else {
-                getString(R.string.send_like_tip)
-            }
-            val confis = CustomMessageConfig()
-            confis.enableUnreadCount = false
-            tipMessage.config = confis
-            tipMessage.status = MsgStatusEnum.success
-            NIMClient.getService(MsgService::class.java).saveMessageToLocal(tipMessage, true)
-        }
-    }
-
-    private lateinit var chatInfoBean: ChatInfoBean
+    private lateinit var nimBean: ChatInfoBean
     override fun getTargetInfoResult(voiceBean: ChatInfoBean?, code: Int, msg: String) {
         when (code) {
             200 -> {
-                this.chatInfoBean = chatInfoBean
-                UserManager.isFaced = chatInfoBean.my_isfaced
-                UserManager.mvFaced = chatInfoBean.mv_url
-                UserManager.hasFaceUrl = chatInfoBean.has_face_url
+                this.nimBean = voiceBean!!
+                setTargetInfoData()
 
-                binding.barCl.actionbarTitle.text = chatInfoBean.nickname
-                messageListPanel.sendWarmingNotice(chatInfoBean.chat_expend_aomount)
 
             }
             409 -> {
@@ -731,7 +668,7 @@ class ChatActivity :
                     msg, getString(R.string.iknow)
                 )
                     .setOnOkButtonClickListener { _, v ->
-                        finish()
+                        CommonFunction.dissolveRelationshipLocal(sessionId)
                         false
                     }
             }
@@ -739,6 +676,99 @@ class ChatActivity :
                 ToastUtil.toast(msg)
             }
         }
+
+    }
+
+
+    /**
+     * 设置消息体制内的数据
+     * verifyLl
+     */
+    private var isSendChargePtVip = false // 是否发送过此条tip
+    private var isDirectIn = false // 是否存在回复消息
+    private var showSendGift = false // 显示过发送礼物
+
+    private fun setTargetInfoData() {
+        UserManager.showCandyMessage = nimBean.chat_expend_amount > 0
+        UserManager.showCandyTime = nimBean.chat_expend_time
+        // 显示提示认证的悬浮
+        if (nimBean.my_gender == 2 && (!nimBean.my_isfaced || nimBean.mv_state == 0)) {
+            binding.apply {
+                verifyLl.isVisible = true
+                if (!nimBean.my_isfaced) {
+                    gotoVerifyBtn.text = "立即认证"
+                    if (nimBean.residue_msg_cnt == nimBean.normal_chat_times) {
+                        leftChatTimes.text = getString(
+                            R.string.unverify_only_some_can_chat,
+                            nimBean.normal_chat_times
+                        )
+                    } else {
+                        leftChatTimes.text = getString(
+                            R.string.unverify_residue_count,
+                            nimBean.residue_msg_cnt
+                        )
+                    }
+                } else {
+                    gotoVerifyBtn.text = "视频介绍"
+                    leftChatTimes.text =
+                        getString(R.string.unverify_today_residue_count, nimBean.residue_msg_cnt)
+                }
+            }
+        } else {
+            binding.verifyLl.isInvisible = true
+        }
+
+        showLockChat()
+
+        //显示解锁联系方式
+        // 0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
+        binding.inputCl.apply {
+            if (nimBean.unlock_contact_way != 0 && !nimBean.is_unlock_contact) {
+                unlockContactLl.isVisible = true
+                when (nimBean.unlock_contact_way) {
+                    1 -> {
+                        contactIv.setImageResource(R.drawable.icon_contact_phone)
+                    }
+                    2 -> {
+                        contactIv.setImageResource(R.drawable.icon_contact_wechat)
+                    }
+                    3 -> {
+                        contactIv.setImageResource(R.drawable.icon_contact_qq)
+                    }
+                }
+            } else {
+                unlockContactLl.isVisible = false
+            }
+        }
+
+        messageListPanel.refreshMessageList()
+        if (nimBean.unlock_popup_str.isNotEmpty()) {
+//            ContactCandyReceiveDialog(sessionId, nimBean.getUnlock_popup_str(), this).show()
+            nimBean.unlock_popup_str = ""
+        }
+        if (!isChatWithRobot() && UserManager.gender == 2
+            && !nimBean.private_chat_state
+            && !isSendChargePtVip && messageListPanel.messageSize() > 0
+            && messageListPanel.items.last().direct == MsgDirectionEnum.In
+        ) {
+            val tips = arrayListOf<SendTipBean>()
+            tips.add(
+                SendTipBean(
+                    getString(R.string.hide_message_if_gold_vip), true,
+                    SendCustomTipAttachment.CUSTOME_TIP_PRIVICY_SETTINGS
+                )
+            )
+            CommonFunction.sendTips(sessionId, tips)
+            isSendChargePtVip = true
+        } else {
+            isSendChargePtVip = true
+        }
+
+    }
+
+    private fun showLockChat() {
+        //显示糖果聊天
+        binding.unlockChatLl.isVisible = nimBean.lockbtn
 
     }
 
@@ -825,15 +855,27 @@ class ChatActivity :
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSendLikeTipMessageEvent(event: SendLikeTipMessageEvent) {
-        sendLikeTipMessage(event.accid, event.isReceive)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateVerifyEvent(event: UpdateVerifyEvent) {
         if (!isChatWithRobot())
             mPresenter?.getTargetInfo(sessionId)
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateSendGiftEvent(event: UpdateSendGiftEvent) {
+        messageListPanel.onMsgSend(event.message)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun hideChatLlEvent(event: HideChatLlEvent) {
+        nimBean.lockbtn = false
+        showLockChat()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun hideContactLlEvent(event: HideContactLlEvent?) {
+        binding.inputCl.unlockContactLl.visibility = View.GONE
+        nimBean.is_unlock_contact = true
+    }
 }

@@ -436,19 +436,25 @@ interface ApiService {
     fun getReportMsg(): Observable<BaseResp<MutableList<String>>>
 
 
-    /**
-     * 赠送礼物
-     */
-    @FormUrlEncoded
-    @POST("Gift/giveGift${Constants.END_BASE_URL}")
-    fun giveGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendGiftBean>>
 
     /**
-     * 礼物发送成功 客户端回调上传绑定消息id
+     * /ppsns/MemberInfo/saveChatupMsg/v1.json 保存搭讪消息
      */
     @FormUrlEncoded
-    @POST("Gift/upGiftMsgId${Constants.END_BASE_URL}")
-    fun upGiftMsgId(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+    @POST("MemberInfo/saveChatupMsg${Constants.END_BASE_URL}")
+    fun saveChatupMsg(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     *
+     * 男性解锁搭讪聊天消息
+     *
+     */
+    @FormUrlEncoded
+    @POST("Ticket/lockChatup${Constants.END_BASE_URL}")
+    fun lockChatup(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
+
+
 
 
     /*--------------------------------会员充值---------------------------------*/
@@ -465,7 +471,33 @@ interface ApiService {
       */
     @FormUrlEncoded
     @POST("Gift/getGift${Constants.END_BASE_URL}")
-    fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckGreetBean>>
+    fun getGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendGiftOrderBean>>
+
+
+    /**
+     * 查询礼物领取状态
+     * Gift/checkGiftState
+     */
+    @FormUrlEncoded
+    @POST("Gift/checkGiftState${Constants.END_BASE_URL}")
+    fun checkGiftState(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<GiftStateBean?>>
+
+
+    /**
+     * 赠送礼物
+     */
+    @FormUrlEncoded
+    @POST("Gift/giveGift${Constants.END_BASE_URL}")
+    fun giveGift(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendGiftOrderBean>>
+
+    /**
+     * 礼物发送成功 客户端回调上传绑定消息id
+     */
+    @FormUrlEncoded
+    @POST("Gift/upGiftMsgId${Constants.END_BASE_URL}")
+    fun upGiftMsgId(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
 
 
     /**

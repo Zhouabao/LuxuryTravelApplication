@@ -22,35 +22,23 @@ public class CustomAttachParser implements MsgAttachmentParser {
             int type = object.getInteger(KEY_TYPE);
             JSONObject data = object.getJSONObject(KEY_DATA);
             switch (type) {
-                case CustomAttachmentType.Guess:
-                    attachment = new GuessAttachment();
-                    break;
-                case CustomAttachmentType.SnapChat:
-                    return new SnapChatAttachment(data);
-                case CustomAttachmentType.Sticker:
-                    attachment = new StickerAttachment();
-                    break;
-                case CustomAttachmentType.RedPacket:
-                    attachment = new RedPacketAttachment();
-                    break;
-                case CustomAttachmentType.OpenedRedPacket:
-                    attachment = new RedPacketOpenedAttachment();
-                    break;
-                case CustomAttachmentType.MultiRetweet:
-                    attachment = new MultiRetweetAttachment();
-                    break;
-                case CustomAttachmentType.WarmingNotice:
-                    attachment = new WarmingNoticeAttachment();
-                    break;
                 case CustomAttachmentType.ShareSquare:
-                case CustomAttachmentType.ShareSquareAndroid:
                     attachment = new ShareSquareAttachment();
+                    break;
+                case CustomAttachmentType.ChatDating:
+                    attachment = new ChatDatingAttachment();
                     break;
                 case CustomAttachmentType.Gift:
                     attachment = new SendGiftAttachment();
                     break;
-                case CustomAttachmentType.ShareWechat:
-                    attachment = new SendWechatAttachment();
+                case CustomAttachmentType.ChatContact:
+                    attachment = new ContactAttachment();
+                    break;
+                case CustomAttachmentType.SendTip:
+                    attachment = new SendCustomTipAttachment();
+                    break;
+                case CustomAttachmentType.ChatContactCandy:
+                    attachment = new ContactCandyAttachment();
                     break;
                 default:
                     attachment = new DefaultCustomAttachment();

@@ -18,6 +18,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMineBinding
 import com.sdy.luxurytravelapplication.event.UserCenterContactEvent
 import com.sdy.luxurytravelapplication.event.UserCenterEvent
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.UserInfoBean
@@ -304,7 +305,7 @@ class UserCenterFragment :
                 CandyRechargeActivity.gotoCandyRecharge(activity!!, CandyRechargeActivity.TYPE_MINE)
             }
             binding.isVipPowerBtn -> {//会员权益
-                VipChargeActivity.start(activity!!)
+                CommonFunction.startToVip(activity!!)
             }
             binding.addPowerBtn -> {//获取更多权益
                 startActivity<WomanPowerActivity>(

@@ -13,27 +13,35 @@ import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.LocalAntiSpamResult;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.sdy.luxurytravelapplication.R;
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit;
 import com.sdy.luxurytravelapplication.nim.api.model.recent.RecentCustomization;
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization;
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionEventListener;
 import com.sdy.luxurytravelapplication.nim.api.wrapper.NimMessageRevokeObserver;
+import com.sdy.luxurytravelapplication.nim.attachment.ChatDatingAttachment;
+import com.sdy.luxurytravelapplication.nim.attachment.ChatUpAttachment;
+import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment;
+import com.sdy.luxurytravelapplication.nim.attachment.ContactCandyAttachment;
 import com.sdy.luxurytravelapplication.nim.attachment.CustomAttachParser;
 import com.sdy.luxurytravelapplication.nim.attachment.RedPacketAttachment;
+import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment;
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment;
-import com.sdy.luxurytravelapplication.nim.attachment.SendWechatAttachment;
 import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment;
 import com.sdy.luxurytravelapplication.nim.attachment.StickerAttachment;
-import com.sdy.luxurytravelapplication.nim.attachment.WarmingNoticeAttachment;
 import com.sdy.luxurytravelapplication.nim.business.module.MsgRevokeFilter;
 import com.sdy.luxurytravelapplication.nim.business.session.actions.BaseAction;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderChatDating;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderChatUp;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderContact;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderContactCandy;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderSendCustomTip;
+import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderSendGift;
 import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderShareSquare;
 import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderTip;
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache;
-import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderSendGift;
-import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderSendWechat;
-import com.sdy.luxurytravelapplication.nim.business.session.viewholder.MsgViewHolderWarmingNotice;
+import com.sdy.luxurytravelapplication.nim.impl.customization.DefaultRecentCustomization;
 
 import java.util.ArrayList;
 
@@ -291,60 +299,47 @@ public class SessionHelper {
     }
 
     private static RecentCustomization getRecentCustomization() {
-//        if (recentCustomization == null) {
-//            recentCustomization = new DefaultRecentCustomization() {
-//
-//                @Override
-//                public String getDefaultDigest(RecentContact recent) {
-//                    switch (recent.getMsgType()) {
-//                        case avchat:
-//                            MsgAttachment attachment = recent.getAttachment();
-//                            AVChatAttachment avchat = (AVChatAttachment) attachment;
-//                            if (avchat.getState() == AVChatRecordState.Missed && !recent.getFromAccount().equals(
-//                                    NimUIKit.getAccount())) {
-//                                // 未接通话请求
-//                                StringBuilder sb = new StringBuilder("[未接");
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    sb.append("视频电话]");
-//                                } else {
-//                                    sb.append("音频电话]");
-//                                }
-//                                return sb.toString();
-//                            } else if (avchat.getState() == AVChatRecordState.Success) {
-//                                StringBuilder sb = new StringBuilder();
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    sb.append("[视频电话]: ");
-//                                } else {
-//                                    sb.append("[音频电话]: ");
-//                                }
-//                                sb.append(TimeUtil.secToTime(avchat.getDuration()));
-//                                return sb.toString();
-//                            } else {
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    return ("[视频电话]");
-//                                } else {
-//                                    return ("[音频电话]");
-//                                }
-//                            }
-//                    }
-//                    return super.getDefaultDigest(recent);
-//                }
-//            };
-//        }
+        if (recentCustomization == null) {
+            recentCustomization = new DefaultRecentCustomization() {
+
+                @Override
+                public String getDefaultDigest(RecentContact recent) {
+                    /*if (recent.getAttachment() instanceof ChatHiAttachment) {
+                        if (((ChatHiAttachment) recent.getAttachment())
+                                .getShowType() == ChatHiAttachment.CHATHI_CHATUP_FRIEND) {
+                            return DemoCache.getContext().getString(R.string.msg_unlock_chat);
+                        }
+
+                    } else*/ if (recent.getAttachment() instanceof ShareSquareAttachment) {
+                        return DemoCache.getContext().getString(R.string.msg_share_square);
+
+                    } else if (recent.getAttachment() instanceof SendGiftAttachment) {
+                        return DemoCache.getContext().getString(R.string.msg_candy_gift);
+                    }  else if (recent.getAttachment() instanceof SendCustomTipAttachment) {
+                        return ((SendCustomTipAttachment) recent.getAttachment()).getContent();
+                    } else if (recent.getAttachment() instanceof ContactCandyAttachment) {
+                        return DemoCache.getContext().getString(R.string.msg_unlock_contact);
+                    }
+                    return super.getDefaultDigest(recent);
+                }
+            };
+        }
         return recentCustomization;
     }
 
 
     private static void registerViewHolders() {
-        NimUIKit.registerMsgItemViewHolder(WarmingNoticeAttachment.class, MsgViewHolderWarmingNotice.class);
-        NimUIKit.registerMsgItemViewHolder(ShareSquareAttachment.class, MsgViewHolderShareSquare.class);
+//        NimUIKit.registerMsgItemViewHolder(AccostGiftAttachment.class, MsgViewHolderAccostGift.class);
+//        NimUIKit.registerMsgItemViewHolder(ChatHiAttachment.class, MsgViewHolderChatHi.class);
+        NimUIKit.registerMsgItemViewHolder(ChatDatingAttachment.class, MsgViewHolderChatDating.class);
+        NimUIKit.registerMsgItemViewHolder(ChatUpAttachment.class, MsgViewHolderChatUp.class);
+        NimUIKit.registerMsgItemViewHolder(ContactCandyAttachment.class, MsgViewHolderContactCandy.class);
         NimUIKit.registerMsgItemViewHolder(SendGiftAttachment.class, MsgViewHolderSendGift.class);
-        NimUIKit.registerMsgItemViewHolder(SendWechatAttachment.class, MsgViewHolderSendWechat.class);
-//        NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
-//        NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
-//        NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
-//        NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
+        NimUIKit.registerMsgItemViewHolder(SendCustomTipAttachment.class, MsgViewHolderSendCustomTip.class);
+        NimUIKit.registerMsgItemViewHolder(ShareSquareAttachment.class, MsgViewHolderShareSquare.class);
+        NimUIKit.registerMsgItemViewHolder(ContactAttachment.class, MsgViewHolderContact.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
+
     }
 
 

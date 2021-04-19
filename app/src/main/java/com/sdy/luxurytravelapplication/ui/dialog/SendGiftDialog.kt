@@ -10,14 +10,23 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.kongzue.dialog.v3.MessageDialog
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.RequestCallback
+import com.netease.nimlib.sdk.msg.MessageBuilder
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogSendGiftBinding
 import com.sdy.luxurytravelapplication.event.CloseDialogEvent
 import com.sdy.luxurytravelapplication.event.UpdateChatCallGiftEvent
+import com.sdy.luxurytravelapplication.event.UpdateSendGiftEvent
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
+import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.ui.activity.CandyRechargeActivity
@@ -56,10 +65,10 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
 
     private val sendGiftAdapter by lazy { SendGiftBannerAdapter() }
 
-    private val datas by lazy { arrayListOf<List<SendGiftBean>>() }
+    private val datas by lazy { arrayListOf<List<GiftBean>>() }
 
     private val gifts by lazy {
-        arrayListOf<SendGiftBean>()
+        arrayListOf<GiftBean>()
     }
 
     private fun initView() {
@@ -70,7 +79,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                 targetAvatar
             )
             targetNickname.text = UserInfoHelper.getUserName(container.account)
-            (vpGift as BannerViewPager<List<SendGiftBean>>).apply {
+            (vpGift as BannerViewPager<List<GiftBean>>).apply {
                 adapter = sendGiftAdapter
                 setOnPageClickListener { clickedView, position ->
                     ToastUtil.toast("${position}")
@@ -78,7 +87,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
             }.create(datas)
 
             ClickUtils.applySingleDebouncing(giveBtn) {
-                var giftBean: SendGiftBean? = null
+                var giftBean: GiftBean? = null
                 out@ for (data in datas) {
                     for (gift in data) {
                         if (gift.checked) {
@@ -101,12 +110,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                     )
                         .setOnOkButtonClickListener { _, v ->
                             CandyRechargeActivity.gotoCandyRecharge(ActivityUtils.getTopActivity())
-//                 CommonFunction.sendGift(
-//                     container.account,
-//                     giftBean,
-//                     SendGiftAttachment.GIFT_TYPE_NORMAL,
-//                     container
-//                 )
+                            sendGift(giftBean)
                             false
                         }
                         .setOnCancelButtonClickListener { _, v ->
@@ -129,7 +133,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                 SpanUtils.with(binding.goldAmount)
                     .append("${it.data.my_coin_amount}")
                     .append("\t\t充值")
-                    .setClickSpan(object :ClickableSpan(){
+                    .setClickSpan(object : ClickableSpan() {
                         override fun onClick(widget: View) {
                             CandyRechargeActivity.gotoCandyRecharge(context)
                         }
@@ -150,7 +154,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                     datas.add(gifts.subList(index * 8, (index + 1) * 8))
                 }
             }
-            (binding.vpGift as BannerViewPager<List<SendGiftBean>>).refreshData(datas)
+            (binding.vpGift as BannerViewPager<List<GiftBean>>).refreshData(datas)
         }
     }
 
@@ -162,14 +166,81 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
                 gift.checked = gift.title == event.giftbean.title
             }
         }
-        (binding.vpGift as BannerViewPager<List<SendGiftBean>>).refreshData(datas)
+        (binding.vpGift as BannerViewPager<List<GiftBean>>).refreshData(datas)
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun closeDialogEvent(event: CloseDialogEvent) {
-        dismiss()
+
+
+    fun sendGift(giftName: GiftBean) {
+        val params = hashMapOf<String, Any>()
+        params["target_accid"] = container.account
+        params["gift_id"] = giftName.id
+        RetrofitHelper.service
+            .giveGift(params)
+            .ssss { t ->
+                if (t.code == 200) {
+                    sendGiftMessage(t.data.order_id)
+                    ToastUtil.toast(t.msg)
+                } else if (t.code == 419) {
+                    MessageDialog.show(
+                        ActivityUtils.getTopActivity() as AppCompatActivity,
+                        "提示",
+                        "您账户内旅券不足，请充值后再试",
+                        "立即充值",
+                        "取消"
+                    ).setOnOkButtonClickListener { _, v ->
+                        CommonFunction.gotoCandyRecharge(container.activity)
+                        false
+                    }.setOnCancelButtonClickListener { _, v ->
+                        false
+                    }
+
+
+                } else {
+                    ToastUtil.toast(t.msg)
+                }
+            }
+
     }
+
+
+    private fun sendGiftMessage(orderId: Int) {
+        val config = CustomMessageConfig()
+        config.enableUnreadCount = true
+        config.enablePush = false
+        val shareSquareAttachment =
+            SendGiftAttachment(orderId, SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL)
+        val message = MessageBuilder.createCustomMessage(
+            container.account,
+            SessionTypeEnum.P2P,
+            "",
+            shareSquareAttachment,
+            config
+        )
+        NIMClient.getService(MsgService::class.java).sendMessage(message, false)
+            .setCallback(object :
+                RequestCallback<Void?> {
+                override fun onSuccess(param: Void?) {
+                    //更新消息列表
+                    EventBus.getDefault().post(UpdateSendGiftEvent(message))
+                    //关闭自己的弹窗
+                    dismiss()
+                    //关闭礼物弹窗
+                    EventBus.getDefault().post(CloseDialogEvent())
+
+                }
+
+                override fun onFailed(code: Int) {
+                    dismiss()
+                }
+
+                override fun onException(exception: Throwable) {
+
+                }
+            })
+    }
+
 
     override fun show() {
         super.show()
@@ -182,4 +253,9 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
     }
 
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun closeDialogEvent(event: CloseDialogEvent) {
+        dismiss()
+    }
 }

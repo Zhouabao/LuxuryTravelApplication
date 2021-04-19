@@ -2,8 +2,10 @@ package com.sdy.luxurytravelapplication.ext
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.TimeUtils
@@ -21,38 +23,35 @@ import com.netease.nimlib.sdk.msg.attachment.MsgAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.callback.MyUMAuthCallback
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.event.CloseDialogEvent
-import com.sdy.luxurytravelapplication.event.CloseRegVipEvent
-import com.sdy.luxurytravelapplication.event.RefreshGoldEvent
+import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.glide.GlideEngine
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.DatingBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
-import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
-import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment
-import com.sdy.luxurytravelapplication.nim.business.module.Container
+import com.sdy.luxurytravelapplication.nim.attachment.*
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
-import com.sdy.luxurytravelapplication.ui.activity.CandyRechargeActivity
-import com.sdy.luxurytravelapplication.ui.activity.PurchaseFootActivity
-import com.sdy.luxurytravelapplication.ui.activity.VideoIntroduceActivity
-import com.sdy.luxurytravelapplication.ui.activity.WelcomeActivity
+import com.sdy.luxurytravelapplication.ui.activity.*
+import com.sdy.luxurytravelapplication.ui.dialog.*
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.utils.UriUtils
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
+import org.jetbrains.anko.startActivity
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.ParseException
@@ -95,59 +94,59 @@ object CommonFunction {
         RetrofitHelper.service.checkChat(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
                 loading.doDismiss()
-//                when (t.code) {
-//                    200 -> {
-//                        if (t.data != null)
-//                            ChatUpOpenPtVipDialog(
-//                                context1,
-//                                target_accid,
-//                                ChatUpOpenPtVipDialog.TYPE_CHAT,
-//                                t.data!!
-//                            ).show()
-//                    }
-//                    201 -> {//开通门槛会员
-//                        PurchaseFootActivity.start(context1)
-//                    }
-//                    206 -> {
-//                        if (ActivityUtils.getTopActivity() !is ChatActivity) {
-//                            ChatActivity.start(context1, target_accid)
-//                        } else {
-//                            EventBus.getDefault().post(HideChatLlEvent())
-//                        }
-//                    }
-//                    207 -> { //女性对男性搭讪
-//                        //随机发送一条招呼文本消息
-//                        val chatUpAttachment = ChatUpAttachment(t.msg)
-//                        val msg = MessageBuilder.createCustomMessage(
-//                            target_accid,
-//                            SessionTypeEnum.P2P,
-//                            chatUpAttachment
-//                        )
-//
-//                        NIMClient.getService(MsgService::class.java).sendMessage(msg, false)
-//                            .setCallback(object : RequestCallback<Void> {
-//                                override fun onSuccess(p0: Void?) {
-//                                    if (ActivityUtils.getTopActivity() !is ChatActivity)
-//                                        Handler().postDelayed({
-//                                            ChatActivity.start(context1, target_accid)
-//                                        }, 500L)
-//                                }
-//
-//                                override fun onFailed(p0: Int) {
-//                                }
-//
-//                                override fun onException(p0: Throwable?) {
-//                                }
-//
-//                            })
-//                    }
-//                    400 -> {
-//                        ToastUtil.toast(t.msg)
-//                    }
-//                    401 -> {//女性未认证
-//                        VerifyThenChatDialog(context1).show()
-//                    }
-//                }
+                when (t.code) {
+                    200 -> {
+                        if (t.data != null)
+                            ChatUpOpenPtVipDialog(
+                                context1,
+                                target_accid,
+                                ChatUpOpenPtVipDialog.TYPE_CHAT,
+                                t.data!!
+                            ).show()
+                    }
+                    201 -> {//开通门槛会员
+                        PurchaseFootActivity.start(context1)
+                    }
+                    206 -> {
+                        if (ActivityUtils.getTopActivity() !is ChatActivity) {
+                            ChatActivity.start(context1, target_accid)
+                        } else {
+                            EventBus.getDefault().post(HideChatLlEvent())
+                        }
+                    }
+                    207 -> { //女性对男性搭讪
+                        //随机发送一条招呼文本消息
+                        val chatUpAttachment = ChatUpAttachment(t.msg)
+                        val msg = MessageBuilder.createCustomMessage(
+                            target_accid,
+                            SessionTypeEnum.P2P,
+                            chatUpAttachment
+                        )
+
+                        NIMClient.getService(MsgService::class.java).sendMessage(msg, false)
+                            .setCallback(object : RequestCallback<Void> {
+                                override fun onSuccess(p0: Void?) {
+                                    if (ActivityUtils.getTopActivity() !is ChatActivity)
+                                        Handler().postDelayed({
+                                            ChatActivity.start(context1, target_accid)
+                                        }, 500L)
+                                }
+
+                                override fun onFailed(p0: Int) {
+                                }
+
+                                override fun onException(p0: Throwable?) {
+                                }
+
+                            })
+                    }
+                    400 -> {
+                        ToastUtil.toast(t.msg)
+                    }
+                    401 -> {//女性未认证
+                        VerifyThenChatDialog(context1).show()
+                    }
+                }
             }
 
     }
@@ -167,69 +166,69 @@ object CommonFunction {
             .checkUnlockContact(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
                 loading.doDismiss()
-//                when (t.code) {
-//                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
-//                        ChatUpOpenPtVipDialog(
-//                            context,
-//                            target_accid,
-//                            ChatUpOpenPtVipDialog.TYPE_CONTACT,
-//                            t.data!!
-//                        ).show()
-//                    }
-//
-//                    201 -> {
-//                        PurchaseFootActivity.start(context)
-//                    }
-//                    222 -> {
-//                        if (ActivityUtils.getTopActivity() !is ChatActivity)
-//                            Handler().postDelayed({
-//                                ChatActivity.start(context, target_accid)
-//                            }, 500L)
-//                    }
-//
-//                    207 -> { //女性解锁男性聊天方式
-//                        if (ActivityUtils.getTopActivity() !is ChatActivity)
-//                            if (t.msg.isNullOrEmpty()) {
-//                                Handler().postDelayed({
-//                                    ChatActivity.start(context, target_accid)
-//                                }, 500L)
-//                            } else {
-//                                //随机发送一条招呼文本消息
-//                                val chatUpAttachment = ChatUpAttachment(t.msg)
-//                                val msg = MessageBuilder.createCustomMessage(
-//                                    target_accid,
-//                                    SessionTypeEnum.P2P,
-//                                    chatUpAttachment
-//                                )
-//                                NIMClient.getService(MsgService::class.java)
-//                                    .sendMessage(msg, false)
-//                                    .setCallback(object : RequestCallback<Void> {
-//                                        override fun onSuccess(p0: Void?) {
-//                                            Handler().postDelayed({
-//                                                ChatActivity.start(context, target_accid)
-//                                            }, 500L)
-//                                        }
-//
-//                                        override fun onFailed(p0: Int) {
-//                                        }
-//
-//                                        override fun onException(p0: Throwable?) {
-//                                        }
-//
-//                                    })
-//                            }
-//
-//                    }
-//                    401 -> {//女性未认证
-//                        VerifyThenChatDialog(
-//                            context,
-//                            VerifyThenChatDialog.FROM_CONTACT_VERIFY
-//                        ).show()
-//                    }
-//                    else -> {
-//                        ToastUtil.toast(t.msg)
-//                    }
-//                }
+                when (t.code) {
+                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                        ChatUpOpenPtVipDialog(
+                            context,
+                            target_accid,
+                            ChatUpOpenPtVipDialog.TYPE_CONTACT,
+                            t.data!!
+                        ).show()
+                    }
+
+                    201 -> {
+                        PurchaseFootActivity.start(context)
+                    }
+                    222 -> {
+                        if (ActivityUtils.getTopActivity() !is ChatActivity)
+                            Handler().postDelayed({
+                                ChatActivity.start(context, target_accid)
+                            }, 500L)
+                    }
+
+                    207 -> { //女性解锁男性聊天方式
+                        if (ActivityUtils.getTopActivity() !is ChatActivity)
+                            if (t.msg.isNullOrEmpty()) {
+                                Handler().postDelayed({
+                                    ChatActivity.start(context, target_accid)
+                                }, 500L)
+                            } else {
+                                //随机发送一条招呼文本消息
+                                val chatUpAttachment = ChatUpAttachment(t.msg)
+                                val msg = MessageBuilder.createCustomMessage(
+                                    target_accid,
+                                    SessionTypeEnum.P2P,
+                                    chatUpAttachment
+                                )
+                                NIMClient.getService(MsgService::class.java)
+                                    .sendMessage(msg, false)
+                                    .setCallback(object : RequestCallback<Void> {
+                                        override fun onSuccess(p0: Void?) {
+                                            Handler().postDelayed({
+                                                ChatActivity.start(context, target_accid)
+                                            }, 500L)
+                                        }
+
+                                        override fun onFailed(p0: Int) {
+                                        }
+
+                                        override fun onException(p0: Throwable?) {
+                                        }
+
+                                    })
+                            }
+
+                    }
+                    401 -> {//女性未认证
+                        VerifyThenChatDialog(
+                            context,
+                            VerifyThenChatDialog.FROM_CONTACT_VERIFY
+                        ).show()
+                    }
+                    else -> {
+                        ToastUtil.toast(t.msg)
+                    }
+                }
             }
     }
 
@@ -246,74 +245,74 @@ object CommonFunction {
             .ssss { t ->
                 waitDialog.doDismiss()
                 when (t.code) {
-//                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
-//                        DatingOpenPtVipDialog(
-//                            context1,
-//                            DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR,
-//                            t.data,
-//                            datingBean
-//                        ).show()
-//                    }
-//                    202 -> {//202 对方设置黄金会员
-//                        DatingOpenPtVipDialog(
-//                            context1,
-//                            DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR_PRIVACY,
-//                            t.data,
-//                            datingBean
-//                        ).show()
-//                    }
-//                    206 -> {// 206是好友，已经报名
-//                        ChatActivity.start(context1, datingBean.accid)
-//                    }
-//                    207 -> {//207 报名成功返回数据（id，title，dating_title，icon）
-//                        val attachment =
-//                            ChatDatingAttachment(
-//                                t.data!!.content,
-//                                t.data!!.icon,
-//                                t.data!!.datingId
-//                            )
-//                        val message = MessageBuilder.createCustomMessage(
-//                            datingBean.accid,
-//                            SessionTypeEnum.P2P,
-//                            "",
-//                            attachment,
-//                            CustomMessageConfig()
-//                        )
-//                        NIMClient.getService(MsgService::class.java).sendMessage(message, false)
-//                            .setCallback(object : RequestCallback<Void?> {
-//                                override fun onSuccess(param: Void?) {
-//                                    EventBus.getDefault().post(UpdateApproveEvent())
-//                                    EventBus.getDefault().post(UpdateHiEvent())
-//                                    EventBus.getDefault().post(UpdateAccostListEvent())
-//                                    if (ActivityUtils.getTopActivity() !is ChatActivity) {
-//                                        Handler().postDelayed({
-//                                            ChatActivity.start(
-//                                                ActivityUtils.getTopActivity(),
-//                                                datingBean.accid
-//                                            )
-//                                        }, 400L)
-//                                    } else {
-//                                        EventBus.getDefault().post(UpdateSendGiftEvent(message))
-//                                    }
-//                                }
-//
-//                                override fun onFailed(code: Int) {
-//                                }
-//
-//                                override fun onException(exception: Throwable) {
-//                                }
-//                            })
-//                    }
-//                    401 -> {//女性未认证
-//                        VerifyThenChatDialog(
-//                            context1,
-//                            VerifyThenChatDialog.FROM_APPLY_DATING
-//                        ).show()
-//
-//                    }
-//                    else -> {
-//                       ToastUtil. toast(t.msg)
-//                    }
+                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                        DatingOpenPtVipDialog(
+                            context1,
+                            DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR,
+                            t.data,
+                            datingBean
+                        ).show()
+                    }
+                    202 -> {//202 对方设置黄金会员
+                        DatingOpenPtVipDialog(
+                            context1,
+                            DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR_PRIVACY,
+                            t.data,
+                            datingBean
+                        ).show()
+                    }
+                    206 -> {// 206是好友，已经报名
+                        ChatActivity.start(context1, datingBean.accid)
+                    }
+                    207 -> {//207 报名成功返回数据（id，title，dating_title，icon）
+                        val attachment =
+                            ChatDatingAttachment(
+                                t.data!!.content,
+                                t.data!!.icon,
+                                t.data!!.datingId
+                            )
+                        val message = MessageBuilder.createCustomMessage(
+                            datingBean.accid,
+                            SessionTypeEnum.P2P,
+                            "",
+                            attachment,
+                            CustomMessageConfig()
+                        )
+                        NIMClient.getService(MsgService::class.java).sendMessage(message, false)
+                            .setCallback(object : RequestCallback<Void?> {
+                                override fun onSuccess(param: Void?) {
+                                    EventBus.getDefault().post(UpdateApproveEvent())
+                                    EventBus.getDefault().post(UpdateHiEvent())
+                                    EventBus.getDefault().post(UpdateAccostListEvent())
+                                    if (ActivityUtils.getTopActivity() !is ChatActivity) {
+                                        Handler().postDelayed({
+                                            ChatActivity.start(
+                                                ActivityUtils.getTopActivity(),
+                                                datingBean.accid
+                                            )
+                                        }, 400L)
+                                    } else {
+                                        EventBus.getDefault().post(UpdateSendGiftEvent(message))
+                                    }
+                                }
+
+                                override fun onFailed(code: Int) {
+                                }
+
+                                override fun onException(exception: Throwable) {
+                                }
+                            })
+                    }
+                    401 -> {//女性未认证
+                        VerifyThenChatDialog(
+                            context1,
+                            VerifyThenChatDialog.FROM_APPLY_DATING
+                        ).show()
+
+                    }
+                    else -> {
+                        ToastUtil.toast(t.msg)
+                    }
                 }
 
             }
@@ -336,13 +335,10 @@ object CommonFunction {
                 waitDialog.doDismiss()
                 when (t.code) {
                     222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
-//                            if (t.data?.isnew_friend == true) {
-//                                sendMatchFriendMessage(target_accid)
-//                            }
-//                        PlayVideoDialog(context, t.data?.mv_url ?: "").show()
+                        PlayVideoDialog(t.data?.mv_url ?: "").show()
                     }
                     200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
-//                        VideoOpenPtVipDialog(context).show()
+                        VideoOpenPtVipDialog().show()
                     }
                     201 -> {
                         PurchaseFootActivity.start(context)
@@ -356,101 +352,66 @@ object CommonFunction {
     }
 
 
-
     /**
-     * 发送礼物消息
+     * 打开礼物信封
+     * attachment.getOrderId()
+     *
      */
-    fun sendGift(
-        target_accid: String,
-        sendGiftBean: SendGiftBean,
-        giftType: Int,
-        container: Container? = null
+    fun openGiftLetter(
+        isReceive: Boolean,
+        giftStatus: Int,
+        order_id: Int,
+        context: Context,
+        target_accid: String
     ) {
-        val params = hashMapOf<String, Any>()
-        params["target_accid"] = target_accid
-        params["gift_id"] = sendGiftBean.id
         RetrofitHelper.service
-            .giveGift(params)
-            .ssss {
-                when (it.code) {
-                    200 -> {
-                        EventBus.getDefault().post(RefreshGoldEvent())
-                        /**
-                         * 发送礼物消息
-                         */
-                        val attachment = SendGiftAttachment()
-                        attachment.orderId = it.data.order_id
-                        attachment.giftId = sendGiftBean.id
-                        attachment.giftIcon = sendGiftBean.icon
-                        attachment.giftName = sendGiftBean.title
-                        attachment.giftAmount = sendGiftBean.amount
-                        attachment.giftType = giftType
-                        val extension = hashMapOf<String, Any>()
-                        extension[SendGiftAttachment.KEY_STATUS] =
-                            SendGiftAttachment.STATUS_WAIT
-                        val giftMessage =
-                            MessageBuilder.createCustomMessage(
-                                target_accid,
-                                SessionTypeEnum.P2P,
-                                attachment
-                            )
-                        giftMessage.localExtension = extension
-                        if (container != null) {
-                            if (container.proxy.sendMessage(giftMessage)) {
-//                                    sendGiftNotification(giftMessage, SendGiftAttachment.STATUS_WAIT)
-                                EventBus.getDefault().post(CloseDialogEvent())
-                                upMsgGiftId(giftMessage.uuid, it.data.order_id)
-                            }
-                        } else {
-                            NIMClient.getService(MsgService::class.java)
-                                .sendMessage(giftMessage, true)
-                                .setCallback(object : RequestCallback<Void?> {
-                                    override fun onSuccess(param: Void?) {
-//                                            sendGiftNotification(giftMessage,SendGiftAttachment.STATUS_WAIT)
-                                        EventBus.getDefault().post(CloseDialogEvent())
-                                        ChatActivity.start(
-                                            ActivityUtils.getTopActivity(),
-                                            target_accid
-                                        )
-                                        upMsgGiftId(giftMessage.uuid, it.data.order_id)
-
-                                    }
-
-                                    override fun onFailed(code: Int) {
-                                        ToastUtil.toast(
-                                            ActivityUtils.getTopActivity()
-                                                .getString(R.string.gift_send_fail)
-                                        )
-
-                                    }
-
-                                    override fun onException(exception: Throwable) {
-                                    }
-                                })
-                        }
-
-                    }
-                    419 -> { //糖果余额不足
-                        CandyRechargeActivity.gotoCandyRecharge(ActivityUtils.getTopActivity())
-                    }
-                    else -> {
-                        ToastUtil.toast(it.msg)
-                    }
+            .checkGiftState(hashMapOf("order_id" to order_id))
+            .ssss { t ->
+                if (t.code == 200) {
+                    ReceiveCandyGiftDialog(
+                        isReceive,
+                        giftStatus,
+                        t.data!!,
+                        order_id,
+                        context, target_accid
+                    ).show()
                 }
             }
     }
 
+
     /**
-     * 上传礼物的id给服务器
+     * 发送自定义tip消息
      */
-    fun upMsgGiftId(uuid: String, order_id: Int) {
-        RetrofitHelper.service
-            .upGiftMsgId(
-                hashMapOf(
-                    "im_msg_id" to uuid,
-                    "order_id" to order_id
+    fun sendTips(target_accid: String, retTipsArr: MutableList<SendTipBean>) {
+        for (tip in retTipsArr) {
+            val attachment = SendCustomTipAttachment(tip.content, tip.showType, tip.ifSendUserShow)
+            val tip =
+                MessageBuilder.createCustomMessage(
+                    target_accid,
+                    SessionTypeEnum.P2P,
+                    attachment
                 )
-            )
+            val config = CustomMessageConfig()
+            config.enableUnreadCount = false
+            config.enablePush = false
+            tip.config = config
+            NIMClient.getService(MsgService::class.java).sendMessage(tip, false)
+                .setCallback(object :
+                    RequestCallback<Void?> {
+                    override fun onSuccess(param: Void?) {
+                        //更新消息列表
+                        EventBus.getDefault().post(UpdateSendGiftEvent(tip))
+                    }
+
+                    override fun onFailed(code: Int) {
+                    }
+
+                    override fun onException(exception: Throwable) {
+
+                    }
+                })
+        }
     }
 
 
@@ -495,6 +456,29 @@ object CommonFunction {
         }
 
 
+    }
+
+
+    /**
+     * 支付会员
+     */
+    fun startToVip(context: Context, source_type: Int = -1, position: Int = 0) {
+        VipChargeActivity.start(context)
+    }
+
+    /**
+     * 门槛付费
+     */
+    fun startToFootPrice(context: Context) {
+        context.startActivity<InviteCodeActivity>()
+    }
+
+    /**
+     * 跳转到糖果充值
+     */
+    fun gotoCandyRecharge(context: Context) {
+        CandyRechargeActivity.gotoCandyRecharge(context)
+//        RechargeCandyDialog(context).show()
     }
 
     /**
@@ -556,13 +540,13 @@ object CommonFunction {
                 .clearChattingHistory(target_accid, SessionTypeEnum.P2P)
         if (ActivityUtils.isActivityExistsInStack(ChatActivity::class.java))
             ActivityUtils.finishActivity(ChatActivity::class.java)
-//        if (ActivityUtils.isActivityExistsInStack(TargetUserActivity::class.java))
-//            ActivityUtils.finishActivity(TargetUserActivity::class.java)
-//        if (ActivityUtils.isActivityExistsInStack(MessageInfoActivity::class.java))
-//            ActivityUtils.finishActivity(MessageInfoActivity::class.java)
+        if (ActivityUtils.isActivityExistsInStack(TargetUserActivity::class.java))
+            ActivityUtils.finishActivity(TargetUserActivity::class.java)
+        if (ActivityUtils.isActivityExistsInStack(MessageInfoActivity::class.java))
+            ActivityUtils.finishActivity(MessageInfoActivity::class.java)
         //更新通讯录
-//        if (ActivityUtils.isActivityExistsInStack(ContactBookActivity::class.java))
-//            EventBus.getDefault().post(UpdateContactBookEvent())
+        if (ActivityUtils.isActivityExistsInStack(ContactBookActivity::class.java))
+            EventBus.getDefault().post(UpdateContactBookEvent())
     }
 
 
@@ -612,40 +596,12 @@ object CommonFunction {
                         }
 
                         is SendGiftAttachment -> {
-                            val giftStatus =
-                                if (extionsion.isNotEmpty() && extionsion[SendGiftAttachment.KEY_STATUS] != null) {
-                                    extionsion[SendGiftAttachment.KEY_STATUS] as Int
-                                } else {
-                                    -1
-                                }
-                            when (giftStatus) {
-
-                                SendGiftAttachment.STATUS_RECEIVED -> {
-                                    ActivityUtils.getTopActivity()
-                                        .getString(R.string.content_gift_received)
-                                }
-                                SendGiftAttachment.STATUS_RETURNED -> {
-                                    ActivityUtils.getTopActivity()
-                                        .getString(R.string.content_gift_refund)
-                                }
-                                SendGiftAttachment.STATUS_TIMEOUT -> {
-                                    ActivityUtils.getTopActivity()
-                                        .getString(R.string.content_gift_timeout)
-                                }
-                                else -> {
-//                        SendGiftAttachment.STATUS_WAIT -> {
-                                    ActivityUtils.getTopActivity()
-                                        .getString(R.string.content_gift_wait_receive)
-                                }
-//                        else -> {
-//                            "『礼物消息』"
-//                        }
-                            }
+                            DemoCache.getContext().getString(R.string.msg_gift)
                         }
 
-//                        is SendWechatAttachment -> {
-//                            ActivityUtils.getTopActivity().getString(R.string.content_contact)
-//                        }
+                        is ContactAttachment -> {
+                            ActivityUtils.getTopActivity().getString(R.string.content_contact)
+                        }
                         else -> content ?: ""
                     }
                 }
@@ -669,17 +625,17 @@ object CommonFunction {
 //                    else -> ""
 //                }
             is ShareSquareAttachment -> DemoCache.getContext().getString(R.string.msg_share_square)
-//            is ChatDatingAttachment -> DemoCache.getContext().getString(R.string.msg_dating_apply)
+            is ChatDatingAttachment -> DemoCache.getContext().getString(R.string.msg_dating_apply)
             is SendGiftAttachment -> DemoCache.getContext().getString(R.string.msg_gift)
-//            is ContactAttachment -> (item.attachment as ContactAttachment).contactContent
-//            is ContactCandyAttachment -> {
-//                DemoCache.getContext().getString(R.string.msg_unlock_contact)
-//            }
-//            is SendCustomTipAttachment -> if ((item.attachment as SendCustomTipAttachment).content.isNullOrEmpty()) {
-//                DemoCache.getContext().getString(R.string.msg_prompt)
-//            } else {
-//                (item.attachment as SendCustomTipAttachment).content
-//            }
+            is ContactAttachment -> (item.attachment as ContactAttachment).contactContent
+            is ContactCandyAttachment -> {
+                DemoCache.getContext().getString(R.string.msg_unlock_contact)
+            }
+            is SendCustomTipAttachment -> if ((item.attachment as SendCustomTipAttachment).content.isNullOrEmpty()) {
+                DemoCache.getContext().getString(R.string.msg_prompt)
+            } else {
+                (item.attachment as SendCustomTipAttachment).content
+            }
 //            is ChatUpAttachment -> {
 //                (item.attachment as ChatUpAttachment).chatUpContent
 //            }
@@ -694,6 +650,17 @@ object CommonFunction {
         } else {
             context.getString(R.string.retry_net_error)
         }
+    }
+
+
+    fun initVideo(gsyVideoPlayer: StandardGSYVideoPlayer, url: String) {
+        gsyVideoPlayer.titleTextView.isVisible = false
+        gsyVideoPlayer.backButton.isVisible = true
+        gsyVideoPlayer.backButton.setImageResource(R.drawable.icon_close_transparent)
+        gsyVideoPlayer.setIsTouchWiget(false)
+
+        gsyVideoPlayer.setUp(url, true, "")
+        gsyVideoPlayer.startPlayLogic()
     }
 
 
@@ -807,6 +774,7 @@ object CommonFunction {
         }
         return numStr;
     }
+
 
 }
 

@@ -9,12 +9,12 @@ import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemSendGiftBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 class SendGiftAdapter(val isGrid: Boolean = false) :
-    BaseBindingQuickAdapter<SendGiftBean, ItemSendGiftBinding>(R.layout.item_send_gift) {
-    override fun convert(binding: ItemSendGiftBinding, position: Int, item: SendGiftBean) {
+    BaseBindingQuickAdapter<GiftBean, ItemSendGiftBinding>(R.layout.item_send_gift) {
+    override fun convert(binding: ItemSendGiftBinding, position: Int, item: GiftBean) {
         binding.apply {
 
 

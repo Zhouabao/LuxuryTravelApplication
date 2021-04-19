@@ -3,7 +3,7 @@ package com.sdy.luxurytravelapplication.event
 import android.content.Context
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.mvp.model.bean.Alipay
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
 import java.io.File
 
 /**
@@ -134,7 +134,7 @@ class UpdateAccostListEvent()
  * 点击选中赠送礼物事件
  */
 class UpdateChatCallGiftEvent(
-    val giftbean: SendGiftBean,
+    val giftbean: GiftBean,
     val parentPosition: Int,
     val childPosition: Int
 )
@@ -180,3 +180,16 @@ class FemaleVideoEvent(val videoState: Int)
 class TopCardEvent(val showTop: Boolean)
 //刷新甜心圈认证状态
 class RefreshSweetEvent()
+
+
+
+/**
+ * 更新发送礼物的事件
+ */
+class UpdateSendGiftEvent(val message: IMMessage)
+
+class HideChatLlEvent()
+
+class HideContactLlEvent()
+
+class RefreshCandyMessageEvent(val orderId: Int, val state: Int)

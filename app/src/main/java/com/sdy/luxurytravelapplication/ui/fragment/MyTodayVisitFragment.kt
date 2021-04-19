@@ -17,6 +17,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMyTodayVisitBinding
 import com.sdy.luxurytravelapplication.databinding.HeadItemVisitBinding
 import com.sdy.luxurytravelapplication.databinding.HeadviewItemTodayVisitBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.MyTodayVisitContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.VisitorBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyTodayVisitPresenter
@@ -81,7 +82,7 @@ class MyTodayVisitFragment(
             }
 
             lockToSee.setOnClickListener {
-                VipChargeActivity.start(activity!!)
+                CommonFunction.startToVip(activity!!)
 
             }
 

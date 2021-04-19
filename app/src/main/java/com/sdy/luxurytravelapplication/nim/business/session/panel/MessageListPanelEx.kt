@@ -9,7 +9,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.kongzue.dialog.v3.BottomMenu
 import com.kongzue.dialog.v3.MessageDialog
@@ -23,19 +22,20 @@ import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
-import com.netease.nimlib.sdk.msg.model.*
+import com.netease.nimlib.sdk.msg.model.AttachmentProgress
+import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum
+import com.netease.nimlib.sdk.msg.model.RevokeMsgNotification
 import com.netease.nimlib.sdk.robot.model.RobotAttachment
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.constant.Constants
-import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
-import com.sdy.luxurytravelapplication.event.RefreshGiftStatusEvent
-import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.event.RefreshCandyMessageEvent
+import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.api.model.user.UserInfoObserver
+import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment
+import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
-import com.sdy.luxurytravelapplication.nim.attachment.SendWechatAttachment
-import com.sdy.luxurytravelapplication.nim.attachment.WarmingNoticeAttachment
 import com.sdy.luxurytravelapplication.nim.business.audio.MessageAudioControl
 import com.sdy.luxurytravelapplication.nim.business.helper.MessageHelper
 import com.sdy.luxurytravelapplication.nim.business.helper.MessageListPanelHelper
@@ -46,10 +46,7 @@ import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.adapter.BaseFe
 import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.loadmore.MsgListFetchLoadMoreView
 import com.sdy.luxurytravelapplication.nim.common.util.sys.ClipboardUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
-import com.sdy.luxurytravelapplication.utils.RandomUtils
-import com.sdy.luxurytravelapplication.utils.SaveNetPhotoUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
-import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -81,7 +78,7 @@ class MessageListPanelEx @JvmOverloads constructor(
     }
 
     /** message list view */
-    private var items: ArrayList<IMMessage> = arrayListOf()
+    public var items: ArrayList<IMMessage> = arrayListOf()
     private val adapter by lazy { MsgAdapter(messageListView, items, container) }
 
     private lateinit var uiHandler: Handler
@@ -225,16 +222,6 @@ class MessageListPanelEx @JvmOverloads constructor(
         registerObservers(true)
     }
 
-    fun hasWarmingNoticeMessage(): Boolean {
-        for (data in items) {
-            if (data.attachment is WarmingNoticeAttachment) {
-                return true
-                break
-            }
-        }
-        return false
-    }
-
 
     private fun registerObservers(register: Boolean) {
         val service = NIMClient.getService(MsgServiceObserve::class.java)
@@ -318,6 +305,22 @@ class MessageListPanelEx @JvmOverloads constructor(
     }
 
     fun onIncomingMessage(messages: MutableList<IMMessage>) {
+        // 首先剔除自定义的tip消息 以及自己发送出去的
+
+        // 首先剔除自定义的tip消息 以及自己发送出去的
+        val iterator: MutableIterator<*> = messages.iterator()
+        while (iterator.hasNext()) {
+            val message = iterator.next() as IMMessage
+            val isSend = message.direct == MsgDirectionEnum.Out
+            if ((message.attachment is SendCustomTipAttachment && (message.attachment as SendCustomTipAttachment).ifSendUserShow != isSend)
+                || (message.attachment is ContactAttachment && message.direct == MsgDirectionEnum.Out)
+            ) {
+                NIMClient.getService(MsgService::class.java).deleteMsgSelf(message, "")
+                iterator.remove()
+            }
+        }
+
+
         val needScrollToBottom = isLastMessageVisible1()
         var needRefresh = false
         val addedListItems = arrayListOf<IMMessage>()
@@ -375,72 +378,23 @@ class MessageListPanelEx @JvmOverloads constructor(
     }
 
     fun onMsgSend(message: IMMessage) {
-        //刷新金币待领取状态和待认证状态
-        if (UserManager.gender == 2) {
-            refreshCoinState()
-            //刷新最后一条之前自己发出去的消息
-            if (!UserManager.isFaced && adapter.bottomDataPosition - 1 != -1 && isMyMessage(
-                    adapter.data[adapter.bottomDataPosition - 1]
-                )
-            ) {
-                refreshViewHolderByIndex(adapter.bottomDataPosition - 1)
-            }
+        if (container.account != message.sessionId) {
+            return
         }
+
+        if ((message.attachment is SendCustomTipAttachment && !(message.attachment as SendCustomTipAttachment).ifSendUserShow)
+            || (message.attachment is ContactAttachment && message.direct == MsgDirectionEnum.Out)
+        ) {
+            return
+        }
+
+        val addedListItems: MutableList<IMMessage> = mutableListOf()
+        addedListItems.add(message)
+        adapter.updateShowTimeItem(addedListItems, false, true)
+        adapter.appendData(message)
+        doScrollToBottom()
     }
 
-    /**
-     * 更新金币领取状态
-     */
-    private var lastCoinMessage: IMMessage? = null
-    private fun refreshCoinState() {
-        var index = 0
-        if (lastCoinMessage != null && items.indexOf(lastCoinMessage!!) != -1)
-            index = items.indexOf(lastCoinMessage!!)
-
-        for (i in items.size - 1 downTo index) {
-            if (!isOutMessage(items[i])) {
-                //通过远程扩展去获取金币过期时间
-                val remoteExtension = items[i].remoteExtension
-                var candyTimeoutTime = 0L
-                if (remoteExtension != null) {
-                    if (remoteExtension[ChatActivity.COIN_TIMEOUT_TIME] != null)
-                        candyTimeoutTime =
-                            (remoteExtension[ChatActivity.COIN_TIMEOUT_TIME] as Int).toLong()
-                }
-                //通过本地扩展拿到当前礼物的状态,如果是待领取就设置为已领取,如果是过期和已经领取就不做操作
-                val localExtension = items[i].localExtension
-                val state =
-                    if (localExtension != null && localExtension[ChatActivity.COIN_RECEIVE_STATE] != null)
-                        localExtension[ChatActivity.COIN_RECEIVE_STATE] as Int
-                    else
-                        SendGiftAttachment.STATUS_WAIT
-                //如果认证通过、并且金币未过期、并且当前金币状态为待领取，就更改为已领取
-                if (UserManager.isFaced && isOutMessage(items.last()) && state == SendGiftAttachment.STATUS_WAIT && candyTimeoutTime > System.currentTimeMillis() / 1000L) {
-                    CommonFunction.updateMessageExtension(
-                        items[i],
-                        ChatActivity.COIN_RECEIVE_STATE,
-                        SendGiftAttachment.STATUS_RECEIVED
-                    )
-                    refreshMessageItem(items[i].uuid)
-                    if (lastCoinMessage == null || lastCoinMessage!!.time < items[i].time) {
-                        lastCoinMessage = items[i]
-                    }
-
-                    //如果当前金币状态为待领取、并且金币时间已经过期，就更改为已过期
-                } else if (state == SendGiftAttachment.STATUS_WAIT && candyTimeoutTime > 0L && candyTimeoutTime < System.currentTimeMillis() / 1000L) {
-                    CommonFunction.updateMessageExtension(
-                        items[i],
-                        ChatActivity.COIN_RECEIVE_STATE,
-                        SendGiftAttachment.STATUS_TIMEOUT
-                    )
-                    refreshMessageItem(items[i].uuid)
-                    if (lastCoinMessage == null || lastCoinMessage!!.time < items[i].time) {
-                        lastCoinMessage = items[i]
-                    }
-                }
-            }
-        }
-    }
 
     private fun doScrollToBottom() {
         messageListView.scrollToPosition(adapter.bottomDataPosition)
@@ -570,6 +524,20 @@ class MessageListPanelEx @JvmOverloads constructor(
                         return
                     }
                     if (result != null) {
+                        val iterator = result.iterator()
+                        while (iterator.hasNext()) {
+                            val message = iterator.next()
+                            val isSend = message.getDirect() == MsgDirectionEnum.Out
+                            // 消息的来源是发送方 并且是发送显示就不剔除 反之则反
+                            if ((message.attachment is SendCustomTipAttachment && (message.attachment as SendCustomTipAttachment).ifSendUserShow != isSend)
+                                || message.attachment is ContactAttachment && isSend
+                            ) {
+                                NIMClient.getService(MsgService::class.java)
+                                    .deleteMsgSelf(message, "")
+                                iterator.remove()
+                            }
+                        }
+
                         onMessageLoaded(result)
                     }
                 }
@@ -669,30 +637,6 @@ class MessageListPanelEx @JvmOverloads constructor(
             // 加入anchor
             if (firstLoad && anchor != null) {
                 messages.add(anchor)
-            }
-
-            for (message in messages) {
-                if (!isOutMessage(message)) {
-                    val remoteExtension = message.remoteExtension
-                    if (remoteExtension != null) {
-                        var candyTimeoutTime = 0L
-                        if (remoteExtension[ChatActivity.COIN_TIMEOUT_TIME] != null)
-//                            candyTimeoutTime = (remoteExtension[ChatActivity.COIN_TIMEOUT_TIME] as Int).toLong()
-                            candyTimeoutTime =
-                                (remoteExtension[ChatActivity.COIN_TIMEOUT_TIME] as Int).toLong()
-                        if (candyTimeoutTime > 0L && candyTimeoutTime < System.currentTimeMillis() / 1000L) {
-                            CommonFunction.updateMessageExtension(
-                                message,
-                                ChatActivity.COIN_RECEIVE_STATE,
-                                SendGiftAttachment.STATUS_TIMEOUT
-                            )
-                        }
-                    }
-
-                }
-//                    if (message.localExtension != null && message.localExtension["isShowRealTip"] != null) {
-//                        adapter.isShowRealTip = message.localExtension["isShowRealTip"] != null
-//                    }
             }
 
             // 在更新前，先确定一些标记
@@ -804,18 +748,25 @@ class MessageListPanelEx @JvmOverloads constructor(
     }
 
     private fun updateReceipt(messages: MutableList<IMMessage>) {
-//        if (messages.size > 0)
-//            for (i in messages.size - 1 downTo 0) {
-//                if (receiveReceiptCheck(messages[i])) {
-//                    adapter.uuid = messages[i].uuid
-//                    break
-//                }
-//            }
+        if (messages.size > 0)
+            for (i in messages.size - 1 downTo 0) {
+                if (receiveReceiptCheck(messages[i])) {
+                    adapter.uuid = messages[i].uuid
+                    break
+                }
+            }
 
     }
 
     private fun receiveReceiptCheck(msg: IMMessage?): Boolean {
-        return msg != null && msg.sessionType == SessionTypeEnum.P2P && isOutMessage(msg) && msg.msgType != MsgTypeEnum.tip && msg.msgType != MsgTypeEnum.notification && msg.isRemoteRead
+        return (msg != null && msg.sessionType == SessionTypeEnum.P2P
+                && msg.direct == MsgDirectionEnum.Out
+                && msg.msgType != MsgTypeEnum.tip
+                && msg.msgType != MsgTypeEnum.notification
+                && msg.attachment !is SendCustomTipAttachment
+                && !(msg.attachment is ContactAttachment
+                && msg.direct == MsgDirectionEnum.Out)
+                && msg.isRemoteRead)
     }
 
     /**
@@ -971,10 +922,6 @@ class MessageListPanelEx @JvmOverloads constructor(
                 items.add(container.activity.getString(R.string.copy_has_blank))
             }
 
-            //保存二维码
-            if (item.attachment != null && item.attachment is SendWechatAttachment) {
-                items.add(container.activity.getString(R.string.save_qrcode))
-            }
 
             //删除
             if (!recordOnly) {
@@ -996,7 +943,7 @@ class MessageListPanelEx @JvmOverloads constructor(
             }
 
             //撤回
-            if (item.direct == MsgDirectionEnum.Out && (item.attachment == null || (item.attachment != null && item.attachment !is SendGiftAttachment && item.attachment !is SendWechatAttachment))) {
+            if (item.direct == MsgDirectionEnum.Out && (item.attachment == null || (item.attachment != null && item.attachment !is SendGiftAttachment && item.attachment !is ContactAttachment))) {
                 items.add(container.activity.getString(R.string.withdrawn_msg))
             }
 
@@ -1012,9 +959,6 @@ class MessageListPanelEx @JvmOverloads constructor(
                 when (text) {
                     container.activity.getString(R.string.copy_has_blank) -> {// 长按菜单项--复制
                         onCopyMessageItem(item)
-                    }
-                    container.activity.getString(R.string.save_qrcode) -> {
-                        saveQrCode(item)
                     }
 
                     container.activity.getString(R.string.delete_has_blank) -> {
@@ -1106,84 +1050,37 @@ class MessageListPanelEx @JvmOverloads constructor(
             ClipboardUtil.clipboardCopyText(container.activity, item.content)
         }
 
-        private fun saveQrCode(item: IMMessage) {
-            val photoName = "wechat-${RandomUtils.getRandomString(16)}.jpg"
-            SaveNetPhotoUtils.savePhoto(
-                container.activity,
-                (item.attachment as SendWechatAttachment).url, photoName
-            )
-        }
-
-
     }
 
 
-    /**
-     * 设置温馨提示
-     */
-    fun sendWarmingNotice(chat_expend_aomount: Int) {
-        if (container.account != Constants.ASSISTANT_ACCID && adapter.data.isEmpty() && firstLoad && chat_expend_aomount > 0) {
-            val attachment = WarmingNoticeAttachment()
-            attachment.name = AppUtils.getAppName()
-            val confis = CustomMessageConfig()
-            confis.enablePush = false
-            confis.enableUnreadCount = false
-
-            val message =
-                MessageBuilder.createCustomMessage(
-                    container.account,
-                    SessionTypeEnum.P2P,
-                    attachment
-                )
-            message.config = confis
-            NIMClient.getService(MsgService::class.java)
-                .insertLocalMessage(message, container.account)
-        }
-    }
-
-    /**
-     * 添加是否非真人认证的提示
-     */
-
-
-//是否展示过非真人
-    var isRealMan = true
-    var hasNotice = false
-
-    /**
-     * 最新接收到的一条消息设置对方是否是真人
-     */
-    fun setLastReceiveNoticeRealMan() {
-        if (!isRealMan) {
-            hasNotice =
-                items.indexOfFirst { !isOutMessage(it) && it.localExtension != null && it.localExtension[ChatActivity.IS_SHOW_REAL_TIP] != null } != -1
-            if (!hasNotice) {
-                val lastReceiveMsg =
-                    items.firstOrNull { !isOutMessage(it) && it.msgType != MsgTypeEnum.tip && it.msgType != MsgTypeEnum.notification && it.msgType != MsgTypeEnum.custom }
-                if (lastReceiveMsg != null)
-                    CommonFunction.updateMessageExtension(
-                        lastReceiveMsg,
-                        ChatActivity.IS_SHOW_REAL_TIP,
-                        true
-                    )
-                adapter.notifyItemChanged(items.indexOf(lastReceiveMsg))
+    fun setHeadData(nimBean: ChatInfoBean) {
+        // both_gift_list
+        for (stateBean in nimBean.both_gift_list) {
+            for (i in items.indices.reversed()) {
+                val message = items[i]
+                if (message.attachment is SendGiftAttachment
+                    && (message.attachment as SendGiftAttachment).orderId == stateBean.id
+                ) {
+                    (message.attachment as SendGiftAttachment).giftStatus = stateBean.state
+                    items[i] = message
+                    refreshViewHolderByIndex(i)
+                }
             }
         }
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun refreshGiftStatusEvent(event: RefreshGiftStatusEvent) {
-        val message = items.find { it.uuid == event.messageId }
-        if (message != null) {
-            CommonFunction.updateMessageExtension(
-                message,
-                SendGiftAttachment.KEY_STATUS,
-                event.giftStatus
-            )
-            if (items.indexOf(message) != -1)
-                refreshViewHolderByIndex(items.indexOf(message))
-//            refreshMessageItem(message.uuid)
+    fun refreshCandyMessageEvent(event: RefreshCandyMessageEvent) {
+        for (i in items.indices.reversed()) {
+            val lastMessage = items[i]
+            if (lastMessage.attachment is SendGiftAttachment
+                && (lastMessage.attachment as SendGiftAttachment).orderId == event.orderId
+            ) {
+                (lastMessage.attachment as SendGiftAttachment).giftStatus=event.state
+                items[i] = lastMessage
+                refreshViewHolderByIndex(i)
+                break
+            }
         }
     }
 }

@@ -18,7 +18,6 @@ import io.reactivex.Observable
  */
 interface ChatContract {
     interface Presenter : IPresenter<View> {
-        fun focus(target_accid: String, state: Int)
 
         fun getTargetInfo(accid: String)
         fun sendMsg(
@@ -34,7 +33,6 @@ interface ChatContract {
     }
 
     interface Model : IModel {
-        fun focus(target_accid: String, state: Int): Observable<BaseResp<FocusBean>>
 
         fun getTargetInfo(accid: String): Observable<BaseResp<ChatInfoBean>>
         fun sendMsg(
@@ -51,7 +49,6 @@ interface ChatContract {
 
     interface View : IView {
 
-        fun focusResult(success: Boolean, isfocus: Boolean)
 
         fun getTargetInfoResult(voiceBean: ChatInfoBean?, code: Int,msg: String)
 

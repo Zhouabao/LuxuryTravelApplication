@@ -5,21 +5,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemSendGiftRvBinding
 import com.sdy.luxurytravelapplication.event.UpdateChatCallGiftEvent
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendGiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.bannerview.BaseViewHolder
 import org.greenrobot.eventbus.EventBus
 
 class SendGiftBannerAdapter :
-    BaseBannerAdapter<List<SendGiftBean>>() {
+    BaseBannerAdapter<List<GiftBean>>() {
 
     override fun getLayoutId(viewType: Int): Int {
         return R.layout.item_send_gift_rv
     }
 
     override fun bindData(
-        holder: BaseViewHolder<List<SendGiftBean>>,
-        item: List<SendGiftBean>,
+        holder: BaseViewHolder<List<GiftBean>>,
+        item: List<GiftBean>,
         parentPosition: Int,
         pageSize: Int
     ) {

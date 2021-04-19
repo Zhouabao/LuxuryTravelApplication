@@ -64,7 +64,7 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
                 binding.tobeSelectedBtn.text = "开通黄金会员"
                 //成为精选用户
                 ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
-                    VipChargeActivity.start(context)
+                    CommonFunction.startToVip(context)
                     dismiss()
                 }
             } else {
