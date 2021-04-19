@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.sdy.luxurytravelapplication.widgets.switchplay.EmptyControlVideo
         android:id="@+id/userVideo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -20,19 +20,14 @@ class TargetBigPhotoAdapter :
         item: UserPhotoBean
     ) {
         binding.apply {
-//            val params = root.layoutParams as RecyclerView.LayoutParams
-//            params.width = ScreenUtils.getScreenWidth()
-//            params.height = (5 / 4F * params.width).toInt()
             userPhoto.isVisible = !item.isVideo
             userVideo.isVisible = item.isVideo && item.checked
-            if (item.isVideo && item.checked) {
+            if (item.isVideo) {
                 userVideo.apply {
                     setUp(item.mv_detail_url, false, "")
-                    backButton.isVisible = false
-                    titleTextView.isVisible = false
-                    fullscreenButton.isVisible = false
-                    setIsTouchWiget(false)
-                    startPlayLogic()
+                    setThumbImageView(item.avatar)
+                    if (item.checked)
+                        startPlayLogic()
                 }
             } else {
                 GlideUtil.loadRoundImgCenterCrop(

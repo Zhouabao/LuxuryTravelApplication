@@ -38,6 +38,7 @@ import com.sdy.luxurytravelapplication.ui.adapter.TargetSmallPhotoAdapter
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyLevelDescrDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.startActivity
 
@@ -148,6 +149,7 @@ class TargetUserActivity :
             adapter.setHeaderView(initHeadBannerView())
             adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.isUseEmpty = false
+            adapter.headerWithEmptyEnable = true
 
             adapter.setOnItemClickListener { _, view, position ->
                 ToastUtil.toast("$position")
@@ -164,7 +166,7 @@ class TargetUserActivity :
                 baseInfoAdapter.setNewInstance(matchBean.personal_info)
                 bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_url, true))
+                        add(UserPhotoBean(true, matchBean.mv_url, true,matchBean.mv_detail_url))
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -189,7 +191,7 @@ class TargetUserActivity :
                     } else {
                         userGender.setImageResource(R.drawable.icon_trget_gender_man)
                     }
-                    if (matchBean.dating != null) {
+                    if (matchBean.dating != null && matchBean.dating!!.id != 0) {
                         matchBean.dating!!.apply {
                             travelTitle.text = dating_title
                             travelProvince.text = rise_province
@@ -348,5 +350,10 @@ class TargetUserActivity :
 
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GSYVideoManager.releaseAllVideos()
+    }
 
 }
