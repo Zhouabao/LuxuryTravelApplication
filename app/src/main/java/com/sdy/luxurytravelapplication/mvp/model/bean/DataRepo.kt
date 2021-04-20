@@ -665,7 +665,7 @@ data class TravelPlanBean(
     var apply_cnt: Int = 0,
     var avatar: String = "",
     var content: String = "",
-    var content_type: String = "0",
+    var content_type: Int = 0,//1文本 2语音
     var cost_money: String = "",
     var cost_type: String = "",
     var create_time: String = "",
@@ -679,7 +679,10 @@ data class TravelPlanBean(
     var nickname: String = "",
     var purpose: String = "",
     var rise_city: String = "",
-    var rise_province: String = ""
+    var rise_province: String = "",
+
+    var detail_address: String = "",
+    var duration: Int = 0
 ) : Serializable
 
 data class BannerGuideBean(
@@ -742,7 +745,7 @@ data class MatchBean(
     val assets_audit_descr: String = "",
     var face_type: Int = 0,//	0没有认证 1活体 2 真人 3 颜值 4奢旅
     var approve_square_id: Int = 0,//满足是face_type 为4的时侯可以查看动态详情
-    var dating: DatingBean? = null,
+    var dating: TravelPlanBean? = null,
     var gift_list: MutableList<GiftBean> = mutableListOf()
 )
 
@@ -785,7 +788,7 @@ data class DatingBean(
     var accid: String = "",
     var avatar: String = "",
     var content: String = "",
-    var content_type: Int = 0,
+    var content_type: Int = 0,//1文本 2 语音
     var dating_title: String = "",
     var detail_address: String = "",
     var duration: Int = 0,

@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -8,6 +9,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ItemPeopleRecommendTopContentBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.dialog.ToBeSelectedDialog
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
@@ -36,26 +38,24 @@ class PeopleRecommendTopAdapter :
                 userAvator,
                 SizeUtils.dp2px(15f)
             )
-
-//            if (item.accid == UserManager.accid) {
-//                userMvBtn.isVisible = false
-//                selectedMine.isVisible = true
-//                lottieMine.isVisible = true
-//            } else {
-//                selectedMine.isVisible = false
-//                lottieMine.isVisible = false
-//                if (UserManager.gender == 1) {
-//                    userMvBtn.isVisible = item.source_type == 1
-//                } else {
-//                    userMvBtn.isVisible = item.isplatinum
-//                }
-//            }
-
+            if (item.accid == UserManager.accid) {
+                userMvBtn.isVisible = false
+                selectedMine.isVisible = true
+                lottieMine.isVisible = false
+            } else {
+                selectedMine.isVisible = false
+                lottieMine.isVisible = true
+                if (UserManager.gender == 1) {
+                    userMvBtn.isVisible = item.source_type == 1
+                } else {
+                    userMvBtn.isVisible = item.isplatinum
+                }
+            }
             ClickUtils.applySingleDebouncing(itemView) {
                 if (item.accid == UserManager.accid) {
                     ToBeSelectedDialog(true).show()
                 } else {
-
+                    TargetUserActivity.start(context, item.accid)
                 }
             }
 

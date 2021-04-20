@@ -39,8 +39,11 @@ class ContactBookActivity :
     private val searchAdapter by lazy { ContactStarAdapter(false) }
 
     companion object {
-        fun start(context: Context, squareBean: SquareBean) {
-            context.startActivity<ContactBookActivity>("square" to squareBean)
+        fun start(context: Context, squareBean: SquareBean? = null) {
+            if (squareBean != null)
+                context.startActivity<ContactBookActivity>("square" to squareBean)
+            else
+                context.startActivity<ContactBookActivity>()
         }
     }
 

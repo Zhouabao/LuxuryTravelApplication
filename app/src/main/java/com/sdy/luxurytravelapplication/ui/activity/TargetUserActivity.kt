@@ -214,6 +214,16 @@ class TargetUserActivity :
                             travelDestProvince.text = goal_province
                             travelDestAddress.text = goal_city
                             travelDescr.text = content
+                            travelAduio.isVisible = content_type == 2
+                            if (content_type == 2) {
+                                travelAduio.prepareAudio(content, duration, 0, 0, false)
+                                travelAduio.initResource(
+                                    R.drawable.shape_rectangle_white_15dp,
+                                    resources.getColor(R.color.colorAccent),
+                                    R.drawable.icon_voice_green
+                                )
+                            }
+
                             ClickUtils.applySingleDebouncing(detailBtn) {
                                 TravelDetailActivity.start(this@TargetUserActivity, dating_id = id)
                             }
@@ -493,6 +503,7 @@ class TargetUserActivity :
     override fun onDestroy() {
         super.onDestroy()
         GSYVideoManager.releaseAllVideos()
+        headBinding.travelAduio.release()
     }
 
 }

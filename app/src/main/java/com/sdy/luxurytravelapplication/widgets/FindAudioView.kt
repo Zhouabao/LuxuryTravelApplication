@@ -66,7 +66,7 @@ class FindAudioView @JvmOverloads constructor(
     fun prepareAudio(
         path: String,
         duration: Int,
-        position: Int = 0,
+        id: Int = 0,
         type: Int = 0,
         autoPlay: Boolean = false
     ) {
@@ -84,12 +84,12 @@ class FindAudioView @JvmOverloads constructor(
                     }
         binding.audioPlayBtn.layoutParams = params
 
-        positionId = position
+        positionId = id
         setDurationText(duration)
         binding.audioPlayBtn.setOnClickListener {
             when (playState) {
                 MEDIA_PREPARE, MEDIA_ERROR, MEDIA_STOP -> {
-                    EventBus.getDefault().post(OneVoicePlayEvent(position, type, context))
+                    EventBus.getDefault().post(OneVoicePlayEvent(id, type, context))
                     playAudio()
                 }
                 MEDIA_PAUSE -> {
@@ -102,9 +102,16 @@ class FindAudioView @JvmOverloads constructor(
         }
 
         if (autoPlay) {
-            EventBus.getDefault().post(OneVoicePlayEvent(position, type, context))
+            EventBus.getDefault().post(OneVoicePlayEvent(id, type, context))
             playAudio()
         }
+
+    }
+
+    fun initResource(bgResource: Int, textColor: Int, playImg: Int) {
+        binding.audioPlayBtn.setBackgroundResource(bgResource)
+        binding.audioTime.setTextColor(textColor)
+        binding.audioState.setImageResource(playImg)
 
     }
 

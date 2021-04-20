@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.content.Context
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -9,6 +10,7 @@ import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityMyVisitBinding
 import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.ui.fragment.MyTodayVisitFragment
+import org.jetbrains.anko.startActivity
 
 /**
  *  我的访客
@@ -19,6 +21,24 @@ class MyVisitActivity : BaseActivity<ActivityMyVisitBinding>() {
     companion object {
         const val FROM_ME = 2
         const val FROM_TOP_RECOMMEND = 3
+
+        fun start(
+            context: Context,
+            isVip: Boolean,
+            todayCnt: Int,
+            all: Int,
+            freeShow: Boolean,
+            from: Int
+        ) {
+            context.startActivity<MyVisitActivity>(
+                "isVip" to isVip,
+                "today" to todayCnt,
+                "all" to all,
+                "freeShow" to freeShow,
+                "from" to from
+            )
+
+        }
     }
 
     override fun initData() {

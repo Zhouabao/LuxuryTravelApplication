@@ -80,6 +80,10 @@ class RefreshSquareByGenderEvent()
 /*语音播放单例回调*/
 class OneVoicePlayEvent(val playPosition: Int, val type: Int, val context: Context)
 
+/*语音播放单例回调*/
+class DatingStopPlayEvent()
+
+
 /**
  * 录制完成
  */
@@ -114,20 +118,19 @@ class AnnounceEvent(var serverSuccess: Boolean = false, var code: Int = 0)
 class RePublishEvent(var republish: Boolean, val context: String)
 
 
-
 //刷新加入甜心圈显示
 class RefreshSweetAddEvent(val isHoney: Boolean = false)
 
 
 //首页更新红点消息
 class GetNewMsgEvent
+
 /**
  * 更新招呼列表
  */
 class UpdateHiEvent
 
 class UpdateAccostListEvent()
-
 
 
 /**
@@ -164,11 +167,8 @@ class UserCenterEvent(var refresh: Boolean)
 class AccountDangerEvent(val type: Int)
 
 
-
-
 //更新用户联系方式
 class UserCenterContactEvent(var contact_way: Int)
-
 
 
 class UpdateApproveEvent()
@@ -178,9 +178,9 @@ class FemaleVideoEvent(val videoState: Int)
 
 //置顶卡片
 class TopCardEvent(val showTop: Boolean)
+
 //刷新甜心圈认证状态
 class RefreshSweetEvent()
-
 
 
 /**

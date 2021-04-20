@@ -13,11 +13,13 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
+import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
 import com.sdy.luxurytravelapplication.mvp.presenter.MainPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.ui.fragment.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
@@ -99,6 +101,9 @@ class MainActivity :
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         updateTabChecked(position)
+                        if (position != 3 || position != 4) {
+                            EventBus.getDefault().post(DatingStopPlayEvent())
+                        }
                     }
                 })
 

@@ -145,7 +145,7 @@
 
     <TextView
         android:id="@+id/contactBtn"
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="22dp"
@@ -160,11 +160,12 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/hiBtn"
-        app:layout_constraintTop_toBottomOf="@id/userSign" />
+        app:layout_constraintTop_toBottomOf="@id/userSign"
+        app:layout_goneMarginRight="20dp" />
 
     <TextView
         android:id="@+id/hiBtn"
-        android:layout_width="145dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="22dp"
@@ -176,8 +177,10 @@
         android:textColor="#ffffffff"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/contactBtn"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userSign" />
+        app:layout_constraintTop_toBottomOf="@id/userSign"
+        app:layout_goneMarginLeft="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

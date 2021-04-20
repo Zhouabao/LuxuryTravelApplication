@@ -11,16 +11,19 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.DialogToBeSelectedBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
-import com.sdy.luxurytravelapplication.ui.activity.VipChargeActivity
+import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
+import com.sdy.luxurytravelapplication.ui.activity.MyVisitActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
 /**
  *    author : ZFM
  *    date   : 2021/3/1911:22
- *    desc   :
+ *    desc   :1.开通黄金会员成为精选用户（男性）
+ *            2.添加视频介绍成为精选用户（女性）
  *    version: 1.0
  */
-class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBeSelectedBinding>() {
+class ToBeSelectedDialog(val isSelected: Boolean, val indexListBean: IndexListBean? = null) :
+    BaseBindingDialog<DialogToBeSelectedBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +35,10 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
         val window = this.window
         window?.setGravity(Gravity.BOTTOM)
         val params = window?.attributes
-//        params?.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15F) * 2
         params?.width = WindowManager.LayoutParams.MATCH_PARENT
         params?.height = WindowManager.LayoutParams.WRAP_CONTENT
 
         params?.windowAnimations = R.style.MyDialogBottomAnimation
-//        params?.y = SizeUtils.dp2px(15F)
         window?.attributes = params
         //点击外部可取消
         setCanceledOnTouchOutside(true)
@@ -48,7 +49,7 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
 
         if (isSelected) {
             binding.selectedTitle.text = "您已成为精选用户"
-            binding.selectedContent.text = "已有20人通过精选用户看到了你"
+            binding.selectedContent.text = "已有${indexListBean?.total_exposure_cnt}人通过精选用户看到了你"
             binding.tobeSelectedBtn.text = "谁看过我"
             binding.selectedLogo.isVisible = true
             GlideUtil.loadRoundImgCenterCrop(
@@ -57,6 +58,16 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
                 binding.userAvatar,
                 SizeUtils.dp2px(25F)
             )
+            ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
+                MyVisitActivity.start(
+                    context,
+                    indexListBean?.isplatinumvip ?: false,
+                    indexListBean?.today_exposure_cnt ?: 0,
+                    indexListBean?.today_exposure_cnt ?: 0,
+                    indexListBean?.free_show ?: false,
+                    MyVisitActivity.FROM_TOP_RECOMMEND
+                )
+            }
         } else {
             if (UserManager.gender == 1) {
                 binding.selectedTitle.text = "成为精选用户"

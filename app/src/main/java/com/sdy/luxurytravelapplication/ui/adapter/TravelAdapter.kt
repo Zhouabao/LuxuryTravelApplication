@@ -11,6 +11,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
+import com.sdy.luxurytravelapplication.widgets.FindAudioView
 
 /**
  *    author : ZFM
@@ -20,9 +21,11 @@ import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
  */
 class TravelAdapter(val formDetail: Boolean = false) :
     BaseBindingQuickAdapter<TravelPlanBean, ItemTravelBinding>(R.layout.item_travel) {
+    val myAudioView by lazy { mutableListOf<FindAudioView?>() }
+
     override fun convert(binding: ItemTravelBinding, position: Int, item: TravelPlanBean) {
         binding.apply {
-            ClickUtils.applySingleDebouncing(arrayOf(root, chatBtn,userAvatar)) {
+            ClickUtils.applySingleDebouncing(arrayOf(root, chatBtn, userAvatar)) {
                 when (it) {
                     root -> {
                         if (!formDetail)
@@ -31,7 +34,7 @@ class TravelAdapter(val formDetail: Boolean = false) :
                     chatBtn -> {
                         CommonFunction.checkApplyForDating(context, item)
                     }
-                    userAvatar->{
+                    userAvatar -> {
                         TargetUserActivity.start(context, item.accid)
                     }
                 }
@@ -46,17 +49,34 @@ class TravelAdapter(val formDetail: Boolean = false) :
             travelAddress.text = item.rise_city
             travelDestProvince.text = item.goal_province
             travelDestAddress.text = item.goal_city
-            if (item.content.isNotEmpty()) {
+            if (item.content_type == 1) {
                 travelDescr.text = item.content
                 travelAduio.isVisible = false
                 travelDescr.isVisible = true
+                myAudioView.add(null)
             } else {
                 travelAduio.isVisible = true
                 travelDescr.isVisible = false
+                travelAduio.prepareAudio(item.content, item.duration, item.id, item.content_type, false)
+                myAudioView.add(travelAduio)
             }
-
 
         }
 
+    }
+
+
+    fun resetMyAudioViews() {
+        for (myaudio in myAudioView) {
+            myaudio?.release()
+        }
+    }
+
+    fun notifySomeOneAudioView(positionId: Int) {
+        for (myaudio in myAudioView.withIndex()) {
+            if (myaudio?.value?.positionId != positionId) {
+                myaudio?.value?.release()
+            }
+        }
     }
 }

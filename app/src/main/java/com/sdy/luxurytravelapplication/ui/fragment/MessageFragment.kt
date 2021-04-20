@@ -35,6 +35,7 @@ import com.sdy.luxurytravelapplication.nim.api.model.contact.ContactChangedObser
 import com.sdy.luxurytravelapplication.nim.api.model.main.OnlineStateChangeObserver
 import com.sdy.luxurytravelapplication.nim.api.model.user.UserInfoObserver
 import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment
+import com.sdy.luxurytravelapplication.nim.attachment.ContactCandyAttachment
 import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
@@ -44,6 +45,7 @@ import com.sdy.luxurytravelapplication.ui.adapter.MessageCenterAllAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListHeadAdapter
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
+import com.sdy.luxurytravelapplication.ui.activity.ContactBookActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -76,6 +78,9 @@ class MessageFragment :
             adapter.addChildClickViewIds(R.id.menuTop, R.id.menuDetele, R.id.content)
             adapter.setOnItemChildClickListener { adapter, view, position ->
                 toast("$position")
+            }
+            ClickUtils.applySingleDebouncing(contactBookBtn){
+                ContactBookActivity.start(activity!!)
             }
         }
     }

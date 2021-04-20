@@ -15,6 +15,8 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.EmptyMysquareLayoutBinding
 import com.sdy.luxurytravelapplication.databinding.FragmentMyTravelBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewMyFragmentBinding
+import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
+import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
 import com.sdy.luxurytravelapplication.mvp.contract.MyTravelContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
@@ -23,6 +25,8 @@ import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.ui.activity.PublishTravelActivity
 import com.sdy.luxurytravelapplication.ui.activity.PublishTravelBeforeActivity
 import com.sdy.luxurytravelapplication.ui.adapter.TravelAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
@@ -167,6 +171,26 @@ class MyTravelFragment :
         params["page"] = page
         refreshLayout.resetNoMoreData()
         mPresenter?.planList(params)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateFindByTagEvent(eve: DatingStopPlayEvent) {
+        travelAdapter.resetMyAudioViews()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDatingOnePlayEvent(eve: OneVoicePlayEvent) {
+        travelAdapter.notifySomeOneAudioView(eve.playPosition)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        travelAdapter.resetMyAudioViews()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        travelAdapter.resetMyAudioViews()
     }
 
 }

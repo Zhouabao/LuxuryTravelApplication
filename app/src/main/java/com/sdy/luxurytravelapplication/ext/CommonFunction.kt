@@ -33,7 +33,6 @@ import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.glide.GlideEngine
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
-import com.sdy.luxurytravelapplication.mvp.model.bean.DatingBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean

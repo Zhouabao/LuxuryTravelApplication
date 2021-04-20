@@ -82,22 +82,15 @@ class IndexFragment :
                 this@IndexFragment
             )
         }
-        val data = arrayListOf<IndexTopBean>()
-        data.apply {
-            repeat(4) {
-                UserManager.tempDatas.forEach {
-                    add(IndexTopBean(avatar = it))
-                }
-            }
-        }
-        peopleRecommendTopAdapter.setNewInstance(data)
     }
 
     override fun lazyLoad() {
         mPresenter?.indexTop(hashMapOf())
     }
 
+    private lateinit var indexListBean: IndexListBean
     override fun indexTop(data: IndexListBean) {
+        this.indexListBean = data
         peopleRecommendTopAdapter.setNewInstance(data.list)
         UserManager.gender = data.gender
         if ((data.gender == 1 && data.isplatinumvip) || (data.gender == 2 && data.mv_url)) {
@@ -116,7 +109,7 @@ class IndexFragment :
                 JoinLuxuryActivity.startJoinLuxuxy(activity!!, SweetProgressBean())
             }
             binding.tobeSelectedBtn -> {
-                ToBeSelectedDialog(false).show()
+                ToBeSelectedDialog(false,indexListBean).show()
             }
         }
 
