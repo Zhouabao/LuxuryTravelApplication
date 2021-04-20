@@ -25,7 +25,6 @@ import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.CheckPublishDatingBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.DatingBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.nim.attachment.ChatDatingAttachment
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
@@ -42,9 +41,9 @@ class DatingOpenPtVipDialog(
     val datingBean: TravelPlanBean? = null
 ) : BaseBindingDialog<DialogDatingOpenPtVipBinding>() {
     companion object {
-        val TYPE_DATING_PUBLISH = 1 //发布约会
-        val TYPE_DATING_APPLYFOR = 2 //报名约会
-        val TYPE_DATING_APPLYFOR_PRIVACY = 3 //限制会员
+        const val TYPE_DATING_PUBLISH = 1 //发布约会
+        const val TYPE_DATING_APPLYFOR = 2 //报名约会
+        const val TYPE_DATING_APPLYFOR_PRIVACY = 3 //限制会员
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +59,8 @@ class DatingOpenPtVipDialog(
         binding.apply {
             when (type) {
                 TYPE_DATING_PUBLISH -> { //发布约会
-                    GlideUtil.loadCircleImg(context1, UserManager.avatar, datingAvator)
-                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                    GlideUtil.loadImg(context1, UserManager.avatar, datingAvator)
+                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                     datingTitle.text = context1.getString(R.string.dating_publish_only_vip)
                     datingContent.text = context1.getString(R.string.dating_tobe_vip_to_date)
                     openPtVipBtn.text = context1.getString(R.string.tobe_gold_vip)
@@ -73,9 +72,9 @@ class DatingOpenPtVipDialog(
                 TYPE_DATING_APPLYFOR -> {
                     //1.先判断有无高级限制
                     if (chatUpBean != null) {
-                        GlideUtil.loadCircleImg(context1, datingBean?.avatar!!, datingAvator)
+                        GlideUtil.loadImg(context1, datingBean?.avatar!!, datingAvator)
                         if (chatUpBean!!.private_chat && !chatUpBean.isplatinum) {
-                            openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                            openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                             datingTitle.text = context1.getString(R.string.dating_allow_gold_apply)
                             datingContent.text = context1.getString(R.string.dating_apply_dont_miss)
                             openPtVipBtn.text = context1.getString(R.string.tobe_gold_vip)
@@ -91,7 +90,7 @@ class DatingOpenPtVipDialog(
                                     datingContent.text =
                                         context1.getString(R.string.chatup_chance_run_up)
                                     applyForDatingBtn.isVisible = false
-                                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                                     openPtVipBtn.text = context1.getString(
                                         R.string.apply_dating_left,
                                         chatUpBean!!.dating_amount
@@ -100,7 +99,7 @@ class DatingOpenPtVipDialog(
                                         datingApply()
                                     }
                                 } else {
-                                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                                     applyForDatingBtn.text =
                                         context1.getString(
                                             R.string.apply_dating_left,
@@ -124,7 +123,7 @@ class DatingOpenPtVipDialog(
 
                             } else {
                                 //3.报名约会
-                                openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                                openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                                 applyForDatingBtn.isVisible = false
                                 datingTitle.text = context1.getString(R.string.is_sure_dating)
                                 datingContent.text = context1.getString(
@@ -143,8 +142,8 @@ class DatingOpenPtVipDialog(
                 }
 
                 TYPE_DATING_APPLYFOR_PRIVACY -> {
-                    GlideUtil.loadCircleImg(context1, datingBean?.avatar!!, datingAvator)
-                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg)
+                    GlideUtil.loadImg(context1, datingBean?.avatar!!, datingAvator)
+                    openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_vip_bg_25dp)
                     datingTitle.text = context1.getString(R.string.dating_allow_gold_apply)
 //                dating_apply_dont_miss
                     datingContent.text = context1.getString(R.string.dating_apply_super_dont_miss)

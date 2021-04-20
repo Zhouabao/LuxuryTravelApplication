@@ -29,7 +29,7 @@
         android:layout_below="@id/giftTitle"
         android:layout_alignLeft="@id/giftTitle"
         android:layout_marginTop="3dp"
-        android:text="糖果礼物待开启"
+        android:text="旅券礼物待开启"
         android:textColor="#FFB6BCC6"
         android:textSize="12sp" />
 

@@ -27,9 +27,9 @@ class SendCustomTipAttachment(
         const val CUSTOME_TIP_WOMAN_CHAT_COUNT = 4 //女方聊天条数到达设定条数时,没有心愿礼物
         const val CUSTOME_TIP_MAN_BIGGER_CHAT_COUNT_HAS_GIFT = 5 //男方 双方聊天数>设定聊天条数  女方有心愿礼物
         const val CUSTOME_TIP_MAN_BIGGER_CHAT_COUNT_NOT_HAS_GIFT = 6 //男方 双方聊天数>设定聊天条数 女方没有心愿礼物
-        const val CUSTOME_TIP_RECEIVED_GIFT = 7 //已领取对方赠送的糖果礼物，可直接用于兑换商品和提现
-        const val CUSTOME_TIP_EXCHANGE_PRODUCT = 8 //已满足兑换所需糖果，立即兑换
-        const val CUSTOME_TIP_EXCHANGE_FOR_ASSISTANT = 9 //小助手发聊天糖果退回警告（针对女方）
+        const val CUSTOME_TIP_RECEIVED_GIFT = 7 //已领取对方赠送的旅券礼物，可直接用于兑换商品和提现
+        const val CUSTOME_TIP_EXCHANGE_PRODUCT = 8 //已满足兑换所需旅券，立即兑换
+        const val CUSTOME_TIP_EXCHANGE_FOR_ASSISTANT = 9 //小助手发聊天旅券退回警告（针对女方）
         const val CUSTOME_TIP_NORMAL = 10 //常规的tip
         const val CUSTOME_TIP_PRIVICY_SETTINGS = 11 //私聊权限
         const val CUSTOME_TIP_CHARGE_PT_VIP = 12 //充值黄金会员

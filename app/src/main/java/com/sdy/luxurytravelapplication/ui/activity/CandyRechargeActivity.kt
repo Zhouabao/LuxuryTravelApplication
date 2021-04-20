@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
 
 /**
- *  * 糖果充值页面
+ *  * 旅券充值页面
  */
 class CandyRechargeActivity :
     BaseMvpActivity<CandyRechargeContract.View, CandyRechargeContract.Presenter, ActivityCandyRechargeBinding>(),

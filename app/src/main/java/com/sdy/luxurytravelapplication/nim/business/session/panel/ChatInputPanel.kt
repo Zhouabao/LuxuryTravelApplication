@@ -96,8 +96,8 @@ class ChatInputPanel(
     private fun initActionPanel(isRobot: Boolean = false) {
         adapter.setNewInstance(
             if (isRobot) {
-                actions
-//                actions.subList(0, actions.size - 2)
+//                actions
+                actions.subList(0, actions.size - 2)
             } else {
                 actions
             }

@@ -160,7 +160,7 @@ object CommonFunction {
      * 	400 toast错误
      * 	202 黄金会员充值
      * 	222 （已经解锁过了）
-     * 	200 amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+     * 	200 amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
      *
      */
     fun checkUnlockContact(context: Context, target_accid: String, gender: Int) {
@@ -170,7 +170,7 @@ object CommonFunction {
             .ssss { t ->
                 loading.doDismiss()
                 when (t.code) {
-                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                    200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
                         ChatUpOpenPtVipDialog(
                             context,
                             target_accid,
@@ -240,7 +240,7 @@ object CommonFunction {
      * 400 错误toast
      * 201 男性不是门槛会员
      * 222 （铂金会元/已经解锁视频 返回isnew_friend true是新好友 false 不是新建立 mv_url 视频地址 ）
-     * 200 amount 糖果数 isplatinumvip 是否铂金会员
+     * 200 amount 旅券数 isplatinumvip 是否铂金会员
      */
     fun checkUnlockIntroduceVideo(context: Context, target_accid: String) {
         val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
@@ -253,7 +253,7 @@ object CommonFunction {
                     222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
                         PlayVideoDialog(t.data?.mv_url ?: "").show()
                     }
-                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                    200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
                         VideoOpenPtVipDialog().show()
                     }
                     201 -> {
@@ -280,7 +280,7 @@ object CommonFunction {
             .ssss { t ->
                 waitDialog.doDismiss()
                 when (t.code) {
-                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                    200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
                         DatingOpenPtVipDialog(
                             context1,
                             DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR,
@@ -479,7 +479,7 @@ object CommonFunction {
     }
 
     /**
-     * 跳转到糖果充值
+     * 跳转到旅券充值
      */
     fun gotoCandyRecharge(context: Context) {
         CandyRechargeActivity.gotoCandyRecharge(context)

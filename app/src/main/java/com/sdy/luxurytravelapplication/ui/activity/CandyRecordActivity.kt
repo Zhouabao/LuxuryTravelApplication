@@ -17,7 +17,7 @@ import com.sdy.luxurytravelapplication.mvp.presenter.CandyRecordPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.CandyRecordAdapter
 
 /**
- * 糖果交易记录
+ * 旅券交易记录
  */
 class CandyRecordActivity :
     BaseMvpActivity<CandyRecordContract.View, CandyRecordContract.Presenter, ActivityCandyRecordBinding>(),

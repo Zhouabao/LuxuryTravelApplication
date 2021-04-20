@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject
  *    version: 1.0
  */
 class ContactCandyAttachment(
-    var contactCandy: Int = 0// 获取联系方式赠送的糖果
+    var contactCandy: Int = 0// 获取联系方式赠送的旅券
 ) : CustomAttachment(CustomAttachmentType.ChatContactCandy) {
 
 

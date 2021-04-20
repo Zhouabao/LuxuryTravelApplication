@@ -11,7 +11,7 @@ public interface CustomAttachmentType {
     int WishHelp = 4; // 心愿助力
     int ChatContact = 5;// 联系方式
     int AccostGift = 6;// 搭讪礼物
-    int ChatContactCandy = 7;// 联系方式赠送糖果
+    int ChatContactCandy = 7;// 联系方式赠送旅券
     int ChatDating = 8;// 约会
     int ChatUp = 9;// 搭讪语发送
 

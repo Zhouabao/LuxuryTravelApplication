@@ -276,7 +276,7 @@
                 app:layout_constraintLeft_toLeftOf="@id/view1"
                 app:layout_constraintRight_toRightOf="@id/view1"
                 app:layout_constraintTop_toBottomOf="@id/t1"
-                tools:text="每净充值100元即可获得一次邀请机会，可分享至多人或者群组，邀请码填写使用后失效并绑定至好友，每成功邀请一位好友即赠送100糖果，糖果可用于搭讪、聊天、赠送对方礼物" />
+                tools:text="每净充值100元即可获得一次邀请机会，可分享至多人或者群组，邀请码填写使用后失效并绑定至好友，每成功邀请一位好友即赠送100旅券，旅券可用于搭讪、聊天、赠送对方礼物" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>
 

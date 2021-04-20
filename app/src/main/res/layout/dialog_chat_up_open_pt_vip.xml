@@ -4,18 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    android:background="@drawable/shape_rectangle_white_top_15dp">
 
-    android:background="@drawable/shape_rectangle_white_15dp">
-
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.sdy.luxurytravelapplication.widgets.RoundImageView
         android:id="@+id/chatupAvator"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/icon_default_avator"
+        android:src="@drawable/default_image_5dp"
+        app:borderRadius="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:type="round" />
 
     <TextView
         android:id="@+id/chatupContact"
@@ -26,13 +27,13 @@
         android:drawableLeft="@drawable/icon_contact_qq"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingTop="4dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="4dp"
-        android:text="微信\t\twei*****5"
+        android:paddingLeft="5dp"
+        android:paddingTop="3dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="3dp"
+        android:text="微信wei*****5"
         android:textColor="#FF1E9CF0"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -43,11 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/get_change_unlock_her"
-        android:textColor="#ff191919"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:gravity="center"
+        android:text="@string/get_change_unlock_her"
+        android:textColor="#FF333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chatupContact" />
@@ -55,50 +56,53 @@
     <TextView
         android:id="@+id/chatupContent"
         android:layout_width="0dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="15dp"
         android:gravity="center"
         android:text="@string/chatup_to_be_vip"
-        android:textColor="#ffb5b7b9"
+        android:textColor="#FFB6BCC6"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chatupTitle" />
 
-
-    <TextView
-        android:id="@+id/chatupUnlockChat"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape_rectangle_gray_20dp"
-        android:gravity="center"
-        android:text="@string/chatup_unlock"
-        android:textColor="#ff888d92"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chatupContent" />
-
-
     <TextView
         android:id="@+id/openPtVipBtn"
         android:layout_width="285dp"
         android:layout_height="50dp"
-        android:background="@drawable/shape_rectangle_green_25dp"
-        android:minHeight="56dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/shape_rectangle_green_25dp"
         android:gravity="center"
+        android:minHeight="56dp"
         android:text="@string/chatup_unlock"
         android:textColor="#ffffffff"
-        android:textSize="17sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/chatupUnlockChat"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chatupContent"
+        app:layout_goneMarginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/chatupUnlockChat"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_rectangle_gray_20dp"
+        android:gravity="center"
+        android:text="@string/chatup_unlock"
+        android:textColor="@color/color333"
+        android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chatupUnlockChat" />
+        app:layout_constraintTop_toBottomOf="@id/openPtVipBtn" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

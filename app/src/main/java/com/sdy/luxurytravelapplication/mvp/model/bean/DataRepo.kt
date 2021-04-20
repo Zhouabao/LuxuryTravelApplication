@@ -233,7 +233,7 @@ data class ChatInfoBean(
     var target_isfaced: Boolean = false,
     var both_gift_list: MutableList<ChatGiftStateBean> = mutableListOf(),
     var is_send_msg: Boolean = false,
-    var chatup_amount: Int = 0,//搭讪支付的糖果
+    var chatup_amount: Int = 0,//搭讪支付的旅券
     var lockbtn: Boolean = false,//	true 弹出解锁聊天 false不弹出
     var force_isvip: Boolean = false,
     var chat_expend_amount: Int = 0,//1要显示 2不显示
@@ -243,7 +243,7 @@ data class ChatInfoBean(
     var private_chat_state: Boolean = false,
     var isdirect: Boolean = false,
     var unlock_contact_way: Int = 0, //是否有联系方式
-    var unlock_popup_str: String = "", //	我是否被别人解锁弹框 大于0 弹框显示糖果数目
+    var unlock_popup_str: String = "", //	我是否被别人解锁弹框 大于0 弹框显示旅券数目
     var is_unlock_contact: Boolean = false,//是否解锁过联系方式
     var target_ishoney: Boolean = false//	true 是甜心圈 fals 不是甜心圈
 
@@ -1255,7 +1255,7 @@ data class Invite(
 
 
 /**
- * 糖果解锁验证
+ * 旅券解锁验证
  */
 data class UnlockCheckBean(
     var isnew_friend: Boolean = false,
@@ -1268,7 +1268,7 @@ data class UnlockCheckBean(
 /*验证报名旅行*/
 data class CheckPublishDatingBean(
     var is_publish: Boolean = false,
-    var dating_amount: Int = 0,//报名邀约糖果数
+    var dating_amount: Int = 0,//报名邀约旅券数
     var isplatinum: Boolean = false,//是否黄金会员 true 是 false 不是
     var private_chat: Boolean = false,//该邀约是否设置黄金会员访问 true设置 false没有设置
     var residue_cnt: Int = 0,//	是否剩余免费次数

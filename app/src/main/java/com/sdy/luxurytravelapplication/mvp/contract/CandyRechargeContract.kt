@@ -24,14 +24,14 @@ interface CandyRechargeContract {
         fun giftRechargeList()
 
         /**
-         * 查询我的糖果
+         * 查询我的旅券
          */
         fun myCadny()
     }
 
     interface Model : IModel {
         /**
-         * 查询我的糖果
+         * 查询我的旅券
          */
         fun myCadny(): Observable<BaseResp<PullWithdrawBean?>>
         fun giftRechargeList(): Observable<BaseResp<ChargeWayBeans?>>

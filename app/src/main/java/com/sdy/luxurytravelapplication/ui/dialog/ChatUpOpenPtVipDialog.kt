@@ -72,9 +72,8 @@ class ChatUpOpenPtVipDialog(
                     )
                     SpanUtils.with(chatupContact)
                         .append(context1.getString(R.string.contact_phone))
-                        .setForegroundColor(Color.parseColor("#FFFF6318"))
                         .append("\t${chatUpBean.contact}")
-                        .setForegroundColor(Color.parseColor("#FFFF6318"))
+                        .setForegroundColor(Color.parseColor("#FF1ED0A7"))
                         .setBold()
                         .create()
                 }
@@ -136,7 +135,7 @@ class ChatUpOpenPtVipDialog(
                  *          1.2.2次数用尽
                  *              a.获得聊天机会
                  *              b.今日聊天机会已用完
-                 *              (解锁聊天  30糖果)
+                 *              (解锁聊天  30旅券)
                  *              c.成为黄金会员，免费无限次聊天
                  *
                  * 2.黄金会员
@@ -149,16 +148,16 @@ class ChatUpOpenPtVipDialog(
                  *          a.今日免费次数已用完
                  *          b.今日免费聊天次数已用完
                  *          （微信 wei****5）
-                 *          c.解锁聊天（30糖果）
+                 *          c.解锁聊天（30旅券）
                  *
                  */
 
                 TYPE_CHAT -> { //解锁聊天
-                    openPtVipBtn.setBackgroundResource(R.drawable.shape_1ed0a7_29dp)
+                    openPtVipBtn.setBackgroundResource(R.drawable.shape_rectangle_green_25dp)
                     chatupContact.isVisible = false
                     if (chatUpBean.isplatinum) {
                         if (chatUpBean.avatar.isNotEmpty())
-                            GlideUtil.loadCircleImg(context1, chatUpBean.avatar, chatupAvator)
+                            GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
                         chatupUnlockChat.isVisible = false
                         chatupTitle.text = context1.getString(R.string.chatup_is_chat_her)
                         openPtVipBtn.text = context1.getString(R.string.chatup_to_be_vip)
@@ -198,7 +197,7 @@ class ChatUpOpenPtVipDialog(
                                 context1.getString(R.string.tobe_gold_to_contact_her)
                         } else if (chatUpBean.private_chat_btn) {
                             if (chatUpBean.avatar.isNotEmpty())
-                                GlideUtil.loadCircleImg(context1, chatUpBean.avatar, chatupAvator)
+                                GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
                             //2.对方用户是普通用户
                             chatupTitle.text = context1.getString(R.string.her_level_privay)
                             chatupContent.text =
@@ -207,7 +206,7 @@ class ChatUpOpenPtVipDialog(
                             openPtVipBtn.text = context1.getString(R.string.tobe_gold_approve_power)
                         } else {
                             if (chatUpBean.avatar.isNotEmpty())
-                                GlideUtil.loadCircleImg(context1, chatUpBean.avatar, chatupAvator)
+                                GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
                             openPtVipBtn.text = context1.getString(R.string.chatup_to_be_vip)
                             chatupTitle.text = context1.getString(R.string.chatup_is_chat_her)
                             chatupUnlockChat.isVisible = true
@@ -246,20 +245,20 @@ class ChatUpOpenPtVipDialog(
                      *  1.2 聊天次数用尽
                      *      a.微信 Wei****5
                      *      b.今日免费解锁次数已用完
-                     *      c.您当日还可以免费解锁0次联系方式\n使用糖果解锁，不错过心仪的她
-                     *      d.解锁她的联系方式（200糖果）
+                     *      c.您当日还可以免费解锁0次联系方式\n使用旅券解锁，不错过心仪的她
+                     *      d.解锁她的联系方式（200旅券）
                      * 2.非黄金会员
                      *      a.微信 Wei****5
                      *      b.解锁心仪的她
-                     *      c.解锁联系方式（200糖果）
+                     *      c.解锁联系方式（200旅券）
                      *      d.购买至尊直联卡，免费解锁联系方式
                      *
                      */
                     if (chatUpBean.avatar.isNotEmpty())
-                        GlideUtil.loadCircleImg(context1, chatUpBean.avatar, chatupAvator)
+                        GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
                     chatupContact.isVisible = true
                     if (chatUpBean.private_chat_btn && !chatUpBean.isplatinum) {
-                        openPtVipBtn.setBackgroundResource(R.drawable.shape_1ed0a7_29dp)
+                        openPtVipBtn.setBackgroundResource(R.drawable.shape_rectangle_green_25dp)
                         chatupTitle.text = context1.getString(
                             R.string.her_level_privay
                         )
@@ -276,7 +275,7 @@ class ChatUpOpenPtVipDialog(
                         }
 
                     } else {
-                        openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_ptvip_bg)
+                        openPtVipBtn.setBackgroundResource(R.drawable.gradient_buy_ptvip_bg_25dp)
                         if (chatUpBean.isdirect) {//是直联卡会员,判断有没有次数
                             chatupUnlockChat.isVisible = false
                             chatupContent.isVisible = true
@@ -430,7 +429,7 @@ class ChatUpOpenPtVipDialog(
 
     /**
      * 解锁联系方式
-     * 200 解锁成功 419 糖果余额不足
+     * 200 解锁成功 419 旅券余额不足
      */
     fun unlockContact() {
         val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
@@ -467,7 +466,7 @@ class ChatUpOpenPtVipDialog(
      * 解锁聊天
      * 	201 门槛
      * 	206 好友跳聊天
-     * 	419 糖果余额不足
+     * 	419 旅券余额不足
      * 	200 解锁成功
      */
     fun unlockChat() {

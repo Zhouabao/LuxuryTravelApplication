@@ -103,7 +103,7 @@ class ChatActivity :
     lateinit var inputPanel: ChatInputPanel
 
 //409 -> {// 用户被封禁
-//411 -> {//糖果余额不足
+//411 -> {//旅券余额不足
 //201 -> {//门槛会员提示
 //else -> { // 其他的发送失败，送出失败原因
 
@@ -521,7 +521,7 @@ class ChatActivity :
                     )
             }
 
-            binding.unlockChatLl -> {  // 糖果门槛消费聊天
+            binding.unlockChatLl -> {  // 旅券门槛消费聊天
                 CommonFunction.checkChat(this,sessionId)
             }
             binding.inputCl.unlockContactBtn -> {  // 解锁联系方式
@@ -784,7 +784,7 @@ class ChatActivity :
     }
 
     private fun showLockChat() {
-        //显示糖果聊天
+        //显示旅券聊天
         binding.unlockChatLl.isVisible = nimBean.lockbtn
 
     }
@@ -850,8 +850,8 @@ class ChatActivity :
                         false
                     }
             }
-            411 -> {//糖果余额不足
-                // 糖果余额不足
+            411 -> {//旅券余额不足
+                // 旅券余额不足
                 setFailedStatus(message, getString(R.string.notice_gold_charge), NOTICE_CHARGE)
             }
             201 -> {//门槛会员提示

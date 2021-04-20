@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  *  *    author : ZFM
  *    date   : 2019/11/99:44
- *    desc   :接收糖果礼物弹窗
+ *    desc   :接收旅券礼物弹窗
  *    const GIFT_SEND_WAIT = 1;//待领取状态
 const GIFT_SUCCESS = 2;//领取成功 or 发送成功
 const GIFT_TIMEOUT_BACK = 3;//超时退回
@@ -110,27 +110,19 @@ class ReceiveCandyGiftDialog(
                     if (!isReceive) {
                         tempRefuseBtn.visibility = View.INVISIBLE
                         receiveGiftBtn.text = context1.getString(R.string.ok)
-                        startReceivedAnimation()
-                        receiveCandyReceived.isVisible = true
-                        receiveCandyReceived.setImageResource(R.drawable.icon_gift_waitreceive)
                     } else {
                         tempRefuseBtn.isVisible = true
                         receiveGiftBtn.text = context1.getString(R.string.receive_candy_gift)
                         startWaitReceiveAnimation()
-                        receiveCandyReceived.isVisible = false
                     }
                 }
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN -> {
                     receiveGiftBtn.text = context1.getString(R.string.ok)
                     tempRefuseBtn.visibility = View.INVISIBLE
-                    receiveCandyReceived.setImageResource(R.drawable.icon_gift_received)
-                    startReceivedAnimation()
                 }
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_RETURNED -> {
-                    startReceivedAnimation()
                     receiveGiftBtn.text = context1.getString(R.string.ok)
                     tempRefuseBtn.visibility = View.INVISIBLE
-                    receiveCandyReceived.setImageResource(R.drawable.icon_gift_has_returned)
                 }
             }
         }
@@ -148,110 +140,8 @@ class ReceiveCandyGiftDialog(
         rotateLight.repeatCount = -1
         rotateLight.start()
 
-
-        //糖果礼物信息的平移动画
-        val translateContent =
-            ObjectAnimator.ofFloat(
-                binding.receiveCandyCl,
-                "translationY",
-                SizeUtils.dp2px(-160F).toFloat()
-            )
-        translateContent.duration = 300L
-        translateContent.interpolator = LinearInterpolator()
-        translateContent.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-                binding.receiveCandyCl.postDelayed({
-                    binding.giftCandyAmount.isVisible = true
-                }, 200L)
-            }
-
-        })
-
-        //盖子的向上平移
-        val translateTop =
-            ObjectAnimator.ofFloat(
-                binding.receiveCandyTop,
-                "translationY",
-                SizeUtils.dp2px(-10F).toFloat()
-            )
-        translateTop.duration = 300L
-        translateTop.interpolator = LinearInterpolator()
-        translateTop.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-                binding.receiveCandyCl.postDelayed({
-                    translateContent.start()
-                }, 150L)
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-            }
-
-        })
-        binding.receiveCandyTop.postDelayed({
-            translateTop.start()
-        }, 500L)
-
     }
 
-
-    private fun startReceivedAnimation() {
-        //糖果礼物信息的平移动画
-        val translateContent =
-            ObjectAnimator.ofFloat(
-                binding.receiveCandyCl,
-                "translationY",
-                SizeUtils.dp2px(-160F).toFloat()
-            )
-        translateContent.duration = 20L
-        translateContent.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-                binding.giftCandyAmount.isVisible = true
-            }
-
-        })
-
-        //盖子的向上平移
-        val translateTop =
-            ObjectAnimator.ofFloat(
-                binding.receiveCandyTop,
-                "translationY",
-                SizeUtils.dp2px(-10F).toFloat()
-            )
-        translateTop.duration = 20L
-        translateTop.interpolator = LinearInterpolator()
-        translateTop.start()
-        translateContent.start()
-
-    }
 
 
     /**

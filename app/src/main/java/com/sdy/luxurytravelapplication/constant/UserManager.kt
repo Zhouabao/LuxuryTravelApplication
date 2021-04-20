@@ -59,8 +59,8 @@ object UserManager {
 
 
 
-    var showCandyMessage: Boolean = true//聊天是否显示糖果
-    var showCandyTime: Long = 0L//聊天显示糖果的时间
+    var showCandyMessage: Boolean = true//聊天是否显示旅券
+    var showCandyTime: Long = 0L//聊天显示旅券的时间
 
 
     /*************动态语音播放位置记录****************/
