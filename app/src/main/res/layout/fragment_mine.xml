@@ -279,7 +279,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
-                                android:text="黄金会员丨已为你节省300个旅券"
+                                android:text="高级会员丨已为你节省300个旅券"
                                 android:textColor="#FFFFD57D"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />

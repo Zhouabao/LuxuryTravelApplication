@@ -424,7 +424,7 @@
     <string name="user_cnt">全球%1$d个想要旅行的%2$s性用户\n 立刻和%3$s们链接促成甜蜜约会</string>
     <string name="no_invite_code">没有邀请码</string>
     <string name="why_pay">为什么要付费</string>
-    <string name="why_pay_explain">精英认证是为了旅游App更好的服务用户\n全面提升用户旅游交友体验</string>
+    <string name="why_pay_explain">精英认证是为了伴游App更好的服务用户\n全面提升用户伴游交友体验</string>
     <string name="why_pay1">保证平台内女性真实，平台均为人工全天候审核</string>
     <string name="why_pay2">杜绝骚扰，未认证用户无法骚扰有真正婚恋意愿的用户</string>
     <string name="why_pay3">认证精英即表达婚恋意愿，提升社交效率，女生会主动找你</string>
@@ -536,7 +536,7 @@
     <string name="msg_share_square">『动态分享内容』</string>
     <string name="msg_candy_gift">『旅券礼物』</string>
     <string name="msg_want_help">『心愿助力』</string>
-    <string name="msg_dating_apply">『活动报名』</string>
+    <string name="msg_dating_apply">『伴游报名』</string>
     <string name="msg_unlock_chat">『聊天已解锁』</string>
     <string name="msg_gift">『礼物消息』</string>
     <string name="msg_unlock_contact">『解锁联系方式』</string>
@@ -574,7 +574,7 @@
     <string name="give">赠送</string>
     <string name="gift_send_fail">🎁发送失败</string>
     <string name="candy_balance">旅券余额</string>
-    <string name="candy_usage">旅券可用于：发起旅游计划、赠送礼物、解锁</string>
+    <string name="candy_usage">旅券可用于：发起伴游、赠送礼物、解锁</string>
     <string name="original_price">原价</string>
     <string name="first_charge_save">首充立减</string>
     <string name="cost">价值</string>
@@ -597,7 +597,7 @@
     <string name="my_privilege">我的权益</string>
     <string name="vip_renew">续费</string>
     <string name="vip_buy">获取</string>
-    <string name="vip_gold">黄金会员</string>
+    <string name="vip_gold">高级会员</string>
     <string name="vip_connection_card">至尊直联卡</string>
     <string name="bind_now">立即绑定</string>
     <string name="change">变更联系方式</string>
@@ -832,14 +832,14 @@
     <string name="gift_has_revoked">礼物已退回</string>
     <string name="cost_candy_count">价值 %1$d 旅券</string>
     <string name="she_left_contact_way">她给你留下了联系方式</string>
-    <string name="hide_message_if_gold_vip">消息太多？你可以设置私聊权限仅黄金会员过滤消息</string>
-    <string name="charge_to_free">免费消息会被归于对方搭讪列表，可能回复率偏低，充值黄金会员可提升消息回复</string>
+    <string name="hide_message_if_gold_vip">消息太多？你可以设置私聊权限仅高级会员过滤消息</string>
+    <string name="charge_to_free">免费消息会被归于对方搭讪列表，可能回复率偏低，充值高级会员可提升消息回复</string>
     <string name="cost_one_candy_for_quanlity">为筛选高质量用户男性保证女性会员不被过度骚扰，将交友机会留给更有诚意的用户。每次发送消息将消耗一个旅券</string>
     <string name="too_many_message_1">消息太多？你可以设置</string>
     <string name="too_many_message_2">私聊权限</string>
-    <string name="too_many_message_3">仅黄金会员过滤消息</string>
+    <string name="too_many_message_3">仅高级会员过滤消息</string>
     <string name="free_chat_message1">免费消息会被归于对方搭讪列表，可能回复率偏低，\n</string>
-    <string name="free_chat_message2">充值黄金会员</string>
+    <string name="free_chat_message2">充值高级会员</string>
     <string name="free_chat_message3">可提升消息回复</string>
 
 
@@ -867,13 +867,13 @@
     <string name="verify_then_chat_content">本平台为真人社交平台，为保护付费用户利益和真实性，您需要先进行人脸验证</string>
     <string name="verify_then_unlock">认证后才能解锁联系方式</string>
     <string name="face_then_chat_to_real">本平台为真人社交平台，为保护付费用户利益和真实性，您需要先进行人脸验证</string>
-    <string name="verify_then_apply_dating">认证后才能发起报名活动</string>
+    <string name="verify_then_apply_dating">认证后才能发起报名伴游</string>
     <string name="add_your_video_free_chat">添加你的视频介绍，获取首页优先推荐\n 解锁无限聊天机会</string>
     <string name="video_must_know">视频介绍须知</string>
     <string name="video_tip">视频将与你的头像做校对，视频介绍通过将对会员用户公开，点击录制键进行亮眼的视频介绍吧</string>
     <string name="see_her_video_introduce">查看她的视频介绍</string>
-    <string name="tobe_vip_sha_add_video">她添加了视频介绍，成为黄金会员查看更真实的她</string>
-    <string name="unlock_her_introduce_after_vip">成为黄金会员，解锁她的视频介绍</string>
+    <string name="tobe_vip_sha_add_video">她添加了视频介绍，成为高级会员查看更真实的她</string>
+    <string name="unlock_her_introduce_after_vip">成为高级会员，解锁她的视频介绍</string>
 
 
     <string name="watch">查看</string>
@@ -885,7 +885,7 @@
     <string name="custom_chatup">自定义搭讪语</string>
 
 
-    <string name="chatup_to_be_vip">成为黄金会员，获取免费机会</string>
+    <string name="chatup_to_be_vip">成为高级会员，获取免费机会</string>
     <string name="chatup_is_chat_her">要给她打个招呼吗</string>
     <string name="chatup_free_time_left">今日还有%1$d次打招呼的机会</string>
     <string name="chatup_unlock">解锁聊天</string>
@@ -893,10 +893,10 @@
     <string name="unlock_chat_left">解锁聊天 （%1$d旅券）</string>
     <string name="cannot_contact_in_level">当前会员等级无法与她联系</string>
     <string name="avoid_trouble_with_normal_vip">因避免恋爱圈用户被骚扰\n普通会员不能直接与恋爱圈用户建立联系</string>
-    <string name="tobe_gold_to_contact_her">升级黄金会员，立即与她取得联系</string>
+    <string name="tobe_gold_to_contact_her">升级高级会员，立即与她取得联系</string>
     <string name="her_level_privay">她设置了等级权限</string>
-    <string name="she_allow_gold_contact_her">她仅允许黄金会员联系她\n立即成为黄金会员，不要错过她</string>
-    <string name="tobe_gold_approve_power">成为黄金会员，证明实力解锁关系</string>
+    <string name="she_allow_gold_contact_her">她仅允许高级会员联系她\n立即成为高级会员，不要错过她</string>
+    <string name="tobe_gold_approve_power">成为高级会员，证明实力解锁关系</string>
     <string name="chat_cost_candy">聊天需要消耗旅券，向对方表达诚意</string>
     <string name="today_has">为表达交友诚意需向对方赠送%1$d旅券，您也可以充值会员每日获取%2$d次免费聊天机会</string>
     <string name="is_unlock_contact">是否解锁她的联系方式</string>
@@ -909,34 +909,34 @@
     <string name="buy_contact_card_to_free">购买至尊直联卡，免费解锁联系方式</string>
     <string name="all_country_roaming">全国位置漫游</string>
     <string name="location_auto_change_say_hi">位置随时变更，提前跟其他地方的人打个招呼</string>
-    <string name="buy_gold_to_open_roaming">获取黄金会员，开启位置漫游</string>
+    <string name="buy_gold_to_open_roaming">获取高级会员，开启位置漫游</string>
     <string name="get_change_unlock_her">获得聊天机会，解锁心仪的她</string>
     <string name="tobe_choiceness_user">成为精选用户</string>
-    <string name="tobe_gold_to_first_see_you">成为黄金会员，让女生第一眼看到你</string>
-    <string name="open_gold_vip">开通黄金会员</string>
+    <string name="tobe_gold_to_first_see_you">成为高级会员，让女生第一眼看到你</string>
+    <string name="open_gold_vip">开通高级会员</string>
     <string name="upload_video_to_first_see_you">上传视频介绍，让优质男性第一眼看到你</string>
     <string name="ok_1">好的</string>
-    <string name="tobe_gold_vip">成为黄金会员</string>
+    <string name="tobe_gold_vip">成为高级会员</string>
     <string name="send_gift">赠送礼物</string>
     <string name="connect_network">请连接网络！</string>
     <string name="he_unlock_you">对方已解锁你的联系方式</string>
     <string name="contact_not_pass">联系方式审核不通过</string>
     <string name="contact_not_pass_warnning">联系方式审核不通过，会大大降低您的推荐，可重新进行修改提高推荐！</string>
-    <string name="dating_allow_gold_apply">对方仅允许黄金会员报名</string>
-    <string name="dating_apply_dont_miss">对方仅允许黄金会员报名\n立即成为黄金会员，不要错过她</string>
-    <string name="is_sure_dating">要报名活动吗</string>
-    <string name="apply_dating_left">报名活动（ %1$d 旅券）</string>
-    <string name="prove_in_candy_is_better">用旅券证明活动诚意或许更好哦</string>
-    <string name="tobe_gold_more_free">成为黄金会员，更多免费机会</string>
+    <string name="dating_allow_gold_apply">对方仅允许高级会员报名</string>
+    <string name="dating_apply_dont_miss">对方仅允许高级会员报名\n立即成为高级会员，不要错过她</string>
+    <string name="is_sure_dating">要报名伴游吗</string>
+    <string name="apply_dating_left">报名伴游（ %1$d 旅券）</string>
+    <string name="prove_in_candy_is_better">用旅券证明伴游诚意或许更好哦</string>
+    <string name="tobe_gold_more_free">成为高级会员，更多免费机会</string>
     <string name="dating_apply_cost_left">报名消耗一次聊天机会\n今日还有%1$d次免费聊天机会</string>
-    <string name="dating_apply_super_dont_miss">对方仅允许高级用户报名\n立即成为黄金会员，不要错过她</string>
-    <string name="dating_publish_only_vip">仅黄金会员能发布活动</string>
-    <string name="dating_tobe_vip_to_date">活动为黄金会员独享功能\n成为黄金会员，建立和她的浪漫活动吧</string>
+    <string name="dating_apply_super_dont_miss">对方仅允许高级用户报名\n立即成为高级会员，不要错过她</string>
+    <string name="dating_publish_only_vip">仅高级会员能发布伴游</string>
+    <string name="dating_tobe_vip_to_date">伴游为高级会员独享功能\n成为高级会员，建立和她的浪漫旅行吧</string>
     <string name="dating_apply">我要报名</string>
 
     <string name="is_sure_delete_label">确认删除兴趣？</string>
-    <string name="view_event">查看活动</string>
-    <string name="initiated_event_registration">发起了活动报名</string>
+    <string name="view_event">查看伴游</string>
+    <string name="initiated_event_registration">发起了伴游报名</string>
 
     <string name="get_his_chat_gift">已获得对方的搭讪礼物</string>
     <string name="receive_candy_gift">领取旅券礼物</string>

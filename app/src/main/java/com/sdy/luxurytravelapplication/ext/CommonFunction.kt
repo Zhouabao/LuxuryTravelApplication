@@ -89,7 +89,7 @@ object CommonFunction {
      * 	201 拉起充值会员
      * 	206 是好友进聊天
      * 	200 拉起礼物列表
-     * 	208 充值黄金会员（女性设置了聊天权限）
+     * 	208 充值高级会员（女性设置了聊天权限）
      */
     fun checkChat(context1: Context, target_accid: String) {
         val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
@@ -158,7 +158,7 @@ object CommonFunction {
     /**
      * 验证联系方式解锁
      * 	400 toast错误
-     * 	202 黄金会员充值
+     * 	202 高级会员充值
      * 	222 （已经解锁过了）
      * 	200 amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
      *
@@ -270,7 +270,7 @@ object CommonFunction {
 
     /**
      * 验证报名约会
-     * 	code 202 对方设置黄金会员 206是好友，已经报名 207 报名成功返回数据（id，title，dating_title，icon） 200 400错误信息  401
+     * 	code 202 对方设置高级会员 206是好友，已经报名 207 报名成功返回数据（id，title，dating_title，icon） 200 400错误信息  401
      */
     fun checkApplyForDating(context1: Context, datingBean: TravelPlanBean) {
         val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
@@ -288,7 +288,7 @@ object CommonFunction {
                             datingBean
                         ).show()
                     }
-                    202 -> {//202 对方设置黄金会员
+                    202 -> {//202 对方设置高级会员
                         DatingOpenPtVipDialog(
                             context1,
                             DatingOpenPtVipDialog.TYPE_DATING_APPLYFOR_PRIVACY,

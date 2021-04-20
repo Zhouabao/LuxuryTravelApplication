@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="82dp"
-            android:text="黄金会员"
+            android:text="高级会员"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
             android:textStyle="bold"

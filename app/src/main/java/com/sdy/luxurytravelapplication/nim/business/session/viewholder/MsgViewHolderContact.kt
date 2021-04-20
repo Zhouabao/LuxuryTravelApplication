@@ -35,11 +35,11 @@ class MsgViewHolderContact(msgAdapter: MsgAdapter) : MsgViewHolderBase(msgAdapte
     override fun bindContentView() {
       binding.apply {
           if (attachment. contactWay== 1) {
-              contactImg.setImageResource(R.drawable.icon_contact_phone)
+              contactImg.setImageResource(R.drawable.icon_unlock_phone)
           } else if (attachment.contactWay == 2) {
-              contactImg.setImageResource(R.drawable.icon_contact_wechat)
+              contactImg.setImageResource(R.drawable.icon_unlock_wechat)
           } else if (attachment.contactWay == 3) {
-              contactImg.setImageResource(R.drawable.icon_contact_qq)
+              contactImg.setImageResource(R.drawable.icon_unlock_qq)
           }
 
           SpanUtils.with(contactContent)

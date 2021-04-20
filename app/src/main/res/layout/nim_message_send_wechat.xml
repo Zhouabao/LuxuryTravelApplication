@@ -3,8 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="15dp"
-    android:paddingTop="8dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp">
 
@@ -13,7 +13,7 @@
         android:id="@+id/contactImg"
         android:layout_width="23dp"
         android:layout_height="23dp"
-        android:src="@drawable/icon_contact_wechat" />
+        android:src="@drawable/icon_unlock_wechat" />
 
     <TextView
         android:id="@+id/contactContent"

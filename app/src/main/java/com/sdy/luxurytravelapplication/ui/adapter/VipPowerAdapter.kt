@@ -79,7 +79,7 @@ class VipPowerAdapter :
                     item.list[promotePos].original_price
                 } else {
                     item.list[promotePos].discount_price
-                }}\t获取黄金会员"
+                }}\t获取高级会员"
                 vipBg.setImageResource(R.drawable.icon_vip_bg)
                 powerLeftBg.setImageResource(R.drawable.icon_vip_left_bg)
                 powerRightBg.setImageResource(R.drawable.icon_vip_right_bg)

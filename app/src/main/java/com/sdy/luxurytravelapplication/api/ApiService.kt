@@ -928,4 +928,15 @@ interface ApiService {
     fun checkChat(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChatUpBean?>>
 
 
+    /**
+     *
+     *  标记获取过我的联系方式 弹出过了框
+     * Home/tagUnlockPopup
+     *
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/tagUnlockPopup${Constants.END_BASE_URL}")
+    fun tagUnlockPopup(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
+
+
 }

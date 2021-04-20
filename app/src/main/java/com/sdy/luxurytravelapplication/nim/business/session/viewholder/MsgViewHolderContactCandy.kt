@@ -27,11 +27,11 @@ class MsgViewHolderContactCandy(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msg
     }
 
     override fun leftBackground(): Int {
-        return R.drawable.shape_rectangle_stroke_eceff4_15dp
+        return R.color.white
     }
 
     override fun rightBackground(): Int {
-        return R.drawable.shape_rectangle_stroke_eceff4_15dp
+        return R.color.white
     }
 
     override fun onItemClick() {

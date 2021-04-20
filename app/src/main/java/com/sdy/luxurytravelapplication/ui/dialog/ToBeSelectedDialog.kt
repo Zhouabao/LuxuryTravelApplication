@@ -61,7 +61,7 @@ class ToBeSelectedDialog(val isSelected: Boolean) : BaseBindingDialog<DialogToBe
             if (UserManager.gender == 1) {
                 binding.selectedTitle.text = "成为精选用户"
                 binding.selectedContent.text = "成为高级会员，让女生第一眼看到你"
-                binding.tobeSelectedBtn.text = "开通黄金会员"
+                binding.tobeSelectedBtn.text = "开通高级会员"
                 //成为精选用户
                 ClickUtils.applySingleDebouncing(binding.tobeSelectedBtn) {
                     CommonFunction.startToVip(context)

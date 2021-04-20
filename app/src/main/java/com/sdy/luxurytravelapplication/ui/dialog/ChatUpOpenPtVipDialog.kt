@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.SpanUtils
 import com.kongzue.dialog.v3.TipDialog
 import com.kongzue.dialog.v3.WaitDialog
 import com.netease.nimlib.sdk.NIMClient
@@ -63,82 +62,69 @@ class ChatUpOpenPtVipDialog(
             //	0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
             when (chatUpBean.contact_way) {
                 1 -> {
-                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_light_orange_16dp)
+                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_light_green_phone_8dp)
                     chatupContact.setCompoundDrawablesWithIntrinsicBounds(
-                        context1.resources.getDrawable(R.drawable.icon_contact_phone),
+                        context1.resources.getDrawable(R.drawable.icon_unlock_phone),
                         null,
                         null,
                         null
                     )
-                    SpanUtils.with(chatupContact)
-                        .append(context1.getString(R.string.contact_phone))
-                        .append("\t${chatUpBean.contact}")
-                        .setForegroundColor(Color.parseColor("#FF1ED0A7"))
-                        .setBold()
-                        .create()
+                    chatupContact.setTextColor(Color.parseColor("#FF1ED0A7"))
+                    chatupContact.text="手机号\t${chatUpBean.contact}"
                 }
                 2 -> {
-                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_green_16dp)
+                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_contact_wechat_8dp)
                     chatupContact.setCompoundDrawablesWithIntrinsicBounds(
-                        context1.resources.getDrawable(R.drawable.icon_contact_wechat),
+                        context1.resources.getDrawable(R.drawable.icon_unlock_wechat),
                         null,
                         null,
                         null
                     )
-                    SpanUtils.with(chatupContact)
-                        .append(context1.getString(R.string.contact_wechat))
-                        .setForegroundColor(Color.parseColor("#FF1EC121"))
-                        .append("\t${chatUpBean.contact}")
-                        .setForegroundColor(Color.parseColor("#FF1EC121"))
-                        .setBold()
-                        .create()
+                    chatupContact.setTextColor(Color.parseColor("#FF1DC944"))
+                    chatupContact.text="微信\t${chatUpBean.contact}"
                 }
                 3 -> {
-                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_blue_solid_16dp)
+                    chatupContact.setBackgroundResource(R.drawable.shape_rectangle_blue_qq_8dp)
                     chatupContact.setCompoundDrawablesWithIntrinsicBounds(
-                        context1.resources.getDrawable(R.drawable.icon_contact_qq),
+                        context1.resources.getDrawable(R.drawable.icon_unlock_qq),
                         null,
                         null,
                         null
                     )
-                    SpanUtils.with(chatupContact)
-                        .append(context1.getString(R.string.contact_QQ))
-                        .setForegroundColor(Color.parseColor("#FF1E9CF0"))
-                        .append("\t${chatUpBean.contact}")
-                        .setForegroundColor(Color.parseColor("#FF1E9CF0"))
-                        .setBold()
-                        .create()
+
+                    chatupContact.setTextColor(Color.parseColor("FF1E9CF0"))
+                    chatupContact.text="QQ\t${chatUpBean.contact}"
                 }
             }
 
             when (type) {
                 /**
-                 * 1.非黄金会员
+                 * 1.非高级会员
                  *      1.1设置私聊权限
                  *
                  *          1.1.1 仅高级用户能联系（非甜心圈）
-                 *              a.她仅允许黄金会员联系她
-                 *              b.立即成为黄金会员，不要错过
-                 *              c.成为黄金会员，免费无限次聊天
+                 *              a.她仅允许高级会员联系她
+                 *              b.立即成为高级会员，不要错过
+                 *              c.成为高级会员，免费无限次聊天
                  *          1.2.1  仅高级用户能联系 （甜心圈）
                  *              a.当前会员等级无法与她联系
                  *              b.因避免甜心圈用户被骚扰，普通会员不能直接与甜心圈用户建立联系
-                 *              c.升级黄金会员，立即与她取得联系
+                 *              c.升级高级会员，立即与她取得联系
                  *
                  *      1.2未设置私聊权限
                  *          1.2.1次数未用尽
                  *              a.获得聊天机会
                  *              b.今日还有3次免费聊天机会
                  *              (解锁聊天)
-                 *              c.成为黄金会员，免费无限次聊天
+                 *              c.成为高级会员，免费无限次聊天
                  *
                  *          1.2.2次数用尽
                  *              a.获得聊天机会
                  *              b.今日聊天机会已用完
                  *              (解锁聊天  30旅券)
-                 *              c.成为黄金会员，免费无限次聊天
+                 *              c.成为高级会员，免费无限次聊天
                  *
-                 * 2.黄金会员
+                 * 2.高级会员
                  *      2.1聊天次数未用尽
                  *          a.要给她打个招呼吗
                  *          b.今日还可以免费10次聊天
@@ -182,7 +168,7 @@ class ChatUpOpenPtVipDialog(
                             unlockChat()
                         }
                     } else {
-                        //成为黄金会员
+                        //成为高级会员
                         ClickUtils.applySingleDebouncing(openPtVipBtn) {
                             CommonFunction.startToVip(context1)
                             dismiss()
@@ -247,7 +233,7 @@ class ChatUpOpenPtVipDialog(
                      *      b.今日免费解锁次数已用完
                      *      c.您当日还可以免费解锁0次联系方式\n使用旅券解锁，不错过心仪的她
                      *      d.解锁她的联系方式（200旅券）
-                     * 2.非黄金会员
+                     * 2.非高级会员
                      *      a.微信 Wei****5
                      *      b.解锁心仪的她
                      *      c.解锁联系方式（200旅券）

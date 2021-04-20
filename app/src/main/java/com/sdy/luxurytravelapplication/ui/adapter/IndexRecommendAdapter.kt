@@ -10,8 +10,6 @@ import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
-import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
-import com.sdy.luxurytravelapplication.ui.dialog.VerifyThenChatDialog
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
@@ -128,9 +126,7 @@ class IndexRecommendAdapter :
                 .create()
 
             ClickUtils.applySingleDebouncing(root) {
-                VerifyThenChatDialog(context).show()
-
-//                TargetUserActivity.start(context, item.accid)
+                TargetUserActivity.start(context, item.accid)
             }
 
         }

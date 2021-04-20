@@ -2,45 +2,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/giftStatusBg"
-    android:layout_width="wrap_content"
-    android:layout_height="72dp"
-    android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
-    android:minWidth="194dp"
-    android:padding="10dp">
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/contactRl"
+        android:layout_width="194dp"
+        android:layout_height="72dp"
+        android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
+        android:gravity="left"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/giftTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/giftImg"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="解锁联系方式" />
+
+        <TextView
+            android:id="@+id/giftAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/giftTitle"
+            android:layout_alignLeft="@id/giftTitle"
+            android:layout_marginTop="3dp"
+            android:drawableLeft="@drawable/icon_travel_card_small"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="200旅券"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/giftImg"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_contact_gift_candy" />
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/giftTitle"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_rectangle_gray_12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/giftImg"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
-        android:layout_toRightOf="@id/giftImg"
-        android:gravity="center"
-        android:textColor="#ff333333"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        tools:text="解锁联系方式" />
-
-    <TextView
-        android:id="@+id/giftAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/giftTitle"
-        android:layout_alignLeft="@id/giftTitle"
-        android:layout_marginTop="3dp"
-        android:text="200旅券"
-        android:textColor="#FFB6BCC6"
-        android:textSize="12sp" />
-
-    <ImageView
-        android:id="@+id/giftImg"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/icon_msg_gift" />
-
-
+        android:layout_below="@id/contactRl"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="4dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="4dp"
+        android:text="他解锁了你的联系方式，可在设置页关闭展示"
+        android:textColor="#ff8a909f"
+        android:textSize="11sp" />
 </RelativeLayout>
 

@@ -92,7 +92,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/gradient_buy_vip_bg"
             android:gravity="center"
-            android:text="¥178 获取黄金会员"
+            android:text="¥178 获取高级会员"
             android:textColor="#ffffffff"
             android:textSize="14sp"
             android:textStyle="bold" />

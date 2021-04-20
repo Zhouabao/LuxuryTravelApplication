@@ -989,7 +989,7 @@ data class UserInfoBean(
     val threshold_btn: Boolean = false,//门槛是否开启
     val free_show: Boolean = false,//  true（显示）  false(模糊)
     val vip_descr: MutableList<VipDescr>? = mutableListOf(),//会员权益描述
-    val platinum_vip_descr: MutableList<VipDescr>? = mutableListOf(),//黄金会员权益描述
+    val platinum_vip_descr: MutableList<VipDescr>? = mutableListOf(),//高级会员权益描述
     var visitlist: MutableList<String> = mutableListOf()//看过我的头像列表
 )
 
@@ -1269,8 +1269,8 @@ data class UnlockCheckBean(
 data class CheckPublishDatingBean(
     var is_publish: Boolean = false,
     var dating_amount: Int = 0,//报名邀约旅券数
-    var isplatinum: Boolean = false,//是否黄金会员 true 是 false 不是
-    var private_chat: Boolean = false,//该邀约是否设置黄金会员访问 true设置 false没有设置
+    var isplatinum: Boolean = false,//是否高级会员 true 是 false 不是
+    var private_chat: Boolean = false,//该邀约是否设置高级会员访问 true设置 false没有设置
     var residue_cnt: Int = 0,//	是否剩余免费次数
     val datingId: Int,
     val content: String,

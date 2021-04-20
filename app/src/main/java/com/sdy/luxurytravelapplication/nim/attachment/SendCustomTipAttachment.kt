@@ -32,7 +32,7 @@ class SendCustomTipAttachment(
         const val CUSTOME_TIP_EXCHANGE_FOR_ASSISTANT = 9 //小助手发聊天旅券退回警告（针对女方）
         const val CUSTOME_TIP_NORMAL = 10 //常规的tip
         const val CUSTOME_TIP_PRIVICY_SETTINGS = 11 //私聊权限
-        const val CUSTOME_TIP_CHARGE_PT_VIP = 12 //充值黄金会员
+        const val CUSTOME_TIP_CHARGE_PT_VIP = 12 //充值高级会员
 
 
     }

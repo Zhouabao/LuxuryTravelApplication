@@ -63,6 +63,7 @@ import com.sdy.luxurytravelapplication.nim.business.session.panel.MessageListPan
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
+import com.sdy.luxurytravelapplication.ui.dialog.ContactCandyReceiveDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VideoAddChatTimeDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
@@ -522,19 +523,23 @@ class ChatActivity :
             }
 
             binding.unlockChatLl -> {  // 旅券门槛消费聊天
-                CommonFunction.checkChat(this,sessionId)
+                CommonFunction.checkChat(this, sessionId)
             }
             binding.inputCl.unlockContactBtn -> {  // 解锁联系方式
-                CommonFunction.checkUnlockContact(this,sessionId,nimBean.target_gender)
+                CommonFunction.checkUnlockContact(this, sessionId, nimBean.target_gender)
             }
             binding.inputCl.closeContactBtn -> {
-                binding.inputCl.unlockContactLl.isVisible=false
+                binding.inputCl.unlockContactLl.isVisible = false
             }
-            binding.gotoVerifyBtn->{// 去认证
+            binding.gotoVerifyBtn -> {// 去认证
                 if (!nimBean.my_isfaced) {
-                    CommonFunction.startToFace(this,FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,-1)
-                }else if (nimBean.mv_state == 0) {
-                    CommonFunction.startToVideoIntroduce(this,-1)
+                    CommonFunction.startToFace(
+                        this,
+                        FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
+                        -1
+                    )
+                } else if (nimBean.mv_state == 0) {
+                    CommonFunction.startToVideoIntroduce(this, -1)
                 }
             }
 
@@ -744,13 +749,13 @@ class ChatActivity :
                 unlockContactLl.isVisible = true
                 when (nimBean.unlock_contact_way) {
                     1 -> {
-                        contactIv.setImageResource(R.drawable.icon_contact_phone)
+                        contactIv.setImageResource(R.drawable.icon_unlock_phone)
                     }
                     2 -> {
-                        contactIv.setImageResource(R.drawable.icon_contact_wechat)
+                        contactIv.setImageResource(R.drawable.icon_unlock_wechat)
                     }
                     3 -> {
-                        contactIv.setImageResource(R.drawable.icon_contact_qq)
+                        contactIv.setImageResource(R.drawable.icon_unlock_qq)
                     }
                 }
             } else {
@@ -760,7 +765,7 @@ class ChatActivity :
 
         messageListPanel.refreshMessageList()
         if (nimBean.unlock_popup_str.isNotEmpty()) {
-//            ContactCandyReceiveDialog(sessionId, nimBean.getUnlock_popup_str(), this).show()
+            ContactCandyReceiveDialog(sessionId, nimBean.unlock_popup_str).show()
             nimBean.unlock_popup_str = ""
         }
         if (!isChatWithRobot() && UserManager.gender == 2
