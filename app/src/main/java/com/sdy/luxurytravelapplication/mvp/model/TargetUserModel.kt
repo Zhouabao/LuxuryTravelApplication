@@ -23,4 +23,16 @@ class TargetUserModel : BaseModel(), TargetUserContract.Model {
 
         return RetrofitHelper.service.someoneSquareCandy(params)
     }
+
+    override fun shieldingFriend(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
+        return RetrofitHelper.service.shieldingFriend(params)
+    }
+
+    override fun removeBlock(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
+        return RetrofitHelper.service.removeBlock(params)
+    }
+
+    override fun dissolutionFriend(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
+        return RetrofitHelper.service.dissolutionFriend(params)
+    }
 }

@@ -193,3 +193,5 @@ class HideChatLlEvent()
 class HideContactLlEvent()
 
 class RefreshCandyMessageEvent(val orderId: Int, val state: Int)
+
+class UpdateBlackEvent()

@@ -941,4 +941,8 @@
     <string name="get_his_chat_gift">已获得对方的搭讪礼物</string>
     <string name="receive_candy_gift">接收糖果礼物</string>
     <string name="temp_refuse_gift">暂不接收</string>
+
+    <string name="black_you_did_content">拉黑状态下双方主页互相不可见\n取消拉黑可恢复好友权益</string>
+    <string name="black_she_did_content">对方已将你拉黑并限制访问其主页\n去看看其它感兴趣的人吧</string>
+    <string name="cancel_black">取消拉黑</string>
 </resources>

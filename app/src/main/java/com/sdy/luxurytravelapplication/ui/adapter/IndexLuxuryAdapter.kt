@@ -14,6 +14,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
+import org.wysaid.common.Common
 
 /**
  *    author : ZFM
@@ -104,6 +105,9 @@ class IndexLuxuryAdapter :
                 contactBtn.isVisible = false
             }
 
+            ClickUtils.applySingleDebouncing(hiBtn){
+                CommonFunction.checkChat(context,item.accid)
+            }
             ClickUtils.applySingleDebouncing(root) {
                 TargetUserActivity.start(context, item.accid)
             }

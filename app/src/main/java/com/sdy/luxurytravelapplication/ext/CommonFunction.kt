@@ -36,6 +36,7 @@ import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.model.bean.DatingBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.attachment.*
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
@@ -76,6 +77,8 @@ object CommonFunction {
         val intent = activity.intentFor<WelcomeActivity>().clearTask().newTask()
         activity.startActivity(intent)
     }
+
+
 
 
     /**
@@ -232,12 +235,44 @@ object CommonFunction {
             }
     }
 
+    /**
+     * 验证视频介绍解锁
+     * 400 错误toast
+     * 201 男性不是门槛会员
+     * 222 （铂金会元/已经解锁视频 返回isnew_friend true是新好友 false 不是新建立 mv_url 视频地址 ）
+     * 200 amount 糖果数 isplatinumvip 是否铂金会员
+     */
+    fun checkUnlockIntroduceVideo(context: Context, target_accid: String) {
+        val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
+        waitDialog.showNoAutoDismiss()
+        RetrofitHelper.service
+            .checkUnlockMv(hashMapOf("target_accid" to target_accid))
+            .ssss { t ->
+                waitDialog.doDismiss()
+                when (t.code) {
+                    222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
+                        PlayVideoDialog(t.data?.mv_url ?: "").show()
+                    }
+                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                        VideoOpenPtVipDialog().show()
+                    }
+                    201 -> {
+                        PurchaseFootActivity.start(context)
+                    }
+                    else -> {
+                        ToastUtil.toast(t.msg)
+                    }
+                }
+
+            }
+    }
+
 
     /**
      * 验证报名约会
      * 	code 202 对方设置黄金会员 206是好友，已经报名 207 报名成功返回数据（id，title，dating_title，icon） 200 400错误信息  401
      */
-    fun checkApplyForDating(context1: Context, datingBean: DatingBean) {
+    fun checkApplyForDating(context1: Context, datingBean: TravelPlanBean) {
         val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
         waitDialog.showNoAutoDismiss()
         RetrofitHelper.service
@@ -319,37 +354,7 @@ object CommonFunction {
     }
 
 
-    /**
-     * 验证视频介绍解锁
-     * 400 错误toast
-     * 201 男性不是门槛会员
-     * 222 （铂金会元/已经解锁视频 返回isnew_friend true是新好友 false 不是新建立 mv_url 视频地址 ）
-     * 200 amount 糖果数 isplatinumvip 是否铂金会员
-     */
-    fun checkUnlockIntroduceVideo(context: Context, target_accid: String) {
-        val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        waitDialog.showNoAutoDismiss()
-        RetrofitHelper.service
-            .checkUnlockMv(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
-                waitDialog.doDismiss()
-                when (t.code) {
-                    222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
-                        PlayVideoDialog(t.data?.mv_url ?: "").show()
-                    }
-                    200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
-                        VideoOpenPtVipDialog().show()
-                    }
-                    201 -> {
-                        PurchaseFootActivity.start(context)
-                    }
-                    else -> {
-                        ToastUtil.toast(t.msg)
-                    }
-                }
 
-            }
-    }
 
 
     /**

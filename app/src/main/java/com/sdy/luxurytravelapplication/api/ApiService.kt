@@ -126,6 +126,29 @@ interface ApiService {
     fun someoneSquareCandy(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
 
 
+    /**
+     * 拉黑用户
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/blockMember${Constants.END_BASE_URL}")
+    fun shieldingFriend(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 解除拉黑
+     */
+    @FormUrlEncoded
+    @POST("StrageBlock/removeBlock${Constants.END_BASE_URL}")
+    fun removeBlock(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 解除匹配
+     */
+    @FormUrlEncoded
+    @POST("relationship/dissolutionFriend${Constants.END_BASE_URL}")
+    fun dissolutionFriend(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
     /*****************************广场**********************************/
 
     /**
@@ -657,14 +680,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("StrageBlock/blackList${Constants.END_BASE_URL}")
     fun myShieldingList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<BlackBean>?>>
-
-
-    /**
-     * 解除拉黑
-     */
-    @FormUrlEncoded
-    @POST("StrageBlock/removeBlock${Constants.END_BASE_URL}")
-    fun removeBlock(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
     /**

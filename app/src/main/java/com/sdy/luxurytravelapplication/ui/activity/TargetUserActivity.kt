@@ -14,8 +14,10 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.google.android.flexbox.*
+import com.kongzue.dialog.v3.BottomMenu
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.friend.FriendService
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -25,6 +27,7 @@ import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityTargetUserBinding
 import com.sdy.luxurytravelapplication.databinding.ItemTargetTopBinding
+import com.sdy.luxurytravelapplication.event.UpdateBlackEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.TargetUserContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.MatchBean
@@ -39,6 +42,7 @@ import com.sdy.luxurytravelapplication.ui.dialog.VerifyLevelDescrDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.startActivity
 
@@ -47,7 +51,7 @@ import org.jetbrains.anko.startActivity
  */
 class TargetUserActivity :
     BaseMvpActivity<TargetUserContract.View, TargetUserContract.Presenter, ActivityTargetUserBinding>(),
-    TargetUserContract.View, OnLoadMoreListener {
+    TargetUserContract.View, OnLoadMoreListener, View.OnClickListener {
     private val targetAccid by lazy { intent.getStringExtra("target_accid")!! }
     override fun createPresenter(): TargetUserContract.Presenter = TargetUserPresenter()
 
@@ -119,6 +123,15 @@ class TargetUserActivity :
             barlCl.root.setBackgroundColor(Color.TRANSPARENT)
             barlCl.rightIconBtn.setImageResource(R.drawable.icon_more_gray)
             refreshTargetUser.setOnLoadMoreListener(this@TargetUserActivity)
+            ClickUtils.applySingleDebouncing(
+                arrayOf(
+                    barlCl.btnBack,
+                    barlCl.rightIconBtn,
+                    contactCl,
+                    detailUserChatBtn,
+                    cancelBlack
+                ), this@TargetUserActivity
+            )
 
 
             val manager1 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -166,7 +179,7 @@ class TargetUserActivity :
                 baseInfoAdapter.setNewInstance(matchBean.personal_info)
                 bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_url, true,matchBean.mv_detail_url))
+                        add(UserPhotoBean(true, matchBean.mv_url, true, matchBean.mv_detail_url))
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -181,6 +194,8 @@ class TargetUserActivity :
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
                     }
                 })
+                smallPhotoAdapter.matchBean = matchBean
+                bigPhotoAdapter.matchBean = matchBean
                 headBinding.apply {
                     nickName.text = matchBean.nickname
                     age.text = "${matchBean.age}岁"
@@ -254,7 +269,7 @@ class TargetUserActivity :
 
                     //联系方式  0  没有 1 电话 2微信 3 qq
                     if (matchBean.contact_way != 0) {
-                        contactBtn.isVisible = true
+                        contactCl.isVisible = true
                         when (matchBean.contact_way) {
                             1 -> {
                                 contactWay.setImageResource(R.drawable.icon_target_phone)
@@ -266,14 +281,8 @@ class TargetUserActivity :
                                 contactWay.setImageResource(R.drawable.icon_target_qq)
                             }
                         }
-                        ClickUtils.applySingleDebouncing(contactBtn) {
-                            CommonFunction.checkUnlockIntroduceVideo(
-                                this@TargetUserActivity,
-                                matchBean.accid
-                            )
-                        }
                     } else {
-                        contactBtn.isVisible = false
+                        contactCl.isVisible = false
                     }
 
                 }
@@ -297,10 +306,73 @@ class TargetUserActivity :
         )
     }
 
+
+    override fun onClick(v: View) {
+        binding.apply {
+            when (v) {
+                barlCl.btnBack -> {
+                    finish()
+                }
+                barlCl.rightIconBtn -> {
+                    if (this@TargetUserActivity::matchBean.isInitialized) {
+                        val datas = arrayListOf<CharSequence>().apply {
+                            if (this@TargetUserActivity::matchBean.isInitialized && matchBean.isfriend == 1) {
+                                add("解除配对")
+                            }
+                            add("举报")
+                            add("拉黑")
+                        }
+                        BottomMenu.show(
+                            this@TargetUserActivity as AppCompatActivity,
+                            datas
+                        ) { text, index ->
+                            when (text) {
+                                "解除配对" -> {
+                                    mPresenter?.dissolutionFriend(hashMapOf("target_accid" to targetAccid))
+                                }
+                                "举报" -> {
+                                    ReportReasonActivity.startReport(
+                                        this@TargetUserActivity,
+                                        targetAccid
+                                    )
+                                }
+                                "拉黑" -> {
+                                    mPresenter?.shieldingFriend(hashMapOf("target_accid" to targetAccid))
+                                }
+                            }
+                        }
+                    }
+
+                }
+                contactCl -> {//获取联系方式
+                    if (this@TargetUserActivity::matchBean.isInitialized)
+                        CommonFunction.checkUnlockContact(
+                            this@TargetUserActivity,
+                            matchBean.accid,
+                            matchBean.gender
+                        )
+                }
+                detailUserChatBtn -> { //聊天check
+                    if (this@TargetUserActivity::matchBean.isInitialized) {
+                        CommonFunction.checkChat(this@TargetUserActivity, matchBean.accid)
+                    }
+                }
+
+                cancelBlack -> {//取消拉黑
+                    mPresenter?.removeBlock(
+                        hashMapOf("target_accid" to matchBean.accid)
+                    )
+                }
+            }
+        }
+
+    }
+
     override fun getMatchUserInfo(code: Int, msg: String, matchBean: MatchBean?) {
         if (code == 200) {
             mLayoutStatusView?.showContent()
             this.matchBean = matchBean!!
+            updateBlockStatus()
             setData()
             mPresenter?.someoneSquareCandy(params1)
         } else if (code == 409) {
@@ -334,6 +406,73 @@ class TargetUserActivity :
                 mLayoutStatusView?.showError()
             } else {
                 binding.refreshTargetUser.finishLoadMore(false)
+            }
+        }
+
+    }
+
+    override fun onGetUserActionResult(success: Boolean, isDissolve: Boolean) {
+        if (isDissolve) {
+            CommonFunction.dissolveRelationshipLocal(matchBean.accid)
+        } else {
+            NIMClient.getService(FriendService::class.java).addToBlackList(matchBean.accid)
+            NIMClient.getService(MsgService::class.java)
+                .deleteRecentContact2(matchBean.accid, SessionTypeEnum.P2P)
+            NIMClient.getService(MsgService::class.java)
+                .clearChattingHistory(matchBean.accid, SessionTypeEnum.P2P)
+            matchBean.isblock = 2
+            updateBlockStatus()
+        }
+
+    }
+
+    override fun onRemoveBlockResult(success: Boolean) {
+        if (success) {
+            NIMClient.getService(FriendService::class.java).removeFromBlackList(matchBean!!.accid)
+            //1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
+            if (matchBean.isblock == 4) {
+                matchBean.isblock = 3
+            } else if (matchBean.isblock == 2) {
+                matchBean.isblock = 1
+            }
+            EventBus.getDefault().post(UpdateBlackEvent())
+            updateBlockStatus()
+        }
+    }
+
+    /**
+     * 更新拉黑状态
+     */
+    //1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
+    private fun updateBlockStatus() {
+        binding.apply {
+            when (matchBean.isblock) {
+                1 -> {
+                    userContent.isVisible = true
+                    llBlackContent.isVisible = false
+                }
+                2 -> {
+                    llBlackContent.isVisible = true
+                    userContent.isVisible = false
+                    cancelBlack.isVisible = true
+                    blackContent.text = getString(R.string.black_you_did_content)
+                }
+                3 -> {
+                    llBlackContent.isVisible = true
+                    userContent.isVisible = false
+                    cancelBlack.isVisible = false
+                    blackContent.text = getString(R.string.black_she_did_content)
+                }
+                4 -> {
+                    llBlackContent.isVisible = true
+                    userContent.isVisible = false
+                    cancelBlack.isVisible = true
+                    blackContent.text = getString(R.string.black_you_did_content)
+                }
+                else -> {
+                    userContent.isVisible = true
+                    llBlackContent.isVisible = false
+                }
             }
         }
 

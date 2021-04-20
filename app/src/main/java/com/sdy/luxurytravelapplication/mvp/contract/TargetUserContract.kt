@@ -29,11 +29,34 @@ interface TargetUserContract {
             result: Boolean
         )
 
+        /**
+         * 拉黑、解除配对
+         */
+        fun onGetUserActionResult(success: Boolean,isDissolve:Boolean)
+
+
+
+        fun onRemoveBlockResult(success: Boolean)
     }
 
     interface Presenter : IPresenter<View> {
         fun getMatchUserInfo(target_accid: String)
         fun someoneSquareCandy(params: HashMap<String, Any>)
+        /**
+         * 拉黑用户
+         */
+        fun shieldingFriend(params: HashMap<String, Any>)
+
+        /**
+         * 解除拉黑
+         */
+        fun removeBlock(params: HashMap<String, Any>)
+
+
+        /*
+         * 解除匹配
+         */
+        fun dissolutionFriend(params: HashMap<String, Any>)
     }
 
     interface Model : IModel {
@@ -41,5 +64,21 @@ interface TargetUserContract {
         fun getMatchUserInfo(target_accid: String): Observable<BaseResp<MatchBean?>>
 
         fun someoneSquareCandy(params: HashMap<String, Any>): Observable<BaseResp<RecommendSquareListBean?>>
+
+        /**
+         * 拉黑用户
+         */
+        fun shieldingFriend(params: HashMap<String, Any>):Observable<BaseResp<Any>>
+
+        /**
+         * 解除拉黑
+         */
+        fun removeBlock(params: HashMap<String, Any>):Observable<BaseResp<Any>>
+
+
+        /*
+         * 解除匹配
+         */
+        fun dissolutionFriend(params: HashMap<String, Any>):Observable<BaseResp<Any>>
     }
 }

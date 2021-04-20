@@ -27,6 +27,7 @@ import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.databinding.LayoutNimInputBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.model.bean.PublishWayBean
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
 import com.sdy.luxurytravelapplication.nim.business.emoji.IEmoticonSelectedListener
@@ -139,7 +140,7 @@ class ChatInputPanel(
                 }
 
                 4 -> {//发起语音聊天
-                    container.proxy.createVoiceCall()
+                    CommonFunction.checkUnlockContact(container.activity,container.account,1)
                 }
                 5 -> {//点击赠送🎁
                     SendGiftDialog(container).show()

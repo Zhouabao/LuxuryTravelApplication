@@ -181,26 +181,6 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
 
             //点击跳转
             root.setOnClickListener {
-//                if (UserManager.touristMode) {
-//                    TouristDialog(context).show()
-//                } else {
-//                    if (item.type == 2)  //视频
-//                        SquarePlayDetailActivity.startActivity(
-//                            context as Activity,
-//                            id = item.id,
-//                            fromRecommend = true
-//                        )
-//                    else {//文本.语音.图片
-//                        if (item.type == 1) {
-//                            if (item.accid != UserManager.accid && !item.isliked)
-//                                clickZan(
-//                                    clickZanViewAni,
-//                                    squareLike,
-//                                    position - headerLayoutCount
-//                                )
-//                        }
-
-
                 SquareCommentDetailActivity.start(
                     context,
                     squareId = item.id,
@@ -212,10 +192,6 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
                     },
                     gender = item.gender
                 )
-//
-//                    }
-//                }
-
 
             }
 

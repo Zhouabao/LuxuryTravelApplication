@@ -39,6 +39,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
@@ -190,7 +191,11 @@ class ChatActivity :
         ClickUtils.applySingleDebouncing(
             arrayOf<View>(
                 binding.barCl.btnBack,
-                binding.barCl.rightIconBtn
+                binding.barCl.rightIconBtn,
+                binding.unlockChatLl,
+                binding.gotoVerifyBtn,
+                binding.inputCl.unlockContactBtn,
+                binding.inputCl.closeContactBtn
             ), this
         )
         binding.barCl.divider.isVisible = true
@@ -516,6 +521,23 @@ class ChatActivity :
                     )
             }
 
+            binding.unlockChatLl -> {  // 糖果门槛消费聊天
+                CommonFunction.checkChat(this,sessionId)
+            }
+            binding.inputCl.unlockContactBtn -> {  // 解锁联系方式
+                CommonFunction.checkUnlockContact(this,sessionId,nimBean.target_gender)
+            }
+            binding.inputCl.closeContactBtn -> {
+                binding.inputCl.unlockContactLl.isVisible=false
+            }
+            binding.gotoVerifyBtn->{// 去认证
+                if (!nimBean.my_isfaced) {
+                    CommonFunction.startToFace(this,FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,-1)
+                }else if (nimBean.mv_state == 0) {
+                    CommonFunction.startToVideoIntroduce(this,-1)
+                }
+            }
+
         }
     }
 
@@ -633,11 +655,6 @@ class ChatActivity :
 
     }
 
-
-    //发起语音聊天
-    override fun createVoiceCall() {
-//        CommonFunction.checkTalk(this, sessionId)
-    }
 
     // 操作面板集合
     protected fun getActionList(): MutableList<BaseAction> {

@@ -16,10 +16,13 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityBlackListBinding
+import com.sdy.luxurytravelapplication.event.UpdateBlackEvent
 import com.sdy.luxurytravelapplication.mvp.contract.BlackListContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BlackBean
 import com.sdy.luxurytravelapplication.mvp.presenter.BlackListPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.BlackListAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 黑名单
@@ -61,7 +64,7 @@ class BlackListActivity :
                 when (view.id) {
                     R.id.removeBtn -> {
                         BottomMenu.show(
-                            this@BlackListActivity, arrayOf("拉黑")
+                            this@BlackListActivity, arrayOf("取消拉黑")
                         ) { text, index ->
                             mPresenter?.removeBlock(
                                 hashMapOf(
@@ -70,11 +73,6 @@ class BlackListActivity :
                             )
 
                         }
-                            .setStyle(DialogSettings.STYLE.STYLE_IOS)
-                            .setShowCancelButton(false)
-                            .menuTextInfo =
-                            TextInfo().setFontColor(resources.getColor(R.color.color333))
-                                .setFontSize(16)
 
                     }
                 }
@@ -137,6 +135,12 @@ class BlackListActivity :
         adapter.data.clear()
         refreshLayout.resetNoMoreData()
         mPresenter?.myShieldingList(params)
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateBlackListEvent(update: UpdateBlackEvent) {
+        binding.refreshLayout.autoRefresh()
     }
 
 }

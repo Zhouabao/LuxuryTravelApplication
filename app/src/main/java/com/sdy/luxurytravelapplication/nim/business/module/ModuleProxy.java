@@ -42,11 +42,6 @@ public interface ModuleProxy {
     void onReplyMessage(IMMessage replyMsg);
 
 
-    /**
-     * 创建语音聊天
-     */
-    void createVoiceCall();
-
 
 
 

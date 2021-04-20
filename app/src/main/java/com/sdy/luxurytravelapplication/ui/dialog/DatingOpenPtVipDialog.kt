@@ -26,6 +26,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.CheckPublishDatingBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.DatingBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.nim.attachment.ChatDatingAttachment
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
@@ -38,7 +39,7 @@ class DatingOpenPtVipDialog(
     val context1: Context,
     val type: Int = TYPE_DATING_PUBLISH,
     val chatUpBean: CheckPublishDatingBean? = null,
-    val datingBean: DatingBean? = null
+    val datingBean: TravelPlanBean? = null
 ) : BaseBindingDialog<DialogDatingOpenPtVipBinding>() {
     companion object {
         val TYPE_DATING_PUBLISH = 1 //发布约会

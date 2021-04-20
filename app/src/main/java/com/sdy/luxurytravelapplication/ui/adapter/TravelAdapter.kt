@@ -5,8 +5,10 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemTravelBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
+import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
@@ -20,14 +22,17 @@ class TravelAdapter(val formDetail: Boolean = false) :
     BaseBindingQuickAdapter<TravelPlanBean, ItemTravelBinding>(R.layout.item_travel) {
     override fun convert(binding: ItemTravelBinding, position: Int, item: TravelPlanBean) {
         binding.apply {
-            ClickUtils.applySingleDebouncing(arrayOf(root, chatBtn)) {
+            ClickUtils.applySingleDebouncing(arrayOf(root, chatBtn,userAvatar)) {
                 when (it) {
                     root -> {
                         if (!formDetail)
                             TravelDetailActivity.start(context, item)
                     }
                     chatBtn -> {
-
+                        CommonFunction.checkApplyForDating(context, item)
+                    }
+                    userAvatar->{
+                        TargetUserActivity.start(context, item.accid)
                     }
                 }
             }
@@ -49,6 +54,8 @@ class TravelAdapter(val formDetail: Boolean = false) :
                 travelAduio.isVisible = true
                 travelDescr.isVisible = false
             }
+
+
         }
 
     }
