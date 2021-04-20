@@ -14,7 +14,6 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
-import org.wysaid.common.Common
 
 /**
  *    author : ZFM
@@ -78,11 +77,14 @@ class IndexLuxuryAdapter :
                 .create()
 
             userSign.text = item.sign
+            userSign.isVisible = item.sign.isNotEmpty()
             GlideUtil.loadRoundImgCenterCrop(context, item.avatar, userAvatar, SizeUtils.dp2px(15F))
             userLabelRv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             val adapter = LuxuryBaseInfoAdapter()
             adapter.setNewInstance(item.want)
             userLabelRv.adapter = adapter
+            userLabelRv.isVisible = item.want.isNotEmpty()
+
 
             if (UserManager.gender == 2) {
                 if (item.contact_way != 0) {
@@ -105,8 +107,8 @@ class IndexLuxuryAdapter :
                 contactBtn.isVisible = false
             }
 
-            ClickUtils.applySingleDebouncing(hiBtn){
-                CommonFunction.checkChat(context,item.accid)
+            ClickUtils.applySingleDebouncing(hiBtn) {
+                CommonFunction.checkChat(context, item.accid)
             }
             ClickUtils.applySingleDebouncing(root) {
                 TargetUserActivity.start(context, item.accid)

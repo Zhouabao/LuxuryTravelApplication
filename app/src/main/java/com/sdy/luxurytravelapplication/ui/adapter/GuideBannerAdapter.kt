@@ -1,7 +1,8 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
-import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.databinding.ItemGuideBannerBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.zhpan.bannerview.BaseBannerAdapter
@@ -25,8 +26,22 @@ class GuideBannerAdapter : BaseBannerAdapter<BannerGuideBean>() {
         position: Int,
         pageSize: Int
     ) {
-        val bannerImager = holder.findViewById<ImageView>(R.id.bannerImage)
-
-        GlideUtil.loadImg(holder.itemView.context, data.image, bannerImager)
+        val binding = ItemGuideBannerBinding.bind(holder.itemView)
+        binding.apply {
+            if (data.fileName.isNotEmpty()) {
+                bannerAnimation.isVisible = true
+                bannerImage.isVisible = false
+                view1.isVisible = false
+                bannerAnimation.imageAssetsFolder = data.imageName
+                bannerAnimation.setAnimation(data.fileName)
+            } else {
+                view1.isVisible = false
+                bannerAnimation.isVisible = false
+                bannerImage.isVisible = true
+                GlideUtil.loadImg(root.context, data.image, bannerImage)
+            }
+            bannerTitle.text = data.title
+            bannerContent.text = data.descr
+        }
     }
 }

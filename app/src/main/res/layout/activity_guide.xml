@@ -20,6 +20,7 @@
         app:bvp_indicator_radius="2dp"
         app:bvp_round_corner="2dp"
         app:bvp_indicator_slide_mode="smooth"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/nextBtn"
         app:layout_constraintTop_toTopOf="parent" />
 

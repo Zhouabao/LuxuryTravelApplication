@@ -23,7 +23,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
     companion object {
         fun start(context: Context, moreMatchBean: MoreMatchBean) {
-            context.startActivity<GetMoreMatchActivity>("moreMatchBean" to moreMatchBean)
+            context.startActivity<GuideActivity>("moreMatchBean" to moreMatchBean)
         }
     }
 
@@ -52,14 +52,39 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
         }.create()
 
 
-        val data = mutableListOf<BannerGuideBean>()
-        UserManager.tempDatas.filterIndexed { index, s ->
-            data.add(BannerGuideBean(s, "$index", "111111${index}111111"))
+        val data = mutableListOf<BannerGuideBean>().apply {
+            add(
+                BannerGuideBean(
+                    "",
+                    "无限约会可能",
+                    "美食探寻、潜水浮潜、游艇party、海景别墅应有尽有",
+                    "lottie_guide_1.json",
+                    "images_guide_1"
+                )
+            )
+            add(
+                BannerGuideBean(
+                    "",
+                    "高端定制旅行",
+                    "谁说旅行千篇一律？定制属于自己的旅行",
+                    "lottie_guide_1.json",
+                    "images_guide_1"
+                )
+            )
+            add(
+                BannerGuideBean(
+                    "",
+                    "精选会员构成",
+                    "高校学生、高知白领、模特、企业家、CEO等",
+                    "lottie_guide_1.json",
+                    "images_guide_1"
+                )
+            )
         }
         binding.bannerGuide.refreshData(data)
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
             if (UserManager.gender == 1 && moreMatchBean.threshold && !moreMatchBean.isvip) {
-                InviteCodeActivity.start(this,moreMatchBean)
+                InviteCodeActivity.start(this, moreMatchBean)
             } else if (UserManager.gender == 2 && moreMatchBean.living_btn) {
                 CommonFunction.startToFace(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
             } else {

@@ -15,7 +15,7 @@ import com.sdy.luxurytravelapplication.mvp.contract.IndexLuxuryContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexLuxuryPresenter
-import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
+import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.IndexLuxuryAdapter
 import org.greenrobot.eventbus.EventBus
 
@@ -44,9 +44,9 @@ class IndexLuxuryFragment :
         binding.apply {
             mLayoutStatusView = root
             refreshLuxury.setOnRefreshLoadMoreListener(this@IndexLuxuryFragment)
-            luxuryRv.layoutManager =linearLayoutManager
+            luxuryRv.layoutManager = linearLayoutManager
             luxuryRv.adapter = adapter
-            luxuryRv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            luxuryRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (isHoney) {
@@ -99,9 +99,9 @@ class IndexLuxuryFragment :
                     binding.refreshLuxury.finishRefresh(true)
             } else {
                 adapter.addData(data.list)
-                if (adapter.data.size < Constants.PAGESIZE * page)
-                    binding.refreshLuxury.finishLoadMoreWithNoMoreData()
-                else
+//                if (adapter.data.size < Constants.PAGESIZE * page)
+//                    binding.refreshLuxury.finishLoadMoreWithNoMoreData()
+//                else
                     binding.refreshLuxury.finishLoadMore(true)
             }
 
@@ -126,12 +126,17 @@ class IndexLuxuryFragment :
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        if (adapter.data.size < Constants.PAGESIZE * page) {
-            refreshLayout.finishLoadMoreWithNoMoreData()
+        if (!isHoney) {
+            refreshLayout.finishLoadMore(0)
+            JoinLuxuryActivity.startJoinLuxuxy(activity!!, progressBean)
         } else {
-            page++
-            params["page"] = page
-            mPresenter?.sweetheart(params)
+            if (adapter.data.size < Constants.PAGESIZE * page) {
+                refreshLayout.finishLoadMoreWithNoMoreData()
+            } else {
+                page++
+                params["page"] = page
+                mPresenter?.sweetheart(params)
+            }
         }
     }
 

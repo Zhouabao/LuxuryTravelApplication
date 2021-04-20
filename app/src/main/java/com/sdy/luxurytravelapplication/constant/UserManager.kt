@@ -58,7 +58,6 @@ object UserManager {
     }
 
 
-
     var showCandyMessage: Boolean = true//聊天是否显示旅券
     var showCandyTime: Long = 0L//聊天显示旅券的时间
 
@@ -129,30 +128,30 @@ object UserManager {
             context.startActivity<RegisterInfoOneActivity>()
         } else if (data.userinfo.nickname.isNullOrEmpty()) {
             context.startActivity<RegisterInfoTwoActivity>()
-        } else if (data.userinfo.gender == 1) {
+        } else if (data.userinfo.gender == 1 && data.extra_data.threshold && !data.extra_data.isvip) {
             //todo 男性判断是否付费
-            if (data.extra_data.threshold && !data.extra_data.isvip) {
-                data.extra_data.apply {
-                    data.userinfo.apply {
-                        InviteCodeActivity.start(
-                            context,
-                            MoreMatchBean(nickname, gender, birth, avatar,threshold, living_btn, isvip)
-                        )
-                    }
-                }
-            } else {
-                //昵称 生日 性别 头像
+            data.extra_data.apply {
                 data.userinfo.apply {
-                    savePersonalInfo(avatar, birth, gender, nickname)
+                    InviteCodeActivity.start(
+                        context,
+                        MoreMatchBean(
+                            nickname,
+                            gender,
+                            birth,
+                            avatar,
+                            threshold,
+                            living_btn,
+                            isvip
+                        )
+                    )
                 }
-                MainActivity.startToMain(context)
             }
-
-        } else if (data.userinfo.gender == 2) {
+        } else if (data.userinfo.gender == 2 && living_btn) {
             //todo 女性判断是否做过活体认证
             living_btn = data.extra_data.living_btn
-            if (living_btn)
+            if (living_btn) {
                 CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
+            }
         } else {
             //昵称 生日 性别 头像
             data.userinfo.apply {

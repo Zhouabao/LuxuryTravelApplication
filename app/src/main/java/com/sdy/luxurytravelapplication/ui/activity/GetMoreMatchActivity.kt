@@ -6,6 +6,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityGetMoreMatchBinding
+import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.MoreMatchBean
 import org.jetbrains.anko.startActivity
 
@@ -33,6 +34,7 @@ class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
             } else
                 "他"
         )
+        GlideUtil.loadCircleImg(this, moreMatchBean.avatar, binding.myAvatar)
     }
 
     override fun initView() {

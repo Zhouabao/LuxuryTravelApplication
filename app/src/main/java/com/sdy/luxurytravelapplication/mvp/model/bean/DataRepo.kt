@@ -211,6 +211,7 @@ data class ChatGiftStateBean(
     var id: Int = 0,
     var state: Int = 0//state  2领取  3过期
 )
+
 /**
  * 聊天获取用户信息
  */
@@ -279,6 +280,7 @@ data class CheckGreetBean(
     var contact_way: String = "",
     var gift_list: ArrayList<GiftBean> = arrayListOf()
 )
+
 data class SendGiftOrderBean(
     var order_id: Int = 0,
     var amount: Int = 0,
@@ -683,7 +685,9 @@ data class TravelPlanBean(
 data class BannerGuideBean(
     val image: Any,
     val title: String,
-    val descr: String
+    val descr: String,
+    val fileName: String = "",
+    val imageName: String = ""
 )
 
 data class PlanOptionsBean(
@@ -758,8 +762,6 @@ data class LabelQuality(
 ) : Serializable
 
 
-
-
 /*查询礼物领取状态*/
 data class GiftStateBean(
     var amount: Int = 0,
@@ -768,7 +770,6 @@ data class GiftStateBean(
     var state: Int = 0,
     var title: String = ""
 )
-
 
 
 data class DetailUserInfoBean(

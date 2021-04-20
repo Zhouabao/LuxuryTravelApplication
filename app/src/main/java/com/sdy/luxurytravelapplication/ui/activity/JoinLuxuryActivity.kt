@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
+import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityJoinLuxuryBinding
@@ -87,9 +88,70 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
             }.create()
 
             val data = mutableListOf<BannerGuideBean>()
-            UserManager.tempDatas.filterIndexed { index, s ->
-                data.add(BannerGuideBean(s,"$index","111111${index}111111"))
+            if (UserManager.gender == 1) {
+                data.apply {
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_boy_1,
+                            "精选1%意向女性",
+                            "意在打造高端社交圈层，精选空乘、名校学生、教师等优质女性，严格筛选，当前通申请过率仅为1.31%"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_boy_2,
+                            "奢旅圈身份标识",
+                            "让所有人感知你的与众不同与尊贵，更容易找到心领意会的异性"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_boy_4,
+                            "聊天、活动内容置顶",
+                            "你的消息不会折叠隐藏，直接进入对方消息首页列表并置顶显示，您发布的出游活动也将优先展示"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_boy_3,
+                            "全局优先推荐",
+                            "在所有位置优先曝光，让你更受女性欢迎"
+                        )
+                    )
+                }
+            } else {
+                data.apply {
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_girl_1,
+                            "精选1%意向男性",
+                            "筛选高端有实力用户，如CEO/投资人等避免用户被骚扰和无效沟通"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_girl_2,
+                            "奢旅圈身份标识",
+                            "让所有人感知你的优秀，当前申请通过率仅为1.31%"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_girl_3,
+                            "全局优先推荐",
+                            "在所有位置优先曝光，并优先向高端男性用户推荐，获得更多曝光"
+                        )
+                    )
+                    add(
+                        BannerGuideBean(
+                            R.drawable.icon_luxury_girl_4,
+                            "聊天旅券礼物",
+                            "聊天礼物功能解锁，其他用户可在聊天时向你赠送旅券礼物"
+                        )
+                    )
+                }
             }
+
             bannerLuxury.refreshData(data)
         }
 
