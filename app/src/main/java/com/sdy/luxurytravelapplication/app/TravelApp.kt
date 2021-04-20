@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject
 import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
+import com.heytap.msp.push.HeytapPushManager
 import com.kongzue.dialog.util.DialogSettings
 import com.kongzue.dialog.util.TextInfo
 import com.kongzue.dialog.v3.MessageDialog
@@ -388,9 +389,9 @@ class TravelApp : Application() {
 
         if (ProcessUtils.isMainProcess()) {
             //华为推送配置
-//            com.huawei.hms.support.common.ActivityMgr.INST.init(this)
+            com.huawei.hms.support.common.ActivityMgr.INST.init(this)
             //oppo推送初始化
-//            HeytapPushManager.init(this, true)
+            HeytapPushManager.init(this, true)
             //注册自定义推送消息处理，可选项
             NIMPushClient.registerMixPushMessageHandler(DemoMixPushMessageHandler())
             //初始化消息提醒

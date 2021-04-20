@@ -124,16 +124,18 @@ ext {
             //七牛
             "qiniu"                       : 'com.qiniu:qiniu-android-sdk:8.0.+',
             //云信
-            "nim-sdk"                     : 'com.netease.nimlib:basesdk:8.2.2',
-            "nim-push"                    : 'com.netease.nimlib:push:8.2.2',
+            "nim-sdk"                     : 'com.netease.nimlib:basesdk:8.3.1',
+            "nim-push"                    : 'com.netease.nimlib:push:8.3.1',
+            "hms"                         : 'com.huawei.hms:push:5.1.1.301',
+            "flyme"                         : 'com.meizu.flyme.internet:push-internal:3.9.7',
             //高德地图
             "3dmap"                       : 'com.amap.api:3dmap:latest.integration',
             "location"                    : 'com.amap.api:location:latest.integration',
             "search"                      : 'com.amap.api:search:latest.integration',
             "gpuimage"                    : 'org.wysaid:gpuimage-plus:2.6.3',
             //进度条
-            "RangeSeekBar"                    : 'com.github.Jay-Goo:RangeSeekBar:3.0.0',
-            "segmentedbar"                    : 'com.zhouyou:segmentedbar:1.0.9',
+            "RangeSeekBar"                : 'com.github.Jay-Goo:RangeSeekBar:3.0.0',
+            "segmentedbar"                : 'com.zhouyou:segmentedbar:1.0.9',
 
 //            "material-dialogs"      : 'com.afollestad.material-dialogs:commons:0.9.4.4',
 //            "logger"                : 'com.orhanobut:logger:2.1.1',
