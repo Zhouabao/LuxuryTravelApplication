@@ -15,8 +15,8 @@ class FindAllTagPresenter :
     BasePresenter<FindAllTagContract.Model, FindAllTagContract.View>(),
     FindAllTagContract.Presenter {
     override fun createModel(): FindAllTagContract.Model? = FindAllTagModel()
-    override fun squareTagList() {
-        mModel?.squareTagList()?.ssss(mView, false) {
+    override fun squareTopicList() {
+        mModel?.squareTopicList()?.ssss(mView, false) {
             mView?.onGetSquareTagResult(it.data, it.code == 200)
         }
     }

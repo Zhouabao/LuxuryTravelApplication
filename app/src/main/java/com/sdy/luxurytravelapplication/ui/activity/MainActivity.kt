@@ -51,9 +51,6 @@ class MainActivity :
                 context.startActivity(context.intentFor<MainActivity>().clearTask().newTask())
             else
                 context.startActivity(context.intentFor<MainActivity>())
-            context.startActivity<MainActivity>()
-//            ActivityUtils.finishToActivity(MainActivity::class.java,false)
-//            ActivityUtils.finishOtherActivities(MainActivity::class.java, false)
         }
     }
 

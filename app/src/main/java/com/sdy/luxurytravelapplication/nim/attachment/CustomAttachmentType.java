@@ -5,6 +5,7 @@ package com.sdy.luxurytravelapplication.nim.attachment;
  */
 public interface CustomAttachmentType {
     // 多端统一
+    int ChatHi = 0;// 打招呼
     int ShareSquare = 1;//动态分享1
     int Gift = 2;//礼物
     int SendTip = 3; // 发送tip消息

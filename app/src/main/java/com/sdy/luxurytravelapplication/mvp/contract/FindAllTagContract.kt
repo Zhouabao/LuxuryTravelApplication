@@ -23,10 +23,10 @@ interface FindAllTagContract {
     }
 
     interface Presenter : IPresenter<View> {
-        fun squareTagList()
+        fun squareTopicList()
     }
 
     interface Model : IModel {
-        fun squareTagList(): Observable<BaseResp<MutableList<SquareTagBean>?>>
+        fun squareTopicList(): Observable<BaseResp<MutableList<SquareTagBean>?>>
     }
 }

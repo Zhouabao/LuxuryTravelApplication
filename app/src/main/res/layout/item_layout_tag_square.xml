@@ -28,6 +28,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@id/tagImg" />
 
+    <ImageView
+        app:layout_constraintBottom_toBottomOf="@id/tagName"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="15dp"
+        app:layout_constraintTop_toTopOf="@id/tagName"
+        android:src="@drawable/icon_arrow_right_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tagIsHot"
         android:layout_width="wrap_content"

@@ -55,7 +55,7 @@ class FindAllTagActivity :
     }
 
     override fun start() {
-        mPresenter?.squareTagList()
+        mPresenter?.squareTopicList()
 
     }
 
@@ -66,9 +66,7 @@ class FindAllTagActivity :
                 adapter.notifyDataSetChanged()
                 binding.rvTagSquare.scrollToPosition(0)
             }
-            data?.forEach {
-                it.cover_list.add(it.cover_list[0])
-            }
+
             adapter.addData(data ?: mutableListOf())
         } else {
             mLayoutStatusView?.showError()
@@ -78,7 +76,7 @@ class FindAllTagActivity :
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mPresenter?.squareTagList()
+        mPresenter?.squareTopicList()
 
     }
 }

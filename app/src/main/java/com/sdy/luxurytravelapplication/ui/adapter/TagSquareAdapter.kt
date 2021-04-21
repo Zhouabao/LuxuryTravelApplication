@@ -30,7 +30,7 @@ class TagSquareAdapter(var spanCnt: Int=3) :
 
             rvTagSquareImg.layoutManager = GridLayoutManager(context, spanCnt)
             val adapter = TagSquarePicAdapter(spanCnt)
-            adapter.addData(item.cover_list)
+            adapter.addData(item.child)
 
             rvTagSquareImg.setOnTouchListener { _, event -> root.onTouchEvent(event) }
             adapter.setOnItemClickListener { _, view, position ->

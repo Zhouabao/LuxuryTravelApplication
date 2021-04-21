@@ -208,8 +208,8 @@ interface ApiService {
      *
      */
     @FormUrlEncoded
-    @POST("Square/squareTagList${Constants.END_BASE_URL}")
-    fun squareTagList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareTagBean>?>>
+    @POST("Square/squareTopicList${Constants.END_BASE_URL_v2}")
+    fun squareTopicList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareTagBean>?>>
 
 
     /**
@@ -973,7 +973,7 @@ interface ApiService {
      *
      */
     @FormUrlEncoded
-    @POST("Sweetheart/uploadData${Constants.END_BASE_URL}")
+    @POST("Sweetheart/uploadData${Constants.END_BASE_URL_v2}")
     fun uploadData(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 

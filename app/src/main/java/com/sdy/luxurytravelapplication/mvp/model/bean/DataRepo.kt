@@ -529,7 +529,7 @@ data class RecommendSquareBean(
 data class TopicBean(
     var icon: String = "",
     var id: Int = 0,
-    var son: MutableList<SquarePicBean> = mutableListOf(),
+    var child: MutableList<SquarePicBean> = mutableListOf(),
     var tag_id: Int = 0,
     var tag_title: String = "",
     var title: String = "",
@@ -572,7 +572,7 @@ data class SquareTagBean(
     var id: Int = 0,
     var is_hot: Boolean = false,
     var is_join: Boolean = false,
-    var cover_list: MutableList<SquarePicBean> = mutableListOf(),
+    var child: MutableList<SquarePicBean> = mutableListOf(),
     var place_type: Int = 0,//位置类型 0 没有操作 1置顶 2置底
     var title: String = ""
 )
