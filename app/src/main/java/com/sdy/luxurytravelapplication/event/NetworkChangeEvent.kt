@@ -179,8 +179,6 @@ class FemaleVideoEvent(val videoState: Int)
 //置顶卡片
 class TopCardEvent(val showTop: Boolean)
 
-//刷新甜心圈认证状态
-class RefreshSweetEvent()
 
 
 /**
@@ -195,3 +193,6 @@ class HideContactLlEvent()
 class RefreshCandyMessageEvent(val orderId: Int, val state: Int)
 
 class UpdateBlackEvent()
+
+//刷新甜心圈认证状态
+class UpdateLuxuryEvent()

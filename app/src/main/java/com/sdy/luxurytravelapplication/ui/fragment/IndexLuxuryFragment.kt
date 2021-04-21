@@ -11,6 +11,7 @@ import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexLuxuryBinding
 import com.sdy.luxurytravelapplication.event.RefreshSweetAddEvent
+import com.sdy.luxurytravelapplication.event.UpdateLuxuryEvent
 import com.sdy.luxurytravelapplication.mvp.contract.IndexLuxuryContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
@@ -18,6 +19,8 @@ import com.sdy.luxurytravelapplication.mvp.presenter.IndexLuxuryPresenter
 import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.IndexLuxuryAdapter
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -102,7 +105,7 @@ class IndexLuxuryFragment :
 //                if (adapter.data.size < Constants.PAGESIZE * page)
 //                    binding.refreshLuxury.finishLoadMoreWithNoMoreData()
 //                else
-                    binding.refreshLuxury.finishLoadMore(true)
+                binding.refreshLuxury.finishLoadMore(true)
             }
 
             //保存 VIP信息
@@ -145,5 +148,11 @@ class IndexLuxuryFragment :
         params["page"] = page
         refreshLayout.resetNoMoreData()
         mPresenter?.sweetheart(params)
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRefreshSweetEvent(event: UpdateLuxuryEvent) {
+        binding.refreshLuxury.autoRefresh()
     }
 }

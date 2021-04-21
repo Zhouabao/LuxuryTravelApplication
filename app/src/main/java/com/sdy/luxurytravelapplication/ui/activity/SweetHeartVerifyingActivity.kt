@@ -6,10 +6,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivitySweetHeartVerifyingBinding
-import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
-import com.sdy.luxurytravelapplication.event.RefreshSweetEvent
-import com.sdy.luxurytravelapplication.event.TopCardEvent
-import com.sdy.luxurytravelapplication.event.UpdateApproveEvent
+import com.sdy.luxurytravelapplication.event.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
@@ -18,9 +15,6 @@ import org.jetbrains.anko.startActivity
  */
 class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBinding>() {
     companion object {
-        const val TYPE_PERSON_INFO = 1
-        const val TYPE_EDUCATION = 2
-        const val TYPE_WEALTH = 3
         const val TYPE_WECHAT = 5
         const val TYPE_GIRL_VIDEO = 7
         const val TYPE_GIRL_VOICE = 8
@@ -28,7 +22,7 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
 
         const val TYPE_HOUSE = 1
         const val TYPE_CAR = 2
-        const val TYPE_FIGURE = 3
+        const val TYPE_EDUCATION = 6
         const val TYPE_JOB = 4
 
         fun start(context: Context, type: Int) {
@@ -42,25 +36,22 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
     override fun initData() {
         binding.apply {
             when (type) {
-                TYPE_PERSON_INFO -> {
-                    barCl.actionbarTitle.text = getString(R.string.verify_title_personal_info)
-                }
-                TYPE_EDUCATION -> {
-                    barCl.actionbarTitle.text = getString(R.string.verify_title_education)
-                }
-                TYPE_WEALTH -> {
+                TYPE_HOUSE -> {
                     barCl.actionbarTitle.text = getString(R.string.verify_title_assets)
                 }
                 TYPE_CAR -> {
                     barCl.actionbarTitle.text = getString(R.string.verify_title_luxury_car)
                 }
-                TYPE_WECHAT -> {
-                    barCl.actionbarTitle.text = getString(R.string.verify_title_wechat)
+                TYPE_EDUCATION -> {
+                    barCl.actionbarTitle.text = getString(R.string.verify_title_education)
                 }
                 TYPE_JOB -> {
                     barCl.actionbarTitle.text = getString(R.string.verify_title_job)
                 }
 
+                TYPE_WECHAT -> {
+                    barCl.actionbarTitle.text = getString(R.string.verify_title_wechat)
+                }
                 TYPE_GIRL_VIDEO -> {
                     barCl.actionbarTitle.text = getString(R.string.verify_title_video)
                     t1.text = getString(R.string.video_under_review)
@@ -118,9 +109,10 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
 
             EventBus.getDefault().post(FemaleVideoEvent(2))
 
-            //更新甜心圈认证状态
-            EventBus.getDefault().post(RefreshSweetEvent())
         }
+
+        //更新甜心圈认证状态
+        EventBus.getDefault().post(UpdateLuxuryEvent())
         finish()
 
     }

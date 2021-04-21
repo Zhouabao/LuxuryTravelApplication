@@ -222,7 +222,10 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.UploadVerifyPublicActivity"
-            android:launchMode="singleTop" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:launchMode="singleTop" >
+
+        </activity>
         <activity
             android:name=".ui.activity.UploadVerifyInfoActivity"
             android:launchMode="singleTop" />

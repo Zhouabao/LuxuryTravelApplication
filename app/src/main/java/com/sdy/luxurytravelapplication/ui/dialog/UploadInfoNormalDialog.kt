@@ -68,7 +68,7 @@ class UploadInfoNormalDialog(val type: Int, val requesetCode: Int) :
                 binding.normalImg.setImageResource(R.drawable.icon_normal_car)
             }
             TYPE_FIGURE -> {
-                binding.selectedContent.text="上传的测量图片能清晰看到卷尺标"
+                binding.selectedContent.text="上传清晰的学生证或毕业证照片"
                 binding.normalImg.setImageResource(R.drawable.icon_normal_figure)
             }
             TYPE_JOB -> {

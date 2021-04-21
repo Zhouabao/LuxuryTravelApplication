@@ -3,20 +3,29 @@ package com.sdy.luxurytravelapplication.ui.activity
 import android.content.Context
 import android.graphics.Color
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.base.BaseActivity
+import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityJoinLuxuryBinding
+import com.sdy.luxurytravelapplication.event.UpdateLuxuryEvent
+import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.mvp.contract.JoinLuxuryContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
+import com.sdy.luxurytravelapplication.mvp.presenter.JoinLuxuryPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
 import com.zhpan.bannerview.BannerViewPager
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
-class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
+class JoinLuxuryActivity :
+    BaseMvpActivity<JoinLuxuryContract.View, JoinLuxuryContract.Presenter, ActivityJoinLuxuryBinding>(),
+    JoinLuxuryContract.View {
     private val sweetProgressBean by lazy { intent.getSerializableExtra("sweetProgressBean") as SweetProgressBean }
+
     companion object {
         fun startJoinLuxuxy(context: Context, sweetProgressBean: SweetProgressBean) {
             context.startActivity<JoinLuxuryActivity>("sweetProgressBean" to sweetProgressBean)
@@ -25,7 +34,13 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
 
 
     private val guideBannerAdapter by lazy { GuideBannerAdapter() }
-    override fun initView() {
+    override fun createPresenter(): JoinLuxuryContract.Presenter {
+        return JoinLuxuryPresenter()
+
+    }
+
+    override fun initData() {
+
         binding.apply {
             barCl.actionbarTitle.text = "加入奢旅圈"
             barCl.btnBack.setOnClickListener {
@@ -37,11 +52,33 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
                 way1.isVisible = false
                 way2.isVisible = false
                 t1.text = "您需要达成以下条件之一"
+                normalMoney.text =
+                    getString(R.string.charge_more_than, sweetProgressBean.normal_money)
+                wealthVerify.text = getString(R.string.pass_wealth_verify)
                 SpanUtils.with(normalMoney)
                     .append("充值金额大于${sweetProgressBean.normal_money}")
                     .append("（${sweetProgressBean.now_money}/${sweetProgressBean.normal_money}）")
                     .setForegroundColor(Color.parseColor("#FFC7CAD4"))
                     .create()
+
+                if (sweetProgressBean.now_money.toFloat() > sweetProgressBean.normal_money.toFloat()) {
+                    purchaseBtn.setTextColor(Color.parseColor("#FF212225"))
+                    purchaseBtn.isEnabled = true
+                    purchaseBtn.text = getString(R.string.join_now)
+                    ClickUtils.applySingleDebouncing(purchaseBtn) {
+                        mPresenter?.joinSweetApply()
+                    }
+                } else {
+                    purchaseBtn.setTextColor(Color.parseColor("#FFC5C6C8"))
+                    purchaseBtn.setBackgroundColor(Color.WHITE)
+                    purchaseBtn.text =
+                        "${sweetProgressBean.now_money}/${sweetProgressBean.normal_money}"
+                    ClickUtils.applySingleDebouncing(purchaseBtn) {
+                        CommonFunction.startToVip(
+                            this@JoinLuxuryActivity
+                        )
+                    }
+                }
             } else {
                 t1.text = "达成要求自动进入奢旅圈"
                 normalMoney.text = "上传认证视频"
@@ -54,26 +91,34 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
                         purchaseBtn.isEnabled = false
                     }
                     3 -> {
-                        purchaseBtn.text = "已完成"
+                        purchaseBtn.text = "已认证"
                         purchaseBtn.isEnabled = false
                     }
                     else -> {
-                        purchaseBtn.text = "去上传"
+                        purchaseBtn.text = "去认证"
                         purchaseBtn.isEnabled = true
+                        ClickUtils.applySingleDebouncing(purchaseBtn) {
+                            CommonFunction.startToVideoIntroduce(this@JoinLuxuryActivity, -1)
+                        }
                     }
                 }
-                when (sweetProgressBean.assets_audit_state) {
-                    2 -> {
-                        verifyBtn.text = "审核中"
-                        verifyBtn.isEnabled = false
-                    }
-                    3 -> {
-                        verifyBtn.text = "已完成"
-                        verifyBtn.isEnabled = false
-                    }
-                    else -> {
-                        verifyBtn.text = "去上传"
-                        verifyBtn.isEnabled = true
+            }
+
+            //认证 1没有 2认证中 3认证通过
+            when (sweetProgressBean.assets_audit_state) {
+                2 -> {
+                    verifyBtn.text = "审核中"
+                    verifyBtn.isEnabled = false
+                }
+                3 -> {
+                    verifyBtn.text = "已认证"
+                    verifyBtn.isEnabled = false
+                }
+                else -> {
+                    verifyBtn.text = "去认证"
+                    verifyBtn.isEnabled = true
+                    ClickUtils.applySingleDebouncing(verifyBtn) {
+                        ChooseVerifyActivity.start(this@JoinLuxuryActivity)
                     }
                 }
             }
@@ -155,15 +200,14 @@ class JoinLuxuryActivity : BaseActivity<ActivityJoinLuxuryBinding>() {
             bannerLuxury.refreshData(data)
         }
 
-
-
     }
 
     override fun start() {
-    }
-
-    override fun initData() {
-
 
     }
+
+    override fun joinSweetApplyResult(success: Boolean) {
+        EventBus.getDefault().post(UpdateLuxuryEvent())
+    }
+
 }

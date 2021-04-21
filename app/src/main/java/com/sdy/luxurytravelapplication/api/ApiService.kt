@@ -939,4 +939,33 @@ interface ApiService {
     fun tagUnlockPopup(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
 
 
+
+
+
+    /**
+     * 男性加入甜心圈
+     *
+     */
+    @FormUrlEncoded
+    @POST("Sweetheart/joinSweetApply${Constants.END_BASE_URL}")
+    fun joinSweetApply(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 甜心圈上传认证
+     *
+     */
+    @FormUrlEncoded
+    @POST("Sweetheart/uploadData${Constants.END_BASE_URL}")
+    fun uploadData(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
+     * 上传图片模板
+     *
+     */
+    @FormUrlEncoded
+    @POST("Sweetheart/getPicTpl${Constants.END_BASE_URL}")
+    fun getPicTpl(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ArrayList<String>>>
+
 }

@@ -5,6 +5,7 @@ package com.sdy.luxurytravelapplication.constant
  */
 
 object Constants {
+
     //测试
     const val BASE_URL = "http://testppsns.talkdating.cn/ppsns/"
     const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
@@ -19,8 +20,6 @@ object Constants {
 
     const val END_BASE_URL = "/v1.json"
     const val END_BASE_URL_v2 = "/v2.json"
-
-
 
 
     const val PRIVACY_URL = "${BASE_URL}index/Protocol/privacyProtocol.html"//
@@ -42,10 +41,13 @@ object Constants {
     //QQ
     const val QQ_APP_KEY = "1110939011"
     const val QQ_APP_SECRET = "F9vVAJooQZ96Zdqw"
+
     //bugly
     const val BUGLY_APP_ID = "25933c5127"
+
     //声网
     const val AGORA_APP_ID = "7d9f7f306ee44de4a168d2979e12330e"
+
     //闪验
     const val SY_APP_ID = "ENbQ6DUs"
 
@@ -68,11 +70,8 @@ object Constants {
     const val VIDEOFACE = "verifyVideo/"//认证视频
     const val DEFAULT_AVATAR = "/meta/default_avatar.jpg"//默认图
     const val DEFAULT_EMPTY_AVATAR = "/ppsns_default_avatar.png"//默认头像
-
+    const val SWEETHEART: String = "sweetheart/"
     const val CACHE_DIR = "/datingapplication"//缓存文件夹
-
-
-
 
 
     /*spkey*/

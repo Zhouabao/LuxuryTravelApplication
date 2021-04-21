@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.tools.SdkVersionUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
-import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityUploadVerifyPublicBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.UploadVerifyPublicContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.MediaParamBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetUploadBean
 import com.sdy.luxurytravelapplication.mvp.presenter.UploadVerifyPublicPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.SweetNormalPicAdapter
@@ -48,35 +49,15 @@ class UploadVerifyPublicActivity :
         UploadVerifyPublicPresenter()
 
 
-    private val adappter by lazy { SweetVerifyPicAdapter() }
+    private val keys = arrayListOf<MediaParamBean>()
+    private var index = 0
+    private val adapter by lazy { SweetVerifyPicAdapter() }
     private val normalPicBottomAdapter by lazy { SweetNormalPicAdapter() }
-
-    override fun initData() {
-        when (type) {
-            ChooseVerifyActivity.TYPE_HOUSE -> {
-                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_house)
-                binding.uploadType.hint = getString(R.string.sweet_rich_to_be_friend)
-            }
-            ChooseVerifyActivity.TYPE_CAR -> {
-                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_car)
-                binding.uploadType.hint = getString(R.string.sweet_car_to_be_friend)
-
-            }
-            ChooseVerifyActivity.TYPE_FIGURE -> {
-                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_figure)
-                binding.uploadType.hint = getString(R.string.sweet_education_rich)
-
-            }
-            ChooseVerifyActivity.TYPE_JOB -> {
-                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_job)
-                binding.uploadType.hint = getString(R.string.sweet_funny_job)
-
-            }
-
-        }
+    override fun start() {
+        mPresenter?.getPicTpl(type)
     }
 
-    override fun initView() {
+    override fun initData() {
         binding.apply {
             barCl.btnBack.setOnClickListener {
                 finish()
@@ -99,12 +80,11 @@ class UploadVerifyPublicActivity :
 
             publicUploadRv.layoutManager =
                 LinearLayoutManager(this@UploadVerifyPublicActivity, RecyclerView.HORIZONTAL, false)
-            publicUploadRv.adapter = adappter
+            publicUploadRv.adapter = adapter
 
             publicNormalBottomRv.layoutManager =
                 LinearLayoutManager(this@UploadVerifyPublicActivity, RecyclerView.HORIZONTAL, false)
             publicNormalBottomRv.adapter = normalPicBottomAdapter
-            normalPicBottomAdapter.setNewInstance(UserManager.tempDatas)
 
 
             (normalIconRv as BannerViewPager<String>).apply {
@@ -116,29 +96,29 @@ class UploadVerifyPublicActivity :
                 })
                 setRevealWidth(SizeUtils.dp2px(22F))
                 setPageMargin(SizeUtils.dp2px(15F))
-                create(UserManager.tempDatas)
+                create()
             }
         }
-        adappter.addData(SweetUploadBean())
-        adappter.addChildClickViewIds(R.id.sweetPicDelete)
-        adappter.setOnItemClickListener { _, view, position ->
-            if (adappter.data[position].url.isEmpty()) {
+        adapter.addData(SweetUploadBean())
+        adapter.addChildClickViewIds(R.id.sweetPicDelete)
+        adapter.setOnItemClickListener { _, view, position ->
+            if (adapter.data[position].url.isEmpty()) {
                 CommonFunction.onTakePhoto(
-                    this@UploadVerifyPublicActivity, MAX_COUNT - (adappter.data.size - 1),
+                    this@UploadVerifyPublicActivity, MAX_COUNT - (adapter.data.size - 1),
                     REQUEST_SQUARE_PIC, compress = true
                 )
             }
         }
-        adappter.setOnItemChildClickListener { _, view, position ->
+        adapter.setOnItemChildClickListener { _, view, position ->
             when (view.id) {
                 R.id.sweetPicDelete -> {
-                    adappter.removeAt(position)
-                    if (adappter.data.size < MAX_COUNT + 1
-                        && !adappter.data.contains(SweetUploadBean())
+                    adapter.removeAt(position)
+                    if (adapter.data.size < MAX_COUNT + 1
+                        && !adapter.data.contains(SweetUploadBean())
                     ) {
-                        adappter.addData(SweetUploadBean())
+                        adapter.addData(SweetUploadBean())
                     }
-                    binding.barCl.rightTextBtn.isEnabled = adappter.data.size > 1
+                    binding.barCl.rightTextBtn.isEnabled = adapter.data.size > 1
                 }
             }
         }
@@ -151,11 +131,31 @@ class UploadVerifyPublicActivity :
         }
 
 
+
+        when (type) {
+            ChooseVerifyActivity.TYPE_HOUSE -> {
+                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_house)
+                binding.uploadType.hint = getString(R.string.sweet_rich_to_be_friend)
+            }
+            ChooseVerifyActivity.TYPE_CAR -> {
+                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_car)
+                binding.uploadType.hint = getString(R.string.sweet_car_to_be_friend)
+
+            }
+            ChooseVerifyActivity.TYPE_EDUCATION -> {
+                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_education)
+                binding.uploadType.hint = getString(R.string.sweet_education_rich)
+
+            }
+            ChooseVerifyActivity.TYPE_JOB -> {
+                binding.barCl.actionbarTitle.text = getString(R.string.verify_title_job)
+                binding.uploadType.hint = getString(R.string.sweet_funny_job)
+
+            }
+
+        }
     }
 
-    override fun start() {
-
-    }
 
     override fun onClick(view: View) {
         when (view) {
@@ -163,17 +163,13 @@ class UploadVerifyPublicActivity :
                 finish()
             }
             binding.barCl.rightTextBtn -> {
-                SweetHeartVerifyingActivity.start(this,type)
-//                mPresenter.uploadPhoto(adappter.data[index].url, index)
+                mPresenter?.uploadPhoto(adapter.data[index].url, index)
             }
             binding.normalCloseBtn -> {
                 BarUtils.setStatusBarColor(this, Color.WHITE)
                 binding.normalIconLl.isVisible = false
             }
-//            binding. seeUploadNormalBtn -> {
-//                BarUtils.setStatusBarColor(this, Color.parseColor("#B3000000"))
-//                binding.normalIconLl.isVisible = true
-//            }
+
         }
     }
 
@@ -185,8 +181,8 @@ class UploadVerifyPublicActivity :
                 if (!PictureSelector.obtainMultipleResult(data).isNullOrEmpty()) {
                     for (tdata in PictureSelector.obtainMultipleResult(data)) {
                         if (SdkVersionUtils.checkedAndroid_Q() && !tdata.androidQToPath.isNullOrEmpty()) {
-                            adappter.addData(
-                                adappter.data.size - 1,
+                            adapter.addData(
+                                adapter.data.size - 1,
                                 SweetUploadBean(
                                     0,
                                     0,
@@ -196,8 +192,8 @@ class UploadVerifyPublicActivity :
                                 )
                             )
                         } else {
-                            adappter.addData(
-                                adappter.data.size - 1,
+                            adapter.addData(
+                                adapter.data.size - 1,
                                 SweetUploadBean(
                                     0, 0,
                                     if (tdata.compressPath.isNotEmpty()) {
@@ -210,9 +206,9 @@ class UploadVerifyPublicActivity :
                             )
                         }
                     }
-                    binding.barCl.rightTextBtn.isEnabled = adappter.data.size > 1
-                    if (adappter.data.size - 1 == MAX_COUNT) {
-                        adappter.remove(adappter.data.size - 1)
+                    binding.barCl.rightTextBtn.isEnabled = adapter.data.size > 1
+                    if (adapter.data.size - 1 == MAX_COUNT) {
+                        adapter.removeAt(adapter.data.size - 1)
                     }
                 }
             }
@@ -220,5 +216,50 @@ class UploadVerifyPublicActivity :
 
         }
     }
+
+    override fun uploadImgResult(success: Boolean, key: String, index1: Int) {
+        if (success) {
+            keys.add(
+                MediaParamBean(
+                    key,
+                    0,
+                    adapter.data[index1].width,
+                    adapter.data[index1].height
+                )
+            )
+            var size = 0
+            for (data in adapter.data) {
+                if (data.url.isNotEmpty()) {
+                    size++
+                }
+            }
+            if (index == size - 1) {
+                mPresenter?.uploadData(
+                    2,
+                    type,
+                    Gson().toJson(keys),
+                    binding.uploadType.text.trim().toString()
+                )
+            } else {
+                index++
+                mPresenter?.uploadPhoto(adapter.data[index].url, index)
+            }
+        } else {
+            index = 0
+            keys.clear()
+        }
+    }
+
+    override fun uploadDataResult(success: Boolean) {
+        if (success) {
+            SweetHeartVerifyingActivity.start(this, type)
+        }
+    }
+
+    override fun getPicTplResult(datas: ArrayList<String>) {
+        normalPicBottomAdapter.setNewInstance(datas)
+        binding.normalIconRv.refreshData(datas)
+    }
+
 
 }

@@ -945,4 +945,15 @@
     <string name="black_you_did_content">拉黑状态下双方主页互相不可见\n取消拉黑可恢复好友权益</string>
     <string name="black_she_did_content">对方已将你拉黑并限制访问其主页\n去看看其它感兴趣的人吧</string>
     <string name="cancel_black">取消拉黑</string>
+
+
+    <string name="meet_any_one_come_sweet">满足下列任意一个条件即可进入恋爱圈</string>
+    <string name="charge_more_than">充值金额大于 %1$s</string>
+    <string name="pass_wealth_verify">通过财产认证</string>
+    <string name="veriy_pass">认证通过</string>
+    <string name="reach_auto_in_sweet">达成要求自动进入恋爱圈</string>
+    <string name="upload_verify_video">上传认证视频</string>
+    <string name="verify_figure_or_job">认证职业或学历</string>
+    <string name="join_now">立即加入</string>
+    <string name="pic_upload_fail">图片上传失败，请重新尝试</string>
 </resources>

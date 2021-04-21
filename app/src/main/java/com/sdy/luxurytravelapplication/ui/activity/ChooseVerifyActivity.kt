@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.content.Context
 import android.view.View
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
@@ -7,7 +8,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityChooseVerifyBinding
-import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.startActivity
 
 /**
  * 选择认证方式
@@ -17,8 +18,12 @@ class ChooseVerifyActivity : BaseActivity<ActivityChooseVerifyBinding>(), View.O
     companion object {
         const val TYPE_HOUSE = 1
         const val TYPE_CAR = 2
-        const val TYPE_FIGURE = 3
+        const val TYPE_EDUCATION = 6
         const val TYPE_JOB = 4
+
+        fun start(context: Context) {
+            context.startActivity<ChooseVerifyActivity>()
+        }
     }
 
 
@@ -35,10 +40,10 @@ class ChooseVerifyActivity : BaseActivity<ActivityChooseVerifyBinding>(), View.O
             binding.checkedView1.isVisible = true
             binding.checkedView2.isVisible = false
         } else {
-            checkedPosition = TYPE_FIGURE
+            checkedPosition = TYPE_EDUCATION
             binding.verifyType1.setImageResource(R.drawable.icon_verify_figure_checked)
             binding.verifyType2.setImageResource(R.drawable.icon_verify_job)
-            binding.verifyNotice.text = "胸围需大于C罩杯\n身材是您个人魅力的体现\n认证后关注度会大幅度提高"
+            binding.verifyNotice.text = "需要提交能证明学历的照片\n学历认证仅通过985/211在读或毕业生\n学历是受教和成长环境的最佳体现\n认证后将获得全局额外推荐"
             binding.checkedView1.isVisible = true
             binding.checkedView2.isVisible = false
         }
@@ -72,10 +77,13 @@ class ChooseVerifyActivity : BaseActivity<ActivityChooseVerifyBinding>(), View.O
                     binding.checkedView1.isVisible = true
                     binding.checkedView2.isVisible = false
                 } else {
-                    checkedPosition = TYPE_FIGURE
+                    checkedPosition = TYPE_EDUCATION
                     binding.verifyType1.setImageResource(R.drawable.icon_verify_figure_checked)
                     binding.verifyType2.setImageResource(R.drawable.icon_verify_job)
-                    binding.verifyNotice.text = "胸围需大于C罩杯\n身材是您个人魅力的体现\n认证后关注度会大幅度提高"
+                    binding.verifyNotice.text = "需要提交能证明学历的照片\n" +
+                            "学历认证仅通过985/211在读或毕业生\n" +
+                            "学历是受教和成长环境的最佳体现\n" +
+                            "认证后将获得全局额外推荐"
                     binding.checkedView1.isVisible = true
                     binding.checkedView2.isVisible = false
                 }
