@@ -35,8 +35,10 @@ import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMyInfoBinding
 import com.sdy.luxurytravelapplication.databinding.ItemMoreInfoBinding
+import com.sdy.luxurytravelapplication.event.AccountDangerEvent
 import com.sdy.luxurytravelapplication.event.UserCenterEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.contract.MyInfoContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.FindTagBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.MyPhotoBean
@@ -44,6 +46,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.UserInfoSettingBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyInfoPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.MoreInfoAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.UserPhotoAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.DividerItemDecoration
@@ -435,7 +438,7 @@ class MyInfoActivity :
                 && (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass())
             ) { //账号异常
                 UserManager.isverify = 2
-//                EventBus.getDefault().postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
+                EventBus.getDefault().postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
             }
         }
 
@@ -746,9 +749,13 @@ class MyInfoActivity :
 
     override fun onBackPressed() {
         super.onBackPressed()
-//        checkIsForceChangeAvator()
-//        if (intent.getIntExtra("type", FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL) == FaceLivenessExpActivity.TYPE_ACCOUNT_DANGER)
-//            EventBus.getDefault().postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
+        checkIsForceChangeAvator()
+        if (intent.getIntExtra(
+                "type",
+                FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL
+            ) == FaceLivenessExpActivity.TYPE_ACCOUNT_DANGER
+        )
+            EventBus.getDefault().postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
     }
 
 }

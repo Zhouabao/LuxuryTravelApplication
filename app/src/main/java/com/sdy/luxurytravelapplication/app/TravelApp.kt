@@ -1,23 +1,26 @@
 package com.sdy.luxurytravelapplication.app
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Environment
 import android.os.Process
+import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.multidex.MultiDex
-import com.alibaba.fastjson.JSONObject
 import com.baidu.idl.face.platform.LivenessTypeEnum
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
+import com.google.gson.Gson
 import com.heytap.msp.push.HeytapPushManager
 import com.kongzue.dialog.util.DialogSettings
-import com.kongzue.dialog.util.TextInfo
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -33,8 +36,10 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.event.RefreshMessageCenterEvent
+import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
+import com.sdy.luxurytravelapplication.mvp.model.bean.CustomerMsgBean
 import com.sdy.luxurytravelapplication.nim.NIMInitManager
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.api.UIKitOptions
@@ -46,7 +51,12 @@ import com.sdy.luxurytravelapplication.nim.impl.provider.DemoOnlineStateContentP
 import com.sdy.luxurytravelapplication.nim.impl.provider.NimDemoLocationProvider
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoMixPushMessageHandler
 import com.sdy.luxurytravelapplication.nim.mixpush.DemoPushContentProvider
-import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.ui.activity.*
+import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
+import com.sdy.luxurytravelapplication.ui.dialog.ContactNotPassDialog
+import com.sdy.luxurytravelapplication.ui.dialog.VerifyNormalResultDialog
+import com.sdy.luxurytravelapplication.ui.fragment.MessageFragment
+import com.sdy.luxurytravelapplication.ui.fragment.SnackBarFragment
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -58,7 +68,6 @@ import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.unit.Subunits
 import org.greenrobot.eventbus.EventBus
 import kotlin.properties.Delegates
-import kotlin.random.Random
 
 /**
  * Created by chenxz on 2018/4/21.
@@ -113,6 +122,10 @@ class TravelApp : Application() {
         DialogSettings.theme = DialogSettings.THEME.LIGHT
 //        DialogSettings.init()
 //        DialogSettings.buttonTextInfo = TextInfo().setFontColor(Color.parseColor("#FFC6CAD4"))
+
+        livenessList.add(LivenessTypeEnum.Mouth)
+        livenessList.add(LivenessTypeEnum.HeadLeft)
+        livenessList.add(LivenessTypeEnum.HeadRight)
     }
 
 
@@ -151,18 +164,12 @@ class TravelApp : Application() {
     }
 
 
-    init {
-        livenessList.add(LivenessTypeEnum.Mouth)
-        livenessList.add(LivenessTypeEnum.HeadLeft)
-        livenessList.add(LivenessTypeEnum.HeadRight)
-    }
-
     /**
      * 系统通知监听
      */
     private val customNotificationObserver: Observer<CustomNotification> = Observer {
         if (it.content != null) {
-            LogUtils.d(it.content)
+            /*LogUtils.d(it.content)
             LogUtils.d(AppUtils.isAppForeground())
             val object1 = JSONObject.parseObject(it.content)
             val type = if (object1["type"] != null) object1["type"] as Int else -1
@@ -361,9 +368,218 @@ class TravelApp : Application() {
 //                        EventBus.getDefault().post(RefuseNoCoinEvent())
 //                    }
 //                }
+            }*/
+            val customerMsgBean =
+                Gson().fromJson<CustomerMsgBean>(
+                    it.content,
+                    CustomerMsgBean::class.java
+                )
+            Log.d("customerMsgBean", "${customerMsgBean.toString()}====")
+            when (customerMsgBean.type) {
+                //1.系统通知新的消息数量
+                1 -> {
+                    EventBus.getDefault().postSticky(GetNewMsgEvent())
+                    EventBus.getDefault().postSticky(UpdateHiEvent())
+                    initNotificationManager(customerMsgBean.msg)
+                }
+                //2.对方删除自己,本地不删除会话列表
+                2 -> {
+                    CommonFunction.dissolveRelationshipLocal(customerMsgBean.accid, true)
+                }
+                //4人脸认证不通过
+                4 -> {
+                    //更改本地的认证状态
+                    UserManager.isverify = 0
+                    //更改本地的筛选认证状态
+                    if (SPUtils.getInstance(Constants.SPNAME).getInt("audit_only", -1) == 2) {
+                        SPUtils.getInstance(Constants.SPNAME).remove("audit_only")
+
+                    }
+                    EventBus.getDefault().post(FemaleVerifyEvent(0))
+                    //如果账号存在异常，就发送认证不通过弹窗
+                    if (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass()) {
+                        EventBus.getDefault()
+                            .postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_NOT_PASS))
+                    } else {
+                        if (ActivityUtils.getTopActivity() !is RegisterInfoOneActivity
+                            && ActivityUtils.getTopActivity() !is RegisterInfoTwoActivity
+                            && ActivityUtils.getTopActivity() !is InviteCodeActivity
+                            && ActivityUtils.getTopActivity() !is GetMoreMatchActivity
+                            && ActivityUtils.getTopActivity() !is FaceLivenessExpActivity
+                            && ActivityUtils.getTopActivity() !is PurchaseFootActivity
+                        )
+                            CommonFunction.startToFace(
+                                ActivityUtils.getTopActivity(),
+                                FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL
+                            )
+                    }
+                }
+                //7强制替换头像
+                7 -> {
+                    EventBus.getDefault().postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
+                    UserManager.saveChangeAvator(customerMsgBean.msg)
+                    UserManager.saveChangeAvatorType(1)
+                }
+                //11真人头像不通过弹窗
+                11 -> {
+                    EventBus.getDefault().postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
+                    UserManager.saveChangeAvator(customerMsgBean.msg)
+                    UserManager.saveChangeAvatorType(2)
+                }
+
+                //8账号异常提示去变更账号
+                //const SHUMEI_APPROVE = 8; // 数美强制认证（没有人脸时别过）
+                //const SHUMEI_APPROVE_FACE = 81; // 数美强制认证（有人脸时别过）
+                //const SUCCESS_FORCE = 10; // 强制认证（没有人脸时别过）
+                //const SUCCESS_FORCE_FACE = 101; // 强制认证（有人脸时别过）
+                8, 81 -> {
+                    UserManager.saveAccountDanger(true)
+                    EventBus.getDefault()
+                        .postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_NEED_ACCOUNT_DANGER))
+                }
+                //9人脸认证通过的通知
+                9 -> {
+                    if (UserManager.getAccountDanger()) {
+                        UserManager.saveAccountDanger(false)
+                    }
+                    if (UserManager.getAccountDangerAvatorNotPass()) {
+                        UserManager.saveAccountDangerAvatorNotPass(false)
+                    }
+                    EventBus.getDefault().post(FemaleVerifyEvent(1))
+                    UserManager.isverify = 1
+                    UserManager.hasFaceUrl = true
+                    if (SPUtils.getInstance(Constants.SPNAME).getInt("audit_only", -1) != -1) {
+                        SPUtils.getInstance(Constants.SPNAME).remove("audit_only")
+                        EventBus.getDefault().postSticky(UserCenterEvent(true))
+                    }
+
+                    EventBus.getDefault()
+                        .postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_PASS))
+                }
+
+                //视频介绍审核通过
+                91 -> {
+                    VerifyNormalResultDialog(VerifyNormalResultDialog.VERIFY_NORMAL_PASS).show()
+                    //更新录制视频介绍
+                    EventBus.getDefault().post(FemaleVideoEvent(1))
+                    EventBus.getDefault().post(UpdateLuxuryEvent())
+                }
+                //视频介绍审核不通过
+                93 -> {
+                    VerifyNormalResultDialog(VerifyNormalResultDialog.VERIFY_NORMAL_NOTPASS_CHANGE_VIDEO).show()
+
+                    //更新录制视频介绍
+                    EventBus.getDefault().post(FemaleVideoEvent(0))
+                    EventBus.getDefault().post(UpdateLuxuryEvent())
+                }
+
+                //联系方式审核未通过
+                99 -> {
+                    ContactNotPassDialog().show()
+                }
+                //10头像未通过审核去进行人脸认证
+                10, 101 -> {
+                    UserManager.saveAccountDangerAvatorNotPass(true)
+                    EventBus.getDefault()
+                        .postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_NEED_AVATOR_INVALID))
+                }
+                SnackBarFragment.SOMEONE_LIKE_YOU,
+                SnackBarFragment.SOMEONE_MATCH_SUCCESS,
+                SnackBarFragment.FLASH_SUCCESS,
+                SnackBarFragment.HELP_CANDY,
+                SnackBarFragment.CHAT_SUCCESS,
+                SnackBarFragment.GREET_SUCCESS,
+                SnackBarFragment.GIVE_GIFT -> {
+                    if (ActivityUtils.getTopActivity() is MainActivity)
+                        FragmentUtils.add(
+                            (ActivityUtils.getTopActivity() as AppCompatActivity).supportFragmentManager,
+                            SnackBarFragment(customerMsgBean),
+                            android.R.id.content
+                        )
+
+                }
+                106, 300, 301 -> {
+                    //106门槛支付成功
+                    //300通过甜心认证,301甜心认证不通过
+                    EventBus.getDefault().post(UpdateLuxuryEvent())
+                }
+
+                111, 112 -> {//微信公众号绑定成功
+                    EventBus.getDefault().post(UpdateWechatSettingsEvent(customerMsgBean.type == 111))
+                    UserManager.saveShowGuideWechat(true)
+
+                }
+                401 -> { //todo 系统假消息，以及真人的第一条搭讪语打招呼成功 发送系统消息
+                    if (ActivityUtils.getTopActivity() != null && ActivityUtils.getTopActivity() is MainActivity
+                        && FragmentUtils.getTopShow((ActivityUtils.getTopActivity() as MainActivity).supportFragmentManager) != null
+                        && FragmentUtils.getTopShow((ActivityUtils.getTopActivity() as MainActivity).supportFragmentManager) !is MessageFragment
+                    ) {
+                    }
+//                        GreetHiDialog(customerMsgBean).show()
+//                            FragmentUtils.add(
+//                                (ActivityUtils.getTopActivity() as AppCompatActivity).supportFragmentManager,
+//                                GreetHiFragment(customerMsgBean),
+//                                android.R.id.content
+//                            )
+
+                }
+
             }
 
         }
+    }
+
+
+    private fun initNotificationManager(msg: String) {
+        val msgs = msg.split("\\n")
+
+        var manager: NotificationManager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        //8.0 以后需要加上channelId 才能正常显示
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "subscribe"
+            val channelName = getString(R.string.default_notification)
+            manager.createNotificationChannel(
+                NotificationChannel(
+                    channelId,
+                    channelName,
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+            )
+        }
+        //为了版本兼容  选择V7包下的NotificationCompat进行构造
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent =
+            PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val notification = NotificationCompat.Builder(this, "subscribe")
+            .setContentText(
+                if (msgs.size > 1) {
+                    msgs[1]
+                } else {
+                    msg
+                }
+            )
+            .setContentTitle(
+                if (msgs.size > 1) {
+                    msgs[0]
+                } else {
+                    ""
+                }
+            )
+            .setAutoCancel(true)
+            .setWhen(System.currentTimeMillis())
+            .setSmallIcon(R.drawable.icon_default_avatar)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    resources,
+                    R.drawable.icon_default_avatar
+                )
+            )
+            .setContentIntent(pendingIntent)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .build()
+        manager.notify(1, notification)
+
     }
 
 

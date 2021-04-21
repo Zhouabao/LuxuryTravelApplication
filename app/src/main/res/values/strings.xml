@@ -956,4 +956,40 @@
     <string name="verify_figure_or_job">认证职业或学历</string>
     <string name="join_now">立即加入</string>
     <string name="pic_upload_fail">图片上传失败，请重新尝试</string>
+    <string name="default_notification">默认通知</string>
+
+
+    <string name="face_verify">人脸认证</string>
+    <string name="goto_verify">去认证</string>
+    <string name="please_verify_face">请进行人脸认证，以确保头像为真人</string>
+    <string name="account_danger">账号异常</string>
+    <string name="please_verify_to_clear_danger">您的账号存在高危风险异常\n请完成认证解除异常</string>
+    <string name="verify_account_ing">认证审核中</string>
+    <string name="please_wait_to_clear_danger">认证审核通过后将为您解冻账号\n请耐心等待</string>
+    <string name="waiting">等待中</string>
+    <string name="avatar_cannot_pass_verify">您当前头像无法通过人脸对比\n请更换本人头像重新进行认证审核</string>
+    <string name="change_avatar">修改头像</string>
+    <string name="has_commit_human_verify">已提交人工审核，请耐心等待</string>
+    <string name="verify_success">认证审核成功</string>
+    <string name="account_has_clear_danger">您已通过认证审核\n已为您解冻账号，现在可按正常流程操作</string>
+
+    <string name="avata_verify_fail">认证审核不通过</string>
+    <string name="avatar_change">请替换头像</string>
+    <string name="avator_change_text">修改头像</string>
+    <string name="avatar_not_pass_content">尊敬的用户，您上传的头像未使用真实照片或涉及违规，替换真实照片前您将持续对其他不可见</string>
+    <string name="avatar_compare_fail">您当前头像无法通过人脸对比\n请更换本人头像重新进行认证审核</string>
+
+    <string name="apply_human_verify">申请人工审核</string>
+    <string name="make_avatar">设为头像</string>
+    <string name="goto_human_verify">进入人工审核</string>
+    <string name="cancel_verify">取消审核</string>
+    <string name="re_record">重新录制</string>
+    <string name="avatar_not_pass">头像审核未通过</string>
+    <string name="please_change_real_to_match_more">非真人头像可能导致匹配率偏低\n请替换后再进行匹配</string>
+    <string name="replace_now">立即替换</string>
+    <string name="please_change_avatar">请替换头像</string>
+    <string name="please_change_standard_avatar">当前头像不符合标准\n请替换头像</string>
+    <string name="please_change_real_avatar">请更换真人头像</string>
+    <string name="send_failed">发送失败</string>
+    <string name="send_messgae">发送消息</string>
 </resources>

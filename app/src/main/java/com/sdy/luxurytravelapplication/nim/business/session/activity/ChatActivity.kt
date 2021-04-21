@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
@@ -42,6 +43,7 @@ import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.CustomerMsgBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
 import com.sdy.luxurytravelapplication.mvp.presenter.ChatPresenter
@@ -66,6 +68,7 @@ import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
 import com.sdy.luxurytravelapplication.ui.dialog.ContactCandyReceiveDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VideoAddChatTimeDialog
+import com.sdy.luxurytravelapplication.ui.fragment.SnackBarFragment
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -568,11 +571,31 @@ class ChatActivity :
     override fun sendMessage(message: IMMessage): Boolean {
         if (isChatWithRobot()) {
             sendMsgS(message)
+        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender === 1 && nimBean.target_gender === 2) {
+            showConfirmSendDialog(message)
         } else if (canSendMsg()) {
             sendMsgRequest(message)
         }
 
         return true
+    }
+
+    private fun showConfirmSendDialog(message: IMMessage) {
+
+        MessageDialog.show(
+            this as AppCompatActivity,
+            getString(R.string.send_messgae),
+            getString(R.string.cost_one_candy_for_quanlity),
+            getString(R.string.confirm_send),
+            getString(R.string.cancel)
+        )
+            .setOnOkButtonClickListener { baseDialog, v ->
+                if (canSendMsg()) {
+                    sendMsgRequest(message)
+                }
+                false
+            }
+
     }
 
     //语音、文字、视频、图片、定位消息调用接口
@@ -607,7 +630,7 @@ class ChatActivity :
 //                }
             }
             MsgTypeEnum.text -> {
-                mPresenter?.sendMsg(message, sessionId)
+                mPresenter?.sendMsgRequest(message, sessionId)
             }
             else -> {
                 sendMsgS(message)
@@ -805,7 +828,7 @@ class ChatActivity :
         targetAccid: String
     ) {
         if (isOk) {
-            mPresenter?.sendMsg(content, targetAccid, key)
+            mPresenter?.sendMsgRequest(content, targetAccid, key)
         } else {
             setFailedStatus(content, CommonFunction.getErrorMsg(this), NOTICE_NORMAL)
         }
@@ -818,55 +841,75 @@ class ChatActivity :
      */
     override fun sendMsgResult(
         code: Int,
-        sendMsgBean: SendMsgBean?,
+        nimBeanBaseResp: SendMsgBean?,
         msg: String,
-        message: IMMessage
+        content: IMMessage
     ) {
-        when (code) {
-            200 -> {
-                appendPushConfigAndSend(
-                    message,
-                    sendMsgBean?.deadline ?: 0,
-                    sendMsgBean?.expend_coin ?: 0
+        if (code == 200 || code == 211) {
+            // 搭讪礼物如果返回不为空，就代表成功领取对方的搭讪礼物
+            if (nimBeanBaseResp?.rid_data != null
+                && !nimBeanBaseResp.rid_data!!.icon.isEmpty()
+            ) {
+//                ReceiveAccostGiftDialog(this, nimBeanBaseResp.rid_data).show()
+            }
+            sendMsgS(content)
+            if (!nimBeanBaseResp!!.ret_tips_arr.isEmpty()) CommonFunction.sendTips(
+                sessionId,
+                nimBeanBaseResp!!.ret_tips_arr
+            )
+            nimBean.is_send_msg = true
+            if (UserManager.gender == 1 && !isSendChargePtVip
+                && sessionId != Constants.ASSISTANT_ACCID && !nimBean.isplatinum
+            ) {
+                val tips = ArrayList<SendTipBean>()
+                tips.add(
+                    SendTipBean(
+                        getString(R.string.charge_to_free), true,
+                        SendCustomTipAttachment.CUSTOME_TIP_CHARGE_PT_VIP
+                    )
                 )
-                CommonFunction.updateMessageExtension(
-                    message, SEND_NOTICE_MSG,
-                    if (sendMsgBean?.noticeType == NOTICE_REAL_VERIFY)
-                        getString(R.string.notice_real_verify)
-                    else
-                        sendMsgBean?.noticeText ?: ""
-                )
-                CommonFunction.updateMessageExtension(
-                    message, SEND_NOTICE_CODE,
-                    sendMsgBean?.noticeType ?: NOTICE_NORMAL
-                )
-                EventBus.getDefault().post(RefreshGoldEvent())
+                CommonFunction.sendTips(sessionId, tips)
+                isSendChargePtVip = true
             }
-            409 -> {// 用户被封禁
-                setFailedStatus(message, msg, NOTICE_NORMAL)
-                MessageDialog.show(
-                    ActivityUtils.getTopActivity() as AppCompatActivity,
-                    getString(R.string.notice),
-                    msg,
-                    getString(R.string.iknow)
-                )
-                    .setOnOkButtonClickListener { baseDialog, v ->
-                        CommonFunction.dissolveRelationshipLocal(sessionId)
-                        false
-                    }
-            }
-            411 -> {//旅券余额不足
-                // 旅券余额不足
-                setFailedStatus(message, getString(R.string.notice_gold_charge), NOTICE_CHARGE)
-            }
-            201 -> {//门槛会员提示
-                setFailedStatus(message, getString(R.string.notice_foot_price), NOTICE_CHARGE)
-            }
-            else -> { // 其他的发送失败，送出失败原因
-                setFailedStatus(message, msg, NOTICE_NORMAL)
-            }
+        } else if (code == 409) { // 用户被封禁
+            setMessageStatus(content, MsgStatusEnum.fail)
+            MessageDialog.show(this as AppCompatActivity, "提示", msg, "知道了")
+                .setOnOkButtonClickListener { baseDialog, v ->
+                    NIMClient.getService(MsgService::class.java)
+                        .deleteRecentContact2(sessionId, SessionTypeEnum.P2P)
+                    finish()
+                    false
+                }
+
+        } else if (code == 411) { // 糖果余额不足
+            setMessageStatus(content, MsgStatusEnum.fail)
+            MessageDialog.show(this as AppCompatActivity, "提示", msg, "立即充值", "取消")
+                .setOnOkButtonClickListener { baseDialog, v ->
+                    CommonFunction.gotoCandyRecharge(this)
+                    finish()
+                    false
+                }
+
+        } else if (code == 201) { // 门槛会员充值
+            setMessageStatus(content, MsgStatusEnum.fail)
+            CommonFunction.startToFootPrice(this)
+        } else {
+            setMessageStatus(content, MsgStatusEnum.fail)
+            FragmentUtils.add(
+                (ActivityUtils.getTopActivity() as AppCompatActivity).supportFragmentManager,
+                SnackBarFragment(
+                    CustomerMsgBean(
+                        SnackBarFragment.SEND_FAILED,
+                        getString(R.string.send_failed),
+                        msg,
+                        R.drawable.icon_wrong
+                    )
+                ),
+                android.R.id.content
+            )
         }
     }
+
 
     private fun setFailedStatus(message: IMMessage, msg: String, code: Int) {
         setMessageStatus(message, MsgStatusEnum.fail)
@@ -875,6 +918,11 @@ class ChatActivity :
         messageListPanel.refreshMessageItem(message.uuid)
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun updateApproveEvent(event: UpdateApproveEvent?) {
+        if (sessionId != Constants.ASSISTANT_ACCID) mPresenter?.getTargetInfo(sessionId)
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateVerifyEvent(event: UpdateVerifyEvent) {
@@ -900,4 +948,11 @@ class ChatActivity :
         binding.inputCl.unlockContactLl.visibility = View.GONE
         nimBean.is_unlock_contact = true
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateStarEvent(event: UpdateStarEvent) {
+        nimBean.stared = event.isStar
+    }
+
 }

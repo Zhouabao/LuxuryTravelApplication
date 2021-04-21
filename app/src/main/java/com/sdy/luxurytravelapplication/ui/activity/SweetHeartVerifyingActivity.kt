@@ -6,7 +6,10 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivitySweetHeartVerifyingBinding
-import com.sdy.luxurytravelapplication.event.*
+import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
+import com.sdy.luxurytravelapplication.event.TopCardEvent
+import com.sdy.luxurytravelapplication.event.UpdateApproveEvent
+import com.sdy.luxurytravelapplication.event.UpdateLuxuryEvent
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
@@ -108,7 +111,6 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
             EventBus.getDefault().post(TopCardEvent(true))
 
             EventBus.getDefault().post(FemaleVideoEvent(2))
-
         }
 
         //更新甜心圈认证状态

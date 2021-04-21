@@ -4,8 +4,34 @@ plugins {
     id 'com.huawei.agconnect'
 
 }
-
+/*
+ keytool -list -v -keystore D:\AndroidProjects\LuxuryTravelApplication\luxurytravel.jks
+ MD5:  7E:C3:B2:DB:72:38:2B:10:09:6C:58:BD:11:32:45:09
+         SHA1: A5:25:64:71:8D:90:AA:51:C1:1C:7F:5C:E5:90:B6:A6:4C:EF:78:FC
+         SHA256: B1:82:C2:D8:7E:0E:42:3C:ED:CD:E7:E8:21:1C:C6:7F:B6:84:E4:B2:E3:99:C1:59:F2:D8:85:03:CD:B2:72:49*/
 android {
+
+    signingConfigs {
+
+        def password = "123456"
+        def alias = "luxurytravel"
+        def filePath = "D:\\AndroidProjects\\LuxuryTravelApplication\\luxurytravel.jks"
+
+        dev {
+            storeFile file(filePath)
+            storePassword password
+            keyAlias = alias
+            keyPassword password
+        }
+        release {
+            storeFile file(filePath)
+            storePassword password
+            keyAlias = alias
+            keyPassword password
+        }
+    }
+
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 

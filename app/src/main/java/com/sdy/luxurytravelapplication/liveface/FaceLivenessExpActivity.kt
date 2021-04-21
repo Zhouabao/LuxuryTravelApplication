@@ -13,17 +13,22 @@ import com.baidu.idl.face.platform.listener.IInitCallback
 import com.baidu.idl.face.platform.model.ImageInfo
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
+import com.kongzue.dialog.v3.MessageDialog
 import com.kongzue.dialog.v3.WaitDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.QNUploadManager
 import com.sdy.luxurytravelapplication.constant.UserManager
+import com.sdy.luxurytravelapplication.event.AccountDangerEvent
 import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
+import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
+import com.sdy.luxurytravelapplication.ui.dialog.HumanVerifyDialog
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import java.io.ByteArrayOutputStream
@@ -44,40 +49,40 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
             type: Int = TYPE_ACCOUNT_NORMAL,
             requestCode: Int = -1
         ) {
-//            if (type == TYPE_LIVE_CAPTURE) {
-            if (requestCode != -1)
-                (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
-                    requestCode,
-                    "type" to type
-                )
-            else
-                context1.startActivity<FaceLivenessExpActivity>("type" to type)
-//            } else {
-//                if (!UserManager.hasFaceUrl) {
-//                    MessageDialog.show(
-//                        context1 as AppCompatActivity,
-//                        "认证提醒",
-//                        "审核将与用户头像做比对，请确认头像为本人\n验证信息只用作审核，不会对外展示",
-//                        "确定",
-//                        "取消"
-//                    )
-//                        .setOnOkButtonClickListener { _, v ->
-//                            if (requestCode != -1)
-//                                (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
-//                                    requestCode,
-//                                    "type" to type
-//                                )
-//                            else
-//                                context1.startActivity<FaceLivenessExpActivity>("type" to type)
-//                            false
-//                        }
-//                        .setOnCancelButtonClickListener { _, v ->
-//                            false
-//                        }
-//                } else {
-//                    HumanVerfiyDialog(context1, type, true).show()
-//                }
-//            }
+            if (type == TYPE_LIVE_CAPTURE) {
+                if (requestCode != -1)
+                    (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
+                        requestCode,
+                        "type" to type
+                    )
+                else
+                    context1.startActivity<FaceLivenessExpActivity>("type" to type)
+            } else {
+                if (!UserManager.hasFaceUrl) {
+                    MessageDialog.show(
+                        context1 as AppCompatActivity,
+                        "认证提醒",
+                        "审核将与用户头像做比对，请确认头像为本人\n验证信息只用作审核，不会对外展示",
+                        "确定",
+                        "取消"
+                    )
+                        .setOnOkButtonClickListener { _, v ->
+                            if (requestCode != -1)
+                                (context1 as Activity).startActivityForResult<FaceLivenessExpActivity>(
+                                    requestCode,
+                                    "type" to type
+                                )
+                            else
+                                context1.startActivity<FaceLivenessExpActivity>("type" to type)
+                            false
+                        }
+                        .setOnCancelButtonClickListener { _, v ->
+                            false
+                        }
+                } else {
+                    HumanVerifyDialog(type, true).show()
+                }
+            }
         }
 
     }
@@ -313,7 +318,8 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
                     setResult(Activity.RESULT_OK, intent.putExtra("verify", 2))
                     finish()
                     if (type == TYPE_ACCOUNT_DANGER) {//账号异常提交成功
-                        //                    EventBus.getDefault().postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
+                        EventBus.getDefault()
+                            .postSticky(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
                     }
                 }
 

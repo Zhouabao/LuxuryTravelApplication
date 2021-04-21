@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -28,12 +28,12 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginLeft="26dp"
+            android:src="@drawable/icon_tab_index_checked"
             app:layout_constraintBottom_toTopOf="@id/tabIndexTv"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/icon_tab_index_checked"
             app:layout_constraintRight_toLeftOf="@id/tabFind"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tabIndexTv"
@@ -51,12 +51,12 @@
         <ImageView
             android:id="@+id/tabFind"
             android:layout_width="28dp"
-            android:src="@drawable/icon_tab_find"
             android:layout_height="28dp"
+            android:src="@drawable/icon_tab_find"
             app:layout_constraintBottom_toTopOf="@id/tabFindTv"
             app:layout_constraintLeft_toRightOf="@id/tabIndex"
             app:layout_constraintRight_toLeftOf="@id/tabTravel"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tabFindTv"
@@ -74,12 +74,12 @@
         <ImageView
             android:id="@+id/tabTravel"
             android:layout_width="28dp"
-            android:src="@drawable/icon_tab_travel"
             android:layout_height="28dp"
+            android:src="@drawable/icon_tab_travel"
             app:layout_constraintBottom_toTopOf="@id/tabTravelTv"
             app:layout_constraintLeft_toRightOf="@id/tabFind"
             app:layout_constraintRight_toLeftOf="@id/tabMessage"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tabTravelTv"
@@ -103,12 +103,12 @@
             app:layout_constraintBottom_toTopOf="@id/tabMessageTv"
             app:layout_constraintLeft_toRightOf="@id/tabTravel"
             app:layout_constraintRight_toLeftOf="@id/tabMineCheckView"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/msgNewCnt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
             android:layout_marginLeft="17dp"
             android:background="@drawable/shape_oval_red"
             android:gravity="center"
@@ -118,10 +118,9 @@
             android:paddingRight="4dp"
             android:textColor="#ffffffff"
             android:textSize="12sp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="@id/tabMessage"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="9" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -142,8 +141,8 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="26dp"
-            android:visibility="invisible"
             android:background="@drawable/shape_green_white"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/tabMineTv"
             app:layout_constraintLeft_toRightOf="@id/tabMessage"
             app:layout_constraintRight_toRightOf="parent"

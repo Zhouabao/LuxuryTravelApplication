@@ -20,7 +20,7 @@ interface ChatContract {
     interface Presenter : IPresenter<View> {
 
         fun getTargetInfo(accid: String)
-        fun sendMsg(
+        fun sendMsgRequest(
             content: IMMessage,
             target_accid: String,
             qnMediaUrl: String = "",
@@ -35,7 +35,7 @@ interface ChatContract {
     interface Model : IModel {
 
         fun getTargetInfo(accid: String): Observable<BaseResp<ChatInfoBean>>
-        fun sendMsg(
+        fun sendMsgRequest(
             content: IMMessage,
             target_accid: String,
             qnMediaUrl: String = "",

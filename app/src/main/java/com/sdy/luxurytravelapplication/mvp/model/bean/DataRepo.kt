@@ -254,10 +254,11 @@ data class ChatInfoBean(
  * 发送消息tip
  */
 data class SendMsgBean(
-    val deadline: Int, //金币过期时间
-    val expend_coin: Int,//金币数目
-    var noticeText: String = "",//提示语
-    var noticeType: Int = 0//提示类型
+    var residue_msg_cnt: Int = 0,//剩余可发送的招呼消息次数
+    var get_help_amount: Int = 0,
+
+    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf(),
+    var rid_data: GiftBean? = null
 )
 
 
@@ -1310,6 +1311,24 @@ data class ChatUpBean(
     var vip_normal_cnt: Int = 0, //开通vip获得的聊天次数
     var private_chat_btn: Boolean = false  //
 
-
 )
 
+
+data class CustomerMsgBean @JvmOverloads constructor(
+    val type: Int = 0,
+    val title: String = "",
+    val content: String = "",
+    val avatar: Any = "",
+    val msg: String = "",
+    val accid: String = "",
+    val extra: Any? = null
+)
+
+
+/**
+ * 所有消息的集合
+ */
+data class AllMsgCount(
+    val likecount: Int = 0,//点赞未读
+    val square_count: Int = 0//
+)

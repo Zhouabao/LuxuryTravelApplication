@@ -2,24 +2,41 @@ package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.Observer
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.MsgServiceObserve
+import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
+import com.sdy.luxurytravelapplication.event.AccountDangerEvent
 import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
+import com.sdy.luxurytravelapplication.event.GetNewMsgEvent
+import com.sdy.luxurytravelapplication.event.ReVerifyEvent
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.AllMsgCount
 import com.sdy.luxurytravelapplication.mvp.presenter.MainPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
+import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
+import com.sdy.luxurytravelapplication.ui.dialog.ChangeAvatarRealManDialog
+import com.sdy.luxurytravelapplication.ui.dialog.GotoVerifyDialog
 import com.sdy.luxurytravelapplication.ui.fragment.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
@@ -81,8 +98,12 @@ class MainActivity :
 
     override fun initData() {
         GlideUtil.loadAvatorImg(this, UserManager.avatar, binding.tabMine)
-
-//        CompleteInfoDialog().show()
+        if (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass()) {
+            //0未认证/认证不成功     1认证通过     2认证中
+            if (UserManager.isverify == 2) {
+                onAccountDangerEvent(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
+            }
+        }
     }
 
 
@@ -209,10 +230,7 @@ class MainActivity :
 
 
     override fun start() {
-    }
-
-    override fun showLogoutSuccess(success: Boolean) {
-
+        mPresenter?.msgList()
     }
 
 
@@ -238,5 +256,171 @@ class MainActivity :
             }
         }
     }
+
+
+    /**
+     * 重新认证事件总线
+     */
+//    const val TYPE_VERIFY = 4//认证失败去认证
+//    const val TYPE_CHANGE_AVATOR_NOT_PASS = 7//头像违规替换
+//    const val TYPE_CHANGE_ABLUM = 3//完善相册
+    private var gotoVerifyDialog: GotoVerifyDialog? = null
+
+    private fun showGotoVerifyDialog(type: Int, avator: String = UserManager.avatar) {
+        var content = ""
+        var title = ""
+        var confirmText = ""
+        when (type) {
+            GotoVerifyDialog.TYPE_VERIFY -> { //认证不通过
+                content = getString(R.string.avatar_compare_fail)
+                title = getString(R.string.avata_verify_fail)
+            }
+            GotoVerifyDialog.TYPE_CHANGE_AVATOR_NOT_PASS -> {//7头像违规
+                content = getString(R.string.avatar_not_pass_content)
+                title = getString(R.string.avatar_change)
+                confirmText = getString(R.string.avator_change_text)
+            }
+//            GotoVerifyDialog.TYPE_CHANGE_ABLUM -> {//完善相册
+//                content = "完善相册会使你的信息更多在匹配页展示\n现在就去完善你的相册吧！"
+//                title = "完善相册"
+//                confirmText = "完善相册"
+//            }
+
+        }
+        if (gotoVerifyDialog != null) {
+            gotoVerifyDialog!!.dismiss()
+            gotoVerifyDialog = null
+        }
+
+        gotoVerifyDialog = GotoVerifyDialog.Builder(ActivityUtils.getTopActivity())
+            .setTitle(title)
+            .setContent(content)
+            .setConfirmText(confirmText)
+            .setIcon(avator)
+            .setIconVisible(true)
+            .setType(type)
+            .setCancelIconIsVisibility(type != GotoVerifyDialog.TYPE_CHANGE_AVATOR_NOT_PASS)
+            .setOnCancelable(type != GotoVerifyDialog.TYPE_CHANGE_AVATOR_NOT_PASS)
+            .create()
+        gotoVerifyDialog?.show()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onReVerifyEvent(event: ReVerifyEvent) {
+        if (accountDangerDialog != null) {
+            accountDangerDialog!!.dismiss()
+            accountDangerDialog = null
+        }
+
+        if (event.type == GotoVerifyDialog.TYPE_CHANGE_AVATOR_REAL_NOT_VALID) {//11
+            UserManager.saveNeedChangeAvator(true)//需要换头像
+            UserManager.saveForceChangeAvator(false)//是否强制替换过头像
+            UserManager.saveChangeAvatorType(2)//真人不合规
+            ChangeAvatarRealManDialog(ChangeAvatarRealManDialog.VERIFY_NEED_VALID_REAL_MAN).show()
+        } else if (event.type == GotoVerifyDialog.TYPE_CHANGE_AVATOR_NOT_PASS) { //7
+            UserManager.saveNeedChangeAvator(true)//需要换头像
+            UserManager.saveForceChangeAvator(false)//是否强制替换过头像
+            UserManager.saveChangeAvatorType(1)//头像不合规
+            showGotoVerifyDialog(event.type, event.avator)
+        }
+        if (EventBus.getDefault().getStickyEvent(ReVerifyEvent::class.java) != null) {
+            // 若粘性事件存在，将其删除
+            EventBus.getDefault()
+                .removeStickyEvent(EventBus.getDefault().getStickyEvent(ReVerifyEvent::class.java))
+        }
+    }
+
+
+    private var accountDangerDialog: AccountDangerDialog? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onAccountDangerEvent(event: AccountDangerEvent) {
+        if (accountDangerDialog != null) {
+            accountDangerDialog!!.dismiss()
+            accountDangerDialog = null
+        }
+
+        if (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass()) {
+            accountDangerDialog = AccountDangerDialog()
+            accountDangerDialog!!.show()
+            accountDangerDialog!!.changeVerifyStatus(event.type)
+        }
+        if (EventBus.getDefault().getStickyEvent(AccountDangerEvent::class.java) != null) {
+            // 若粘性事件存在，将其删除
+            EventBus.getDefault()
+                .removeStickyEvent(
+                    EventBus.getDefault().getStickyEvent(AccountDangerEvent::class.java)
+                )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (KeyboardUtils.isSoftInputVisible(this))
+            KeyboardUtils.hideSoftInput(this)
+        Log.d("OKhttp", "${UserManager.isNeedChangeAvator()},${UserManager.isForceChangeAvator()}}")
+        if (UserManager.isNeedChangeAvator())
+            if (!UserManager.isForceChangeAvator()) {
+                if (UserManager.getChangeAvatorType() == 1)
+                    showGotoVerifyDialog(
+                        GotoVerifyDialog.TYPE_CHANGE_AVATOR_NOT_PASS,
+                        UserManager.getChangeAvator()
+                    )
+                else
+                    ChangeAvatarRealManDialog(ChangeAvatarRealManDialog.VERIFY_NEED_VALID_REAL_MAN).show()
+            } else {
+                UserManager.saveNeedChangeAvator(false)
+                UserManager.saveForceChangeAvator(true)
+            }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onGetMSGEvent(event: GetNewMsgEvent) {
+        mPresenter?.startupRecord()
+        mPresenter?.msgList()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (gotoVerifyDialog != null) {
+            gotoVerifyDialog!!.dismiss()
+            gotoVerifyDialog = null
+        }
+        EventBus.getDefault().unregister(this)
+        NIMClient.getService(MsgServiceObserve::class.java)
+            .observeReceiveMessage(incomingMessageObserver, false)
+
+    }
+
+
+    /**
+     * 消息接收观察者
+     */
+    private var incomingMessageObserver: Observer<List<IMMessage>> = Observer {
+        mPresenter?.msgList()
+    }
+
+    override fun onMsgListResult(allMsgCount: AllMsgCount) {
+        if (allMsgCount != null) {
+            //未读消息个数
+            val msgCount = NIMClient.getService(MsgService::class.java).totalUnreadCount
+            Log.d(
+                "msgcount", "msgcount = ${msgCount},likecount = ${allMsgCount.likecount}" +
+                        ",square_count = ${allMsgCount.square_count}"
+            )
+
+            showMsgDot(allMsgCount.square_count > 0 || msgCount > 0)
+        }
+    }
+
+    /**
+     * 显示未读消息红点
+     */
+    private fun showMsgDot(show: Boolean) {
+        binding.msgNewCnt.isVisible = show
+    }
+
 
 }

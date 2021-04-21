@@ -16,6 +16,8 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMineBinding
+import com.sdy.luxurytravelapplication.event.FemaleVerifyEvent
+import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
 import com.sdy.luxurytravelapplication.event.UserCenterContactEvent
 import com.sdy.luxurytravelapplication.event.UserCenterEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
@@ -210,7 +212,6 @@ class UserCenterFragment :
 
                     shareBtn.isVisible = red_packet_btn
                     visitsAdapter.freeShow = free_show
-                    visitlist = UserManager.tempDatas
                     if (visitlist.size > 5) {
                         visitsAdapter.setNewInstance(visitlist.subList(0, 5))
                         visitsAdapter.todayVisitCount = visitlist.size - 4
@@ -331,13 +332,33 @@ class UserCenterFragment :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUserCenterContactEvent(event: UserCenterContactEvent) {
         userInfoBean?.userinfo?.contact_way = event.contact_way
-//        binding.contactWayMan.isVisible = UserManager.gender == 1
-//        if (userInfoBean?.userinfo?.contact_way == 0) {
-//            binding.  contactWayIv.setImageResource(R.drawable.icon_female_contact_no_small)
-//            binding.   contactWayMan.setImageResource(R.drawable.icon_female_contact_no_small)
-//        } else {
-//            binding.  contactWayMan.setImageResource(R.drawable.icon_female_contact_open_small)
-//            binding.  contactWayIv.setImageResource(R.drawable.icon_female_contact_open_small)
-//        }
+        if (userInfoBean?.userinfo?.contact_way == 0) {
+            binding.powerContact.setImageResource(R.drawable.icon_user_contact_not)
+        } else {
+            binding.powerContact.setImageResource(R.drawable.icon_user_contact)
+        }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFemaleVerifyEvent(event: FemaleVerifyEvent) {
+        userInfoBean?.userinfo?.isfaced = event.verifyState
+        if (userInfoBean?.userinfo?.isfaced == 1) {
+            binding.powerVerify.setImageResource(R.drawable.icon_user_verify)
+        } else {
+            binding.powerVerify.setImageResource(R.drawable.icon_user_verify_not)
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFemaleVideoEvent(event: FemaleVideoEvent) {
+        userInfoBean?.userinfo?.mv_faced = event.videoState
+        if (userInfoBean?.userinfo?.mv_faced == 1) {
+            binding.powerVideo.setImageResource(R.drawable.icon_user_video)
+        } else {
+            binding.powerVideo.setImageResource(R.drawable.icon_user_video_not)
+        }
+    }
+
+
 }

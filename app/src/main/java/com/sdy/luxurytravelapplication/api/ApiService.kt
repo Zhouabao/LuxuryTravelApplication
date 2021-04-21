@@ -149,6 +149,23 @@ interface ApiService {
     @POST("relationship/dissolutionFriend${Constants.END_BASE_URL}")
     fun dissolutionFriend(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
+
+    /**
+     * 获取消息总的个数汇总数据
+     */
+    @FormUrlEncoded
+    @POST("Index/msgListend${Constants.END_BASE_URL}")
+    fun msgList(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<AllMsgCount>>
+
+    /**
+     * 启动统计
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/startupRecord${Constants.END_BASE_URL}")
+    fun startupRecord(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
     /*****************************广场**********************************/
 
     /**
@@ -872,7 +889,7 @@ interface ApiService {
      * 发送消息
      */
     @FormUrlEncoded
-    @POST("Tidings/sendMsg${Constants.END_BASE_URL}")
+    @POST("Tidings/sendMsgV21${Constants.END_BASE_URL}")
     fun sendMsg(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<SendMsgBean>>
 
     /**
@@ -967,5 +984,14 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Sweetheart/getPicTpl${Constants.END_BASE_URL}")
     fun getPicTpl(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ArrayList<String>>>
+
+
+    /**
+     * 人工审核
+     * 1 人工认证 2重传头像或则取消
+     */
+    @FormUrlEncoded
+    @POST("member_info/humanAduit${Constants.END_BASE_URL}")
+    fun humanAduit(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any?>>
 
 }

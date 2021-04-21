@@ -3,6 +3,7 @@ package com.sdy.luxurytravelapplication.mvp.model
 import com.sdy.luxurytravelapplication.base.BaseModel
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.AllMsgCount
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import io.reactivex.Observable
 
@@ -13,8 +14,14 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class MainModel : BaseModel(), MainContract.Model {
-    override fun logout(): Observable<BaseResp<Any>> {
-        return RetrofitHelper.service.logout()
+
+    override fun msgList(): Observable<BaseResp<AllMsgCount>> {
+        return RetrofitHelper.service.msgList(hashMapOf())
+    }
+
+    override fun startupRecord(): Observable<BaseResp<Any>> {
+
+        return RetrofitHelper.service.startupRecord(hashMapOf())
     }
 
 }

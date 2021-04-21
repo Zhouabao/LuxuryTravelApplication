@@ -36,7 +36,7 @@ class ChatModel : BaseModel(), ChatContract.Model {
 
     }
 
-    override fun sendMsg(
+    override fun sendMsgRequest(
         content: IMMessage,
         target_accid: String,
         qnMediaUrl: String,

@@ -11,12 +11,15 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityNotificationBinding
 import com.sdy.luxurytravelapplication.event.UpdateSettingEvent
+import com.sdy.luxurytravelapplication.event.UpdateWechatSettingsEvent
 import com.sdy.luxurytravelapplication.mvp.contract.NotificationContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SettingsBean
 import com.sdy.luxurytravelapplication.mvp.presenter.NotificationPresenter
 import com.sdy.luxurytravelapplication.nim.impl.cache.DemoCache
 import com.sdy.luxurytravelapplication.ui.dialog.SaveQRCodeDialog
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 通知提醒
@@ -184,4 +187,22 @@ class NotificationActivity :
     override fun onSettingsBeanResult(success: Boolean, settingsBean: SettingsBean?) {
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateSettingEvent(event: UpdateWechatSettingsEvent) {
+        binding.apply {
+            if (event.isFollowPublic)
+                wechatState = true
+            wechatPublicState = event.isFollowPublic
+            switchWechat.isChecked = wechatState
+            wechatPublicTv.isVisible = wechatState
+            wechatPublic.isVisible = wechatState
+
+            if (wechatPublicState) {
+                wechatPublic.text = getString(R.string.Binded)
+            } else {
+                wechatPublic.text = getString(R.string.Bind_now)
+            }
+        }
+
+    }
 }

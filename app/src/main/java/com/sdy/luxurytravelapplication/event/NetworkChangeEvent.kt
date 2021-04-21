@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.event
 
 import android.content.Context
 import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.mvp.model.bean.Alipay
 import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
 import java.io.File
@@ -163,8 +164,6 @@ class UpdateSettingEvent
 class UserCenterEvent(var refresh: Boolean)
 
 
-//账号异常认证事件通知
-class AccountDangerEvent(val type: Int)
 
 
 //更新用户联系方式
@@ -196,3 +195,23 @@ class UpdateBlackEvent()
 
 //刷新甜心圈认证状态
 class UpdateLuxuryEvent()
+
+
+
+//认证状态修改
+class FemaleVerifyEvent(val verifyState: Int)
+
+
+
+//重新认证事件通知
+class ReVerifyEvent(val type: Int, var avator: String = UserManager.avatar)
+
+
+//账号异常认证事件通知
+class AccountDangerEvent(val type: Int)
+
+
+/**
+ * 更新推送开关
+ */
+class UpdateWechatSettingsEvent(val isFollowPublic: Boolean)

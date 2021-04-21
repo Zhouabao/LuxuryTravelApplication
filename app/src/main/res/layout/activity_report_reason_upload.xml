@@ -22,7 +22,7 @@
         android:textColor="#ff333333"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/barCl" />
 
 
     <androidx.recyclerview.widget.RecyclerView

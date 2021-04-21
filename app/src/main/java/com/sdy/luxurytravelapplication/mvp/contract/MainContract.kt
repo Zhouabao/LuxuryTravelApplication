@@ -3,6 +3,7 @@ package com.sdy.luxurytravelapplication.mvp.contract
 import com.sdy.luxurytravelapplication.base.IModel
 import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
+import com.sdy.luxurytravelapplication.mvp.model.bean.AllMsgCount
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import io.reactivex.Observable
 
@@ -15,14 +16,16 @@ import io.reactivex.Observable
 interface MainContract {
 
     interface View : IView {
-        fun showLogoutSuccess(success: Boolean)
+        fun onMsgListResult(allMsgCount: AllMsgCount)
     }
 
     interface Presenter : IPresenter<View> {
-        fun logout()
+        fun msgList()
+        fun startupRecord()
     }
 
     interface Model : IModel {
-        fun logout(): Observable<BaseResp<Any>>
+        fun msgList(): Observable<BaseResp<AllMsgCount>>
+        fun startupRecord(): Observable<BaseResp<Any>>
     }
 }

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_rectangle_white_15dp_30dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="wrap_content"
+        android:layout_height="196dp"
+        android:src="@drawable/icon_bg_change_real_avator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/icon_close1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/accountImg"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="33dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/icon_verify_account_ing"
+        app:civ_border_color="@color/colorWhite"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_orange_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@id/accountImg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/accountImg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/standardImg"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/icon_verify_account_ing"
+        app:layout_constraintBottom_toBottomOf="@id/bg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/icon_wrong"
+        app:layout_constraintLeft_toLeftOf="@id/accountImg"
+        app:layout_constraintRight_toRightOf="@id/accountImg"
+        app:layout_constraintTop_toTopOf="@id/accountImg" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/icon_pay_checked"
+        app:layout_constraintLeft_toLeftOf="@id/standardImg"
+        app:layout_constraintRight_toRightOf="@id/standardImg"
+        app:layout_constraintTop_toTopOf="@id/accountImg" />
+
+    <TextView
+        android:id="@+id/accountDangerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:text="@string/please_change_real_avatar"
+        android:textColor="#131415"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bg" />
+
+    <TextView
+        android:id="@+id/accountDangerContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="38dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.4"
+        android:text="@string/please_change_real_to_match_more"
+        android:textColor="#B6BABF"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerTitle" />
+
+    <TextView
+        android:id="@+id/accountDangerBtn"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_rectangle_green_25dp"
+        android:gravity="center"
+        android:text="@string/replace_now"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerContent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

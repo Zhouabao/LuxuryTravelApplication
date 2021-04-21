@@ -9,8 +9,12 @@ import com.blankj.utilcode.util.BarUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityWomanPowerBinding
+import com.sdy.luxurytravelapplication.event.FemaleVerifyEvent
+import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivityForResult
 
 /**
@@ -221,5 +225,27 @@ class WomanPowerActivity : BaseActivity<ActivityWomanPowerBinding>(), View.OnCli
 
             }
         }
+    }
+
+
+    /**
+     *
+     *         //        0 未认证 1通过 2机审中 3人审中 4被拒（弹框）
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFemaleVerifyEvent(event: FemaleVerifyEvent) {
+        verify = event.verifyState
+        changeButtonContent()
+    }
+
+
+    /**
+     * @param event showTop是否展示topShow
+     *       //      0 没有视频/拒绝   1视频通过  2视频审核中
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTopCardEvent(event: FemaleVideoEvent) {
+        video = event.videoState
+        changeButtonContent()
     }
 }

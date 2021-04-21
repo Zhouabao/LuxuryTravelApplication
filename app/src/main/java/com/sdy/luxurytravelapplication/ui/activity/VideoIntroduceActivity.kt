@@ -31,7 +31,12 @@ import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.camera_filter.callback.LoadAssetsImageCallback
 import com.sdy.luxurytravelapplication.camera_filter.listener.EndRecordingFilterCallback
 import com.sdy.luxurytravelapplication.camera_filter.listener.StartRecordingFilterCallback
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityVideoIntroduceBinding
+import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
+import com.sdy.luxurytravelapplication.event.TopCardEvent
+import com.sdy.luxurytravelapplication.event.UpdateApproveEvent
+import com.sdy.luxurytravelapplication.event.UpdateLuxuryEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.VideoIntroduceContract
@@ -40,6 +45,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.VideoVerifyBannerBean
 import com.sdy.luxurytravelapplication.mvp.presenter.VideoIntroducePresenter
 import com.sdy.luxurytravelapplication.nim.common.ToastHelper
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.wysaid.myUtils.ImageUtil

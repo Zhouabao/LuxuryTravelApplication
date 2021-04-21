@@ -312,6 +312,45 @@ object UserManager {
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("AlertProtocol", value)
 
 
+
+
+    //是否已经强制替换过头像
+    fun saveForceChangeAvator(isForceChangeAvator: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("isForceChangeAvator", isForceChangeAvator)
+    }
+
+    fun isForceChangeAvator(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isForceChangeAvator", false)
+    }
+
+    //是否需要强制替换头像
+    fun saveNeedChangeAvator(isNeedChangeAvator: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("isNeedChangeAvator", isNeedChangeAvator)
+    }
+
+    fun isNeedChangeAvator(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isNeedChangeAvator", false)
+    }
+
+    //是否需要强制替换头像  7强制替换头像  11真人头像不通过弹窗
+    fun saveChangeAvatorType(changeType: Int) {
+        SPUtils.getInstance(Constants.SPNAME).put("ChangeAvatorType", changeType)
+    }
+
+    fun getChangeAvatorType(): Int {
+        return SPUtils.getInstance(Constants.SPNAME).getInt("ChangeAvatorType", 0)
+    }
+
+    //是否需要强制替换头像
+    fun saveChangeAvator(isNeedChangeAvator: String) {
+        SPUtils.getInstance(Constants.SPNAME).put("ChangeAvator", isNeedChangeAvator)
+    }
+
+    fun getChangeAvator(): String {
+        return SPUtils.getInstance(Constants.SPNAME).getString("ChangeAvator")
+    }
+
+
     /**
      * 登录成功保存用户信息
      */
@@ -369,23 +408,6 @@ object UserManager {
     }
 
 
-    //是否需要强制替换头像
-    fun saveNeedChangeAvator(isNeedChangeAvator: Boolean) {
-        SPUtils.getInstance(Constants.SPNAME).put("isNeedChangeAvator", isNeedChangeAvator)
-    }
-
-    fun isNeedChangeAvator(): Boolean {
-        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isNeedChangeAvator", false)
-    }
-
-    //是否已经强制替换过头像
-    fun saveForceChangeAvator(isForceChangeAvator: Boolean) {
-        SPUtils.getInstance(Constants.SPNAME).put("isForceChangeAvator", isForceChangeAvator)
-    }
-
-    fun isForceChangeAvator(): Boolean {
-        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isForceChangeAvator", false)
-    }
 
     /**
      * 是否是异常账号
@@ -409,4 +431,16 @@ object UserManager {
     fun getAccountDangerAvatorNotPass(): Boolean {
         return SPUtils.getInstance(Constants.SPNAME).getBoolean("AccountDangerAvatorNotPass", false)
     }
+
+    /**
+     * 是否展示认证提醒
+     */
+    fun isShowGuideWechat(): Boolean {
+        return SPUtils.getInstance(Constants.SPNAME).getBoolean("isShowGuideWechat", false)
+    }
+
+    fun saveShowGuideWechat(isShow: Boolean) {
+        SPUtils.getInstance(Constants.SPNAME).put("isShowGuideWechat", isShow)
+    }
+
 }

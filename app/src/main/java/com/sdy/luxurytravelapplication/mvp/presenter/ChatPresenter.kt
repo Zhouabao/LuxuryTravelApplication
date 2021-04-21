@@ -2,7 +2,6 @@ package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.base.BasePresenter
-import com.sdy.luxurytravelapplication.ext.sss
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
 import com.sdy.luxurytravelapplication.mvp.model.ChatModel
@@ -30,14 +29,14 @@ class ChatPresenter : BasePresenter<ChatContract.Model, ChatContract.View>(),
         }
     }
 
-    override fun sendMsg(
+    override fun sendMsgRequest(
         content: IMMessage,
         target_accid: String,
         qnMediaUrl: String,
         islocation: Boolean
     ) {
 
-        mModel?.sendMsg(content, target_accid, qnMediaUrl, islocation)?.ssss(mView, false) {
+        mModel?.sendMsgRequest(content, target_accid, qnMediaUrl, islocation)?.ssss(mView, false) {
             mView?.sendMsgResult(it.code, it.data, it.msg, content)
         }
     }

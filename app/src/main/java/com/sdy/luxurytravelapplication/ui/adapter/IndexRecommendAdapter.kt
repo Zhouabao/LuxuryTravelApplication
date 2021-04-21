@@ -9,7 +9,10 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
-import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
+import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
+import com.sdy.luxurytravelapplication.ui.dialog.ChangeAvatarRealManDialog
+import com.sdy.luxurytravelapplication.ui.dialog.ContactNotPassDialog
+import com.sdy.luxurytravelapplication.ui.dialog.VerifyNormalResultDialog
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
@@ -126,7 +129,24 @@ class IndexRecommendAdapter :
                 .create()
 
             ClickUtils.applySingleDebouncing(root) {
-                TargetUserActivity.start(context, item.accid)
+                if (position == 0) {
+                    AccountDangerDialog(AccountDangerDialog.VERIFY_NEED_ACCOUNT_DANGER).show()
+                } else if (position == 1) {
+                    AccountDangerDialog(AccountDangerDialog.VERIFY_NEED_AVATOR_INVALID).show()
+                } else if (position == 2) {
+                    AccountDangerDialog(AccountDangerDialog.VERIFY_NOT_PASS).show()
+                } else if (position == 3) {
+                    AccountDangerDialog(AccountDangerDialog.VERIFY_PASS).show()
+                } else if (position == 4) {
+                    ContactNotPassDialog().show()
+                } else if (position == 5) {
+                    VerifyNormalResultDialog(VerifyNormalResultDialog.VERIFY_NORMAL_NOTPASS_CHANGE_VIDEO).show()
+                } else if (position == 6) {
+                    VerifyNormalResultDialog(VerifyNormalResultDialog.VERIFY_NORMAL_PASS).show()
+                }else if (position == 7) {
+                    ChangeAvatarRealManDialog(ChangeAvatarRealManDialog.VERIFY_NEED_VALID_REAL_MAN).show()
+                }
+//                TargetUserActivity.start(context, item.accid)
             }
 
         }
