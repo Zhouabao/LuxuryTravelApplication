@@ -2,12 +2,12 @@
     <string name="app_name">奢旅</string>
 
     <!-- 友盟配置-->
-    <string name="UMENG_APPID">5fa117eb1c520d30739f6f79</string>
+    <string name="UMENG_APPKEY">607d71ce9e4e8b6f61767a85</string>
     <string name="UMENG_APP_SECRET">7bc4c2d146e193981b4e7fde5081ffee</string>
     <!-- 微信配置-->
-    <string name="WECHAT_APPID">wx60458b95420980eb</string>
+    <string name="WECHAT_APPID">wx4b574e4037526791</string>
     <!--高德地图配置-->
-    <string name="AMAP_APPID">7f513ba1f61f25688a68f00c3561e5e1</string>
+    <string name="AMAP_APPID">81f9a948c582e68584aa5379f15c2a6d</string>
 
     <string name="empty_view_hint">暂无数据</string>
     <string name="error_view_hint">加载失败</string>

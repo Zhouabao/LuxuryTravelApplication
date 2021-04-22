@@ -51,7 +51,7 @@
         app:vcv_et_text_size="14sp"
         app:vcv_et_width="65dp" />
 
-    <!--    <com.sdy.sweetdateapplication.ui.widgets.VerifycodeInputView-->
+    <!--    <com.sdy.luxurytravelapplication.ui.widgets.VerifycodeInputView-->
     <!--        android:id="@+id/verifycodeEt"-->
     <!--        android:layout_width="wrap_content"-->
     <!--        android:layout_height="60dp"-->

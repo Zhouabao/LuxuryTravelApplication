@@ -20,38 +20,8 @@ object Constants {
 
     const val END_BASE_URL = "/v1.json"
     const val END_BASE_URL_v2 = "/v2.json"
-
-
     const val PRIVACY_URL = "${BASE_URL}index/Protocol/privacyProtocol.html"//
     const val PROTOCOL_URL = "${BASE_URL}index/Protocol/userProtocol.html"//
-
-
-    const val BUGLY_ID = "76e2b2867d"
-
-
-    //微信支付appid
-    const val WECHAT_APP_ID = "wx60458b95420980eb"
-    const val WECHAT_APP_KEY = "5f170ce153408bd24ce5e51562dcca11"
-
-
-    //新浪
-    const val SINA_APP_KEY = "3040898942"
-    const val SINA_APP_SECRET = "a2e38436e5c4f3bd60ec44c5236a525e"
-
-    //QQ
-    const val QQ_APP_KEY = "1110939011"
-    const val QQ_APP_SECRET = "F9vVAJooQZ96Zdqw"
-
-    //bugly
-    const val BUGLY_APP_ID = "25933c5127"
-
-    //声网
-    const val AGORA_APP_ID = "7d9f7f306ee44de4a168d2979e12330e"
-
-    //闪验
-    const val SY_APP_ID = "ENbQ6DUs"
-
-    const val SPNAME = "SweetDateSp"
 
     //    ppns/文件类型名/用户ID/当前时间戳/16位随机字符串
     const val FILE_NAME_INDEX = "ppsns/"
@@ -71,8 +41,7 @@ object Constants {
     const val DEFAULT_AVATAR = "/meta/default_avatar.jpg"//默认图
     const val DEFAULT_EMPTY_AVATAR = "/ppsns_default_avatar.png"//默认头像
     const val SWEETHEART: String = "sweetheart/"
-    const val CACHE_DIR = "/datingapplication"//缓存文件夹
-
+    const val CACHE_DIR = "/luxurytravelapplication"//缓存文件夹
 
     /*spkey*/
     const val LOGIN_KEY = "login"
@@ -80,15 +49,34 @@ object Constants {
     const val PASSWORD_KEY = "password"
     const val HAS_NETWORK_KEY = "has_network"
 
-
     //pagesize
     const val PAGESIZE = 15
     const val MAX_VOICE_DURATION = 60
     const val EXTRA_RESULT_ITEMS = "extra_result_items"
 
 
+    //bugly
+    const val BUGLY_ID = "d0f305ba40"
+
+
+    //微信支付appid
+    const val WECHAT_APP_ID = "wx4b574e4037526791"
+    const val WECHAT_APP_KEY = "5f170ce153408bd24ce5e51562dcca11"
+
+
+    //QQ
+    const val QQ_APP_KEY = "1111700988"
+    const val QQ_APP_SECRET = "ftpBAnnSsXMAnZtf"
+
+
+    //闪验
+    const val SY_APP_ID = "ENbQ6DUs"
+
+    const val SPNAME = "TravelSp"
+
+
     //官方助手id
-    const val ASSISTANT_ACCID = "xapp_01"
+    const val ASSISTANT_ACCID = "yapp_01"
 
 
     //百度人脸认证

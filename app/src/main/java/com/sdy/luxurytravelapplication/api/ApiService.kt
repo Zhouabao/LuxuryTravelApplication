@@ -915,7 +915,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("Candy/checkUnlockMvV231${Constants.END_BASE_URL}")
-    fun checkUnlockMv(hashMapOf: HashMap<String, String>): Observable<BaseResp<UnlockCheckBean?>>
+    fun checkUnlockMv(@FieldMap hashMapOf: HashMap<String, String>): Observable<BaseResp<UnlockCheckBean?>>
 
 
     /**

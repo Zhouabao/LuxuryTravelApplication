@@ -57,6 +57,7 @@ import com.sdy.luxurytravelapplication.ui.dialog.ContactNotPassDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyNormalResultDialog
 import com.sdy.luxurytravelapplication.ui.fragment.MessageFragment
 import com.sdy.luxurytravelapplication.ui.fragment.SnackBarFragment
+import com.sdy.luxurytravelapplication.utils.ChannelUtils
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -64,6 +65,9 @@ import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener
 import com.tencent.bugly.crashreport.CrashReport
+import com.umeng.analytics.MobclickAgent
+import com.umeng.commonsdk.UMConfigure
+import com.umeng.socialize.PlatformConfig
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.unit.Subunits
 import org.greenrobot.eventbus.EventBus
@@ -399,6 +403,7 @@ class TravelApp : Application() {
         initBugly()
         initSy()
         initNimUIKit()
+        initUmeng()
 
         // AutoDensityUtil.init()
     }
@@ -544,8 +549,7 @@ class TravelApp : Application() {
         Beta.strUpgradeDialogUpgradeBtn = getString(R.string.upgrade_now)
         Beta.strUpgradeDialogCancelBtn = getString(R.string.say_next_time)
         //Beta.dialogFullScreen = true
-        // CrashReport.initCrashReport(applicationContext, Constant.BUGLY_ID, BuildConfig.DEBUG, strategy)
-        Bugly.init(applicationContext, Constants.BUGLY_ID, AppUtils.isAppDebug(), strategy)
+        Bugly.init(context, Constants.BUGLY_ID, AppUtils.isAppDebug(), strategy)
     }
 
 
@@ -558,6 +562,50 @@ class TravelApp : Application() {
             LogUtils.d("code=$p0,result=$p1")
         }
     }
+
+    private fun initUmeng() {
+        if (ThreadUtils.isMainThread()) {
+            /**
+             * 初始化common库
+             * 参数1:上下文，不能为空
+             * 参数2:【友盟+】 AppKey
+             * 参数3:【友盟+】 Channel
+             * 参数4:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
+             * 参数5:Push推送业务的secret
+             */
+            UMConfigure.init(
+                this,
+                getString(R.string.UMENG_APPKEY),
+                ChannelUtils.getChannel(this),
+                UMConfigure.DEVICE_TYPE_PHONE,
+                null
+            )
+
+            /**
+             * 设置组件化的Log开关
+             * 参数: boolean 默认为false，如需查看LOG设置为true
+             */
+            UMConfigure.setLogEnabled(Constants.TEST)
+            /**
+             * 设置日志加密
+             * 参数：boolean 默认为false（不加密）
+             */
+            UMConfigure.setEncryptEnabled(true)
+            // 选用AUTO页面采集模式
+            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
+
+
+            //微信平台
+            PlatformConfig.setWeixin(Constants.WECHAT_APP_ID, Constants.WECHAT_APP_KEY)
+            PlatformConfig.setWXFileProvider("com.sdy.luxurytravelapplication.fileProvider")
+            //qq空间平台
+            PlatformConfig.setQQZone(Constants.QQ_APP_KEY, Constants.QQ_APP_SECRET)
+            PlatformConfig.setQQFileProvider("com.sdy.luxurytravelapplication.fileProvider")
+
+
+        }
+    }
+
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

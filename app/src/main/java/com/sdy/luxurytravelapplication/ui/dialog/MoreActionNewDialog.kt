@@ -39,7 +39,7 @@ class MoreActionNewDialog(
     var content: String = "",
     var pic: String = "",
     var shareCallback: ShareCallBack? = null
-)/* : BaseBindingDialog<DialogMoreActionNewBinding>(), View.OnClickListener*/ {
+){
     interface ShareCallBack {
         fun delete()
         fun report()
@@ -50,87 +50,7 @@ class MoreActionNewDialog(
         val TYPE_SHARE_VIP_URL = 2
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.dialog_more_action_new)
-//        initWindow()
-//        initView()
-//    }
-
-
-//    private fun initWindow() {
-//        val window = this.window
-//        window?.setGravity(Gravity.BOTTOM)
-//        val params = window?.attributes
-//        params?.width = WindowManager.LayoutParams.MATCH_PARENT
-//        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
-//        params?.windowAnimations = R.style.MyDialogBottomAnimation
-//
-//        window?.attributes = params
-//        //点击外部可取消
-//        setCanceledOnTouchOutside(true)
-//    }
-
-
     private val umShareAPI by lazy { UMShareAPI.get(context) }
-//    private fun initView() {
-//        binding.apply {
-//            transpondFriend.isVisible = type != TYPE_SHARE_VIP_URL
-//            transpondFriend.setOnClickListener(this@MoreActionNewDialog)
-//            transpondWechat.setOnClickListener(this@MoreActionNewDialog)
-//            transpondWechatZone.setOnClickListener(this@MoreActionNewDialog)
-//            transpondWebo.setOnClickListener(this@MoreActionNewDialog)
-//            transpondQQ.setOnClickListener(this@MoreActionNewDialog)
-//            transpondQQZone.setOnClickListener(this@MoreActionNewDialog)
-//
-//
-////            transpondWechat.isVisible = umShareAPI.isInstall(ActivityUtils.getTopActivity(), SHARE_MEDIA.WEIXIN)
-////            transpondWechatZone.isVisible = umShareAPI.isInstall( ActivityUtils.getTopActivity(), SHARE_MEDIA.WEIXIN)
-////            transpondQQ.isVisible = umShareAPI.isInstall( ActivityUtils.getTopActivity(), SHARE_MEDIA.QQ)
-////            transpondQQZone.isVisible = umShareAPI.isInstall( ActivityUtils.getTopActivity(), SHARE_MEDIA.QQ)
-////            transpondWebo.isVisible = umShareAPI.isInstall( ActivityUtils.getTopActivity(), SHARE_MEDIA.SINA)
-//
-//            if (type == TYPE_SHARE_VIP_URL) {
-//                report.isVisible = false
-//                delete.isVisible = false
-//                transpondFriend.isVisible = false
-//            } else {
-//                delete.isVisible = squareBean?.accid == UserManager.accid
-//            }
-//
-//        }
-//    }
-
-//    override fun onClick(view: View) {
-//        when (view.id) {
-//            R.id.transpondFriend -> {//转发到好友
-//                if (squareBean != null) {
-////                    ContactBookActivity.start(context, squareBean!!)
-//                    dismiss()
-//                }
-//            }
-//            R.id.transpondWebo -> {//微博
-//                shareToThirdParty(SHARE_MEDIA.SINA)
-//            }
-//            R.id.transpondWechat -> {//微信
-//                shareToThirdParty(SHARE_MEDIA.WEIXIN)
-//            }
-//            R.id.transpondWechatZone -> {//朋友圈
-//                shareToThirdParty(SHARE_MEDIA.WEIXIN_CIRCLE)
-//
-//            }
-//            R.id.transpondQQ -> {//QQ
-//                shareToThirdParty(SHARE_MEDIA.QQ)
-//
-//            }
-//            R.id.transpondQQZone -> {//QQ空间
-//                shareToThirdParty(SHARE_MEDIA.QZONE)
-//            }
-//
-//        }
-//
-//    }
-
 
     /**
      * 封装分享
@@ -308,18 +228,6 @@ class MoreActionNewDialog(
         }
     }
 
-//    override fun onDetachedFromWindow() {
-//        super.onDetachedFromWindow()
-//        umShareAPI.release()
-//
-//    }
-//
-//    override fun dismiss() {
-//        super.dismiss()
-//        umShareAPI.release()
-//    }
-
-
     public fun showDialog() {
         DialogSettings.init()
 //        DialogSettings.checkRenderscriptSupport(context)
@@ -353,9 +261,7 @@ class MoreActionNewDialog(
                 "QQ空间" -> {
                     shareToThirdParty(SHARE_MEDIA.QZONE)
                 }
-                "微博" -> {
-                    shareToThirdParty(SHARE_MEDIA.SINA)
-                }
+
                 "奢旅好友" -> {
                     if (squareBean != null) {
                         ContactBookActivity.start(context, squareBean!!)
