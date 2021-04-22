@@ -747,8 +747,26 @@ data class MatchBean(
     var face_type: Int = 0,//	0没有认证 1活体 2 真人 3 颜值 4奢旅
     var approve_square_id: Int = 0,//满足是face_type 为4的时侯可以查看动态详情
     var dating: TravelPlanBean? = null,
+    var myinfo: Myinfo = Myinfo(),
     var gift_list: MutableList<GiftBean> = mutableListOf()
 )
+
+data class Myinfo(
+    var assets_audit_state: Int = 0,//资产认证状态 0 1房产 2号车 3充值
+    var education_audit_state: Boolean = false,
+    var faced_state: Int = 0,//	0 1认证2男神3女神
+    var isdiamondvip: Boolean = false,
+    var isfaced: Boolean = false,
+    var isgoldvip: Boolean = false,//	是否会员（使用）
+    var isvip: Boolean = false,
+    var istalk_btn: Boolean = false,//为True才显示  为false不显示
+    var mv_url: String = "",
+    var personal_auto_play: Boolean = false,//是否开启自动播放 true 开启 false未开启
+    var residue_auto_count: Int = 0,//	剩余 可看视频次数 -1 会员免费 >0次数
+    var wechat_audit_state: Boolean = false,
+    var work_audit_state: Boolean = false
+)
+
 
 /*用戶相冊*/
 data class UserPhotoBean(

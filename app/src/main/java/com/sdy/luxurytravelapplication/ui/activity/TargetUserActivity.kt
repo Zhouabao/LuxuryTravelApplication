@@ -195,7 +195,7 @@ class TargetUserActivity :
                     }
                 })
                 smallPhotoAdapter.matchBean = matchBean
-                bigPhotoAdapter.matchBean = matchBean
+                bigPhotoAdapter.myinfo = matchBean.myinfo
                 headBinding.apply {
                     nickName.text = matchBean.nickname
                     age.text = "${matchBean.age}岁"

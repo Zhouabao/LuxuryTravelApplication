@@ -70,7 +70,7 @@ object Constants {
 
 
     //闪验
-    const val SY_APP_ID = "ENbQ6DUs"
+    const val SY_APP_ID = "ucYrKKKC"
 
     const val SPNAME = "TravelSp"
 

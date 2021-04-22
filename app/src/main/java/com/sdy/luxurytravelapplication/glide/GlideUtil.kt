@@ -257,13 +257,15 @@ object GlideUtil {
             context: Context?,
             url: Any?,
             tartgetImg: ImageView?,
-            radius: Int
+            radius: Int,
+            type: RoundedCornersTransformation.CornerType=RoundedCornersTransformation.CornerType.ALL
         ) {
             val multiTransformation: MultiTransformation<Bitmap> =
                 MultiTransformation<Bitmap>(
                     BlurTransformation(25, 2),
                     CenterCrop(),
-                    RoundedCorners(radius)
+                    RoundedCornersTransformation(radius,0,type)
+//                    RoundedCorners(radius)
                 )
             Glide.with(context!!)
                 .load(url)

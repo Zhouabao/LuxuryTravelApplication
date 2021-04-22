@@ -50,7 +50,7 @@ class ChooseLoginWayDialog(context: Context, val syCode: Int = 0) :
     private fun initView() {
 
         //手机号码登录
-      ClickUtils.applySingleDebouncing(  binding.loginWithPhoneBtn) {
+        ClickUtils.applySingleDebouncing(binding.loginWithPhoneBtn) {
             if (syCode == 1022) {
                 if (!NetworkUtils.getMobileDataEnabled()) {
                     ToastUtil.toast(context.getString(R.string.network_is_not_available))
