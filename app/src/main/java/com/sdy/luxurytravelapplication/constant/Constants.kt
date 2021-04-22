@@ -92,6 +92,6 @@ object Constants {
 
 
     //百度人脸认证
-    var licenseID = "jitang-new-face-android"
+    var licenseID = "youwan-application-face-android"
     var licenseFileName = "idl-license.face-android"
 }

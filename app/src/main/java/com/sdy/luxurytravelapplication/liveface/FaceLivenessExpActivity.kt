@@ -268,9 +268,6 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
             val fileKey = "${Constants.FILE_NAME_INDEX}${Constants.AVATOR}" +
                     "${SPUtils.getInstance(Constants.SPNAME).getString("accid")}/" +
                     "${System.currentTimeMillis()}/${RandomUtils.getRandomString(16)}"
-            if (!NetworkUtils.isAvailable()) {
-                return
-            }
             loadingDialog.show()
             QNUploadManager.getInstance().put(
                 bitmap2Bytes(mBmpStr),

@@ -6,7 +6,6 @@ package com.sdy.luxurytravelapplication.liveface
 import android.content.Context
 import android.graphics.*
 import android.hardware.Camera
-import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
@@ -21,7 +20,6 @@ import com.baidu.idl.face.platform.ui.utils.BrightnessUtils
 import com.baidu.idl.face.platform.ui.utils.CameraPreviewUtils
 import com.baidu.idl.face.platform.ui.utils.CameraUtils
 import com.baidu.idl.face.platform.ui.widget.FaceDetectRoundView
-
 import com.baidu.idl.face.platform.utils.APIUtils
 import com.baidu.idl.face.platform.utils.Base64Utils
 import com.blankj.utilcode.util.LogUtils
@@ -33,7 +31,8 @@ import java.util.*
 /**
  * 活体检测接口
  */
-open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Binding>(), SurfaceHolder.Callback,
+open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Binding>(),
+    SurfaceHolder.Callback,
     Camera.PreviewCallback, Camera.ErrorCallback,
     ILivenessStrategyCallback,
     ILivenessViewCallback {
@@ -76,7 +75,6 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
     override fun initView() {
         setScreenBright()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        setContentView(R.layout.activity_my_face_liveness_v3100)
         val dm = DisplayMetrics()
         val display = this.windowManager.defaultDisplay
         display.getMetrics(dm)
@@ -88,7 +86,6 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
 
     override fun start() {
     }
-
 
 
     /**
@@ -175,7 +172,7 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
             Gravity.CENTER_VERTICAL or Gravity.CENTER_HORIZONTAL
         )
         mSurfaceView!!.layoutParams = cameraFL
-        binding.   mFrameLayout.addView(mSurfaceView)
+        binding.mFrameLayout.addView(mSurfaceView)
     }
 
     protected fun startPreview() {
@@ -253,15 +250,15 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
     override fun surfaceCreated(holder: SurfaceHolder) {
         mIsCreateSurface = true
 
-        binding. mFaceDetectRoundView.isVisible = true
-        binding.  mFrameLayout.isVisible = true
-        binding.  faceType.isVisible = true
-        binding.  faceNotice.isVisible = true
-        binding.  faceCoverIv.isInvisible = true
-        binding.  faceBeginRl.isVisible = false
+        binding.mFaceDetectRoundView.isVisible = true
+        binding.mFrameLayout.isVisible = true
+        binding.faceType.isVisible = true
+        binding.faceNotice.isVisible = true
+        binding.faceCoverIv.isInvisible = true
+        binding.faceBeginRl.isVisible = false
 
-        binding.  faceType!!.text = getString(R.string.detect_face_in)
-        binding. faceNotice!!.text = ""
+        binding.faceType!!.text = getString(R.string.detect_face_in)
+        binding.faceNotice!!.text = ""
 
 
         if (mSurfaceView != null && mSurfaceView!!.holder != null) {
@@ -374,15 +371,15 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
         when (status) {
             FaceStatusNewEnum.OK,
             FaceStatusNewEnum.FaceLivenessActionComplete -> {
-                binding. faceNotice.text = ""
+                binding.faceNotice.text = ""
             }
             FaceStatusNewEnum.DetectRemindCodeTooClose,
             FaceStatusNewEnum.DetectRemindCodeTooFar,
             FaceStatusNewEnum.DetectRemindCodeBeyondPreviewFrame,
             FaceStatusNewEnum.DetectRemindCodeNoFaceDetected -> {
                 // onRefreshTipsView(false, message);
-                binding. faceNotice.text = message
-                binding. faceNotice.setTextColor(Color.parseColor("#fffb1919"))
+                binding.faceNotice.text = message
+                binding.faceNotice.setTextColor(Color.parseColor("#fffb1919"))
             }
             FaceStatusNewEnum.FaceLivenessActionTypeLiveEye,
             FaceStatusNewEnum.FaceLivenessActionTypeLiveMouth,
@@ -397,17 +394,17 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
             FaceStatusNewEnum.DetectRemindCodePitchOutofDownRange,
             FaceStatusNewEnum.DetectRemindCodeYawOutofLeftRange,
             FaceStatusNewEnum.DetectRemindCodeYawOutofRightRange -> {
-                binding.  faceNotice.text = message
-                binding.  faceNotice.setTextColor(Color.parseColor("#fffb1919"))
+                binding.faceNotice.text = message
+                binding.faceNotice.setTextColor(Color.parseColor("#fffb1919"))
             }
             FaceStatusNewEnum.FaceLivenessActionCodeTimeout -> {
                 // 提醒动作超时
-                binding.     faceNotice.text = message
-                binding.    faceNotice.setTextColor(Color.parseColor("#fffb1919"))
+                binding.faceNotice.text = message
+                binding.faceNotice.setTextColor(Color.parseColor("#fffb1919"))
             }
             else -> {
-                binding.   faceNotice.text = message
-                binding.   faceNotice.setTextColor(Color.parseColor("#fffb1919"))
+                binding.faceNotice.text = message
+                binding.faceNotice.setTextColor(Color.parseColor("#fffb1919"))
             }
         }
     }
@@ -477,7 +474,7 @@ open class FaceLivenessActivity : BaseActivity<ActivityMyFaceLivenessV3100Bindin
     }
 
     override fun viewReset() {
-        binding.  mFaceDetectRoundView.setProcessCount(0, 1)
+        binding.mFaceDetectRoundView.setProcessCount(0, 1)
     }
 
     companion object {
