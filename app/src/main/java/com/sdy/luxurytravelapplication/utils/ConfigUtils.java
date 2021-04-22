@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -48,7 +49,7 @@ public class ConfigUtils {
         layoutParamsOther.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         relativeLayout.setLayoutParams(layoutParamsOther);
         otherLogin(context, relativeLayout);
-        ShanYanUIConfig uiConfig = new ShanYanUIConfig.Builder()
+        @SuppressLint("UseCompatLoadingForDrawables") ShanYanUIConfig uiConfig = new ShanYanUIConfig.Builder()
                 .setActivityTranslateAnim("shanyan_demo_fade_in_anim", "shanyan_dmeo_fade_out_anim")
                 //授权页导航栏：
                 .setNavColor(Color.parseColor("#ffffff"))  //设置导航栏颜色
@@ -97,6 +98,9 @@ public class ConfigUtils {
                 .setOperatorPrivacyAtLast(true)
                 .setPrivacySmhHidden(true)
                 .setCheckBoxHidden(false)
+                .setCheckedImgPath(context.getResources().getDrawable(R.drawable.icon_pay_checked))
+                .setUncheckedImgPath(context.getResources().getDrawable(R.drawable.icon_pay_normal))
+                .setCheckBoxWH(16,16)
                 .setPrivacyState(false)
 
                 .setSloganHidden(false)
