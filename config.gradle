@@ -77,6 +77,8 @@ ext {
             "android-autosize"            : 'me.jessyan:autosize:1.2.1',
             "BannerViewPager"             : 'com.github.zhpanvip:BannerViewPager:3.5.0',
             "android-verificationcodeview": 'com.jyn.verificationcodeview:verificationcodeview:1.0.1',
+            //高斯模糊背景
+            "realtimeblurview"            : 'com.github.mmin18:realtimeblurview:1.2.1',
             //倒计时
             "count-down-timer"            : 'in.xiandan:count-down-timer:1.0.3',
             //图片选择器
@@ -125,7 +127,7 @@ ext {
             "nim-sdk"                     : 'com.netease.nimlib:basesdk:8.3.1',
             "nim-push"                    : 'com.netease.nimlib:push:8.3.1',
             "hms"                         : 'com.huawei.hms:push:5.1.1.301',
-            "flyme"                         : 'com.meizu.flyme.internet:push-internal:3.9.7',
+            "flyme"                       : 'com.meizu.flyme.internet:push-internal:3.9.7',
             //高德地图
             "3dmap"                       : 'com.amap.api:3dmap:latest.integration',
             "location"                    : 'com.amap.api:location:latest.integration',

@@ -95,7 +95,6 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
                     if (UserManager.gender == 2) {
                         TodayFateWomanDialog(indexRecommendBean, indexRecommends!!).show()
                     }
-
                 }
             }
         }

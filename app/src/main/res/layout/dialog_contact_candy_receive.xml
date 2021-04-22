@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/iv1"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_user_travel_card"
+        android:src="@drawable/icon_target_unlock_contact"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
