@@ -31,7 +31,7 @@ class GuideBannerAdapter : BaseBannerAdapter<BannerGuideBean>() {
             if (data.fileName.isNotEmpty()) {
                 bannerAnimation.isVisible = true
                 bannerImage.isVisible = false
-                view1.isVisible = false
+                view1.isVisible = true
                 bannerAnimation.imageAssetsFolder = data.imageName
                 bannerAnimation.setAnimation(data.fileName)
             } else {

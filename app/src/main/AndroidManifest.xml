@@ -224,7 +224,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GuideActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+
+        </activity>
         <activity
             android:name=".ui.activity.GetMoreMatchActivity"
             android:launchMode="singleTop" />

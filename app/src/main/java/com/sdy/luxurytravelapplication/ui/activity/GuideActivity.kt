@@ -67,8 +67,8 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
                     "",
                     "高端定制旅行",
                     "谁说旅行千篇一律？定制属于自己的旅行",
-                    "lottie_guide_1.json",
-                    "images_guide_1"
+                    "lottie_guide_2.json",
+                    "images_guide_2"
                 )
             )
             add(
@@ -76,8 +76,8 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
                     "",
                     "精选会员构成",
                     "高校学生、高知白领、模特、企业家、CEO等",
-                    "lottie_guide_1.json",
-                    "images_guide_1"
+                    "lottie_guide_3.json",
+                    "images_guide_3"
                 )
             )
         }
