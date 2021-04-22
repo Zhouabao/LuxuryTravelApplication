@@ -882,7 +882,7 @@ interface ApiService {
      * 聊天页个人信息和限制返回
      */
     @FormUrlEncoded
-    @POST("Tidings/getTargetInfo${Constants.END_BASE_URL}")
+    @POST("MemberInfo/getTargetInfoCandyEnd${Constants.END_BASE_URL}")
     fun getTargetInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ChatInfoBean>>
 
     /**

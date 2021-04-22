@@ -640,9 +640,9 @@ object CommonFunction {
             } else {
                 (item.attachment as SendCustomTipAttachment).content
             }
-//            is ChatUpAttachment -> {
-//                (item.attachment as ChatUpAttachment).chatUpContent
-//            }
+            is ChatUpAttachment -> {
+                (item.attachment as ChatUpAttachment).chatUpContent
+            }
             else -> item.content
         }
     }

@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
+import android.view.LayoutInflater
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemChatDatingBinding
@@ -21,7 +22,7 @@ class MsgViewHolderChatDating(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAd
 
     private lateinit var binding: ItemChatDatingBinding
     override fun inflateContentView() {
-        binding = bindViewWithGeneric(view)
+        binding = ItemChatDatingBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
     override fun bindContentView() {
@@ -36,13 +37,6 @@ class MsgViewHolderChatDating(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAd
         }
     }
 
-    override fun leftBackground(): Int {
-        return R.drawable.shape_rectangle_stroke_eceff4_15dp
-    }
-
-    override fun rightBackground(): Int {
-        return R.drawable.shape_rectangle_stroke_eceff4_15dp
-    }
 
     override fun onItemClick() {
 

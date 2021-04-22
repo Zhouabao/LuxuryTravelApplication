@@ -151,7 +151,9 @@ class ChatActivity :
     override fun createPresenter(): ChatContract.Presenter = ChatPresenter()
 
 
-    override fun initView() {
+
+
+    override fun initData() {
         initSensor()
         val container = Container(this, sessionId, SessionTypeEnum.P2P, this, true)
         val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
@@ -171,10 +173,7 @@ class ChatActivity :
         inputPanel.switchRobotMode(isChatWithRobot())
 
         initViewAndClick()
-    }
 
-
-    override fun initData() {
         //单聊数据,包括个人信息
         requestBodyInfo()
         displayOnlineState()

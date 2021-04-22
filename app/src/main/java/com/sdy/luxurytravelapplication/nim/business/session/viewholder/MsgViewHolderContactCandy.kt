@@ -1,10 +1,10 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
+import android.view.LayoutInflater
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemContactCandyBinding
 import com.sdy.luxurytravelapplication.nim.attachment.ContactCandyAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
-import com.sdy.luxurytravelapplication.viewbinding.bindViewWithGeneric
 
 /**
  *    author : ZFM
@@ -19,11 +19,12 @@ class MsgViewHolderContactCandy(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msg
 
     private lateinit var binding: ItemContactCandyBinding
     override fun inflateContentView() {
-        binding = bindViewWithGeneric(view)
+        binding =
+            ItemContactCandyBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
     override fun bindContentView() {
-        binding.giftAmount.text =  "${attachment.contactCandy}旅券"
+        binding.giftAmount.text = "${attachment.contactCandy}旅券"
     }
 
     override fun leftBackground(): Int {

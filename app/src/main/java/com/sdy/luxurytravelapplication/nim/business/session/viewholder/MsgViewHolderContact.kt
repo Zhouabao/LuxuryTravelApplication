@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
 import android.graphics.Color
 import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
@@ -26,7 +27,7 @@ class MsgViewHolderContact(msgAdapter: MsgAdapter) : MsgViewHolderBase(msgAdapte
 
     private lateinit var binding: NimMessageSendWechatBinding
     override fun inflateContentView() {
-        binding = bindViewWithGeneric(view)
+        binding = NimMessageSendWechatBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
 

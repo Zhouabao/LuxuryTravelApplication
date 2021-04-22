@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.text.TextPaint
 import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
@@ -26,8 +27,12 @@ class MsgViewHolderSendCustomTip(adapter: MsgAdapter) : MsgViewHolderBase(adapte
         get() = R.layout.nim_message_item_custom_tip
 
     private val attachment by lazy { message.attachment as SendCustomTipAttachment }
-    private val binding by lazy { NimMessageItemCustomTipBinding.bind(view) }
+    private lateinit var binding: NimMessageItemCustomTipBinding
     override fun inflateContentView() {
+        binding = NimMessageItemCustomTipBinding.inflate(
+            LayoutInflater.from(context),
+            contentContainer
+        )
     }
 
 

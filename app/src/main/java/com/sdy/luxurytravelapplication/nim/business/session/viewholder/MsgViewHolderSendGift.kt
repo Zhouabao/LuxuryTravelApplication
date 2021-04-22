@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
+import android.view.LayoutInflater
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.NimMessageSendGiftBinding
@@ -21,7 +22,7 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
 
     private lateinit var binding: NimMessageSendGiftBinding
     override fun inflateContentView() {
-        binding = bindViewWithGeneric(view)
+        binding = NimMessageSendGiftBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
     override fun bindContentView() {

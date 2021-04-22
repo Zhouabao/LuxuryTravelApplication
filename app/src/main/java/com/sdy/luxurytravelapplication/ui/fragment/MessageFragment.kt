@@ -76,8 +76,8 @@ class MessageFragment :
             adapter.addHeaderView(initAssistHeadsView(), 1)
             adapter.headerWithEmptyEnable = true
             adapter.addChildClickViewIds(R.id.menuTop, R.id.menuDetele, R.id.content)
-            adapter.setOnItemChildClickListener { adapter, view, position ->
-                toast("$position")
+            adapter.setOnItemChildClickListener { _, view, position ->
+                ChatActivity.start(activity!!,adapter.data[position].contactId)
             }
             ClickUtils.applySingleDebouncing(contactBookBtn){
                 ContactBookActivity.start(activity!!)
