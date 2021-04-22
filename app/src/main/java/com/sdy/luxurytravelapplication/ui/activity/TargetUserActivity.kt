@@ -91,8 +91,15 @@ class TargetUserActivity :
                         it.checked = it == smallPhotoAdapter.data[position]
                     }
                     smallPhotoAdapter.notifyDataSetChanged()
+
+
                 }
             })
+            bigPhotoAdapter.setOnItemClickListener { _, view, position ->
+                if (bigPhotoAdapter.data[position].isVideo && !bigPhotoAdapter.autoPlay) {
+                    CommonFunction.checkUnlockIntroduceVideo(this@TargetUserActivity, targetAccid,matchBean.mv_url)
+                }
+            }
             smallPhotosRv.layoutManager =
                 CenterLayoutManager(this@TargetUserActivity, RecyclerView.HORIZONTAL, false)
             smallPhotosRv.adapter = smallPhotoAdapter
@@ -195,7 +202,10 @@ class TargetUserActivity :
                     }
                 })
                 smallPhotoAdapter.matchBean = matchBean
-                bigPhotoAdapter.myinfo = matchBean.myinfo
+                bigPhotoAdapter.targetAccid = matchBean.accid
+                bigPhotoAdapter.autoPlay =
+                    matchBean.myinfo.personal_auto_play && (matchBean.myinfo.residue_auto_count > 0 || matchBean.myinfo.isgoldvip)
+                smallPhotoAdapter.autoPlay = bigPhotoAdapter.autoPlay
                 headBinding.apply {
                     nickName.text = matchBean.nickname
                     age.text = "${matchBean.age}岁"
@@ -213,8 +223,8 @@ class TargetUserActivity :
                             travelAddress.text = rise_city
                             travelDestProvince.text = goal_province
                             travelDestAddress.text = goal_city
-                            travelDescr.text = content
                             travelAduio.isVisible = content_type == 2
+                            travelDescr.isVisible = content_type == 1
                             if (content_type == 2) {
                                 travelAduio.prepareAudio(content, duration, 0, 0, false)
                                 travelAduio.initResource(
@@ -222,6 +232,9 @@ class TargetUserActivity :
                                     resources.getColor(R.color.colorAccent),
                                     R.drawable.icon_voice_green
                                 )
+                            } else {
+                                travelDescr.text = content
+
                             }
 
                             ClickUtils.applySingleDebouncing(detailBtn) {

@@ -5,7 +5,6 @@ import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemTargetBigPhotoBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
-import com.sdy.luxurytravelapplication.mvp.model.bean.Myinfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.UserPhotoBean
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
@@ -15,15 +14,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
  */
 class TargetBigPhotoAdapter :
     BaseBindingQuickAdapter<UserPhotoBean, ItemTargetBigPhotoBinding>(R.layout.item_target_big_photo) {
-    lateinit var myinfo: Myinfo
-    lateinit var target_accid: String
+    lateinit var targetAccid: String
+    var autoPlay: Boolean = false
     override fun convert(
         binding: ItemTargetBigPhotoBinding,
         position: Int,
         item: UserPhotoBean
     ) {
-        val autoPlay =
-            myinfo.personal_auto_play && (myinfo.residue_auto_count > 0 || myinfo.isgoldvip)
         binding.apply {
             userPhoto.isVisible = !item.isVideo || !autoPlay
             userVideo.isVisible = item.isVideo && item.checked && autoPlay
@@ -41,8 +38,10 @@ class TargetBigPhotoAdapter :
                 userVideo.apply {
                     setUp(item.mv_detail_url, false, "")
                     setThumbImageView(item.avatar)
-                    if (item.checked && autoPlay) {
-                        startPlayLogic()
+                    if (item.checked) {
+                        if (autoPlay)
+                            startPlayLogic()
+
                     }
 
                 }

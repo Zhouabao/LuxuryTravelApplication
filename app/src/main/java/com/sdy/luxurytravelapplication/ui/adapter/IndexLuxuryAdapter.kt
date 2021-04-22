@@ -98,7 +98,7 @@ class IndexLuxuryAdapter :
                     contactBtn.text = "视频介绍"
                     contactBtn.isVisible = true
                     ClickUtils.applySingleDebouncing(contactBtn) {
-                        CommonFunction.checkUnlockIntroduceVideo(context, item.accid)
+                        CommonFunction.checkUnlockIntroduceVideo(context, item.accid,item.mv_url)
                     }
                 } else {
                     contactBtn.isVisible = false

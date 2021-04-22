@@ -8,13 +8,15 @@ import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexRecommendBinding
 import com.sdy.luxurytravelapplication.mvp.contract.IndexRecommendContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TodayFateBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexRecommendPresenter
-import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.adapter.IndexRecommendAdapter
 import com.sdy.luxurytravelapplication.ui.dialog.CompleteInfoDialog
+import com.sdy.luxurytravelapplication.ui.dialog.TodayFateWomanDialog
 
 
 /**
@@ -54,7 +56,10 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
     }
 
     override fun lazyLoad() {
-        mPresenter?.recommendIndex(params, type)
+        if (type == TYPE_RECOMMEND) {
+            mPresenter?.todayRecommend()
+        } else
+            mPresenter?.recommendIndex(params, type)
     }
 
     private var showComplete = false
@@ -82,9 +87,28 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
                 mLayoutStatusView?.showContent()
                 adapter.setNewInstance(indexRecommendBean.list)
             }
-            if (type == TYPE_RECOMMEND && indexRecommendBean.complete_percent < indexRecommendBean.complete_percent_normal && !showComplete) {
-                CompleteInfoDialog(indexRecommendBean.complete_percent_normal).show()
+            if (type == TYPE_RECOMMEND && !(UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass())) {
+                if (indexRecommendBean.complete_percent < indexRecommendBean.complete_percent_normal && !showComplete) {
+                    CompleteInfoDialog(indexRecommendBean,indexRecommends).show()
+                    showComplete = true
+                } else if (!indexRecommends?.list.isNullOrEmpty() && indexRecommends?.today_pull == false && !UserManager.showIndexRecommend) {
+                    if (UserManager.gender == 2) {
+                        TodayFateWomanDialog(indexRecommendBean, indexRecommends!!).show()
+                    }
+
+                }
             }
+        }
+
+    }
+
+    private var indexRecommends: TodayFateBean? = null
+    override fun onTodayRecommendResult(data: TodayFateBean?) {
+        if (data != null) {
+            indexRecommends = data
+            mPresenter?.recommendIndex(params, type)
+        } else {
+            mLayoutStatusView?.showError()
         }
 
     }

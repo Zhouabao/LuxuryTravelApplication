@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TodayFateBean
 import io.reactivex.Observable
 
 /**
@@ -16,11 +17,16 @@ import io.reactivex.Observable
 interface IndexRecommendContract {
     interface View : IView {
         fun recommendIndex(indexRecommendBean: IndexRecommendBean?)
+        fun onTodayRecommendResult(data: TodayFateBean?)
     }
 
     interface Presenter : IPresenter<View> {
         fun recommendIndex(params: HashMap<String, Any>, type: Int)
 
+        /**
+         * 获取今日缘分
+         */
+        fun todayRecommend()
     }
 
     interface Model : IModel {
@@ -28,5 +34,7 @@ interface IndexRecommendContract {
             params: HashMap<String, Any>,
             type: Int
         ): Observable<BaseResp<IndexRecommendBean?>>
+
+        fun todayRecommend(): Observable<BaseResp<TodayFateBean?>>
     }
 }

@@ -27,6 +27,13 @@ import org.jetbrains.anko.startActivity
  *    version: 1.0
  */
 object UserManager {
+    var showIndexRecommend: Boolean = false
+
+    //每次进入APP弹完善个人资料弹窗
+    var showCompleteUserCenterDialog: Boolean = false
+
+
+
     /*************发布缓存参数*********************/
     //手动取消上传
     var cancelUpload = false
@@ -255,14 +262,6 @@ object UserManager {
     var living_btn: Boolean
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("living_btn", true)
         set(living_btn) = SPUtils.getInstance(Constants.SPNAME).put("living_btn", living_btn)
-
-    /**
-     * 是否通过真人认证
-     */
-    var isFaced: Boolean
-        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isFaced", false)
-        set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("isFaced", isFaced)
-
 
     /**
      * 是否提示过旅行约会

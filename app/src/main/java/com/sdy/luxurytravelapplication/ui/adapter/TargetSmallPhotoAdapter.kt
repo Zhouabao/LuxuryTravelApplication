@@ -16,7 +16,8 @@ import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
  */
 class TargetSmallPhotoAdapter :
     BaseBindingQuickAdapter<UserPhotoBean, ItemTargetSmallPhotoBinding>(R.layout.item_target_small_photo) {
-     lateinit var matchBean: MatchBean
+    lateinit var matchBean: MatchBean
+    var autoPlay: Boolean = false
     override fun convert(
         binding: ItemTargetSmallPhotoBinding,
         position: Int,
@@ -32,9 +33,13 @@ class TargetSmallPhotoAdapter :
             checkedView.isVisible = item.checked
             videoLogo.isVisible = item.isVideo
 
-            if (item.isVideo && item.checked) {
-                ClickUtils.applySingleDebouncing(root){
-                    CommonFunction.checkUnlockIntroduceVideo(context, matchBean.accid)
+            if (item.isVideo && item.checked && !autoPlay) {
+                ClickUtils.applySingleDebouncing(root) {
+                    CommonFunction.checkUnlockIntroduceVideo(
+                        context,
+                        matchBean.accid,
+                        matchBean.mv_url
+                    )
                 }
 
             }

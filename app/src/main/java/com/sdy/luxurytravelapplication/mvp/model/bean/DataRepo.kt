@@ -856,6 +856,7 @@ data class IndexBean(
     var ranking_level: Int = 0,
     var sign: String = "",
     var title: String = "",
+    var checked: Boolean = false,
     var want: MutableList<String> = mutableListOf<String>()
 )
 
@@ -872,6 +873,8 @@ data class IndexRecommendBean(
     var my_candy_amount: Int = 0,
     var my_mv_url: Boolean = false,
     var ranking_level: Int = 0,
+    var today_find_pull: Boolean = false,
+    var today_pull_share: Boolean = true,
     var today_pull_dating: Boolean = false,
     var want_step_man_pull: Boolean = false,
 
@@ -880,7 +883,14 @@ data class IndexRecommendBean(
     val progress: SweetProgressBean = SweetProgressBean()
 )
 
-
+data class TodayFateBean(
+    val today_pull: Boolean = false,
+    val gift_amount: Int = 0,
+    val mycandy_amount: Int = 0,
+    val out_time: String = "",
+    val list: MutableList<IndexBean> = mutableListOf(),
+    var gift_list: MutableList<GiftBean> = mutableListOf()
+)
 data class MessageGiftBean(
     var mid: String = "",
     var id: Int = 0,
@@ -898,6 +908,18 @@ data class AccostBean(
     var nickname: String = "",
     var content: String = ""
 )
+
+
+/**
+ * 批量打招呼
+ */
+data class BatchGreetBean(
+    var accid: String = "",
+    var order_id: String = "",
+    var msg: String = ""
+)
+
+
 
 data class MessageListBean(
     var title: String = "",

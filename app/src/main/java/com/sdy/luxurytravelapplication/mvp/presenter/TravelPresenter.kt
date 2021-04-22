@@ -1,7 +1,6 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
-import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.TravelContract
 import com.sdy.luxurytravelapplication.mvp.model.TravelModel
@@ -15,12 +14,7 @@ import com.sdy.luxurytravelapplication.mvp.model.TravelModel
 class TravelPresenter : BasePresenter<TravelContract.Model, TravelContract.View>(),
     TravelContract.Presenter {
     override fun createModel(): TravelContract.Model? = TravelModel()
-    override fun checkPlan() {
-        mModel?.checkPlan()?.ss(mModel,mView, true) {
-            mView?.checkPlan(it.code == 200)
-        }
 
-    }
 
     override fun planList(params: HashMap<String, Any>) {
         mModel?.planList(params)?.ssss(mView, true) {

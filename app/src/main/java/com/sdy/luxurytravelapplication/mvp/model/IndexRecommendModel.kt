@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.IndexRecommendContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexRecommendBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TodayFateBean
 import com.sdy.luxurytravelapplication.ui.fragment.IndexRecommendFragment
 import io.reactivex.Observable
 
@@ -23,5 +24,10 @@ class IndexRecommendModel : BaseModel(), IndexRecommendContract.Model {
             return RetrofitHelper.service.recommendIndex(params)
         else
             return RetrofitHelper.service.theSameCity(params)
+    }
+
+    override fun todayRecommend(): Observable<BaseResp<TodayFateBean?>> {
+        return  RetrofitHelper.service.todayRecommend(hashMapOf())
+
     }
 }

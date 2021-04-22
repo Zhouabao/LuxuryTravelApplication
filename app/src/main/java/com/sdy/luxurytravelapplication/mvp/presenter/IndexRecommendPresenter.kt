@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
+import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.IndexRecommendContract
 import com.sdy.luxurytravelapplication.mvp.model.IndexRecommendModel
@@ -20,5 +21,11 @@ class IndexRecommendPresenter :
             mView?.recommendIndex(it.data)
         }
 
+    }
+
+    override fun todayRecommend() {
+        mModel?.todayRecommend()?.ss(isShowLoading = false) {
+            mView?.onTodayRecommendResult(it.data)
+        }
     }
 }

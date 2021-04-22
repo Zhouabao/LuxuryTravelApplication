@@ -1005,4 +1005,15 @@
     <string name="location_open_map_error">打开地图出错</string>
     <string name="location_navigate">导航</string>
 
+
+    <string name="hurry_give">快给%1$s们打个招呼吧</string>
+    <string name="send_hi_success">送出招呼成功！</string>
+    <string name="today_fate">今日缘分</string>
+    <string name="say_hi_with_gift">打个招呼吧，对方回复将会附带礼物</string>
+    <string name="send_hi_one_key">一键送出招呼</string>
+    <string name="publish_dating">发布出游活动</string>
+    <string name="publish_dating_content">发布出游活动，让更多人找到你\n约对的人做想做的事</string>
+    <string name="publish_dating_now">立即发布活动</string>
+    <string name="today_has_publish">今日已发布过活动</string>
+    <string name="you_have_published_toady">你今天已经发布过活动了，为了活动的有效性请明日再试，我们会为你保留最新发布的活动信息</string>
 </resources>

@@ -18,18 +18,16 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentTravelBinding
 import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.TravelContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.mvp.presenter.TravelPresenter
-import com.sdy.luxurytravelapplication.ui.activity.PublishTravelActivity
-import com.sdy.luxurytravelapplication.ui.activity.PublishTravelBeforeActivity
 import com.sdy.luxurytravelapplication.ui.adapter.TravelAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.TravelCityAdapter
 import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.support.v4.startActivity
 import kotlin.math.abs
 
 /**
@@ -127,20 +125,13 @@ class TravelFragment :
                 binding.travelListCl.isVisible = false
             }
             binding.travelPublishBtn -> {
-                mPresenter?.checkPlan()
+                CommonFunction.checkPublishDating(activity!!)
+//                mPresenter?.checkPlan()
             }
         }
     }
 
-    override fun checkPlan(result: Boolean) {
-        if (result) {
-            if (UserManager.isTipDating)
-                PublishTravelActivity.start(activity!!)
-            else
-                startActivity<PublishTravelBeforeActivity>()
-        }
 
-    }
 
     override fun planList(success: Boolean, datas: MutableList<TravelPlanBean>) {
         if (success) {

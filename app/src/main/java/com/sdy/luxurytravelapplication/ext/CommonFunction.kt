@@ -76,8 +76,6 @@ object CommonFunction {
     }
 
 
-
-
     /**
      * 不是会员先弹充值
      * 不是好友就赠送礼物
@@ -240,8 +238,8 @@ object CommonFunction {
      * 222 （铂金会元/已经解锁视频 返回isnew_friend true是新好友 false 不是新建立 mv_url 视频地址 ）
      * 200 amount 旅券数 isplatinumvip 是否铂金会员
      */
-    fun checkUnlockIntroduceVideo(context: Context, target_accid: String) {
-        val waitDialog =LoadingDialog()
+    fun checkUnlockIntroduceVideo(context: Context, target_accid: String, mv_cover_url: String) {
+        val waitDialog = LoadingDialog()
         waitDialog.show()
         RetrofitHelper.service
             .checkUnlockMv(hashMapOf("target_accid" to target_accid))
@@ -252,7 +250,7 @@ object CommonFunction {
                         PlayVideoDialog(t.data?.mv_url ?: "").show()
                     }
                     200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
-                        VideoOpenPtVipDialog().show()
+                        VideoOpenPtVipDialog(mv_cover_url).show()
                     }
                     201 -> {
                         PurchaseFootActivity.start(context)
@@ -352,9 +350,6 @@ object CommonFunction {
     }
 
 
-
-
-
     /**
      * 打开礼物信封
      * attachment.getOrderId()
@@ -446,16 +441,12 @@ object CommonFunction {
         if (ActivityUtils.getTopActivity() is PurchaseFootActivity) {
             EventBus.getDefault().post(CloseRegVipEvent(true))
         } else {
-
-
-            EventBus.getDefault().post(CloseDialogEvent())
-
-//        if (ActivityUtils.getTopActivity() is VipCenterActivity) {
-//            EventBus.getDefault().post(RefreshVipEvent())
-//        } else {
             EventBus.getDefault().post(RefreshGoldEvent())
+            EventBus.getDefault().postSticky(UserCenterEvent(true))
             EventBus.getDefault().post(CloseDialogEvent())
-//        }
+            EventBus.getDefault().post(UpdateLuxuryEvent())
+            //刷新顶部精选数据
+            EventBus.getDefault().post(TopCardEvent(true))
         }
 
 
@@ -767,15 +758,49 @@ object CommonFunction {
      * @return
      */
     fun num2thousand(num: String): String {
-        var numStr = "";
-        val nf = NumberFormat.getInstance();
+        var numStr = ""
+        val nf = NumberFormat.getInstance()
         try {
-            val df = DecimalFormat("#,###");
-            numStr = df.format(nf.parse(num));
+            val df = DecimalFormat("#,###")
+            numStr = df.format(nf.parse(num))
         } catch (e: ParseException) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
-        return numStr;
+        return numStr
+    }
+
+    fun checkPublishDating(context: Context) {
+        val loadingDialog = LoadingDialog()
+        loadingDialog.show()
+        RetrofitHelper.service.checkPlan(hashMapOf()).ssss { t ->
+            loadingDialog.dismiss()
+            when (t.code) {
+                200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是
+                    if (t.data?.is_publish == true)
+                        context.startActivity<PublishTravelActivity>()
+                    else
+                        context.startActivity<PublishTravelBeforeActivity>()
+                }
+                201 -> {
+                    startToFootPrice(context)
+                }
+                202 -> {
+                    DatingOpenPtVipDialog(
+                        context,
+                        DatingOpenPtVipDialog.TYPE_DATING_PUBLISH
+                    ).show()
+                }
+                203 -> {
+                    TodayHasDatingDialog(context).show()
+
+                }
+                else -> {
+                    ToastUtil.toast(t.msg)
+                }
+            }
+
+        }
+
     }
 
 

@@ -17,6 +17,7 @@ import com.sdy.luxurytravelapplication.databinding.FragmentMyTravelBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewMyFragmentBinding
 import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.MyTravelContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
@@ -84,7 +85,7 @@ class MyTravelFragment :
                 TimeUtil.getNowDateTime("MM月dd日") + "，" + TimeUtil.getWeekOfDate(Date(System.currentTimeMillis()))
 
             ClickUtils.applySingleDebouncing(addSquareBtn) {
-                mPresenter?.checkPlan()
+                CommonFunction.checkPublishDating(activity!!)
             }
             addSqaureTv.text = "发布旅行计划"
             emptyTitle.text = "发个旅行计划吧"
@@ -97,7 +98,7 @@ class MyTravelFragment :
         val headBinding = HeaderviewMyFragmentBinding.inflate(layoutInflater)
         headBinding.apply {
             ClickUtils.applySingleDebouncing(root) {
-                mPresenter?.checkPlan()
+                CommonFunction.checkPublishDating(activity!!)
             }
 
         }
@@ -115,15 +116,6 @@ class MyTravelFragment :
     }
 
 
-    override fun checkPlan(result: Boolean) {
-        if (result) {
-            if (UserManager.isTipDating)
-                PublishTravelActivity.start(activity!!)
-            else
-                startActivity<PublishTravelBeforeActivity>()
-        }
-
-    }
 
     override fun planList(success: Boolean, datas: MutableList<TravelPlanBean>) {
         if (success) {

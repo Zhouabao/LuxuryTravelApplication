@@ -69,9 +69,6 @@ class MyInviteActivity :
                 inviteRule.text = data.invite_rule
 
 
-                UserManager.tempDatas.forEach {
-                    data.invite_list.add(Invite("", it))
-                }
                 if (data.invite_list.size > 4) {
                     adater.setNewInstance(data.invite_list.subList(0, 4))
                 } else {

@@ -14,9 +14,7 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class MyTravelModel : BaseModel(), MyTravelContract.Model {
-    override fun checkPlan(): Observable<BaseResp<Any>> {
-        return RetrofitHelper.service.checkPlan(hashMapOf())
-    }
+
 
     override fun planList(params: HashMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>> {
         return RetrofitHelper.service.myPlan(params)

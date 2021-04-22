@@ -88,6 +88,22 @@ interface ApiService {
 
 
     /**
+     * 每天首次开屏推荐（男性）
+     */
+    @FormUrlEncoded
+    @POST("Home/todayRecommend${Constants.END_BASE_URL}")
+    fun todayRecommend(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<TodayFateBean?>>
+
+
+    /**
+     * 批量送礼物成为好友
+     */
+    @FormUrlEncoded
+    @POST("Home/batchChatup${Constants.END_BASE_URL}")
+    fun batchGreetWoman(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<MutableList<BatchGreetBean>?>>
+
+
+    /**
      * 首页推荐
      */
     @FormUrlEncoded
@@ -328,7 +344,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("Travel/checkPlan${Constants.END_BASE_URL_v2}")
-    fun checkPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+    fun checkPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<CheckPublishDatingBean?>>
 
 
     /**

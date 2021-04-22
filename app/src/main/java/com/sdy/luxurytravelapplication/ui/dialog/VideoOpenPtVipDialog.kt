@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.databinding.DialogVideoOpenPtVipBinding
 import com.sdy.luxurytravelapplication.event.CloseDialogEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -19,7 +20,7 @@ import org.greenrobot.eventbus.ThreadMode
  *    date   : 2020/5/99:45
  *    desc   :钻石解锁联系方式
  */
-class VideoOpenPtVipDialog :BaseBindingDialog<DialogVideoOpenPtVipBinding>(){
+class VideoOpenPtVipDialog(val mv_cover_url:String) :BaseBindingDialog<DialogVideoOpenPtVipBinding>(){
 
 
 
@@ -31,6 +32,9 @@ class VideoOpenPtVipDialog :BaseBindingDialog<DialogVideoOpenPtVipBinding>(){
     }
 
     private fun initView() {
+        binding.apply {
+            GlideUtil.loadImg(context,mv_cover_url,iv)
+        }
         ClickUtils.applySingleDebouncing(binding.openPtVipBtn) {
             CommonFunction.startToVip(context)
         }
