@@ -126,7 +126,7 @@ object UserManager {
 
         if (data.userinfo.gender == 0) {
             context.startActivity<RegisterInfoOneActivity>()
-        } else if (data.userinfo.nickname.isNullOrEmpty()) {
+        } else if (data.userinfo.nickname.isEmpty()) {
             context.startActivity<RegisterInfoTwoActivity>()
         } else if (data.userinfo.gender == 1 && data.extra_data.threshold && !data.extra_data.isvip) {
             //todo 男性判断是否付费
