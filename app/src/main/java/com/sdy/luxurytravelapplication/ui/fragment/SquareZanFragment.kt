@@ -15,11 +15,13 @@ import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.EmptyLayoutCommentBinding
 import com.sdy.luxurytravelapplication.databinding.FragmentSquareZanBinding
+import com.sdy.luxurytravelapplication.event.GetNewMsgEvent
 import com.sdy.luxurytravelapplication.mvp.contract.MessageSquareContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareMsgBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MessageSquarePresenter
 import com.sdy.luxurytravelapplication.ui.activity.SquareCommentDetailActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MessageSquareAdapter
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 广场点赞
@@ -115,6 +117,13 @@ class SquareZanFragment(val type: Int = TYPE_ZAN) :
         if (success) {
             binding.refreshSquareMsg.autoRefresh()
         }
+    }
+
+    override fun markSquareReadResult(success: Boolean) {
+        if (success) {
+            EventBus.getDefault().post(GetNewMsgEvent())
+        }
+
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

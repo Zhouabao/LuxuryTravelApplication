@@ -2,7 +2,6 @@ package com.sdy.luxurytravelapplication.nim.impl.provider
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,10 @@ import com.kongzue.dialog.util.BaseDialog
 import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.nim.api.model.location.LocationProvider
+import com.sdy.luxurytravelapplication.nim.location.LocationAmapActivity
+import com.sdy.luxurytravelapplication.nim.location.LocationExtras
+import com.sdy.luxurytravelapplication.nim.location.NavigationAmapActivity
+import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 
 /**
  * Created by zhoujianghua on 2015/8/11.
@@ -22,13 +25,11 @@ class NimDemoLocationProvider : LocationProvider {
         context: Context,
         callback: LocationProvider.Callback
     ) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-            && !PermissionUtils.isGranted(*PermissionConstants.getPermissions(PermissionConstants.LOCATION))
-        ) {//定位权限
+
             PermissionUtils.permission(PermissionConstants.LOCATION)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
-//                        start(context, callback)
+                        LocationAmapActivity.start(context, callback)
                     }
 
                     override fun onDenied() {
@@ -56,9 +57,7 @@ class NimDemoLocationProvider : LocationProvider {
                     }
                 })
                 .request()
-        } else {
-//            start(context, callback)
-        }
+
     }
 
     override fun openMap(
@@ -67,10 +66,10 @@ class NimDemoLocationProvider : LocationProvider {
         latitude: Double,
         address: String
     ) {
-//        val intent = Intent(context, LocationActivity::class.java)
-//        intent.putExtra(LocationActivity.LONGTITUDE, longitude)
-//        intent.putExtra(LocationActivity.LATITUDE, latitude)
-//        intent.putExtra(LocationActivity.ADDRESS, address)
-//        context.startActivity(intent)
+        val intent = Intent(context, NavigationAmapActivity::class.java)
+        intent.putExtra(LocationExtras.LONGITUDE, longitude)
+        intent.putExtra(LocationExtras.LATITUDE, latitude)
+        intent.putExtra(LocationExtras.ADDRESS, address)
+        context.startActivity(intent)
     }
 }

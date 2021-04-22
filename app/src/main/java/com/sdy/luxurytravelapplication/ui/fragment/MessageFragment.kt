@@ -25,6 +25,7 @@ import com.sdy.luxurytravelapplication.databinding.FragmentMessageBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderMessageAllBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewLikeMeBinding
 import com.sdy.luxurytravelapplication.event.GetNewMsgEvent
+import com.sdy.luxurytravelapplication.event.UpdateHiEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.MessageContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.MessageListBean
@@ -35,20 +36,20 @@ import com.sdy.luxurytravelapplication.nim.api.model.contact.ContactChangedObser
 import com.sdy.luxurytravelapplication.nim.api.model.main.OnlineStateChangeObserver
 import com.sdy.luxurytravelapplication.nim.api.model.user.UserInfoObserver
 import com.sdy.luxurytravelapplication.nim.attachment.ContactAttachment
-import com.sdy.luxurytravelapplication.nim.attachment.ContactCandyAttachment
 import com.sdy.luxurytravelapplication.nim.attachment.SendCustomTipAttachment
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.activity.AccostListActivity
+import com.sdy.luxurytravelapplication.ui.activity.ContactBookActivity
 import com.sdy.luxurytravelapplication.ui.activity.MessageSquareActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MessageCenterAllAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MessageListHeadAdapter
-import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
-import com.sdy.luxurytravelapplication.ui.activity.ContactBookActivity
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import java.util.*
 import kotlin.Comparator
 
@@ -77,9 +78,11 @@ class MessageFragment :
             adapter.headerWithEmptyEnable = true
             adapter.addChildClickViewIds(R.id.menuTop, R.id.menuDetele, R.id.content)
             adapter.setOnItemChildClickListener { _, view, position ->
-                ChatActivity.start(activity!!,adapter.data[position].contactId)
+                NIMClient.getService(MsgService::class.java).clearUnreadCount(adapter.data[position].contactId, SessionTypeEnum.P2P)
+                ChatActivity.start(activity!!, adapter.data[position].contactId)
+                EventBus.getDefault().post(GetNewMsgEvent())
             }
-            ClickUtils.applySingleDebouncing(contactBookBtn){
+            ClickUtils.applySingleDebouncing(contactBookBtn) {
                 ContactBookActivity.start(activity!!)
             }
         }
@@ -106,7 +109,7 @@ class MessageFragment :
             }
         }
         accostAdapter.setOnItemClickListener { _, _, position ->
-//                ChatActivity.start(activity!!, accostAdapter.data[position].accid)
+            ChatActivity.start(activity!!, accostAdapter.data[position].accid)
             EventBus.getDefault().post(GetNewMsgEvent())
         }
 
@@ -153,7 +156,7 @@ class MessageFragment :
                         0 -> {//官方助手
                             NIMClient.getService(MsgService::class.java)
                                 .clearUnreadCount(Constants.ASSISTANT_ACCID, SessionTypeEnum.P2P)
-                        ChatActivity.start(activity!!, Constants.ASSISTANT_ACCID)
+                            ChatActivity.start(activity!!, Constants.ASSISTANT_ACCID)
 
                         }
                         1 -> {
@@ -437,5 +440,14 @@ class MessageFragment :
         refreshMessages()
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onUpdateHiEvent(event: UpdateHiEvent) {
+        try {
+            mPresenter?.messageCensus()
+        } catch (e: Exception) {
+
+        }
+    }
 
 }

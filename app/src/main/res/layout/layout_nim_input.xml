@@ -162,10 +162,53 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.sdy.luxurytravelapplication.nim.business.emoji.EmoticonPickerView
-        android:id="@+id/emotionPickerView"
-        android:layout_width="wrap_content"
+
+    <FrameLayout
+        android:id="@+id/emoticonPickerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/emojRv"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="144dp"
+            android:layout_height="62dp"
+            android:layout_gravity="right|bottom"
+            android:background="@drawable/icon_gradient_emoj_bg"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/delEmojButton"
+                android:layout_width="62dp"
+                android:layout_height="42dp"
+                android:background="@drawable/shape_rectangle_white_8dp"
+                android:scaleType="center"
+                android:src="@drawable/icon_del_emoj" />
+
+            <TextView
+                android:id="@+id/sendEmojButton"
+                android:layout_width="62dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle_orange_8dp"
+                android:gravity="center"
+                android:text="@string/send"
+                android:textColor="#ffffffff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
 
 </LinearLayout>

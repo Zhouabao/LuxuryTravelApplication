@@ -112,20 +112,6 @@ class ChatActivity :
 //else -> { // 其他的发送失败，送出失败原因
 
     companion object {
-        const val NOTICE_CHARGE = 1//金币余额不足，请充值后再试   「充值」
-        const val NOTICE_REAL_VERIFY = 2 //真人认证后获取聊天金币      「真人认证」
-        const val NOTICE_NORMAL = 3 //消息发送失败请重试  //对方未真人认证，请核实对方身份 等等
-        const val NOTICE_FOOT_PRICE = 4 //门槛充值
-        const val SEND_NOTICE_MSG: String = "noticeText"
-        const val SEND_NOTICE_CODE: String = "noticeCode"
-
-
-        const val IS_SHOW_REAL_TIP: String = "isShowRealTip"
-        const val COIN_RECEIVE_STATE: String = "CoinReceiveState"
-        const val COIN_CNT: String = "CoinCnt"
-        const val COIN_TIMEOUT_TIME: String = "CoinTimeoutTime"
-
-
         const val EXTRA_ACCOUNT: String = "target_accid"
         const val EXTRA_ANCHOR: String = "anchor"
         const val EXTRA_CUSTOMIZATION: String = "customization"
@@ -149,8 +135,6 @@ class ChatActivity :
 
 
     override fun createPresenter(): ChatContract.Presenter = ChatPresenter()
-
-
 
 
     override fun initData() {
@@ -266,6 +250,7 @@ class ChatActivity :
     override fun onBackPressed() {
         inputPanel.collapse(true)
         messageListPanel.onBackPressed()
+        EventBus.getDefault().postSticky(UpdateHiEvent())
         // NIMClient.getService(MsgService::class.java).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None)
         super.onBackPressed()
     }
@@ -333,7 +318,7 @@ class ChatActivity :
     }
 
 
-    private fun appendPushConfig(message: IMMessage, deadline: Int, expend_coin: Int) {
+    private fun appendPushConfig(message: IMMessage) {
         val customConfig = NimUIKitImpl.getCustomPushContentProvider() ?: return
         val content = customConfig.getPushContent(message)
         val payload =
@@ -346,26 +331,20 @@ class ChatActivity :
         }
     }
 
-    fun appendPushConfigAndSend(message: IMMessage, deadline: Int, expend_coin: Int) {
-        appendPushConfig(message, deadline, expend_coin)
-        sendMsgS(message)
-    }
 
     private fun sendMsgS(message: IMMessage) {
+        appendPushConfig(message)
         NIMClient.getService(MsgService::class.java).sendMessage(message, false)
             .setCallback(object : RequestCallback<Void?> {
                 override fun onSuccess(param: Void?) {
                     if (sessionId == Constants.ASSISTANT_ACCID) {
                         if (message.msgType == MsgTypeEnum.text)
                             mPresenter?.aideSendMsg(message)
+                        messageListPanel.onMsgSend(message)
                     } else {
-                        //刷新搭讪列表
-                        EventBus.getDefault().post(RemoveChatUpEvent(message))
+                        setMessageStatus(message, MsgStatusEnum.success)
                     }
-                    //如果是图片消息并且有扩展字段，则为地图消息，删除图片
-//                    if (message.msgType == MsgTypeEnum.image && message.remoteExtension != null && message.remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null) {
-//                        FileUtils.delete((message.attachment as FileAttachment).path)
-//                    }
+
                 }
 
                 override fun onFailed(code: Int) {
@@ -376,12 +355,6 @@ class ChatActivity :
 
             })
 
-        //如果是和真人聊天就更新聊天金币，和小助手聊天就新增聊天
-        if (isChatWithRobot()) {
-            messageListPanel.onPretendMsgSend(message)
-        } else {
-            messageListPanel.onMsgSend(message)
-        }
     }
 
 
@@ -391,6 +364,7 @@ class ChatActivity :
     private fun setMessageStatus(message: IMMessage, msgStatus: MsgStatusEnum) {
         message.status = msgStatus
         NIMClient.getService(MsgService::class.java).updateIMMessageStatus(message)
+        messageListPanel.refreshMessageList()
     }
 
 
@@ -601,7 +575,7 @@ class ChatActivity :
 //其他直接发送
     private fun sendMsgRequest(message: IMMessage) {
         setMessageStatus(message, MsgStatusEnum.sending)
-        messageListPanel.onPretendMsgSend(message)
+        messageListPanel.onMsgSend(message)
         when (message.msgType) {
             MsgTypeEnum.audio -> {
                 mPresenter?.uploadImgToQN(
@@ -618,15 +592,11 @@ class ChatActivity :
                 )
             }
             MsgTypeEnum.image -> {
-//                if (message.remoteExtension != null && message.remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null) {
-//                    mPresenter.sendMsg(message, sessionId, islocation = true)
-//                } else {
                 mPresenter?.uploadImgToQN(
                     message,
                     sessionId,
                     (message.attachment as ImageAttachment).path
                 )
-//                }
             }
             MsgTypeEnum.text -> {
                 mPresenter?.sendMsgRequest(message, sessionId)
@@ -640,30 +610,6 @@ class ChatActivity :
 
     override fun isLongClickEnabled(): Boolean {
         return !inputPanel.isRecording()
-    }
-
-
-    /**
-     * 提示消息点击
-     */
-    override fun onNoticeMessageClick(message: IMMessage) {
-        val extension = message.localExtension
-        val noticeType = extension?.get(SEND_NOTICE_CODE) ?: -1
-        when (noticeType) {
-            NOTICE_CHARGE -> { //金币充值
-//                GoldChargeDialog(this).show()
-            }
-            NOTICE_REAL_VERIFY -> {//真人认证
-//                FaceLivenessExpActivity.startActivity(
-//                    this,
-//                    FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL
-//                )
-            }
-            NOTICE_FOOT_PRICE -> { //门槛充值
-
-            }
-        }
-
     }
 
 
@@ -828,8 +774,6 @@ class ChatActivity :
     ) {
         if (isOk) {
             mPresenter?.sendMsgRequest(content, targetAccid, key)
-        } else {
-            setFailedStatus(content, CommonFunction.getErrorMsg(this), NOTICE_NORMAL)
         }
 
     }
@@ -846,16 +790,12 @@ class ChatActivity :
     ) {
         if (code == 200 || code == 211) {
             // 搭讪礼物如果返回不为空，就代表成功领取对方的搭讪礼物
-            if (nimBeanBaseResp?.rid_data != null
-                && !nimBeanBaseResp.rid_data!!.icon.isEmpty()
-            ) {
+            if (nimBeanBaseResp?.rid_data != null && nimBeanBaseResp.rid_data!!.icon.isNotEmpty()) {
 //                ReceiveAccostGiftDialog(this, nimBeanBaseResp.rid_data).show()
             }
             sendMsgS(content)
-            if (!nimBeanBaseResp!!.ret_tips_arr.isEmpty()) CommonFunction.sendTips(
-                sessionId,
-                nimBeanBaseResp!!.ret_tips_arr
-            )
+            if (nimBeanBaseResp!!.ret_tips_arr.isNotEmpty())
+                CommonFunction.sendTips(sessionId, nimBeanBaseResp.ret_tips_arr)
             nimBean.is_send_msg = true
             if (UserManager.gender == 1 && !isSendChargePtVip
                 && sessionId != Constants.ASSISTANT_ACCID && !nimBean.isplatinum
@@ -907,14 +847,6 @@ class ChatActivity :
                 android.R.id.content
             )
         }
-    }
-
-
-    private fun setFailedStatus(message: IMMessage, msg: String, code: Int) {
-        setMessageStatus(message, MsgStatusEnum.fail)
-        CommonFunction.updateMessageExtension(message, SEND_NOTICE_MSG, msg)
-        CommonFunction.updateMessageExtension(message, SEND_NOTICE_CODE, code)
-        messageListPanel.refreshMessageItem(message.uuid)
     }
 
 

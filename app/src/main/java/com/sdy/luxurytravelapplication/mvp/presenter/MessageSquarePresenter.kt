@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
+import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.MessageSquareContract
 import com.sdy.luxurytravelapplication.mvp.model.MessageSquareModel
@@ -23,7 +24,9 @@ class MessageSquarePresenter :
     }
 
     override fun markSquareRead(params: HashMap<String, Any>) {
-        mModel?.markSquareRead(params)
+        mModel?.markSquareRead(params)?.ss {
+            mView?.markSquareReadResult(true)
+        }
     }
 
     override fun delSquareMsg(params: HashMap<String, Any>) {

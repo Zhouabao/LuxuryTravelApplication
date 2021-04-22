@@ -193,4 +193,8 @@
     <dimen name="robot_message_link_width">200dp</dimen>
 
     <dimen name="px_size_1">1px</dimen>
+
+
+    <!-- map -->
+    <dimen name="friend_map_bound_padding">80dp</dimen>
 </resources>

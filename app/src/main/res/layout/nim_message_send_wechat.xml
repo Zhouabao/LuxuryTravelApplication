@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,16 +13,15 @@
     <ImageView
         android:id="@+id/contactImg"
         android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:src="@drawable/icon_unlock_wechat" />
+        android:layout_height="23dp" />
 
     <TextView
         android:id="@+id/contactContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="13543467899"
         android:textColor="#ff191919"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        tools:text="13543467899" />
 
 </LinearLayout>

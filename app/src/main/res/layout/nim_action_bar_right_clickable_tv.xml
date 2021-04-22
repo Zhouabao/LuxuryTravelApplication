@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right|center"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/action_bar_height"
+    android:orientation="vertical"
+    android:paddingRight="10dp" >
+
+    <TextView
+        android:id="@+id/action_bar_right_clickable_textview"
+        android:layout_width="50dp"
+        android:layout_height="28dp"
+        android:background="@drawable/selector_button_14dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.mvp.presenter
 
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.ext.ss
+import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
 import com.sdy.luxurytravelapplication.mvp.model.MainModel
 
@@ -23,7 +24,9 @@ class MainPresenter : BasePresenter<MainContract.Model, MainContract.View>(),
     }
 
     override fun startupRecord() {
-        mModel?.startupRecord()
+        mModel?.startupRecord()?.ssss {
+            mView?.startupRecord()
+        }
     }
 
 }

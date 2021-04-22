@@ -1,21 +1,25 @@
 package com.sdy.luxurytravelapplication.nim.business.session.panel
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Handler
 import android.os.SystemClock
+import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
-import android.view.*
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kongzue.dialog.v3.MessageDialog
@@ -25,14 +29,16 @@ import com.netease.nimlib.sdk.media.record.IAudioRecordCallback
 import com.netease.nimlib.sdk.media.record.RecordType
 import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.databinding.LayoutNimInputBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.model.bean.PublishWayBean
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
+import com.sdy.luxurytravelapplication.nim.business.emoji.ChatEmojAdapter
+import com.sdy.luxurytravelapplication.nim.business.emoji.EmojiManager
 import com.sdy.luxurytravelapplication.nim.business.emoji.IEmoticonSelectedListener
 import com.sdy.luxurytravelapplication.nim.business.module.Container
 import com.sdy.luxurytravelapplication.nim.business.session.actions.BaseAction
+import com.sdy.luxurytravelapplication.nim.common.util.string.StringUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.dialog.SendGiftDialog
 import java.io.File
@@ -73,6 +79,9 @@ class ChatInputPanel(
             mediaActions[i].setIndex(i)
             mediaActions[i].container = container
         }
+        // 初始化表情包
+        initEmojViews()
+
     }
 
 
@@ -139,8 +148,8 @@ class ChatInputPanel(
                     mediaActions[position - 2].onClick()
                 }
 
-                4 -> {//发起语音聊天
-                    CommonFunction.checkUnlockContact(container.activity,container.account,1)
+                4 -> {//解锁联系方式
+                    CommonFunction.checkUnlockContact(container.activity, container.account, 1)
                 }
                 5 -> {//点击赠送🎁
                     SendGiftDialog(container).show()
@@ -247,7 +256,7 @@ class ChatInputPanel(
     // 隐藏表情布局
     fun hideEmojLayout() {
         handler.removeCallbacksAndMessages(null)
-        binding.emotionPickerView.isVisible = false
+        binding.emoticonPickerView.isVisible = false
     }
 
     //隐藏录音布局
@@ -278,6 +287,66 @@ class ChatInputPanel(
 
 
     /*****************表情模块*************************/
+
+
+    /****************初始化表情控件 */
+    private fun initEmojViews() {
+        binding.apply {
+            emojRv.layoutManager = GridLayoutManager(container.activity, 8)
+            val adapter = ChatEmojAdapter()
+            adapter.addFooterView(inflateFootView())
+            emojRv.adapter = adapter
+            for (i in 0 until EmojiManager.getDisplayCount()) {
+                adapter.addData(i)
+            }
+            adapter.setOnItemClickListener { _, view, position ->
+                val mEditable: Editable = editTextMessage.getText()
+                var start: Int = editTextMessage.getSelectionStart()
+                var end: Int = editTextMessage.getSelectionEnd()
+                start = if (start < 0) 0 else start
+                end = if (start < 0) 0 else end
+                mEditable.replace(start, end, EmojiManager.getDisplayText(position))
+            }
+            sendEmojButton.setOnClickListener {
+                // 检测是否可以发消息
+                if (checkSendButtonEnable(editTextMessage)) {
+                    onTextMessageSendButtonPressed()
+                }
+            }
+            delEmojButton.setOnClickListener {
+                editTextMessage.dispatchKeyEvent(
+                    KeyEvent(
+                        KeyEvent.ACTION_DOWN,
+                        KeyEvent.KEYCODE_DEL
+                    )
+                )
+            }
+        }
+    }
+
+    /**
+     * 显示发送或更多
+     *
+     * @param editText
+     */
+    private fun checkSendButtonEnable(editText: EditText): Boolean {
+        if (isRobotSession) {
+            return false
+        }
+        val textMessage = editText.text.toString()
+        return !TextUtils.isEmpty(StringUtil.removeBlanks(textMessage))
+    }
+
+
+    private fun inflateFootView(): View {
+        val view = View(container.activity)
+        val params =
+            RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, SizeUtils.dp2px(62f))
+        view.layoutParams = params
+        view.setBackgroundColor(Color.parseColor("#F4F4F4"))
+        return view
+    }
+
     // 显示表情布局
     fun showEmojLayout() {
         hideInputMethod()
@@ -285,9 +354,9 @@ class ChatInputPanel(
 
         binding.editTextMessage.requestFocus()
         handler.postDelayed({
-            binding.emotionPickerView.isVisible = true
+            binding.emoticonPickerView.isVisible = true
         }, SHOW_LAYOUT_DELAY)
-        binding.emotionPickerView.show(this)
+        binding.emoticonPickerView.isVisible = true
 
         container.proxy.onInputPanelExpand()
     }

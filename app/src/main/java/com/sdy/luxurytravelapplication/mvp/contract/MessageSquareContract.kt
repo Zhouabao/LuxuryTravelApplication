@@ -18,6 +18,8 @@ interface MessageSquareContract {
         fun onSquareListsResult(data: MutableList<SquareMsgBean>?)
 
         fun onDelSquareMsgResult(success: Boolean)
+
+        fun markSquareReadResult(success: Boolean)
     }
 
     interface Presenter : IPresenter<View> {

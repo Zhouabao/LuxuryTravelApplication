@@ -861,8 +861,6 @@ class MessageListPanelEx @JvmOverloads constructor(
         }
 
         override fun onTipBtnClick(message: IMMessage) {
-            container.proxy.onNoticeMessageClick(message)
-
 
         }
 

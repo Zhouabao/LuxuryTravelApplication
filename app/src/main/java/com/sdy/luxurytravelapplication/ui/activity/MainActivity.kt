@@ -94,17 +94,6 @@ class MainActivity :
     }
 
     override fun initData() {
-        GlideUtil.loadAvatorImg(this, UserManager.avatar, binding.tabMine)
-        if (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass()) {
-            //0未认证/认证不成功     1认证通过     2认证中
-            if (UserManager.isverify == 2) {
-                onAccountDangerEvent(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
-            }
-        }
-    }
-
-
-    override fun initView() {
         binding.apply {
             ClickUtils.applySingleDebouncing(
                 arrayOf(indexBtn, findBtn, messageBtn, travelBtn, mineBtn),
@@ -127,8 +116,16 @@ class MainActivity :
 
             }
         }
-
+        GlideUtil.loadAvatorImg(this, UserManager.avatar, binding.tabMine)
+        if (UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass()) {
+            //0未认证/认证不成功     1认证通过     2认证中
+            if (UserManager.isverify == 2) {
+                onAccountDangerEvent(AccountDangerEvent(AccountDangerDialog.VERIFY_ING))
+            }
+        }
     }
+
+
 
     private var checkedPosition = -1
     private fun updateTabChecked(position: Int, fromVp: Boolean = false) {
@@ -227,7 +224,7 @@ class MainActivity :
 
 
     override fun start() {
-        mPresenter?.msgList()
+        mPresenter?.startupRecord()
     }
 
 
@@ -374,7 +371,6 @@ class MainActivity :
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onGetMSGEvent(event: GetNewMsgEvent) {
-        mPresenter?.startupRecord()
         mPresenter?.msgList()
     }
 
@@ -410,6 +406,12 @@ class MainActivity :
 
             showMsgDot(allMsgCount.square_count > 0 || msgCount > 0)
         }
+    }
+
+    override fun startupRecord() {
+
+        mPresenter?.msgList()
+
     }
 
     /**

@@ -992,4 +992,17 @@
     <string name="please_change_real_avatar">请更换真人头像</string>
     <string name="send_failed">发送失败</string>
     <string name="send_messgae">发送消息</string>
+    <string name="location_map">地图定位</string>
+    <string name="revoke_message">撤回了消息</string>
+
+    <string name="location_loading">正在定位</string>
+    <string name="my_location">我的位置</string>
+    <string name="location_address_unkown">该位置信息暂无</string>
+    <string name="format_mylocation">我的位置：%s</string>
+    <string name="location_address_fail">获取位置信息失败</string>
+    <string name="tools_selected">选择工具</string>
+    <string name="friends_map_navigation_web">在网页中打开</string>
+    <string name="location_open_map_error">打开地图出错</string>
+    <string name="location_navigate">导航</string>
+
 </resources>

@@ -39,7 +39,7 @@
         android:layout_height="52dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/default_image_15dp" />
+        android:src="@drawable/icon_msg_gift" />
 
 
 </RelativeLayout>

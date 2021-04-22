@@ -17,6 +17,7 @@ interface MainContract {
 
     interface View : IView {
         fun onMsgListResult(allMsgCount: AllMsgCount)
+        fun startupRecord()
     }
 
     interface Presenter : IPresenter<View> {

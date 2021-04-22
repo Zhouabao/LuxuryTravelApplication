@@ -32,7 +32,6 @@ public interface ModuleProxy {
 
     void onItemFooterClick(IMMessage message);
 
-    void onNoticeMessageClick(IMMessage message);
 
     /**
      * 用户进行回复操作
