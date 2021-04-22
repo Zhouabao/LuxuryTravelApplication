@@ -189,34 +189,34 @@ public class NimSDKOptionConfig {
         MixPushConfig config = new MixPushConfig();
 
         // 小米推送
-        config.xmAppId = "2882303761519002158";
-        config.xmAppKey = "5171900252158";
-        config.xmCertificateName = "SHENGYOU_XIAOMI";
+        config.xmAppId = "2882303761519883806";
+        config.xmAppKey = "5321988336806";
+        config.xmCertificateName = "YOUWAN_XIAOMI";
 
 
         // 华为推送
-        config.hwAppId = "103754225";
-        config.hwCertificateName = "SHENGYOU_HUAWEI";
+        config.hwAppId = "104244187";
+        config.hwCertificateName = "YOUWAN_HUAWEI";
 
 
         // vivo推送
-        config.vivoCertificateName = "SHENGYOU_VIVO";
+        config.vivoCertificateName = "YOUWAN_VIVO";
 
 
         // 魅族推送
-        config.mzAppId = "138725";
-        config.mzAppKey = "07c19b495c784ab4b67476245f7dacec";
-        config.mzCertificateName = "SHENGYOU_FLYME";
+        config.mzAppId = "140784";
+        config.mzAppKey = "0bce7fa3e5da4f5e93975bf8a1b94b02";
+        config.mzCertificateName = "YOUWAN_MEIZU";
 
         // fcm 推送，适用于海外用户，不使用fcm请不要配置
 //        config.fcmCertificateName = "DEMO_FCM_PUSH";
 
 
         // oppo推送
-        config.oppoAppId = "30464029";
-        config.oppoAppKey = "4a30719ee68c4f1f8f947d7658e44dba\n";
-        config.oppoAppSercet = "abd5a83a8182421ebd7853618aca41fd";
-        config.oppoCertificateName = "SHENGYOU_OPPO";
+        config.oppoAppId = "30520329";
+        config.oppoAppKey = "477b3a7f8af744119b80705c61d74f70";
+        config.oppoAppSercet = "968a3161b31c46008a04fc9a5b93b51d";
+        config.oppoCertificateName = "YOUWAN_OPPO";
         return config;
     }
 }

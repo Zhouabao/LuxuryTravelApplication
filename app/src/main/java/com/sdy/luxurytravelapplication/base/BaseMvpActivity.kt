@@ -1,10 +1,8 @@
 package com.sdy.luxurytravelapplication.base
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ToastUtils
-import com.kongzue.dialog.util.DialogSettings
-import com.kongzue.dialog.v3.WaitDialog
+import com.sdy.luxurytravelapplication.ui.dialog.LoadingDialog
 
 /**
  * @author chenxz
@@ -38,17 +36,18 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding
     }
 
     private val loading by lazy {
-        WaitDialog.build(this as AppCompatActivity).setTheme(
-            DialogSettings.THEME.LIGHT
-        )
+        LoadingDialog()
+
     }
 
     override fun showLoading() {
-        loading.showNoAutoDismiss()
+//        loading.showNoAutoDismiss()
+        loading.show()
     }
 
     override fun hideLoading() {
-        loading.doDismiss()
+//        loading.doDismiss()
+        loading.dismiss()
     }
 
     override fun showError(errorMsg: String) {

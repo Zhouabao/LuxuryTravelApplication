@@ -2,17 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.github.ybq.android.spinkit.SpinKitView
-        android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Circle"
+
+    <com.wang.avi.AVLoadingIndicatorView
+        style="@style/AVLoadingIndicatorView.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:SpinKit_Color="@color/colorAccent" />
+        app:indicatorColor="@android:color/darker_gray"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
+
 
 </LinearLayout>

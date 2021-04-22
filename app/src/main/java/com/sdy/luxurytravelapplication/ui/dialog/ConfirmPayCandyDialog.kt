@@ -17,9 +17,7 @@ import com.alipay.sdk.app.PayTask
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.kongzue.dialog.util.DialogSettings
 import com.kongzue.dialog.v3.MessageDialog
-import com.kongzue.dialog.v3.WaitDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.R.string.pay_cancel
 import com.sdy.luxurytravelapplication.constant.Constants
@@ -186,13 +184,12 @@ class ConfirmPayCandyDialog(
             params["source_type"] = source_type
         }
         params["product_id"] = chargeBean.id
-        val loadingDialog =
-            WaitDialog.show(ActivityUtils.getTopActivity() as AppCompatActivity, null)
-                .setTheme(DialogSettings.THEME.LIGHT)
+        val loadingDialog =LoadingDialog()
+        loadingDialog.show()
         RetrofitHelper.service
             .createOrder(params)
             .ssss {
-                loadingDialog.doDismiss()
+                loadingDialog.dismiss()
                 if (it.code == 200) {
                     //发起微信
                     start2Pay(payment_type, it.data)

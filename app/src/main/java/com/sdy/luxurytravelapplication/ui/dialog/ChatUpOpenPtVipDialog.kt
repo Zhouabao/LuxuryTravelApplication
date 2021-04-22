@@ -1,17 +1,15 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.kongzue.dialog.v3.TipDialog
-import com.kongzue.dialog.v3.WaitDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.msg.MessageBuilder
@@ -336,17 +334,17 @@ class ChatUpOpenPtVipDialog(
     /**
      * 发送本地搭讪好友消息
      */
-    private fun sendMatchFriendMessage(loadingDialog: TipDialog) {
+    private fun sendMatchFriendMessage(loadingDialog: Dialog) {
         EventBus.getDefault().post(UpdateApproveEvent())
         EventBus.getDefault().post(UpdateHiEvent())
         EventBus.getDefault().post(UpdateAccostListEvent())
         if (ActivityUtils.getTopActivity() !is ChatActivity) {
             Handler().postDelayed({
-                loadingDialog.doDismiss()
+                loadingDialog.dismiss()
                 ChatActivity.start(ActivityUtils.getTopActivity(), target_accid)
             }, 400L)
         } else {
-            loadingDialog.doDismiss()
+            loadingDialog.dismiss()
         }
         dismiss()
 
@@ -357,7 +355,7 @@ class ChatUpOpenPtVipDialog(
     /**
      * 发送解锁聊天消息
      */
-    private fun sendContactCandyMessage(loadingDialog: TipDialog) {
+    private fun sendContactCandyMessage(loadingDialog: Dialog) {
         val contactCandyMsg = ContactCandyAttachment(chatUpBean.contact_amount)
         val config = CustomMessageConfig()
         config.enablePush = true
@@ -373,7 +371,7 @@ class ChatUpOpenPtVipDialog(
                 override fun onSuccess(param: Void?) {
                     if (ActivityUtils.getTopActivity() !is ChatActivity) {
                         Handler().postDelayed({
-                            loadingDialog.doDismiss()
+                            loadingDialog.dismiss()
                             ChatActivity.start(
                                 ActivityUtils.getTopActivity(),
                                 target_accid
@@ -381,16 +379,16 @@ class ChatUpOpenPtVipDialog(
                             dismiss()
                         }, 250L)
                     } else {
-                        loadingDialog.doDismiss()
+                        loadingDialog.dismiss()
                     }
                 }
 
                 override fun onFailed(code: Int) {
-                    loadingDialog.doDismiss()
+                    loadingDialog.dismiss()
                 }
 
                 override fun onException(exception: Throwable) {
-                    loadingDialog.doDismiss()
+                    loadingDialog.dismiss()
                 }
             })
     }
@@ -418,15 +416,15 @@ class ChatUpOpenPtVipDialog(
      * 200 解锁成功 419 旅券余额不足
      */
     fun unlockContact() {
-        val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        loading.showNoAutoDismiss()
+        val loading = LoadingDialog()
+        loading.show()
         RetrofitHelper.service
             .unlockContact(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
                 if (t.code == 200) {
                     if (ActivityUtils.getTopActivity() !is ChatActivity) {
                         Handler().postDelayed({
-                            loading.doDismiss()
+                            loading.dismiss()
                             ChatActivity.start(
                                 ActivityUtils.getTopActivity(),
                                 target_accid
@@ -435,13 +433,13 @@ class ChatUpOpenPtVipDialog(
                         }, 250L)
                     } else {
                         EventBus.getDefault().post(HideContactLlEvent())
-                        loading.doDismiss()
+                        loading.dismiss()
                     }
                 } else if (t.code == 419) {
-                    loading.doDismiss()
+                    loading.dismiss()
                     CommonFunction.gotoCandyRecharge(context1)
                 } else {
-                    loading.doDismiss()
+                    loading.dismiss()
                     ToastUtil.toast(t.msg)
                 }
             }
@@ -456,24 +454,24 @@ class ChatUpOpenPtVipDialog(
      * 	200 解锁成功
      */
     fun unlockChat() {
-        val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        loading.showNoAutoDismiss()
+        val loading = LoadingDialog()
+        loading.show()
         RetrofitHelper.service
             .unlockChat(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
                 if (t.code == 201) {
-                    loading.doDismiss()
+                    loading.dismiss()
                     CommonFunction.startToFootPrice(context1)
                 } else if (t.code == 200) {
                     sendMatchFriendMessage(loading)
                 } else if (t.code == 206) {
-                    loading.doDismiss()
+                    loading.dismiss()
                     ChatActivity.start(ActivityUtils.getTopActivity(), target_accid)
                 } else if (t.code == 419) {
-                    loading.doDismiss()
+                    loading.dismiss()
                     CommonFunction.gotoCandyRecharge(context1)
                 } else {
-                    loading.doDismiss()
+                    loading.dismiss()
                     ToastUtil.toast(t.msg)
                 }
                 dismiss()

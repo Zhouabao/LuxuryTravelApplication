@@ -14,7 +14,6 @@ import com.baidu.idl.face.platform.model.ImageInfo
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
 import com.kongzue.dialog.v3.MessageDialog
-import com.kongzue.dialog.v3.WaitDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.constant.Constants
@@ -26,6 +25,7 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.ui.activity.MainActivity
 import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
 import com.sdy.luxurytravelapplication.ui.dialog.HumanVerifyDialog
+import com.sdy.luxurytravelapplication.ui.dialog.LoadingDialog
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.greenrobot.eventbus.EventBus
@@ -185,8 +185,8 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (loadingDialog.isShow)
-            loadingDialog.doDismiss()
+        if (loadingDialog.isShowing)
+            loadingDialog.dismiss()
 
         LogUtils.d("onDestroy===")
     }
@@ -262,7 +262,7 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
     }
 
 
-    private val loadingDialog by lazy { WaitDialog.build(this as AppCompatActivity) }
+    private val loadingDialog by lazy { LoadingDialog() }
     private fun uploadImg() {
         if (mBmpStr.isNotEmpty()) {
             val fileKey = "${Constants.FILE_NAME_INDEX}${Constants.AVATOR}" +

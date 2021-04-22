@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable
 fun <T : BaseBean> Observable<T>.ss(
     model: IModel?=null,
     view: IView?=null,
-    isShowLoading: Boolean = true,
+    isShowLoading: Boolean = false,
     onSuccess: (T) -> Unit
 ) {
     this.compose(SchedulerUtils.ioToMain())

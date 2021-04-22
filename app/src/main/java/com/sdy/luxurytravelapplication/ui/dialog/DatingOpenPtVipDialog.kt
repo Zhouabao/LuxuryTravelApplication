@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.kongzue.dialog.v3.WaitDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.msg.MessageBuilder
@@ -189,8 +187,8 @@ class DatingOpenPtVipDialog(
     }
 
     fun datingApply() {
-        val loadingDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        loadingDialog.showNoAutoDismiss()
+        val loadingDialog = LoadingDialog()
+        loadingDialog.show()
         RetrofitHelper.service
             .datingApply(hashMapOf("dating_id" to datingBean!!.id))
             .ssss { t ->
@@ -216,7 +214,7 @@ class DatingOpenPtVipDialog(
                                 EventBus.getDefault().post(UpdateAccostListEvent())
                                 if (ActivityUtils.getTopActivity() !is ChatActivity) {
                                     Handler().postDelayed({
-                                        loadingDialog.doDismiss()
+                                        loadingDialog.dismiss()
                                         ChatActivity.start(
                                             ActivityUtils.getTopActivity(),
                                             datingBean.accid
@@ -224,26 +222,26 @@ class DatingOpenPtVipDialog(
                                     }, 600L)
                                 } else {
                                     EventBus.getDefault().post(UpdateSendGiftEvent(message))
-                                    loadingDialog.doDismiss()
+                                    loadingDialog.dismiss()
                                 }
                                 dismiss()
                             }
 
                             override fun onFailed(code: Int) {
-                                loadingDialog.doDismiss()
+                                loadingDialog.dismiss()
                             }
 
                             override fun onException(exception: Throwable) {
-                                loadingDialog.doDismiss()
+                                loadingDialog.dismiss()
                             }
                         })
 
                 } else if (t.code == 419) {
-                    loadingDialog.doDismiss()
+                    loadingDialog.dismiss()
                     CommonFunction.gotoCandyRecharge(context1)
                     dismiss()
                 } else {
-                    loadingDialog.doDismiss()
+                    loadingDialog.dismiss()
                     ToastUtil.toast(t.msg)
                     dismiss()
                 }

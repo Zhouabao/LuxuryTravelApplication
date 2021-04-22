@@ -3,13 +3,11 @@ package com.sdy.luxurytravelapplication.ext
 import android.app.Activity
 import android.content.Context
 import android.os.Handler
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.TimeUtils
-import com.kongzue.dialog.v3.WaitDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -91,11 +89,11 @@ object CommonFunction {
      * 	208 充值高级会员（女性设置了聊天权限）
      */
     fun checkChat(context1: Context, target_accid: String) {
-        val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        loading.showNoAutoDismiss()
+        val loading = LoadingDialog()
+        loading.show()
         RetrofitHelper.service.checkChat(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
-                loading.doDismiss()
+                loading.dismiss()
                 when (t.code) {
                     200 -> {
                         if (t.data != null)
@@ -163,11 +161,12 @@ object CommonFunction {
      *
      */
     fun checkUnlockContact(context: Context, target_accid: String, gender: Int) {
-        val loading = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
+        val loading = LoadingDialog()
+        loading.show()
         RetrofitHelper.service
             .checkUnlockContact(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
-                loading.doDismiss()
+                loading.dismiss()
                 when (t.code) {
                     200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
                         ChatUpOpenPtVipDialog(
@@ -242,12 +241,12 @@ object CommonFunction {
      * 200 amount 旅券数 isplatinumvip 是否铂金会员
      */
     fun checkUnlockIntroduceVideo(context: Context, target_accid: String) {
-        val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        waitDialog.showNoAutoDismiss()
+        val waitDialog =LoadingDialog()
+        waitDialog.show()
         RetrofitHelper.service
             .checkUnlockMv(hashMapOf("target_accid" to target_accid))
             .ssss { t ->
-                waitDialog.doDismiss()
+                waitDialog.dismiss()
                 when (t.code) {
                     222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
                         PlayVideoDialog(t.data?.mv_url ?: "").show()
@@ -272,12 +271,12 @@ object CommonFunction {
      * 	code 202 对方设置高级会员 206是好友，已经报名 207 报名成功返回数据（id，title，dating_title，icon） 200 400错误信息  401
      */
     fun checkApplyForDating(context1: Context, datingBean: TravelPlanBean) {
-        val waitDialog = WaitDialog.build(ActivityUtils.getTopActivity() as AppCompatActivity)
-        waitDialog.showNoAutoDismiss()
+        val waitDialog = LoadingDialog()
+        waitDialog.show()
         RetrofitHelper.service
             .checkDatingapply(hashMapOf("dating_id" to datingBean.id))
             .ssss { t ->
-                waitDialog.doDismiss()
+                waitDialog.dismiss()
                 when (t.code) {
                     200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
                         DatingOpenPtVipDialog(

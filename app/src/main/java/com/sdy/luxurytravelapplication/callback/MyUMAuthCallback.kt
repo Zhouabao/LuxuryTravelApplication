@@ -2,22 +2,20 @@ package com.sdy.luxurytravelapplication.callback
 
 import android.content.Context
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
-import com.kongzue.dialog.v3.WaitDialog
 import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.UserManager
-import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.ui.activity.PhoneActivity
 import com.sdy.luxurytravelapplication.ui.activity.VerifycodeActivity
+import com.sdy.luxurytravelapplication.ui.dialog.LoadingDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -33,9 +31,9 @@ class MyUMAuthCallback(val context: Context) : UMAuthListener {
     private var type = -1
     private var nickname = ""
 
-    private val loading by lazy { WaitDialog.build(context as AppCompatActivity) }
+    private val loading by lazy { LoadingDialog() }
     override fun onComplete(p0: SHARE_MEDIA, p1: Int, p2: MutableMap<String, String>?) {
-        loading.doDismiss()
+        loading.dismiss()
         LogUtils.d("onComplete===$p0,$p1,$p2")
         openid = p2?.get("uid") ?: ""
         nickname = p2?.get("name") ?: ""
@@ -55,13 +53,13 @@ class MyUMAuthCallback(val context: Context) : UMAuthListener {
 
     override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {
         LogUtils.d("onCancel===$p0,$p1")
-        loading.doDismiss()
+        loading.dismiss()
 
     }
 
     override fun onError(p0: SHARE_MEDIA?, p1: Int, p2: Throwable?) {
         LogUtils.d("onError===$p0,$p1,$p2")
-        loading.doDismiss()
+        loading.dismiss()
 
     }
 

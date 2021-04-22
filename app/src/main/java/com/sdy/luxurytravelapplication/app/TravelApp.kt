@@ -120,6 +120,8 @@ class TravelApp : Application() {
 //        DialogSettings.buttonPositiveTextInfo = TextInfo().setFontColor(Color.parseColor("#1ED0A7"))
         DialogSettings.style = DialogSettings.STYLE.STYLE_IOS
         DialogSettings.theme = DialogSettings.THEME.LIGHT
+        DialogSettings.tipBackgroundResId = 0
+        DialogSettings.tipTheme = DialogSettings.THEME.LIGHT
 //        DialogSettings.init()
 //        DialogSettings.buttonTextInfo = TextInfo().setFontColor(Color.parseColor("#FFC6CAD4"))
 
@@ -169,206 +171,6 @@ class TravelApp : Application() {
      */
     private val customNotificationObserver: Observer<CustomNotification> = Observer {
         if (it.content != null) {
-            /*LogUtils.d(it.content)
-            LogUtils.d(AppUtils.isAppForeground())
-            val object1 = JSONObject.parseObject(it.content)
-            val type = if (object1["type"] != null) object1["type"] as Int else -1
-            val msg = if (object1["msg"] != null) object1["msg"] as String else ""
-            LogUtils.d("msg = $msg")
-
-            when (type) {
-                //1 新消息更新红点点
-                1 -> {
-                    EventBus.getDefault().post(RefreshMessageCenterEvent())
-                    val msgs = msg.split("\n")
-                    val pendingIntent = PendingIntent.getActivity(
-                        this,
-                        type,
-                        Intent(this, MainActivity::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-                    val id = Random.nextInt()
-//                    sendNotification(
-//                        if (msgs.size > 1) {
-//                            msgs[0]
-//                        } else {
-//                            msg
-//                        }, if (msgs.size > 1) {
-//                            msgs[1]
-//                        } else {
-//                            msg
-//                        }, pendingIntent, id
-//                    )
-
-                }
-
-                //2.对方删除自己,本地不删除会话列表
-                2 -> {
-                    val accid =
-                        JSONObject.parseObject(object1["ext"].toString())["accid"].toString()
-                    CommonFunction.dissolveRelationshipLocal(accid, true)
-                }
-
-                // 4人脸认证未通过
-                4 -> {
-                    UserManager.isFaced = false
-//                    EventBus.getDefault().post(FaceVerifyPassEvent())
-                }
-
-                // 9真人认证通过
-                9 -> {
-                    UserManager.isFaced = true
-//                    EventBus.getDefault().post(FaceVerifyPassEvent())
-                }
-
-                //  21 语音认证认证通过
-                21 -> {
-//                    EventBus.getDefault().postSticky(RefreshIndexVerifyEvent(ChatVoiceCallActivity.FLASH_CHAT_VOICE, true))
-//                    if (ActivityUtils.isActivityExistsInStack(VerifyInfoCheckingActivity::class.java)) {
-//                        ActivityUtils.finishActivity(VerifyInfoCheckingActivity::class.java)
-//                    }
-//                    EventBus.getDefault().post(UpdateVerifyEvent())
-                }
-
-                //31有人喜欢了我
-                31 -> {
-//                    val customerMsgBean = Gson().fromJson<CustomerMsgBean<FocusBean>>(
-//                            it.content,
-//                            object : TypeToken<CustomerMsgBean<FocusBean>>() {}.type
-//                        )
-//                    if (ActivityUtils.getTopActivity() is ChatActivity) {
-//                        EventBus.getDefault()
-//                            .post(SendLikeTipMessageEvent(customerMsgBean.ext.accid, true))
-//                    } else if (ActivityUtils.getTopActivity() is ChatVoiceCallActivity) {
-//                        EventBus.getDefault().post(FocusSuccessEvent(customerMsgBean.ext))
-//                    }
-                    EventBus.getDefault().post(RefreshMessageCenterEvent())
-                }
-
-                //金币充值通知 以及金币提现退回通知
-                109 -> {
-//                    val coin = JSONObject.parseObject(object1["ext"].toString())["mycoin"] as Int
-//                    if (ActivityUtils.getTopActivity() is ChatVoiceCallActivity) {
-//                        EventBus.getDefault().post(ChargeSuccessEvent(coin))
-//                    }
-//                    EventBus.getDefault().post(RefreshGoldEvent())
-
-                }
-
-                //{"type":6000,"msg":{"channelName":"channelName","token":"token","expire_time":1743332323}}
-                6000 -> { //接受别人的邀请
-//                    val classType =
-//                        object : TypeToken<CustomerMsgBean<VoiceCallReceiveBean>>() {}.type
-//                    val bean = Gson().fromJson<CustomerMsgBean<VoiceCallReceiveBean>>(
-//                        it.content,
-//                        classType
-//                    )
-
-//                    val id = Random.nextInt()
-//                    if (!AppUtils.isAppForeground()) {
-//                        val pendingIntent = PendingIntent.getActivity(
-//                            this,
-//                            type,
-//                            Intent(this, MainActivity::class.java),
-//                            PendingIntent.FLAG_UPDATE_CURRENT
-//                        )
-//                        sendNotification(
-//                            when (bean.ext.chat_type) {
-//                                1 -> {
-//                                    getString(R.string.flash_text)
-//                                }
-//                                2 -> {
-//                                    getString(R.string.flash_voice)
-//                                }
-//                                else -> {
-//                                    getString(R.string.flasg_video)
-//                                }
-//                            }, msg, pendingIntent, id
-//                        )
-//                    }
-//                    EventBus.getDefault().postSticky(ShowCallReceiveEvent(bean.ext, id))
-                }
-
-                //6100文字闪聊有人接收本地主动发起的请求(更新过度聊天页面)
-                6100 -> {
-//                    val classType =
-//                        object : TypeToken<CustomerMsgBean<VoiceCallReceiveBean>>() {}.type
-//                    val bean = Gson().fromJson<CustomerMsgBean<VoiceCallReceiveBean>>(
-//                        it.content,
-//                        classType
-//                    )
-//                    EventBus.getDefault().post(MatchFlashChatSuccessEvent(bean.ext))
-                }
-
-                //1V1发起方被拒绝
-                6200 -> {
-//                    if (ActivityUtils.getTopActivity() is ChatVoiceCallActivity) {
-//                        EventBus.getDefault().post(RefuseVoiceCallEvent())
-//                    }
-                }
-
-                //10000礼物消息状态变更
-//                Constants.NOTIFICATION_GIFT_STATUS -> {
-//                    val customerMsgBean =
-//                        Gson().fromJson<CustomerMsgBean<NotificationGiftBean>>(
-//                            it.content,
-//                            object : TypeToken<CustomerMsgBean<NotificationGiftBean>>() {}.type
-//                        )
-//
-//                    if (ActivityUtils.getTopActivity() is ChatActivity) {
-//                        EventBus.getDefault().post(
-//                            RefreshGiftStatusEvent(
-//                                customerMsgBean.ext.giftReceiveStatus,
-//                                customerMsgBean.ext.messageId
-//                            )
-//                        )
-//                    } else {
-//                        val params = hashMapOf<String, Any>()
-//                        params[SendGiftAttachment.KEY_STATUS] =
-//                            customerMsgBean.ext.giftReceiveStatus
-//                        val messages =
-//                            NIMClient.getService(MsgService::class.java)
-//                                .queryMessageListByUuidBlock(
-//                                    listOf(customerMsgBean.ext.messageId)
-//                                )
-//                        if (!messages.isNullOrEmpty())
-//                            CommonFunction.updateMessageExtension(
-//                                messages[0],
-//                                SendGiftAttachment.KEY_STATUS,
-//                                customerMsgBean.ext.giftReceiveStatus
-//                            )
-//                    }
-//                    EventBus.getDefault().post(RefreshGoldEvent())
-////                    CommonFunction.updateRecentExtension(customerMsgBean.ext.sessionId,params)
-//                    //不仅要更新消息的扩展字段 也要更新消息的扩展字段   更新最近联系人的扩展字段
-//                }
-//
-//                //10001对方已经接受联系方式礼物，主动给自己发送对方微信
-//                Constants.NOTIFICATION_SEND_WECHAT -> {
-//                    val customerMsgBean =
-//                        Gson().fromJson<CustomerMsgBean<NotificationWechatBean>>(
-//                            it.content,
-//                            object : TypeToken<CustomerMsgBean<NotificationWechatBean>>() {}.type
-//                        )
-//                    val attachment = SendWechatAttachment()
-//                    attachment.url = customerMsgBean.ext.wechatUrl
-//                    val messge = MessageBuilder.createCustomMessage(
-//                        it.fromAccount,
-//                        SessionTypeEnum.P2P,
-//                        attachment
-//                    )
-//                    NIMClient.getService(MsgService::class.java)
-//                        .sendMessage(messge, false)
-//
-//                }
-//
-//                //10002 闪聊过程中对方金币不足挂断通话
-//                Constants.NOTIFICATION_NO_COIN -> {
-//                    if (ActivityUtils.getTopActivity() is ChatVoiceCallActivity) {
-//                        EventBus.getDefault().post(RefuseNoCoinEvent())
-//                    }
-//                }
-            }*/
             val customerMsgBean =
                 Gson().fromJson<CustomerMsgBean>(
                     it.content,
@@ -416,13 +218,15 @@ class TravelApp : Application() {
                 }
                 //7强制替换头像
                 7 -> {
-                    EventBus.getDefault().postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
+                    EventBus.getDefault()
+                        .postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
                     UserManager.saveChangeAvator(customerMsgBean.msg)
                     UserManager.saveChangeAvatorType(1)
                 }
                 //11真人头像不通过弹窗
                 11 -> {
-                    EventBus.getDefault().postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
+                    EventBus.getDefault()
+                        .postSticky(ReVerifyEvent(customerMsgBean.type, customerMsgBean.msg))
                     UserManager.saveChangeAvator(customerMsgBean.msg)
                     UserManager.saveChangeAvatorType(2)
                 }
@@ -505,7 +309,8 @@ class TravelApp : Application() {
                 }
 
                 111, 112 -> {//微信公众号绑定成功
-                    EventBus.getDefault().post(UpdateWechatSettingsEvent(customerMsgBean.type == 111))
+                    EventBus.getDefault()
+                        .post(UpdateWechatSettingsEvent(customerMsgBean.type == 111))
                     UserManager.saveShowGuideWechat(true)
 
                 }
