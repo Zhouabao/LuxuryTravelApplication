@@ -656,10 +656,13 @@ data class ChooseTitleBean(
 
 data class TravelCityBean(
     val city_name: String = "",
-    val city_cnt: Int = 0,
-    val city_image: String = "",
-    var checked: Boolean = false
+    val cnt: Int = 0,
+    val icon: String = "",
+    var checked: Boolean = false,
+    var id: Int = 0,
+    var is_hot: Int = 0
 )
+
 
 data class TravelPlanBean(
     var accid: String = "",
@@ -675,12 +678,14 @@ data class TravelPlanBean(
     var dating_title: String = "",
     var goal_city: String = "",
     var goal_province: String = "",
+    var goal_detail_address: String = "",
     var id: Int = 0,
     var like_cnt: Int = 0,
     var nickname: String = "",
     var purpose: String = "",
     var rise_city: String = "",
     var rise_province: String = "",
+    var rise_detail_address: String = "",
 
     var detail_address: String = "",
     var duration: Int = 0

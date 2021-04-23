@@ -21,4 +21,10 @@ class TravelPresenter : BasePresenter<TravelContract.Model, TravelContract.View>
             mView?.planList(it.code == 200, it.data ?: mutableListOf())
         }
     }
+
+    override fun getMenuList() {
+        mModel?.getMenuList()?.ssss (mView,true){
+            mView?.getMenuList(it.data?: mutableListOf())
+        }
+    }
 }

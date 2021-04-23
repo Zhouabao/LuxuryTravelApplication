@@ -33,7 +33,6 @@ object UserManager {
     var showCompleteUserCenterDialog: Boolean = false
 
 
-
     /*************发布缓存参数*********************/
     //手动取消上传
     var cancelUpload = false
@@ -153,12 +152,13 @@ object UserManager {
                     )
                 }
             }
-        } else if (data.userinfo.gender == 2 && living_btn) {
+        } else if (data.userinfo.gender == 2 && data.extra_data.living_btn) {
+            //  true  需要活体   false  不需要活体
             //todo 女性判断是否做过活体认证
-            living_btn = data.extra_data.living_btn
-            if (living_btn) {
-                CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
-            }
+//            living_btn = data.extra_data.living_btn
+//            if (living_btn) {
+            CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
+//            }
         } else {
             //昵称 生日 性别 头像
             data.userinfo.apply {
@@ -311,8 +311,6 @@ object UserManager {
         set(value) = SPUtils.getInstance(Constants.SPNAME).put("AlertProtocol", value)
 
 
-
-
     //是否已经强制替换过头像
     fun saveForceChangeAvator(isForceChangeAvator: Boolean) {
         SPUtils.getInstance(Constants.SPNAME).put("isForceChangeAvator", isForceChangeAvator)
@@ -405,7 +403,6 @@ object UserManager {
 //        //更新配置
         NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig)
     }
-
 
 
     /**

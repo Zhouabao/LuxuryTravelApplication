@@ -4,7 +4,7 @@ import com.sdy.luxurytravelapplication.base.IModel
 import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
-import com.sdy.luxurytravelapplication.mvp.model.bean.CheckPublishDatingBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import io.reactivex.Observable
 
@@ -16,15 +16,18 @@ import io.reactivex.Observable
  */
 interface TravelContract {
     interface View : IView {
-        fun planList(success:Boolean,datas: MutableList<TravelPlanBean>)
+        fun planList(success: Boolean, datas: MutableList<TravelPlanBean>)
+        fun getMenuList(datas: MutableList<TravelCityBean>)
     }
 
     interface Presenter : IPresenter<View> {
 
         fun planList(params: HashMap<String, Any>)
+        fun getMenuList()
     }
 
     interface Model : IModel {
         fun planList(params: HashMap<String, Any>): Observable<BaseResp<MutableList<TravelPlanBean>?>>
+        fun getMenuList(): Observable<BaseResp<MutableList<TravelCityBean>?>>
     }
 }

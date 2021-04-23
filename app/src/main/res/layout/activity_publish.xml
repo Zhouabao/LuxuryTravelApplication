@@ -35,12 +35,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:minHeight="200dp"
                 android:layout_marginRight="15dp"
                 android:background="@null"
                 android:gravity="start"
-                android:maxLength="200"
                 android:hint="说说你想要的约会吧"
+                android:maxLength="200"
+                android:minHeight="200dp"
                 android:textColor="@color/color333"
                 android:textColorHint="@color/colorHintEdittext"
                 android:textSize="14sp"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toTopOf="@id/publishTopic"
+            app:layout_constraintBottom_toTopOf="@id/publishTopicLl"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <LinearLayout
@@ -75,8 +75,8 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/publishTopic"
-            app:layout_constraintLeft_toLeftOf="@id/publishTopic">
+            app:layout_constraintBottom_toTopOf="@id/publishTopicLl"
+            app:layout_constraintLeft_toLeftOf="@id/publishTopicLl">
 
             <com.sdy.luxurytravelapplication.widgets.FindAudioView
                 android:id="@+id/previewAudio"
@@ -93,44 +93,67 @@
                 android:src="@drawable/icon_delete" />
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/publishTopic"
+        <LinearLayout
+            android:id="@+id/publishTopicLl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/shape_background_13dp"
-            android:drawableLeft="@drawable/icon_publish_topic"
-            android:drawablePadding="5dp"
-            android:paddingLeft="6dp"
-            android:paddingTop="3dp"
-            android:paddingRight="6dp"
-            android:paddingBottom="3dp"
-            android:hint="添加话题"
-            android:textColor="#ff8a909f"
-            android:textSize="13sp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/view1"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/publishLocationLl">
 
+            <TextView
+                android:id="@+id/publishTopic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_background_13dp"
+                android:drawableLeft="@drawable/icon_publish_topic"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"
+                android:hint="添加话题"
+                android:maxEms="14"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:paddingTop="3dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="3dp"
+                android:textColor="#ff8a909f"
+                android:textSize="13sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/publishLocation"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/publishLocationLl"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/shape_background_13dp"
-            android:drawableLeft="@drawable/icon_publish_location"
-            android:drawablePadding="2dp"
-            android:paddingLeft="6dp"
-            android:paddingTop="3dp"
-            android:paddingRight="6dp"
-            android:paddingBottom="3dp"
-            android:hint="添加位置"
-            android:textColor="#ff8a909f"
-            android:textSize="13sp"
-            app:layout_constraintLeft_toRightOf="@id/publishTopic"
-            app:layout_constraintTop_toTopOf="@id/publishTopic" />
+            android:layout_marginRight="15dp"
+            android:gravity="left"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toRightOf="@id/publishTopicLl"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/publishTopicLl">
+
+            <TextView
+                android:id="@+id/publishLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_background_13dp"
+                android:drawableLeft="@drawable/icon_publish_location"
+                android:drawablePadding="2dp"
+                android:ellipsize="end"
+                android:hint="你在哪里"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:paddingTop="3dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="3dp"
+                android:textColor="#ff8a909f"
+                android:textSize="13sp" />
+        </LinearLayout>
+
 
         <View
             android:id="@+id/view1"

@@ -1,6 +1,5 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -35,6 +34,7 @@ import com.sdy.luxurytravelapplication.mvp.presenter.PublishPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.ChoosePhotosAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.EmojAdapter
 import com.sdy.luxurytravelapplication.ui.dialog.RecordContentDialog
+import com.sdy.luxurytravelapplication.utils.AMapManager
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.emoj.EmojiSource
@@ -342,6 +342,11 @@ class PublishActivity :
 
     private var positionItem: PoiItem? = null
 
+    override fun onResume() {
+        super.onResume()
+        AMapManager.initLocation(this)
+
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -449,7 +454,6 @@ class PublishActivity :
                         binding.publishLocation.isFocusable = true
                         binding.publishLocation.isFocusableInTouchMode = true
 
-                        binding.publishLocation.text = data.getStringExtra("title") ?: ""
                         binding.publishLocation.setTextColor(resources.getColor(R.color.colorAccent))
                         binding.publishLocation.setBackgroundResource(R.drawable.shape_c7f3e9_13dp)
 

@@ -41,11 +41,11 @@ class TravelCityAdapter(var grid: Boolean = false) :
 
             }
 
-            cityCnt.text = "${item.city_cnt}"
+            cityCnt.text = "${item.cnt}"
             cityName.text = item.city_name
             GlideUtil.loadRoundImgCenterCrop(
                 context,
-                item.city_image,
+                item.icon,
                 cityImage,
                 SizeUtils.dp2px(12F)
             )

@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SizeUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
-import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentTravelBinding
 import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
@@ -41,17 +39,16 @@ class TravelFragment :
     private val travelAdapter by lazy { TravelAdapter() }
     private val travelCityAdapter by lazy { TravelCityAdapter() }
     private val travelCityAdapter1 by lazy { TravelCityAdapter(true) }
-    private val datas by lazy { mutableListOf<TravelCityBean>() }
 
     private val params by lazy {
-        hashMapOf(
+        hashMapOf<String, Any>(
             "pagesize" to Constants.PAGESIZE,
-            "page" to 1,
-            "goal_city" to ""
+            "page" to 1
         )
     }
 
-    override fun lazyLoad() {
+    override fun initView(view: View) {
+        super.initView(view)
         binding.apply {
             mLayoutStatusView = root
             ClickUtils.applySingleDebouncing(
@@ -64,6 +61,7 @@ class TravelFragment :
             travelPlanRv.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             travelPlanRv.adapter = travelAdapter
+            travelAdapter.setEmptyView(R.layout.layout_empty_view)
 
 
             travelCitys.layoutManager =
@@ -71,27 +69,14 @@ class TravelFragment :
             travelCitys.adapter = travelCityAdapter
             travelCitys1.layoutManager = GridLayoutManager(activity!!, 5)
             travelCitys1.adapter = travelCityAdapter1
-
-            repeat(4) {
-                UserManager.tempDatas.forEachIndexed { index, s ->
-                    datas.add(
-                        TravelCityBean(
-                            "$index",
-                            it * 13 + index * 10,
-                            s,
-                            it == 0 && index == 0
-                        )
-                    )
-                }
-            }
-            travelCityAdapter.setNewInstance(datas)
-            travelCityAdapter1.setNewInstance(datas)
             travelCityAdapter.setOnItemClickListener { _, view, position ->
                 travelCityAdapter.data.forEach {
                     it.checked = it == travelCityAdapter.data[position]
                 }
                 travelCityAdapter.notifyDataSetChanged()
                 travelCityAdapter1.notifyDataSetChanged()
+                params["goal_city"] = travelCityAdapter.data[position].id
+                binding.refreshTravel.autoRefresh()
             }
             travelCityAdapter1.setOnItemClickListener { _, view, position ->
                 travelCityAdapter1.data.forEach {
@@ -100,20 +85,19 @@ class TravelFragment :
                 travelCitys.smoothScrollToPosition(position)
                 travelCityAdapter1.notifyDataSetChanged()
                 travelCityAdapter.notifyDataSetChanged()
+                params["goal_city"] = travelCityAdapter.data[position].id
+                binding.refreshTravel.autoRefresh()
             }
 
             userAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                LogUtils.d(
-                    "verticalOffset===$verticalOffset,44F=${SizeUtils.dp2px(70F)},44F=${SizeUtils.dp2px(
-                        44F
-                    )},44F=${userAppbar.height}},44F=${toolbar.height}"
-                )
                 citysCl.alpha = 1 - abs(verticalOffset) * 1F / (userAppbar.height - toolbar.height)
             })
         }
 
-        mLayoutStatusView?.showLoading()
-        mPresenter?.planList(params)
+    }
+
+    override fun lazyLoad() {
+        mPresenter?.getMenuList()
     }
 
     override fun onClick(v: View?) {
@@ -126,11 +110,9 @@ class TravelFragment :
             }
             binding.travelPublishBtn -> {
                 CommonFunction.checkPublishDating(activity!!)
-//                mPresenter?.checkPlan()
             }
         }
     }
-
 
 
     override fun planList(success: Boolean, datas: MutableList<TravelPlanBean>) {
@@ -154,6 +136,16 @@ class TravelFragment :
                 binding.refreshTravel.finishRefresh(success)
             }
         }
+    }
+
+    override fun getMenuList(datas: MutableList<TravelCityBean>) {
+        if (datas.isNotEmpty()) {
+            datas[0].checked = true
+            params["goal_city"] = datas[0].id
+        }
+        travelCityAdapter.setNewInstance(datas)
+        travelCityAdapter1.setNewInstance(datas)
+        mPresenter?.planList(params)
     }
 
     private var page = 1

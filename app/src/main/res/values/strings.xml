@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">奢旅</string>
+    <string name="app_name">尤玩</string>
 
     <!-- 友盟配置-->
     <string name="UMENG_APPKEY">607d71ce9e4e8b6f61767a85</string>
@@ -14,7 +14,6 @@
     <string name="no_network_view_hint">网络异常</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="service_error">服务器出错，请重试</string>
     <string name="retry_net_error">网络异常，点击重试</string>
     <string name="retry_load_error">加载失败，请稍后重试</string>
@@ -26,7 +25,7 @@
     <string name="no_data">暂无数据</string>
     <string name="no_network">网络异常</string>
     <string name="no_network_tip">请检查网络后点击重新加载</string>
-    <string name="data_error">数据获取失败，点击重试</string>
+    <string name="data_error">加载失败，点击重试</string>
     <string name="network_unavailable_tip">网络连接不可用,请检查网络设置!</string>
 
     <string name="location_is_not_available">位置服务未开启</string>
@@ -395,21 +394,21 @@
     <string name="login_presents_you_agree">登录注册代表你已同意</string>
     <string name="and1">和</string>
     <string name="and2">以及《</string>
-    <string name="privacy_t1">尊敬的用户，欢迎使用声尤。\n依据最新法律法规、监管政策等要求及业务实际情况，更新了</string>
+    <string name="privacy_t1">尊敬的用户，欢迎使用尤玩旅行。\n依据最新法律法规、监管政策等要求及业务实际情况，更新了</string>
     <string name="privacy_t2">，特此向您提示：\n\n</string>
-    <string name="privacy_t3">请您务必仔细阅读并理解相关条款内容，在确认充分理解的前提下同意后使用声尤相关产品及服务。\n</string>
+    <string name="privacy_t3">请您务必仔细阅读并理解相关条款内容，在确认充分理解的前提下同意后使用尤玩旅行相关产品及服务。\n</string>
     <string name="privacy_t7">为了向您提供一键分享服务，我们的产品集成友盟+ U-Share SDK，友盟+SDK需要收集您的设备Mac地址、唯一设备识别码（IMEI/android ID/IDFA/OPENUDID/GUID、SIM 卡 IMSI 信息）以提供统计分析服务，并通过地理位置校准报表数据准确性，提供基础反作弊能力。\n</string>
     <string name="privacy_t8">点击同意即代表您已经阅读并同意</string>
-    <string name="privacy_t4">，如果您不同意，将可能影响使用声尤产品和服务。\n\n我们将按照法律法规要求，采取相应安全保护措施，尽力保护您的个人信息安全。</string>
+    <string name="privacy_t4">，如果您不同意，将可能影响使用尤玩旅行产品和服务。\n\n我们将按照法律法规要求，采取相应安全保护措施，尽力保护您的个人信息安全。</string>
     <string name="privacy_t5">您需要同意</string>
     <string name="privacy_t6">才能继续使用我们的产品及服务</string>
     <string name="warming_notice">温馨提示</string>
     <string name="dont_agree">不同意</string>
     <string name="login_tip_and"> 及 </string>
     <string name="agree">同意</string>
-    <string name="sign_up">加入声尤</string>
+    <string name="sign_up">加入尤玩旅行</string>
     <string name="onkey_login">本机号码一键登录</string>
-    <string name="create_profile_start_date">创建个人资料，开始你的声尤之旅</string>
+    <string name="create_profile_start_date">创建个人资料，开始你的尤玩旅行之旅</string>
     <string name="one_key_login">本机号码一键登录</string>
     <string name="other_login_way">其他方式登录</string>
     <string name="login_error">登录失败！请重试</string>

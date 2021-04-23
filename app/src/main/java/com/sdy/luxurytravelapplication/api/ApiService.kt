@@ -396,6 +396,14 @@ interface ApiService {
     fun datingApply(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ApplyDatingBean?>>
 
 
+    /**
+     * 旅行计划的 选城市列表
+     */
+    @FormUrlEncoded
+    @POST("Travel/getMenuList${Constants.END_BASE_URL_v2}")
+    fun getMenuList(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<TravelCityBean>?>>
+
+
     /******************************消息中心***********************************/
 
     /**

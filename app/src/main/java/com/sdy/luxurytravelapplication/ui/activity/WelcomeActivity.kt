@@ -8,6 +8,7 @@ import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityWelcomeBinding
 import com.sdy.luxurytravelapplication.ui.dialog.PrivacyDialog
+import com.sdy.luxurytravelapplication.utils.AMapManager
 
 /**
  * 启动页面
@@ -56,7 +57,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     private fun startToLogin() {
         //首先获取一次定位
-//        AMapManager.initLocation(this@WelcomeActivity)
+        AMapManager.initLocation(this@WelcomeActivity)
 
         //闪验预取号
         OneKeyLoginManager.getInstance().getPhoneInfo { code, result ->

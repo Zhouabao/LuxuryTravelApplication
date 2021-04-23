@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.app.Activity
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.view.isVisible
@@ -40,7 +41,8 @@ class ChooseTitleActivity :
             refreshTitle.setOnRefreshListener(this@ChooseTitleActivity)
             barCl.actionbarTitle.text = getString(R.string.label_title_hot)
             barCl.rightTextBtn.text = getString(R.string.complete)
-            barCl.rightTextBtn.setTextColor(resources.getColor(R.color.colorAccent))
+            barCl.rightTextBtn.setTextColor(Color.WHITE)
+            barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
             barCl.rightTextBtn.isVisible = true
             ClickUtils.applySingleDebouncing(arrayOf(barCl.rightTextBtn, barCl.btnBack)) {
                 when (it) {

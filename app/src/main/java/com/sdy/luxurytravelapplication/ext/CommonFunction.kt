@@ -490,7 +490,7 @@ object CommonFunction {
 //        req.state = state
 //        wxapi.sendReq(req)
         UMShareAPI.get(context)
-            .getPlatformInfo(context as Activity, shareMedia, MyUMAuthCallback(context))
+            .getPlatformInfo(ActivityUtils.getTopActivity(), shareMedia, MyUMAuthCallback(context))
     }
 
 

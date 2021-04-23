@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -65,6 +66,7 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
             }
             barCl.actionbarTitle.text = getString(R.string.choose_location)
             barCl.rightTextBtn.text = getString(R.string.ok)
+            barCl.rightTextBtn.setTextColor(Color.WHITE)
             barCl.rightTextBtn.isVisible = true
             barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
             barCl.rightTextBtn.setOnClickListener(this@LocationActivity)

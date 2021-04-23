@@ -68,7 +68,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                     }
             }
 
-            //加入声尤
+            //加入尤玩旅行
             ClickUtils.applySingleDebouncing(loginBtn) {
                 if (agreeCb.isChecked) {
 //            startActivity<PhoneActivity>()
