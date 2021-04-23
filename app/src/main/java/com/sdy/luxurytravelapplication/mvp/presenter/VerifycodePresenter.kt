@@ -5,6 +5,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo
 import com.sdy.luxurytravelapplication.base.BasePresenter
 import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.ext.sss
+import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.VerifycodeContract
 import com.sdy.luxurytravelapplication.mvp.model.VerifycodeModel
 
@@ -18,14 +19,12 @@ class VerifycodePresenter : BasePresenter<VerifycodeContract.Model, VerifycodeCo
     VerifycodeContract.Presenter {
     override fun createModel(): VerifycodeContract.Model? = VerifycodeModel()
     override fun sendSms(params: HashMap<String, Any>) {
-        mModel?.sendSms(params)?.sss(mView, false,
-            { mView?.sendSms(true) },
-            { mView?.sendSms(false) })
+        mModel?.sendSms(params)?.ssss(mView, false) { mView?.sendSms(it.code, it.data) }
     }
 
     override fun loginOrAlloc(params: HashMap<String, Any>) {
-        mModel?.loginOrAlloc(params)?.ss(mModel, mView, true) {
-            mView?.loginOrAllocResult(it.data)
+        mModel?.loginOrAlloc(params)?.ssss (mView, true) {
+            mView?.loginOrAllocResult(it.data,it.code,it.msg)
         }
 
     }

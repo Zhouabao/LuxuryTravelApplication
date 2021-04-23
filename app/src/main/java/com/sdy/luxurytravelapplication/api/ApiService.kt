@@ -18,23 +18,12 @@ interface ApiService {
     @POST("OpenApi/getVersion${Constants.END_BASE_URL}")
     fun getRegisterProcessType(): Observable<BaseResp<RegisterFileBean>>
 
-
-    /**
-     * 注册发送短信
-     * scene :场景 register 注册/登录 change 变更 cancel注销
-     * phone :电话号码
-     */
-    @FormUrlEncoded
-    @POST("OpenApi/SendSms${Constants.END_BASE_URL}")
-    fun sendSms(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<Any>>
-
-
     /**
      * 注册
      */
     @FormUrlEncoded
     @POST("OpenApi/LoginOrAlloc${Constants.END_BASE_URL_v2}")
-    fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
+    fun loginOrAlloc(@FieldMap params: HashMap<String, Any>): Observable<BaseResp<LoginBean?>>
 
 
 
@@ -805,7 +794,9 @@ interface ApiService {
 
 
     /**
-     * 发送短信验证码(新)
+     * 注册发送短信
+     * scene :场景 register 注册/登录 change 变更 cancel注销
+     * phone :电话号码
      */
     @FormUrlEncoded
     @POST("OpenApi/SendSms${Constants.END_BASE_URL}")

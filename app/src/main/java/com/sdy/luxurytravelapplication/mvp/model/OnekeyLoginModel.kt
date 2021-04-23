@@ -17,7 +17,7 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class OnekeyLoginModel : BaseModel(), OnekeyLoginContract.Model {
-    override fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean>> {
+    override fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean?>> {
         return RetrofitHelper.service.loginOrAlloc(params)
     }
 

@@ -108,10 +108,12 @@ class OnekeyLoginActivity :
     }
 
     private var data: LoginBean? = null
-    override fun loginOrAllocResult(data: LoginBean?, success: Boolean) {
-        if (success) {
+    override fun loginOrAllocResult(data: LoginBean?, code: Int) {
+        if (code==200) {
             this.data = data
             mPresenter?.loginIM(LoginInfo(data!!.accid, data.extra_data.im_token))
+        }else if (code == 401) {
+            RegisterTooManyActivity.start(data?.countdown_time ?: 0, this)
         } else {
             OneKeyLoginManager.getInstance().setLoadingVisibility(false)
         }

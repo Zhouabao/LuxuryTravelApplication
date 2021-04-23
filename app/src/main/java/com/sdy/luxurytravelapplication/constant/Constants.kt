@@ -8,6 +8,7 @@ object Constants {
 
     //测试
     const val BASE_URL = "http://testppsns.talkdating.cn/ppsns/"
+//    const val BASE_URL = "http://testslapp.talkdating.cn/ppsns/"
     const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
 
     //  生产

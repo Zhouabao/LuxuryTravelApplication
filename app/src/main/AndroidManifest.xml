@@ -9,34 +9,26 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-    <!-- 权限声明 -->
+        tools:ignore="ProtectedPermissions" /> <!-- 权限声明 -->
     <!-- 访问网络状态 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 外置存储存取权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 外置存储存取权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 多媒体相关 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 多媒体相关 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <!-- 8.0+系统需要 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- 8.0+系统需要 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.sdy.luxurytravelapplication.permission.RECEIVE_MSG" />
 
     <queries>
         <package android:name="com.eg.android.AlipayGphone" />
         <package android:name="hk.alipay.wallet" />
-    </queries>
-
-
-    <!-- 小米推送 -->
+    </queries> <!-- 小米推送 -->
     <permission
         android:name="com.sdy.luxurytravelapplication.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
@@ -50,9 +42,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.sdy.luxurytravelapplication.push.permission.MESSAGE" /> <!-- 兼容flyme3.0配置权限 -->
-    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
-
-    <!-- oppo推送配置权限 -->
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" /> <!-- oppo推送配置权限 -->
     <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE" />
     <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE" />
 
@@ -75,8 +65,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.RegisterTooManyActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".nim.location.LocationAmapActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".liveface.CollectionSuccessActivity"
             android:launchMode="singleTop" />
@@ -203,7 +196,7 @@
         <activity
             android:name=".ui.activity.UploadVerifyPublicActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
         <activity
             android:name=".ui.activity.UploadVerifyInfoActivity"
             android:launchMode="singleTop" />
@@ -224,9 +217,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GuideActivity"
-            android:launchMode="singleTop" >
-
-        </activity>
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".ui.activity.GetMoreMatchActivity"
             android:launchMode="singleTop" />
@@ -260,13 +251,9 @@
         <activity
             android:name=".ui.activity.RegisterInfoTwoActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".nim.location.NavigationAmapActivity"
-            android:launchMode="singleTop" />
-
-
-        <!-- 查看大图 -->
+            android:launchMode="singleTop" /> <!-- 查看大图 -->
         <activity
             android:name=".nim.business.session.activity.WatchMessagePictureActivity"
             android:configChanges="keyboardHidden"
@@ -280,10 +267,7 @@
             android:theme="@style/DarkTheme" />
         <activity
             android:name=".nim.business.session.activity.ChatActivity"
-            android:launchMode="singleTop" />
-
-
-        <!--////////////闪验验证码一键登录////////////////-->
+            android:launchMode="singleTop" /> <!-- ////////////闪验验证码一键登录//////////////// -->
         <activity
             android:name="com.chuanglan.shanyan_sdk.view.CmccLoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -306,29 +290,19 @@
             android:name="com.chuanglan.shanyan_sdk.view.CTCCPrivacyProtocolActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="behind" />
-
-
-
-
-        <!--/////////////云信配置///////////////////-->
-
-
+            android:screenOrientation="behind" /> <!-- /////////////云信配置/////////////////// -->
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
-            android:process=":core" />
-        <!-- 云信后台辅助服务 -->
+            android:process=":core" /> <!-- 云信后台辅助服务 -->
         <service
             android:name="com.netease.nimlib.service.NimService$Aux"
-            android:process=":core" />
-        <!-- 云信后台辅助服务 -->
+            android:process=":core" /> <!-- 云信后台辅助服务 -->
         <service
             android:name="com.netease.nimlib.job.NIMJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
-        <!-- 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 -->
+            android:process=":core" /> <!-- 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 -->
         <receiver
             android:name="com.netease.nimlib.service.NimReceiver"
             android:exported="false"
@@ -337,25 +311,19 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>
-        <!-- 云信进程间通信 Receiver -->
-        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
-        <!-- 云信进程间通信service -->
-        <service android:name="com.netease.nimlib.service.ResponseService" />
-        <!-- 云信进程间通信provider -->
+        </receiver> <!-- 云信进程间通信 Receiver -->
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" /> <!-- 云信进程间通信service -->
+        <service android:name="com.netease.nimlib.service.ResponseService" /> <!-- 云信进程间通信provider -->
         <provider
             android:name="com.netease.nimlib.ipc.NIMContentProvider"
             android:authorities="com.sdy.luxurytravelapplication.ipc.provider"
             android:exported="false"
-            android:process=":core" />
-
-        <!-- 云信内部使用的进程间通信provider -->
+            android:process=":core" /> <!-- 云信内部使用的进程间通信provider -->
         <!-- SDK启动时会强制检测该组件的声明是否配置正确，如果检测到该声明不正确，SDK会主动抛出异常引发崩溃 -->
         <provider
             android:name="com.netease.nimlib.ipc.cp.provider.PreferenceContentProvider"
             android:authorities="com.sdy.luxurytravelapplication.ipc.provider.preference"
-            android:exported="false" />
-        <!-- 配置的service和receiver -->
+            android:exported="false" /> <!-- 配置的service和receiver -->
         <service
             android:name="com.xiaomi.push.service.XMPushService"
             android:enabled="true"
@@ -365,16 +333,14 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":mixpush" />
-        <!-- 注：此service必须在3.0.1版本以后（包括3.0.1版本）加入 -->
+            android:process=":mixpush" /> <!-- 注：此service必须在3.0.1版本以后（包括3.0.1版本）加入 -->
         <service
             android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name="com.xiaomi.mipush.sdk.MessageHandleService"
-            android:enabled="true" />
-        <!-- 注：此service必须在2.2.5版本以后（包括2.2.5版本）加入 -->
+            android:enabled="true" /> <!-- 注：此service必须在2.2.5版本以后（包括2.2.5版本）加入 -->
         <receiver
             android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
             android:exported="true">
@@ -408,8 +374,7 @@
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-        <!-- 配置的service, activity, receiver -->
+        </service> <!-- 配置的service, activity, receiver -->
         <service
             android:name="com.vivo.push.sdk.service.CommandClientService"
             android:exported="true" />
@@ -426,17 +391,14 @@
                 <!-- 接收 push 消息 -->
                 <action android:name="com.vivo.pushclient.action.RECEIVE" />
             </intent-filter>
-        </receiver>
-
-        <!-- Oppo推送配置项 需要配置以下两项 -->
+        </receiver> <!-- Oppo推送配置项 需要配置以下两项 -->
         <service
             android:name="com.netease.nimlib.mixpush.oppo.OppoPushService"
             android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
             <intent-filter>
                 <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE" />
             </intent-filter>
-        </service>
-        <!-- 兼容Q以下版本 -->
+        </service> <!-- 兼容Q以下版本 -->
         <service
             android:name="com.netease.nimlib.mixpush.oppo.OppoAppPushService"
             android:permission="com.heytap.mcs.permission.SEND_PUSH_MESSAGE">
@@ -444,10 +406,7 @@
                 <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE" />
                 <action android:name="com.heytap.msp.push.RECEIVE_MCS_MESSAGE" />
             </intent-filter>
-        </service>
-        <!-- 兼容Q版本 -->
-
-
+        </service> <!-- 兼容Q版本 -->
         <!-- 魅族推送配置项 -->
         <receiver android:name="com.netease.nimlib.mixpush.mz.MZPushReceiver">
             <intent-filter android:priority="0x7fffffff">
@@ -464,11 +423,7 @@
 
                 <category android:name="com.netease.nim.demo" />
             </intent-filter>
-        </receiver>
-
-
-        <!--              百度人脸识别            -->
-
+        </receiver> <!-- 百度人脸识别 -->
         <activity
             android:name="com.baidu.liantian.LiantianActivity"
             android:excludeFromRecents="true"
@@ -485,9 +440,7 @@
 
         <meta-data
             android:name="seckey_avscan"
-            android:value="660346260f8a841a04ec2a56815b421b" />
-
-        <!--将com.baidu.idl.face.demo替换成您工程的包名-->
+            android:value="660346260f8a841a04ec2a56815b421b" /> <!-- 将com.baidu.idl.face.demo替换成您工程的包名 -->
         <meta-data
             android:name="appkey_avscan"
             android:value="100034" />
@@ -510,6 +463,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.baidu.liantian.LiantianService"
             android:exported="false">
@@ -519,18 +473,12 @@
                 <category android:name="com.baidu.category.liantian" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </service>
-
-
-        <!-- ///////////////////////高德/////////////////////// -->
+        </service> <!-- ///////////////////////高德/////////////////////// -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="@string/AMAP_APPID" />
 
-        <service android:name="com.amap.api.location.APSService" />
-
-
-        <!--//////////////////////////////适配///////////////////////////-->
+        <service android:name="com.amap.api.location.APSService" /> <!-- //////////////////////////////适配/////////////////////////// -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -539,14 +487,10 @@
             android:value="360" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="640" />
-
-
-        <!-- 友盟 Appkey 自己应用注册申请来的 -->
+            android:value="640" /> <!-- 友盟 Appkey 自己应用注册申请来的 -->
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
-        <!-- 多渠道打包 -->
+            android:value="${UMENG_CHANNEL_VALUE}" /> <!-- 多渠道打包 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="@string/UMENG_APPKEY" />
@@ -565,13 +509,11 @@
                 <data android:scheme="@string/WECHAT_APPID" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -583,9 +525,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths1"
                 tools:replace="name,resource" />
-        </provider>
-
-        <!-- - - - - - - - - - - QQ分享 - - - - - - - - - - - - -->
+        </provider> <!-- - - - - - - - - - - QQ分享 - - - - - - - - - - - - -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -602,11 +542,7 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
-        <!--////////////////////bugly////////////-->
-
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- ////////////////////bugly//////////// -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

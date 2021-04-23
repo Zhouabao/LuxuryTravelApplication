@@ -10,6 +10,11 @@ object ErrorStatus {
     const val SUCCESS = 200
 
     /**
+     * 当前注册人数过多
+     */
+    const val REGISTER_TOO_MANY_PEOPLE = 401
+
+    /**
      * Token 过期
      */
     const val TOKEN_INVALID = 403

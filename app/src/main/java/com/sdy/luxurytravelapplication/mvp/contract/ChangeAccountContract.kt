@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginOffCauseBeans
+import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterTooManyBean
 import io.reactivex.Observable
 
 /**
@@ -47,7 +48,7 @@ interface ChangeAccountContract {
         /**
          * 发送验证码
          */
-        fun sendSms(params: HashMap<String, Any>):Observable<BaseResp<Any>>
+        fun sendSms(params: HashMap<String, Any>):Observable<BaseResp<RegisterTooManyBean?>>
         /**
          * 获取注销原因
          */

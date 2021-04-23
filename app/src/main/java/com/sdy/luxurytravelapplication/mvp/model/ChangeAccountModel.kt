@@ -5,6 +5,7 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.ChangeAccountContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginOffCauseBeans
+import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterTooManyBean
 import io.reactivex.Observable
 
 /**
@@ -19,7 +20,7 @@ class ChangeAccountModel : BaseModel(), ChangeAccountContract.Model {
         return RetrofitHelper.service.changeAccount(params)
     }
 
-    override fun sendSms(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
+    override fun sendSms(params: HashMap<String, Any>): Observable<BaseResp<RegisterTooManyBean?>> {
         return RetrofitHelper.service.sendSms(params)
     }
 

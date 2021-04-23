@@ -37,6 +37,7 @@ data class LoginBean(
     var qn_prefix: List<String> = listOf(),
     var qntk: String = "",
     var register: Boolean = false,
+    var countdown_time: Int = 0,
     var token: String = "",
     var userinfo: Userinfo = Userinfo()
 )
@@ -1377,3 +1378,5 @@ data class AllMsgCount(
     val likecount: Int = 0,//点赞未读
     val square_count: Int = 0//
 )
+
+

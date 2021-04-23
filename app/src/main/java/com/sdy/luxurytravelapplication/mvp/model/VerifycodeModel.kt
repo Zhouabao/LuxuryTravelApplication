@@ -7,6 +7,7 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.contract.VerifycodeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterTooManyBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import io.reactivex.Observable
 
@@ -17,11 +18,11 @@ import io.reactivex.Observable
  *    version: 1.0
  */
 class VerifycodeModel : BaseModel(), VerifycodeContract.Model {
-    override fun sendSms(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
+    override fun sendSms(params: HashMap<String, Any>): Observable<BaseResp<RegisterTooManyBean?>> {
         return RetrofitHelper.service.sendSms(params)
     }
 
-    override fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean>> {
+    override fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean?>> {
         return RetrofitHelper.service.loginOrAlloc(params)
 
     }

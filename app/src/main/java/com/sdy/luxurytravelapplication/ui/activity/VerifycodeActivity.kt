@@ -14,6 +14,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityVerifycodeBinding
 import com.sdy.luxurytravelapplication.mvp.contract.VerifycodeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.RegisterTooManyBean
 import com.sdy.luxurytravelapplication.mvp.presenter.VerifycodePresenter
 import com.sdy.luxurytravelapplication.ui.dialog.LoginOffSuccessDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
@@ -94,12 +95,21 @@ class VerifycodeActivity :
         mPresenter?.sendSms(hashMapOf("phone" to phone, "scene" to "register"))
     }
 
-    override fun sendSms(success: Boolean) {
-        if (success) {
+    override fun sendSms(code: Int, data: RegisterTooManyBean?) {
+        if (code == 200) {
             timer.cancel()
             timer.start()
             KeyboardUtils.showSoftInput(binding.verifycodeEt.getChildAt(0))
             binding.verifycodeEt.onFocusChange(binding.verifycodeEt, true)
+        } else if (code == 401) {
+            RegisterTooManyActivity.start(data?.countdown_time ?: 0, this)
+
+            SpanUtils.with(binding.resendBtn)
+                .append(getString(R.string.reget))
+                .setForegroundColor(resources.getColor(R.color.colorAccent))
+                .setBold()
+                .create()
+            binding.resendBtn.isEnabled = true
         } else {
             SpanUtils.with(binding.resendBtn)
                 .append(getString(R.string.reget))
@@ -111,9 +121,15 @@ class VerifycodeActivity :
     }
 
     private lateinit var data: LoginBean
-    override fun loginOrAllocResult(data: LoginBean) {
-        this.data = data
-        mPresenter?.loginIM(LoginInfo(data.accid, data.extra_data.im_token))
+    override fun loginOrAllocResult(data: LoginBean?, code: Int, msg: String) {
+        if (code == 200) {
+            this.data = data!!
+            mPresenter?.loginIM(LoginInfo(data.accid, data.extra_data.im_token))
+        } else if (code == 401) {
+            RegisterTooManyActivity.start(data?.countdown_time ?: 0, this)
+        } else {
+            ToastUtil.toast(msg)
+        }
     }
 
     override fun cancelAccountResult(success: Boolean) {

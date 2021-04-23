@@ -14,11 +14,13 @@ import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.LoginBean
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.ui.activity.PhoneActivity
+import com.sdy.luxurytravelapplication.ui.activity.RegisterTooManyActivity
 import com.sdy.luxurytravelapplication.ui.activity.VerifycodeActivity
 import com.sdy.luxurytravelapplication.ui.dialog.LoadingDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.bean.SHARE_MEDIA
+import java.util.*
 
 /**
  *    author : ZFM
@@ -106,7 +108,7 @@ class MyUMAuthCallback(val context: Context) : UMAuthListener {
                 loginIM(LoginInfo(data!!.accid, data.extra_data.im_token))
             }
             401 -> {//注冊人數過多
-
+                RegisterTooManyActivity.start(data?.countdown_time?:0,context)
             }
             else -> {
                 OneKeyLoginManager.getInstance().setLoadingVisibility(false)

@@ -24,13 +24,13 @@ interface OnekeyLoginContract {
     }
 
     interface View : IView {
-        fun loginOrAllocResult(data: LoginBean?, success: Boolean)
+        fun loginOrAllocResult(data: LoginBean?, success: Int)
         fun loginIM(info: LoginInfo?, success: Boolean)
 
     }
 
     interface Model : IModel {
-        fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean>>
+        fun loginOrAlloc(params: HashMap<String, Any>): Observable<BaseResp<LoginBean?>>
 
         fun loginIM(info: LoginInfo, callback: RequestCallback<LoginInfo>)
     }
