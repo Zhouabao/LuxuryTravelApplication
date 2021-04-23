@@ -78,11 +78,11 @@ class MoreActionNewDialog(
                 //大小压缩，默认为大小压缩，适合普通很大的图
                 image.compressStyle = UMImage.CompressStyle.SCALE
                 image.compressFormat = Bitmap.CompressFormat.JPEG
-                image.title =
-                    context.getString(R.string.send_a_pic_in_app, squareBean?.nickname.toString())
-                image.description = if (!squareBean?.descr.isNullOrEmpty()) {
-                    squareBean?.descr
-                } else context.getString(R.string.hurry_to_see_this)
+//                image.title =
+//                    context.getString(R.string.send_a_pic_in_app, squareBean?.nickname.toString())
+//                image.description = if (!squareBean?.descr.isNullOrEmpty()) {
+//                    squareBean?.descr
+//                } else context.getString(R.string.hurry_to_see_this)
                 ShareAction(ActivityUtils.getTopActivity())
                     .setPlatform(platformConfig)
                     .withText(
@@ -91,12 +91,10 @@ class MoreActionNewDialog(
                         } else context.getString(R.string.hurry_to_see_this)
                     )//分享内容
                     .withMedia(image)//多张图片
-                    //                    .withMedias(*images)//多张图片
                     .setCallback(callback)
                     .share()
 
             } else {            //文本分享
-                //                http://www.baidu.com
                 val web = UMWeb("http://")
                 web.title = context.getString(
                     R.string.send_a_square_in_app,
@@ -237,9 +235,9 @@ class MoreActionNewDialog(
         itemList.add(ShareDialog.Item(context, R.drawable.icon_share_wechat_circle, "朋友圈"))
         itemList.add(ShareDialog.Item(context, R.drawable.icon_share_qq, "QQ"))
         itemList.add(ShareDialog.Item(context, R.drawable.icon_share_qq_zone, "QQ空间"))
-        itemList.add(ShareDialog.Item(context, R.drawable.icon_share_weibo, "微博"))
+//        itemList.add(ShareDialog.Item(context, R.drawable.icon_share_weibo, "微博"))
         if (type == TYPE_SHARE_SQUARE) {
-            itemList.add(ShareDialog.Item(context, R.drawable.icon_share_friend, "奢旅好友"))
+            itemList.add(ShareDialog.Item(context, R.drawable.icon_share_friend, "尤玩好友"))
             if (!squareBean?.descr.isNullOrEmpty())
                 itemList.add(ShareDialog.Item(context, R.drawable.icon_share_copy, "复制"))
             itemList.add(ShareDialog.Item(context, R.drawable.icon_share_copy, "举报"))
@@ -262,7 +260,7 @@ class MoreActionNewDialog(
                     shareToThirdParty(SHARE_MEDIA.QZONE)
                 }
 
-                "奢旅好友" -> {
+                "尤玩好友" -> {
                     if (squareBean != null) {
                         ContactBookActivity.start(context, squareBean!!)
                     }

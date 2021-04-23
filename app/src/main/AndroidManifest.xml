@@ -266,15 +266,6 @@
             android:launchMode="singleTop" />
 
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths1" />
-        </provider>
         <!-- 查看大图 -->
         <activity
             android:name=".nim.business.session.activity.WatchMessagePictureActivity"
@@ -590,7 +581,7 @@
             tools:replace="name,authorities,exported,grantUriPermissions">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"
+                android:resource="@xml/file_paths1"
                 tools:replace="name,resource" />
         </provider>
 

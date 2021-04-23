@@ -668,7 +668,7 @@
     <string name="message_push">短信通知</string>
     <string name="wechat_push">微信推送</string>
     <string name="wechat_receive_message">微信接收消息通知</string>
-    <string name="jitang_wechat_public">奢旅微信公众账号</string>
+    <string name="jitang_wechat_public">尤玩旅行微信公众账号</string>
     <string name="Binded">已绑定</string>
     <string name="Bind_now">去绑定</string>
     <string name="focus_sugartown">开启微信推送需要先关注尤玩旅行微信公众号\n 请保存二维码并使用微信扫一扫关注绑定</string>

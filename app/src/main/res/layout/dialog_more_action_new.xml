@@ -123,7 +123,7 @@
             android:drawableTop="@drawable/icon_share_friend"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="奢旅好友"
+            android:text="尤玩好友"
             android:textColor="#FF888D92"
             android:textSize="12sp" />
 
