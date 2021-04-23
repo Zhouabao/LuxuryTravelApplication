@@ -19,7 +19,7 @@
         android:layout_height="105dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:src="@drawable/icon_logo_welcome"
+        android:src="@mipmap/ic_launcher"
         app:borderRadius="10dp"
         app:type="round" />
 
