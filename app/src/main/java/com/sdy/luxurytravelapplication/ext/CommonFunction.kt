@@ -791,7 +791,7 @@ object CommonFunction {
                     ).show()
                 }
                 203 -> {
-                    TodayHasDatingDialog(context).show()
+                    TodayHasDatingDialog().show()
 
                 }
                 else -> {

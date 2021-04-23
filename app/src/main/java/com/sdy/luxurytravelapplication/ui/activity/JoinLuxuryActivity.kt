@@ -153,7 +153,7 @@ class JoinLuxuryActivity :
                         BannerGuideBean(
                             R.drawable.icon_luxury_boy_4,
                             "聊天、活动内容置顶",
-                            "你的消息不会折叠隐藏，直接进入对方消息首页列表并置顶显示，您发布的出游活动也将优先展示"
+                            "你的消息不会折叠隐藏，直接进入对方消息首页列表并置顶显示，您发布的伴游活动也将优先展示"
                         )
                     )
                     add(

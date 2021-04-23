@@ -6,14 +6,14 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.databinding.DialogTodayHasDatingBinding
 import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
-import com.sdy.luxurytravelapplication.ui.dialog.ChangeAvatarRealManDialog
-import com.sdy.luxurytravelapplication.ui.dialog.ContactNotPassDialog
-import com.sdy.luxurytravelapplication.ui.dialog.VerifyNormalResultDialog
+import com.sdy.luxurytravelapplication.ui.dialog.PublishDatingDialog
+import com.sdy.luxurytravelapplication.ui.dialog.TodayHasDatingDialog
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**

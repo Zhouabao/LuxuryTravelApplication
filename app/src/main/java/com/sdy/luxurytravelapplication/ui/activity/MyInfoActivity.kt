@@ -722,7 +722,7 @@ class MyInfoActivity :
                         checkSaveEnable()
                     }
                     REPLACE_REQUEST,//替换头像
-                    PictureConfig.CHOOSE_REQUEST//icon_verify_account_not_pass
+                    PictureConfig.CHOOSE_REQUEST
                     -> {
                         if (data != null) {
                             if (!PictureSelector.obtainMultipleResult(data).isNullOrEmpty()) {

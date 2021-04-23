@@ -8,7 +8,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogTodayHasDatingBinding
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
-class TodayHasDatingDialog(context: Context) : BaseBindingDialog<DialogTodayHasDatingBinding>() {
+class TodayHasDatingDialog() : BaseBindingDialog<DialogTodayHasDatingBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initWindow()

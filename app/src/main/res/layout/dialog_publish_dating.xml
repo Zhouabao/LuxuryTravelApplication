@@ -21,7 +21,7 @@
         android:layout_height="125dp"
         android:layout_marginTop="30dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/icon_travel_before1"
+        android:src="@drawable/icon_publish_travel"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

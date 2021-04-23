@@ -49,7 +49,6 @@ class HumanVerifyDialog(val type: Int, val showToast: Boolean):
             accountDangerContent.text =  context.getString(R.string.avatar_compare_fail)
             accountDangerBtn.text = context.getString(R.string.change_avatar)
             humanVerify.setTextColor(Color.parseColor("#FFFF6318"))
-            accountDangerLoading.isVisible = false
             accountDangerBtn.isEnabled = true
             accountDangerBtn.setOnClickListener {
                 context.startActivity<MyInfoActivity>(

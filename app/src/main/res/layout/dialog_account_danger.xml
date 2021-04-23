@@ -1,254 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountDangerCl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center">
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_rectangle_white_top_15dp"
+    android:orientation="vertical"
+    android:visibility="visible">
 
+    <com.sdy.luxurytravelapplication.widgets.RoundImageView
+        android:id="@+id/accountDangerVerifyStatuLogo"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icon_account_danger"
+        app:borderRadius="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:type="round" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/accountDangerCl"
-        android:layout_width="305dp"
+    <ImageView
+        android:id="@+id/accountDangerImgAlert"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="107dp"
+        android:src="@drawable/icon_warning"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/accountDangerVerifyStatuLogo" />
+
+    <ImageView
+        android:id="@+id/closeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/icon_close_transparent"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/accountDangerTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/shape_rectangle_white_15dp"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:layout_marginTop="10dp"
+        android:text="@string/account_danger"
+        android:textColor="#FF333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerImgAlert" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.sdy.luxurytravelapplication.widgets.RoundImageView
-                android:id="@+id/accountDangerVerifyStatuLogo"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/icon_account_danger"
-                app:borderRadius="25dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:type="round" />
-
-            <ImageView
-                android:id="@+id/accountDangerImgAlert"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="111dp"
-                android:src="@drawable/icon_warning"
-                android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/accountDangerVerifyStatuLogo" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/closeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="12dp"
-            android:src="@drawable/icon_close_transparent"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/accountDangerTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="@string/account_danger"
-            android:textColor="#FF333333"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl" />
-
-        <TextView
-            android:id="@+id/accountDangerContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.1"
-            android:text="@string/please_verify_to_clear_danger"
-            android:textColor="#FFB6BCC6"
-            android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/accountDangerTitle" />
-
-        <FrameLayout
-            android:id="@+id/cl1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@id/humanVerify"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/accountDangerContent">
-
-            <TextView
-                android:id="@+id/accountDangerBtn"
-                android:layout_width="245dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/shape_rectangle_green_25dp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="@string/goto_verify" />
-
-            <ImageView
-                android:id="@+id/accountDangerLoading"
-                android:layout_width="123px"
-                android:layout_height="match_parent"
-                android:layout_gravity="center" />
-            <!--  <com.airbnb.lottie.LottieAnimationView
-                  android:id="@+id/accountDangerLoading"
-                  android:layout_width="123px"
-                  android:layout_height="match_parent"
-                  android:layout_gravity="center"
-                  app:lottie_autoPlay="true"
-                  app:lottie_fileName="data_verify_ing.json"
-                  app:lottie_loop="true" />-->
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/humanVerify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:text="@string/apply_human_verify"
-            android:textColor="@color/colorAccent"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/accountDangerResultCl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/accountDangerContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorWhite"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.1"
+        android:text="@string/please_verify_to_clear_danger"
+        android:textColor="#FFB6BCC6"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerTitle" />
+
+    <TextView
+        android:id="@+id/accountDangerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_rectangle_green_25dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/humanVerify"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerContent"
+        tools:text="@string/goto_verify" />
 
 
-        <TextView
-            android:id="@+id/accountDangerTitle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="66dp"
-            android:text="@string/account_danger"
-            android:textColor="#131415"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/humanVerify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/apply_human_verify"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountDangerBtn" />
 
-        <TextView
-            android:id="@+id/accountDangerContent1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.4"
-            android:text="@string/please_verify_to_clear_danger"
-            android:textColor="#B6BABF"
-            android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/accountDangerTitle1" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/accountDangerVerifyStatuLogo1"
-            android:layout_width="238dp"
-            android:layout_height="238dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/icon_living_face_bg"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/accountDangerContent1" />
-
-        <ImageView
-            android:id="@+id/accountDangerImgAlert1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="220dp"
-            android:src="@drawable/icon_wrong"
-            android:visibility="visible"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/accountDangerVerifyStatuLogo1" />
-
-
-        <TextView
-            android:id="@+id/accountDangerBtn1"
-            android:layout_width="235dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/selector_button_29dp"
-            android:gravity="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:text="@string/goto_verify" />
-
-
-        <TextView
-            android:id="@+id/humanVerify1"
-            android:layout_width="144dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_stroke_1ed0a7_29dp"
-            android:gravity="center"
-            android:text="@string/apply_human_verify"
-            android:textColor="#ffc5c6c8"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/accountDangerBtn1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>

@@ -91,11 +91,14 @@
 
     <TextView
         android:id="@+id/userBasicInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toLeftOf="@id/moreBtn"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:textColor="#FFB6BCC6"
         android:textSize="12sp"
+        android:maxLines="1"
         app:layout_constraintLeft_toLeftOf="@id/userNickname"
         app:layout_constraintTop_toBottomOf="@id/userNickname"
         tools:text="234m·女·天蝎座·30分钟前" />
