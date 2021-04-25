@@ -314,7 +314,7 @@ interface ApiService {
      * 广场发布
      */
     @FormUrlEncoded
-    @POST("square/announceV13${Constants.END_BASE_URL}")
+    @POST("square/announceV13${Constants.END_BASE_URL_v2}")
     fun squareAnnounce(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
 
