@@ -36,6 +36,8 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
     }
 
     private val guideBannerAdapter by lazy { GuideBannerAdapter() }
+
+    var mPosition = 0
     override fun initView() {
         (binding.bannerGuide as BannerViewPager<BannerGuideBean>).apply {
             adapter = guideBannerAdapter
@@ -46,7 +48,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    binding.nextBtn.isEnabled = position == guideBannerAdapter.itemCount - 1
+                    mPosition = position
                 }
             })
         }.create()
@@ -82,17 +84,30 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
             )
         }
         binding.bannerGuide.refreshData(data)
+
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
-            if (UserManager.gender == 1 && moreMatchBean.threshold && !moreMatchBean.isvip) {
-                InviteCodeActivity.start(this, moreMatchBean)
-            } else if (UserManager.gender == 2 && moreMatchBean.living_btn) {
-                CommonFunction.startToFace(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
-            } else {
-                moreMatchBean.apply {
-                    UserManager.savePersonalInfo(avatar, birth, gender, nickname)
+
+            when(mPosition){
+                0 ->{
+                    binding.bannerGuide.setCurrentItem(1)
                 }
-                MainActivity.startToMain(this, true)
+                1 ->{
+                    binding.bannerGuide.setCurrentItem(2)
+                }
+                else ->{
+                    if (UserManager.gender == 1 && moreMatchBean.threshold && !moreMatchBean.isvip) {
+                        InviteCodeActivity.start(this, moreMatchBean)
+                    } else if (UserManager.gender == 2 && moreMatchBean.living_btn) {
+                        CommonFunction.startToFace(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
+                    } else {
+                        moreMatchBean.apply {
+                            UserManager.savePersonalInfo(avatar, birth, gender, nickname)
+                        }
+                        MainActivity.startToMain(this, true)
+                    }
+                }
             }
+
         }
     }
 

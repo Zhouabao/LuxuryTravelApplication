@@ -733,7 +733,7 @@ object CommonFunction {
             true
         )
 
-        PictureSelector.create(context as Activity)
+        PictureSelector.create(ActivityUtils.getTopActivity())
             .openCamera(chooseMode)
             .enableCrop(cropEnable)
             .rotateEnabled(rotateEnable)

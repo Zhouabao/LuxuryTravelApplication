@@ -59,7 +59,7 @@ class MyTravelFragment :
             travelPlanRv.adapter = travelAdapter
             travelAdapter.addHeaderView(initHeadView())
             travelAdapter.setEmptyView(initEmptyView())
-            travelAdapter.headerWithEmptyEnable = true
+            travelAdapter.headerWithEmptyEnable = false
         }
     }
 

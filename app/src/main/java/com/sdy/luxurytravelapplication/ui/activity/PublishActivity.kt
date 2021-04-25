@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -97,6 +100,14 @@ class PublishActivity :
                 ), this@PublishActivity
             )
 
+            publishContentEt?.setOnFocusChangeListener { v, hasFocus ->
+                if (binding.emojRv.isVisible) {
+                    binding.publishEmojBtn.setImageResource(R.drawable.icon_publish_emoj)
+                    binding.emojRv.isVisible = false
+                }
+            }
+
+
             previewResourceRv.layoutManager =
                 LinearLayoutManager(this@PublishActivity, RecyclerView.HORIZONTAL, false)
             pickedPhotoAdapter.draggableModule.isDragEnabled = true
@@ -183,9 +194,14 @@ class PublishActivity :
                 finish()
             }
             binding.barCl.rightTextBtn -> {//发布
+                if(binding.publishContentEt.text.isEmpty()){
+                    ToastUtil.toast("文字是必填项")
+                    return
+                }
                 startToUploadAndPublsih()
             }
             binding.publishPicBtn -> {//图片选择
+                binding.publishContentEt.clearFocus()
                 if (pickedPhotos.isNotEmpty()) {
                     if (pickedPhotos[0].fileType == MediaBean.TYPE.VIDEO) {
                         ToastUtil.toast("图片和视频不能同时选择")
@@ -218,6 +234,7 @@ class PublishActivity :
 
             }
             binding.publishVideoBtn -> {//视频选择
+                binding.publishContentEt.clearFocus()
                 if (pickedPhotos.isNotEmpty()) {
                     if (pickedPhotos[0].fileType == MediaBean.TYPE.IMAGE) {
                         ToastUtil.toast("视频和图片不能同时选择")
@@ -251,6 +268,7 @@ class PublishActivity :
 
             }
             binding.publishAudioBtn -> {//语音选择
+                binding.publishContentEt.clearFocus()
                 if (pickedPhotos.isNotEmpty() && pickedPhotos[0].fileType == MediaBean.TYPE.IMAGE) {
                     ToastUtil.toast("语音和照片不能同时选择")
                     return
@@ -272,6 +290,7 @@ class PublishActivity :
 
             }
             binding.publishEmojBtn -> {//表情
+                binding.publishContentEt.clearFocus()
                 binding.emojRv.isVisible = !binding.emojRv.isVisible
                 KeyboardUtils.hideSoftInput(this)
                 if (binding.emojRv.isVisible) {
