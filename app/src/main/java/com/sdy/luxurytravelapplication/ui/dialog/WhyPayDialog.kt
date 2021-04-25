@@ -16,7 +16,7 @@ import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
  *    desc   :
  *    version: 1.0
  */
-class WhyPayDialog(val context1: Context) : BaseBindingDialog<DialogWhyPayBinding>(context1, R.style.MyDialog) {
+class WhyPayDialog(val context1: Context) : BaseBindingDialog<DialogWhyPayBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

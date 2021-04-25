@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.DialogVerifyNormalResultBinding
+import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.ui.activity.VideoIntroduceActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
@@ -36,7 +37,7 @@ class VerifyNormalResultDialog(val status: Int = 0) :
                     continueBtn.text = context.getString(R.string.re_record)
                     ClickUtils.applySingleDebouncing(continueBtn) {
                         if (ActivityUtils.getTopActivity() !is VideoIntroduceActivity)
-                            VideoIntroduceActivity.start(context)
+                            CommonFunction.startToVideoIntroduce(context)
                         dismiss()
                     }
                 }

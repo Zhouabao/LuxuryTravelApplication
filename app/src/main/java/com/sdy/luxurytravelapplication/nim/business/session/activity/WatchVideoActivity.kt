@@ -143,7 +143,7 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             getString(R.string.video_send_at_time, TimeUtil.getDateString(message.getTime()))
         titleBinding.actionbarTitle.setTextColor(Color.WHITE)
         titleBinding.actionbarTitle.isInvisible = false
-        titleBinding.btnBack.onClick {
+        titleBinding.btnBack.setOnClickListener {
             finish()
         }
 

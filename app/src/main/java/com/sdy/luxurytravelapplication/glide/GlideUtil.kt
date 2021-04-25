@@ -123,8 +123,8 @@ object GlideUtil {
             Glide.with(context)
                 .load(url)
                 .apply(
-                    options.placeholder(R.drawable.icon_default_avator)
-                        .error(R.drawable.icon_default_avator)
+                    options.placeholder(R.drawable.icon_default_avatar)
+                        .error(R.drawable.icon_default_avatar)
                 )
                 .into(targetImg)
         }
