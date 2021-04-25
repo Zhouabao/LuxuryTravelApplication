@@ -7,6 +7,7 @@ import com.sdy.luxurytravelapplication.databinding.ItemChatDatingBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.nim.attachment.ChatDatingAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
+import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
 import com.sdy.luxurytravelapplication.viewbinding.bindViewWithGeneric
 
 /**
@@ -39,7 +40,7 @@ class MsgViewHolderChatDating(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAd
 
 
     override fun onItemClick() {
-
+        TravelDetailActivity.start(context,dating_id = attachment.datingId)
     }
 
 }

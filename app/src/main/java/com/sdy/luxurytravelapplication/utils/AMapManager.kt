@@ -99,4 +99,12 @@ object AMapManager {
             }
         }
     }
+
+    fun destory() {
+        if (null != mLocationClient) {
+            mLocationClient!!.stopLocation()
+            mLocationClient!!.onDestroy()
+            mLocationClient = null
+        }
+    }
 }

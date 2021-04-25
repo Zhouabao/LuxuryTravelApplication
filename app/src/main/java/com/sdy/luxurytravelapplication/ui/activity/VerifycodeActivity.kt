@@ -30,12 +30,14 @@ class VerifycodeActivity :
 
     companion object {
         const val TYPE_LOGIN_PHONE = 1 //手机登录
-        const val REGISTER_APPLE = 2//苹果
-        const val TYPE_LOGIN_SY = 3//闪验登录
-        const val TYPE_LOGIN_QQ = 4//QQ登录
-        const val TYPE_LOGIN_WECHAT = 5//微信登录
-        const val TYPE_LOGIN_SINA = 6//sina登录
-        const val TYPE_LOGIN_OFF = 7//注销
+        const val TYPE_LOGIN_OFF = 2//注销
+        const val TYPE_LOGIN_WECHAT = 3//微信登录
+        const val TYPE_LOGIN_SY = 4//闪验登录
+        const val TYPE_LOGIN_GOOGLE = 6//GOOGLE登录
+        const val TYPE_LOGIN_FACEBOOK = 7//FACEBOOK登录
+        const val TYPE_LOGIN_TWITTER = 8//TWITTER
+        const val TYPE_LOGIN_QQ = 9//QQ
+
 
         fun startToVerifyCode(
             context: Context,

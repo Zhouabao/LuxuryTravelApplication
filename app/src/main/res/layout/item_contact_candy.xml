@@ -38,7 +38,7 @@
             android:drawableLeft="@drawable/icon_travel_card_small"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="200旅券"
+            tools:text="200旅券"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 

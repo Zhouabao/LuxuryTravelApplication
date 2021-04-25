@@ -21,8 +21,8 @@ object Constants {
 
     const val END_BASE_URL = "/v1.json"
     const val END_BASE_URL_v2 = "/v2.json"
-    const val PRIVACY_URL = "${BASE_URL}index/Protocol/privacyProtocol.html"//
-    const val PROTOCOL_URL = "${BASE_URL}index/Protocol/userProtocol.html"//
+    const val PRIVACY_URL = "${BASE_URL}index/Protocol/privacyProtocol${END_BASE_URL}"//
+    const val PROTOCOL_URL = "${BASE_URL}index/Protocol/userProtocol${END_BASE_URL}"//
 
     //    ppns/文件类型名/用户ID/当前时间戳/16位随机字符串
     const val FILE_NAME_INDEX = "ppsns/"

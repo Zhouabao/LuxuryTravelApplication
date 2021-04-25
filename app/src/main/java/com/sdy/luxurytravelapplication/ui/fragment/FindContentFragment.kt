@@ -68,7 +68,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
 
 
             adapter.setEmptyView(R.layout.layout_empty_view)
-            adapter.isUseEmpty = false
+//            adapter.isUseEmpty = false
         }
     }
 

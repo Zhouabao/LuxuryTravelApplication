@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 import com.sdy.luxurytravelapplication.R
@@ -22,8 +23,8 @@ import org.jetbrains.anko.startActivity
  *    desc   :
  *    version: 1.0
  */
-class PrivacyDialog(context: Context) :
-    BaseBindingDialog<DialogPrivacyBinding>(context, R.style.MyDialog) {
+class PrivacyDialog :
+    BaseBindingDialog<DialogPrivacyBinding>(ActivityUtils.getTopActivity(), R.style.MyDialog) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +83,8 @@ class PrivacyDialog(context: Context) :
             .setForegroundColor(context.resources.getColor(R.color.color_333333))
             .append(context.getString(R.string.privacy_t3))
             .setForegroundColor(context.resources.getColor(R.color.color_333333))
-            .append(context.getString(R.string.privacy_t7))
-            .setForegroundColor(context.resources.getColor(R.color.colorAccent))
+//            .append(context.getString(R.string.privacy_t7))
+//            .setForegroundColor(context.resources.getColor(R.color.colorAccent))
             .append(context.getString(R.string.privacy_t8))
             .setForegroundColor(context.resources.getColor(R.color.color_333333))
             .append(context.resources.getString(R.string.user_protocol))

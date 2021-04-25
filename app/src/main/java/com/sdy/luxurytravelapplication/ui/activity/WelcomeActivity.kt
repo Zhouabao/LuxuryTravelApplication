@@ -4,6 +4,7 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
+import com.sdy.luxurytravelapplication.app.TravelApp
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityWelcomeBinding
@@ -20,7 +21,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     }
     private val privacyDialog by lazy {
-        PrivacyDialog(this)
+        PrivacyDialog()
     }
     override fun initView() {
 
@@ -57,7 +58,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
 
     private fun startToLogin() {
         //首先获取一次定位
-        AMapManager.initLocation(this@WelcomeActivity)
+        AMapManager.initLocation(TravelApp.context)
 
         //闪验预取号
         OneKeyLoginManager.getInstance().getPhoneInfo { code, result ->
@@ -67,5 +68,10 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
                 finish()
             }, 1000L)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AMapManager.destory()
     }
 }
