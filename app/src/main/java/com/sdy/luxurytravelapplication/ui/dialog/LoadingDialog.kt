@@ -31,6 +31,7 @@ class LoadingDialog : Dialog(ActivityUtils.getTopActivity(), R.style.MyFullTrans
         window?.attributes = params
         //点击外部可取消
         setCanceledOnTouchOutside(false)
+        setCancelable(false)
     }
 
     override fun dismiss() {

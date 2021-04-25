@@ -760,4 +760,8 @@ class PublishActivity :
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        AMapManager.destory()
+    }
 }
