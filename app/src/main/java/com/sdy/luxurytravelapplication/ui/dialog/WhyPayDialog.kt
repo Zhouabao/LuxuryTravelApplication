@@ -20,7 +20,6 @@ class WhyPayDialog(val context1: Context) : BaseBindingDialog<DialogWhyPayBindin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_why_pay)
         initWindow()
         initView()
 

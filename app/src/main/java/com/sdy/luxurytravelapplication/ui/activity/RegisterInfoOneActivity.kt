@@ -159,7 +159,7 @@ class RegisterInfoOneActivity :
         })
             .setRangDate(startDate, endDate)
             .setDate(endDate)
-            .setTitleText(getString(R.string.gender))
+            .setTitleText(getString(R.string.birthday))
             .setTitleColor(Color.BLACK)//标题文字颜色
             .build()
         clOptions.show()
