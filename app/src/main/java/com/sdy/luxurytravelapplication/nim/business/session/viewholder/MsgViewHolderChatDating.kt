@@ -38,6 +38,13 @@ class MsgViewHolderChatDating(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAd
         }
     }
 
+    override fun leftBackground(): Int {
+        return super.leftBackground()
+    }
+
+    override fun rightBackground(): Int {
+        return R.drawable.shape_nim_left_bg
+    }
 
     override fun onItemClick() {
         TravelDetailActivity.start(context,dating_id = attachment.datingId)

@@ -6,11 +6,27 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_loading_network_error" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="网络异常"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/no_network_tip"
-        android:textColor="@color/color_333333" />
+        android:textColor="#FFB6BCC6"
+        android:textSize="14sp" />
 
 </LinearLayout>

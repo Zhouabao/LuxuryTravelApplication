@@ -18,7 +18,7 @@ interface IView {
     /**
      * 使用默认的样式显示信息: CustomToast
      */
-    fun showDefaultMsg(msg: String)
+    fun showNetError(msg: String)
 
     /**
      * 显示信息

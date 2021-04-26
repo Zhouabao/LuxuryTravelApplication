@@ -357,7 +357,7 @@
 
     <string name="uplevel_cnt">提高次数</string>
     <string name="receive_gift_name">接收了对方赠送的「%1$s」</string>
-    <string name="gold_add_cnt">金币 +%1$d</string>
+    <string name="gold_add_cnt">旅券 +%1$d</string>
     <string name="chat_cnt_use_up">聊天次数已用尽</string>
     <string name="today_has_used_up">今日聊天次数已用尽</string>
     <string name="to_get_more_by_verify">真人认证获得更多聊天次数</string>

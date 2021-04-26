@@ -39,7 +39,7 @@ abstract class BaseSubscriber<T : BaseBean> : ResourceSubscriber<T> {
         super.onStart()
         if (bShowLoading) mView?.showLoading()
         if (!NetworkUtils.isConnected()) {
-            mView?.showDefaultMsg("当前网络不可用，请检查网络设置")
+            mView?.showNetError("当前网络不可用，请检查网络设置")
             onComplete()
         }
     }
@@ -54,7 +54,7 @@ abstract class BaseSubscriber<T : BaseBean> : ResourceSubscriber<T> {
             else -> {
                 onError(t)
                 if (t.msg.isNotEmpty())
-                    mView?.showDefaultMsg(t.msg)
+                    mView?.showNetError(t.msg)
             }
         }
     }
@@ -67,7 +67,7 @@ abstract class BaseSubscriber<T : BaseBean> : ResourceSubscriber<T> {
         if (mErrorMsg.isEmpty()) {
             mErrorMsg = ExceptionHandle.handleException(e)
         }
-        mView?.showDefaultMsg(mErrorMsg)
+        mView?.showNetError(mErrorMsg)
     }
 
     override fun onComplete() {

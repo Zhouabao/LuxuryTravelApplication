@@ -67,6 +67,7 @@ class UserCenterFragment :
     override fun initView(view: View) {
         super.initView(view)
         binding.apply {
+            mLayoutStatusView = root
             ClickUtils.applySingleDebouncing(
                 arrayOf(
                     shareBtn,
@@ -205,6 +206,8 @@ class UserCenterFragment :
 
     private fun initData() {
         if (userInfoBean != null) {
+            BarUtils.setStatusBarColor(activity!!, resources.getColor(R.color.colorAccent))
+            mLayoutStatusView?.showContent()
             binding.apply {
                 userInfoBean!!.apply {
                     UserManager.avatar = userinfo!!.avatar
@@ -244,6 +247,8 @@ class UserCenterFragment :
                     checkVip()
                 }
             }
+        }else {
+            mLayoutStatusView?.showError()
         }
     }
 

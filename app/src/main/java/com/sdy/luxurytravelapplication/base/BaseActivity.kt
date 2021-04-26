@@ -120,7 +120,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         }
         initView()
         initData()
-        initTipView()
+//        initTipView()
         start()
         initListener()
     }
@@ -219,13 +219,14 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         if (enableNetworkTip()) {
             if (isConnected) {
                 doReConnected()
-                if (mTipView != null && mTipView.parent != null) {
-                    mWindowManager.removeView(mTipView)
-                }
+//                if (mTipView != null && mTipView.parent != null) {
+//                    mWindowManager.removeView(mTipView)
+//                }
             } else {
-                if (mTipView.parent == null) {
-                    mWindowManager.addView(mTipView, mLayoutParams)
-                }
+                mLayoutStatusView?.showNoNetwork()
+//                if (mTipView.parent == null) {
+//                    mWindowManager.addView(mTipView, mLayoutParams)
+//                }
             }
         }
     }

@@ -547,7 +547,7 @@ class ChatActivity :
     override fun sendMessage(message: IMMessage): Boolean {
         if (isChatWithRobot()) {
             sendMsgS(message)
-        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender === 1 && nimBean.target_gender === 2) {
+        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender == 1 && nimBean.target_gender == 2) {
             showConfirmSendDialog(message)
         } else if (canSendMsg()) {
             sendMsgRequest(message)

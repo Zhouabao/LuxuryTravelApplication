@@ -72,6 +72,7 @@ class MessageFragment :
         registerObservers(true)
         registerOnlineStateChangeListener(true)
         binding.apply {
+            mLayoutStatusView = stateView
             messageListRv.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             messageListRv.adapter = adapter
@@ -370,6 +371,7 @@ class MessageFragment :
     private var accostIds = mutableListOf<String>()
     override fun messageCensus(data: MessageListBean1?) {
         if (data != null) {
+            mLayoutStatusView?.showContent()
             if (data.square_count > 0) {
                 EventBus.getDefault().post(GetNewMsgEvent())
             }
@@ -403,6 +405,8 @@ class MessageFragment :
             accostIds = data.chatup_rid_list
             //获取最近联系人列表
             mPresenter?.getRecentContacts()
+        } else {
+            mLayoutStatusView?.showError()
         }
     }
 
