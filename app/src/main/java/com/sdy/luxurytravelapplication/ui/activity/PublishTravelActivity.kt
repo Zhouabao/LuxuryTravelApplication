@@ -113,11 +113,8 @@ class PublishTravelActivity :
                 )
             }
             binding.chooseStartBtn -> {//  rise_province[string]	是	出发省 rise_city[string]	是	出发市
-                params["rise_province"]="四川"
-                params["rise_city"]="成都市福年广场T2"
-                binding.startPlace.text = "${ params["rise_province"]}-${ params["rise_city"]}"
-                checkEnable()
-//                startActivityForResult<LocationActivity>(REQUEST_CODE_MAP)
+
+                startActivityForResult<LocationActivity>(REQUEST_CODE_MAP)
             }
             binding.nextBtn -> {
                 startActivity<PublishTravelEndActivity>("params" to params as Serializable)
@@ -146,9 +143,10 @@ class PublishTravelActivity :
                     if (data?.getParcelableExtra<PoiItem>("poiItem") != null) {
                         val positionItem = data.getParcelableExtra<PoiItem>("poiItem")!!
                         params["rise_province"] = positionItem.provinceName
-                        params["rise_city"] = positionItem.cityName + positionItem.title
+                        params["rise_city"] = positionItem.cityName
+                        params["detail_address"] = positionItem.title
                         binding.startPlace.text =
-                            "${positionItem.provinceName}-${positionItem.cityName + positionItem.title}"
+                            "${positionItem.provinceName}-${positionItem.title}"
                         checkEnable()
                     }
                 }
@@ -159,9 +157,9 @@ class PublishTravelActivity :
     fun checkEnable() {
         binding.nextBtn.isEnabled =
             params["cost_type"] != null && params["cost_money"] != null && params["purpose"] != null
-//                    && params["rise_province"] != null && params["rise_city"] != null
+                    && params["rise_province"] != null && params["rise_city"] != null
                     && params["goal_city"] != null && params["dating_target"] != null
-                    && params["goal_province"] != null
+                    && params["goal_province"] != null && params["detail_address"] != null
     }
 
 
@@ -229,7 +227,8 @@ class PublishTravelActivity :
         //条件选择器
         val pvOptions = OptionsPickerBuilder(this,
             OnOptionsSelectListener { options1, options2, options3, v ->
-                textview.text = "${optionsItems1[options1].name}-${optionsItems2[options1][options2].name}"
+                textview.text =
+                    "${optionsItems1[options1].name}-${optionsItems2[options1][options2].name}"
                 params[params1] = optionsItems1[options1].name
                 params[params2] = optionsItems2[options1][options2].name
                 checkEnable()

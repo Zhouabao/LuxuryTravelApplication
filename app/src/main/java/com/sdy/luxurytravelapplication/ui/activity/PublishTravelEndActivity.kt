@@ -69,7 +69,10 @@ class PublishTravelEndActivity :
 
             autoCb.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
-                    travelDescrEt.setText("这是自动生成的文本哦·····")
+                    travelDescrEt.setText(
+                        "计划从${params["rise_province"]}${params["rise_city"]}${params["detail_address"]}-${params["goal_province"]}${params["goal_city"]}，" +
+                                "费用的话${params["cost_type"]}，大概会支出${params["cost_money"]}。希望你是一个${params["dating_target"]}，享受${params["purpose"]}吧。"
+                    )
                 } else {
                     travelDescrEt.setText("")
                 }
