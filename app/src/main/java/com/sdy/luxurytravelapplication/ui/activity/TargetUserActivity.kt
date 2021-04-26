@@ -195,10 +195,10 @@ class TargetUserActivity :
         binding.apply {
             if (this@TargetUserActivity::matchBean.isInitialized) {
                 barlCl.actionbarTitle.text = matchBean.online_time
-                baseInfoAdapter.setNewInstance(matchBean.personal_info)
+                baseInfoAdapter.setNewInstance(matchBean.personal_info_arr)
                 bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_url, true, matchBean.mv_detail_url))
+                        add(UserPhotoBean(true, matchBean.mv_cover_url, true, matchBean.mv_detail_url))
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -207,7 +207,7 @@ class TargetUserActivity :
 
                 smallPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_url, true))
+                        add(UserPhotoBean(true, matchBean.mv_cover_url, true,matchBean.mv_detail_url))
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))

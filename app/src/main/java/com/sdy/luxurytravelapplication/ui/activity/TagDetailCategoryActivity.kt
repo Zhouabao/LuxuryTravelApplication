@@ -123,6 +123,7 @@ class TagDetailCategoryActivity :
             manager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
             samePersonRv.layoutManager = manager
             samePersonRv.adapter = adapter
+            adapter.setEmptyView(R.layout.layout_empty_view)
         }
 
 
@@ -173,11 +174,8 @@ class TagDetailCategoryActivity :
 
     override fun onCheckBlockResult(b: Boolean) {
         if (b) {
-            if (type == TYPE_TAG)
-//                startActivity<PublishActivity>("tag_id" to id)
-            else
-//                startActivity<PublishActivity>("title" to samePersonTitle.text.toString())
-                finish()
+            PublishActivity.startToPublish(this)
+            finish()
         }
     }
 
