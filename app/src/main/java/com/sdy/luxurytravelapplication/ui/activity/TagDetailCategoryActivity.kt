@@ -49,7 +49,7 @@ class TagDetailCategoryActivity :
     private val type by lazy { intent.getIntExtra("type", 0) }
 
     companion object {
-        val TYPE_TAG = 1
+        val TYPE_TAG = 2
         val TYPE_TOPIC = 2
     }
 

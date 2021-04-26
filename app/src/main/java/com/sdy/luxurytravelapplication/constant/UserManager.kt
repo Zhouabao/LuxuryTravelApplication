@@ -160,6 +160,7 @@ object UserManager {
             CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
 //            }
         } else {
+            living_btn = data.extra_data.living_btn
             //昵称 生日 性别 头像
             data.userinfo.apply {
                 savePersonalInfo(avatar, birth, gender, nickname)

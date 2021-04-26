@@ -1062,7 +1062,7 @@ interface ApiService {
      *
      */
     @FormUrlEncoded
-    @POST("Sweetheart/getPicTpl${Constants.END_BASE_URL}")
+    @POST("Sweetheart/getPicTpl${Constants.END_BASE_URL_v2}")
     fun getPicTpl(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<ArrayList<String>>>
 
 
