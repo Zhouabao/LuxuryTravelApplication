@@ -13,6 +13,7 @@ import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.LayoutFindAudioBinding
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
 import com.sdy.luxurytravelapplication.ui.activity.PublishActivity
+import com.sdy.luxurytravelapplication.ui.dialog.RecordContentDialog
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.luxurytravelapplication.widgets.player.MediaPlayerHelper
 import com.sdy.luxurytravelapplication.widgets.player.UpdateVoiceTimeThread
@@ -73,16 +74,16 @@ class FindAudioView @JvmOverloads constructor(
 
         filePath = path
         this.duration = duration
-        val params = binding.root.layoutParams as FrameLayout.LayoutParams
-        params.width =
-            SizeUtils.dp2px(115F) + (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(115 + 15 * 2 + 10 * 2F)) /
-                    PublishActivity.MAX_RECORD_TIME *
-                    if (duration > PublishActivity.MAX_RECORD_TIME) {
-                        PublishActivity.MAX_RECORD_TIME
-                    } else {
-                        duration
-                    }
-        binding.audioPlayBtn.layoutParams = params
+//        val params = binding.root.layoutParams as FrameLayout.LayoutParams
+//        params.width =
+//            SizeUtils.dp2px(115F) + (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(115 + 15 * 2 + 10 * 2F)) /
+//                    RecordContentDialog.MAX_RECORD_TIME *
+//                    if (duration > RecordContentDialog.MAX_RECORD_TIME) {
+//                        RecordContentDialog.MAX_RECORD_TIME
+//                    } else {
+//                        duration
+//                    }
+//        binding.audioPlayBtn.layoutParams = params
 
         positionId = id
         setDurationText(duration)
@@ -108,10 +109,11 @@ class FindAudioView @JvmOverloads constructor(
 
     }
 
-    fun initResource(bgResource: Int, textColor: Int, playImg: Int) {
+    fun initResource(bgResource: Int, textColor: Int, playImg: Int,animation:String) {
         binding.audioPlayBtn.setBackgroundResource(bgResource)
         binding.audioTime.setTextColor(textColor)
         binding.audioState.setImageResource(playImg)
+        binding.audioState.setAnimation(animation)
 
     }
 

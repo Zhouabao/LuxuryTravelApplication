@@ -1,6 +1,5 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
-import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Gravity
@@ -35,7 +34,7 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
 
     companion object {
         const val MIN_RECORD_TIME = 5
-        const val MAX_RECORD_TIME = 60 * 5
+        const val MAX_RECORD_TIME = 60*5
 
     }
 
@@ -56,11 +55,12 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
             )
 
             mMediaRecorderHelper = MediaRecorderHelper(context)
+            recordProgressTime.setMaxStepNum(MAX_RECORD_TIME)
 
             //开启录音计时线程
             countTimeThread = object : CountDownTimer(MAX_RECORD_TIME * 1000L, 1000) {
                 override fun onFinish() {
-
+                    switchActionState()
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
@@ -69,19 +69,11 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
                         countTimeThread?.cancel()
                     }
 
-                    if (totalSecond == 170) {
+                    if (totalSecond == MAX_RECORD_TIME - 10) {
                         ToastUtil.toast(context.getString(R.string.left_10_seconds_to_record))
                     }
                     recordTimeTv.text = UriUtils.getShowTime(totalSecond)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        recordProgressTime.update(
-                            ((totalSecond * 1f / MAX_RECORD_TIME) * 100).toInt(), 0
-                        )
-                    } else {
-                        recordProgressTime.update(
-                            ((totalSecond * 1f / MAX_RECORD_TIME) * 100).toInt(), 0
-                        )
-                    }
+                    recordProgressTime.update(totalSecond, 0)
                 }
 
             }
@@ -129,7 +121,8 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
             }
 
             binding.recordConfirmBtn -> {//确认使用语音
-                EventBus.getDefault().post(RecordCompleteEvent(totalSecond,mMediaRecorderHelper.currentFilePath))
+                EventBus.getDefault()
+                    .post(RecordCompleteEvent(totalSecond, mMediaRecorderHelper.currentFilePath))
                 dismiss()
 
             }

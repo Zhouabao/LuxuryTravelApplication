@@ -243,6 +243,7 @@ class TargetUserActivity :
                                     R.drawable.shape_rectangle_white_15dp,
                                     resources.getColor(R.color.colorAccent),
                                     R.drawable.icon_voice_green
+                                    , "audio_play_green.json"
                                 )
                             } else {
                                 travelDescr.text = content
