@@ -69,6 +69,8 @@ class MessageFragment :
 
     override fun initView(view: View) {
         super.initView(view)
+        registerObservers(true)
+        registerOnlineStateChangeListener(true)
         binding.apply {
             messageListRv.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)

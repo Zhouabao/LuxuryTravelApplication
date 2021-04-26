@@ -138,7 +138,7 @@ public class MsgViewHolderAudio extends MsgViewHolderBase {
                 && isReceivedMessage()
                 && attachStatus == AttachStatusEnum.transferred
                 && status != MsgStatusEnum.read) {
-            unreadIndicator.setVisibility(View.VISIBLE);
+            unreadIndicator.setVisibility(View.GONE);
         } else {
             unreadIndicator.setVisibility(View.GONE);
         }
