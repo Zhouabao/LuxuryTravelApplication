@@ -1,6 +1,8 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
+import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,6 +15,8 @@ import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.FragmentFindContentBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewRecommendBannerBinding
+import com.sdy.luxurytravelapplication.event.AnnounceEvent
+import com.sdy.luxurytravelapplication.event.RefreshDeleteSquareEvent
 import com.sdy.luxurytravelapplication.mvp.contract.FindContentContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.FindContentPresenter
@@ -21,6 +25,8 @@ import com.sdy.luxurytravelapplication.ui.activity.TagDetailCategoryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareHeadTopicAdapter
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 
 
@@ -148,5 +154,17 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             adapter.isUseEmpty = true
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun monRefreshDeleteSquareEvent(event : RefreshDeleteSquareEvent){
+        binding.refreshFind.autoRefresh()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onAnnounceEvent(event: AnnounceEvent) {
+        if (event.serverSuccess && TYPE_NEWEST == 3) {
+            binding.refreshFind.autoRefresh()
+        }
     }
 }

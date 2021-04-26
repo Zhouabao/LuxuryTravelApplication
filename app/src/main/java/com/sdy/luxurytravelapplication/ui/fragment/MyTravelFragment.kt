@@ -39,7 +39,7 @@ class MyTravelFragment :
     MyTravelContract.View, OnRefreshLoadMoreListener {
     override fun createPresenter(): MyTravelContract.Presenter = MyTravelPresenter()
 
-    private val travelAdapter by lazy { TravelAdapter() }
+    private val travelAdapter by lazy { TravelAdapter(false , 1) }
 
     private val params by lazy {
         hashMapOf<String, Any>(

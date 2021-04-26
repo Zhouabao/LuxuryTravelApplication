@@ -210,6 +210,9 @@ class PublishActivity :
                         ToastUtil.toast("最多只能选择${MAX_PHOTO_SIZE}张图片")
                         return
                     }
+                }else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())){
+                    ToastUtil.toast("图片和语音不能同时选择")
+                    return
                 }
                 PermissionUtils.permissionGroup(
                     PermissionConstants.STORAGE,
@@ -243,6 +246,9 @@ class PublishActivity :
                         ToastUtil.toast("最多只能选择一个视频")
                         return
                     }
+                }else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())){
+                    ToastUtil.toast("视频和语音不能同时选择")
+                    return
                 }
                 PermissionUtils.permissionGroup(
                     PermissionConstants.STORAGE,
@@ -579,6 +585,7 @@ class PublishActivity :
                     )}/${System.currentTimeMillis()}/${RandomUtils.getRandomString(
                     16
                 )}"
+            EventBus.getDefault().postSticky(UploadEvent(1, 1, 0.0))
             mPresenter?.uploadFile(1, 1, recordCompleteEvent!!.filePath, audioQnPath, 3)
         } else if (pickedPhotos.isNotEmpty() && pickedPhotos.size > 0 && pickedPhotos[0].fileType == MediaBean.TYPE.IMAGE) { //图片
             for (photo in pickedPhotos) {
@@ -590,6 +597,7 @@ class PublishActivity :
                     )
                 )
             }
+            EventBus.getDefault().postSticky(UploadEvent(pickedPhotos.size, uploadCount + 1, 0.0))
             uploadPictures()
         } else {//视频
             //保存视频数据
@@ -609,6 +617,7 @@ class PublishActivity :
                     )}/${System.currentTimeMillis()}/${RandomUtils.getRandomString(
                     16
                 )}"
+            EventBus.getDefault().postSticky(UploadEvent(1, 1, 0.0))
             mPresenter?.uploadFile(1, 1, pickedPhotos[0].filePath.toString(), videoQnPath, 2)
         }
         finish()
@@ -639,7 +648,10 @@ class PublishActivity :
                 2
             }
 
-        val titles = mutableListOf<String>(binding.publishTopic.text.toString())
+        val titles = mutableListOf<String>()
+        if (binding.publishTopic.text.toString().isNotEmpty()) {
+            titles.add(binding.publishTopic.text.toString())
+        }
         val param = hashMapOf<String, Any>(
             "descr" to "${binding.publishContentEt.text}",
             "lat" to if (positionItem == null) {

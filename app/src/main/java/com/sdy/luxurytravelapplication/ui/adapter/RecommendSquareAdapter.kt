@@ -156,17 +156,17 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
             )
 
             clickZanViewAni.setOnClickListener {
-                ToastUtil.toast("喜欢")
+//                ToastUtil.toast("喜欢")
 //                if (UserManager.touristMode) {
 //                    TouristDialog(context).show()
 //                } else
-//                    if (item.accid != UserManager.accid) {
-//                        clickZan(
-//                            clickZanViewAni,
-//                            squareLike,
-//                            position - headerLayoutCount
-//                        )
-//                    }
+                    if (item.accid != UserManager.accid) {
+                        clickZan(
+                            clickZanViewAni,
+                            squareLike,
+                            position - headerLayoutCount
+                        )
+                    }
             }
 //         squareLike.onClick {
 //            if (item.accid != UserManager.getAccid()) {

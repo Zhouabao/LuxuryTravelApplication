@@ -3,6 +3,7 @@ package com.sdy.luxurytravelapplication.ui.activity
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityPublishTravelEndBinding
+import com.sdy.luxurytravelapplication.event.RecordCompleteEvent
 import com.sdy.luxurytravelapplication.mvp.contract.PublishTravelEndContract
 import com.sdy.luxurytravelapplication.mvp.presenter.PublishTravelEndPresenter
 import com.sdy.luxurytravelapplication.ui.dialog.RecordContentDialog
@@ -25,6 +27,7 @@ import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.luxurytravelapplication.widgets.player.MediaPlayerHelper
 import com.sdy.luxurytravelapplication.widgets.player.MediaRecorderHelper
 import com.sdy.luxurytravelapplication.widgets.player.UpdateVoiceTimeThread
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 发布旅行
@@ -135,13 +138,14 @@ class PublishTravelEndActivity :
 
     private fun checkEnable() {
         binding.nextBtn.isEnabled =
-            binding.travelTitle.text.isNotEmpty() && (binding.travelDescrEt.text.isNotEmpty() || mMediaRecorderHelper.currentFilePath.isNotEmpty())
+            binding.travelTitle.text.isNotEmpty() && (binding.travelDescrEt.text.isNotEmpty() || !TextUtils.isEmpty(mMediaRecorderHelper.currentFilePath))
     }
 
     override fun start() {
     }
 
 
+    var switchType = false
     override fun onClick(v: View) {
         when (v) {
             binding.barCl.btnBack -> {
@@ -164,16 +168,26 @@ class PublishTravelEndActivity :
 
             }
             binding.switchBtn -> {//切换按钮
-                if (binding.recordCl.isVisible) {
+                if (switchType) {
+                    switchType = false
                     changeToNormalState()
                     binding.recordCl.isVisible = false
                     binding.contentCl.isVisible = true
                     binding.switchImg.setImageResource(R.drawable.icon_switch_audio)
                     binding.switchBtn.text = "切换语音描述"
+
+                    binding.previewAudioLl.visibility = View.GONE
+                    // previewAudio停止播放
+                    if(binding.previewAudio.isPlaying()){
+                        binding.previewAudio.release()
+                    }
                 } else {
                     PermissionUtils.permissionGroup(PermissionConstants.MICROPHONE)
                         .callback { isAllGranted, granted, deniedForever, denied ->
                             if (isAllGranted) {
+                                switchType = true
+                                binding.recordTimeTv.text = "00.00"
+                                binding.travelDescrEt.setText("")
                                 binding.autoCb.isChecked = false
                                 binding.recordCl.isVisible = true
                                 binding.contentCl.isVisible = false
@@ -216,6 +230,7 @@ class PublishTravelEndActivity :
                 binding.recordCl.isVisible = false
                 binding.previewAudioLl.isVisible = true
                 binding.previewAudio.prepareAudio(mMediaRecorderHelper.currentFilePath, totalSecond)
+                EventBus.getDefault().post(RecordCompleteEvent(totalSecond,mMediaRecorderHelper.currentFilePath))
                 checkEnable()
             }
             binding.audioDeleteBtn -> {
@@ -223,6 +238,7 @@ class PublishTravelEndActivity :
                 // previewAudio停止播放
                 binding.previewAudio.release()
                 changeToNormalState()
+                binding.recordCl.isVisible = true
                 checkEnable()
             }
 

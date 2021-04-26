@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Gravity
@@ -34,7 +35,7 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
 
     companion object {
         const val MIN_RECORD_TIME = 5
-        const val MAX_RECORD_TIME = 60*5
+        const val MAX_RECORD_TIME = 60 * 5
 
     }
 

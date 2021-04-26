@@ -29,7 +29,7 @@ import org.json.JSONArray
 import java.io.Serializable
 
 /**
- * 发布动态
+ * 发布旅行
  */
 class PublishTravelActivity :
     BaseMvpActivity<PublishTravelContract.View, PublishTravelContract.Presenter, ActivityPublishTravelBinding>(),
@@ -113,7 +113,10 @@ class PublishTravelActivity :
                 )
             }
             binding.chooseStartBtn -> {//  rise_province[string]	是	出发省 rise_city[string]	是	出发市
-
+//                params["rise_province"]="四川"
+//                params["rise_city"]="成都市福年广场T2"
+//                binding.startPlace.text = "${ params["rise_province"]}-${ params["rise_city"]}"
+//                checkEnable()
                 startActivityForResult<LocationActivity>(REQUEST_CODE_MAP)
             }
             binding.nextBtn -> {

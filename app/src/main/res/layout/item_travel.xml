@@ -5,11 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
+    android:id="@+id/bg"
     android:descendantFocusability="beforeDescendants"
     android:background="@drawable/icon_travel_bg">
 
 
     <TextView
+        android:layout_marginLeft="22dp"
         android:id="@+id/travelTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,26 +20,51 @@
         android:textColor="#ff333333"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/userAvatar"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/chatBtn"
+
+    <TextView
+        android:id="@+id/signUpBtn"
+        android:paddingRight="8dp"
+        android:paddingLeft="3dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:drawableLeft="@drawable/icon_travel_sign_up"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:background="@drawable/shape_rectangle_green_15dp"
+        android:text="报名"
+        android:layout_marginRight="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="22dp"
-        android:src="@drawable/icon_chat"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/travelTitle" />
+
+
+    <TextView
+        android:id="@+id/detailsTv"
+        android:visibility="gone"
+        android:background="@drawable/shape_my_travel_view"
+        android:text="查看详情"
+        android:textColor="#B6BCC6"
+        android:textSize="13sp"
+        android:padding="5dp"
+        android:layout_marginRight="22dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/travelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <ImageView
         android:id="@+id/userAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="22dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/default_image_15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/travelTitle"
         app:layout_constraintTop_toBottomOf="@id/travelTitle" />
 
     <TextView
@@ -52,7 +79,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/travelRequire"
         app:layout_constraintLeft_toRightOf="@id/userAvatar"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintTop_toTopOf="@id/userAvatar"
         app:layout_constraintVertical_chainStyle="packed" />
 
@@ -69,7 +96,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/travelAimbition"
         app:layout_constraintLeft_toLeftOf="@id/travelCost"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintTop_toBottomOf="@id/travelCost" />
 
     <TextView
@@ -84,7 +111,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/userAvatar"
         app:layout_constraintLeft_toLeftOf="@id/travelCost"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintTop_toBottomOf="@id/travelRequire" />
 
     <TextView
@@ -135,7 +162,7 @@
         android:textSize="19sp"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintLeft_toRightOf="@id/airplane"
         app:layout_constraintTop_toBottomOf="@id/userAvatar" />
 
@@ -148,7 +175,7 @@
         android:textColor="#ffb6bcc6"
         android:textSize="12sp"
         android:gravity="center"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintLeft_toRightOf="@id/airplane"
         app:layout_constraintTop_toBottomOf="@id/travel_dest_province" />
 
@@ -178,7 +205,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/userAvatar"
-        app:layout_constraintRight_toRightOf="@id/chatBtn"
+        app:layout_constraintRight_toRightOf="@id/signUpBtn"
         app:layout_constraintTop_toBottomOf="@id/travelAddress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

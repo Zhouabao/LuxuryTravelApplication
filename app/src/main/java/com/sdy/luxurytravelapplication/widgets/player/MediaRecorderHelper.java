@@ -2,7 +2,9 @@ package com.sdy.luxurytravelapplication.widgets.player;
 
 import android.content.Context;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import com.blankj.utilcode.util.AppUtils;
 
@@ -29,23 +31,40 @@ public class MediaRecorderHelper {
 
 
     public MediaRecorderHelper(Context context) {
-        mSavePath = getRecorderFilePath(context);
+        mSavePath = getSDPath(context);
         File file = new File(mSavePath);
         if (!file.exists()) file.mkdirs();
 
     }
 
-    private String getRecorderFilePath(Context context) {
-        String path = "";
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath();
+//    private String getRecorderFilePath(Context context) {
+//        String path = "";
+//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            path = Environment.getExternalStorageDirectory().getAbsolutePath();
+//        } else {
+//            path = context.getCacheDir().getAbsolutePath();
+//
+//        }
+//        return path + File.separator + AppUtils.getAppPackageName() + File.separator + "audio";
+//    }
+
+    //安卓10之后兼容文件夹创建 避免无法创建录音等问题
+    private String getSDPath(Context context) {
+        File sdDir = null;
+        boolean sdCardExist = Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED);// 判断sd卡是否存在
+        if (sdCardExist) {
+            if (Build.VERSION.SDK_INT>=29){
+                //Android10之后
+                sdDir = context.getExternalFilesDir(null);
+            }else {
+                sdDir = Environment.getExternalStorageDirectory();// 获取SD卡根目录
+            }
         } else {
-            path = context.getCacheDir().getAbsolutePath();
-
+            sdDir = Environment.getRootDirectory();// 获取跟目录
         }
-        return path + File.separator + AppUtils.getAppPackageName() + File.separator + "audio";
+        return sdDir.toString()+ File.separator + "audio";
     }
-
 
     /**
      * 开始录音
