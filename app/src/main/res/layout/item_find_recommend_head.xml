@@ -3,33 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="174dp"
     android:layout_height="86dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/icon_find_head_bg"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/topicTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
         android:drawableLeft="@drawable/icon_topic"
         android:drawablePadding="2dp"
-        android:text="上天下海潜水跳伞"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="上天下海潜水跳伞上天下海潜水跳伞"
         android:textColor="#ff333333"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/topicContent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/topicContent"
-        android:layout_width="129dp"
+        android:layout_width="0dp"
         android:layout_height="17dp"
         android:layout_marginTop="5dp"
-        android:text="645人参与·5555次浏览"
+        tools:text="645人参与·5555次浏览"
         android:textColor="#ffc7cad4"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/topicTitle"
+        app:layout_constraintRight_toRightOf="@id/topicTitle"
         app:layout_constraintTop_toBottomOf="@id/topicTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

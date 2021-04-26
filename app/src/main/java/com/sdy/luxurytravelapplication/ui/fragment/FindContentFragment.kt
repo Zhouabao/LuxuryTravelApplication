@@ -17,6 +17,7 @@ import com.sdy.luxurytravelapplication.mvp.contract.FindContentContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.FindContentPresenter
 import com.sdy.luxurytravelapplication.ui.activity.FindAllTagActivity
+import com.sdy.luxurytravelapplication.ui.activity.TagDetailCategoryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareHeadTopicAdapter
 import com.sdy.luxurytravelapplication.utils.ToastUtil
@@ -65,9 +66,8 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             manager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
             findRv.layoutManager = manager
             findRv.adapter = adapter
-
-
             adapter.setEmptyView(R.layout.layout_empty_view)
+            adapter.headerWithEmptyEnable = true
 //            adapter.isUseEmpty = false
         }
     }
@@ -85,7 +85,10 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             topicRv.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             topicRv.adapter = topicAdapter
             topicAdapter.setOnItemClickListener { _, view, position ->
-                ToastUtil.toast("$position")
+                startActivity<TagDetailCategoryActivity>(
+                    "id" to topicAdapter.data[position].id,
+                    "type" to TagDetailCategoryActivity.TYPE_TAG
+                )
             }
         }
         return headBinding.root
@@ -118,11 +121,6 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
                 adapter.setHeaderView(initHeadBannerView())
                 topicAdapter.setNewInstance(data?.banner)
             }
-//            if ((data?.banner ?: mutableListOf()).size == 0) {
-//                adapter.headerLayout?.isVisible = false
-//            } else {
-//                adapter.headerLayout?.isVisible = true
-//            }
         }
         if (binding.refreshFind.state == RefreshState.Refreshing) {
             adapter.data.clear()

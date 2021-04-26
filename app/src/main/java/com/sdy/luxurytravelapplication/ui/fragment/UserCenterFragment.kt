@@ -85,6 +85,7 @@ class UserCenterFragment :
             val visitLayoutmanager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             visitLayoutmanager.stackFromEnd = true
             userVisitRv.layoutManager = visitLayoutmanager
+
             userVisitRv.adapter = visitsAdapter
 
 
@@ -218,6 +219,8 @@ class UserCenterFragment :
                     } else {
                         visitsAdapter.setNewInstance(visitlist)
                     }
+                    binding.userVisitRv.isInvisible = visitlist.isEmpty()
+                    binding.emptyVisitor.isVisible = visitlist.isEmpty()
                     GlideUtil.loadRoundImgCenterCrop(
                         activity!!,
                         userinfo.avatar,

@@ -22,7 +22,6 @@ import com.sdy.luxurytravelapplication.mvp.contract.MyTodayVisitContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.VisitorBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyTodayVisitPresenter
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
-import com.sdy.luxurytravelapplication.ui.activity.VipChargeActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MyTodayVisitAdater
 
 
@@ -80,6 +79,8 @@ class MyTodayVisitFragment(
             } else {
                 visitAdapter.addHeaderView(initHeadViewAll())
             }
+            visitAdapter.headerWithEmptyEnable = true
+            visitAdapter.isUseEmpty = false
 
             lockToSee.setOnClickListener {
                 CommonFunction.startToVip(activity!!)
@@ -159,6 +160,7 @@ class MyTodayVisitFragment(
                 if (!freeShow) {
                     lockToSee.isVisible = false
                 }
+                visitAdapter.isUseEmpty = true
             } else {
                 lockToSee.isVisible = !visitAdapter.freeShow
             }

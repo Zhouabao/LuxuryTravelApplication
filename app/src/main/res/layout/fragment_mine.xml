@@ -346,13 +346,23 @@
                                 app:layout_constraintRight_toLeftOf="@id/view2"
                                 app:layout_constraintTop_toTopOf="parent">
 
+                                <ImageView
+                                    android:id="@+id/emptyVisitor"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/icon_visitor_empty"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="@id/userVisitRv"
+                                    app:layout_constraintLeft_toLeftOf="@id/userVisitRv"
+                                    app:layout_constraintRight_toRightOf="@id/userVisitRv" />
+
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/userVisitRv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="30dp"
+                                    android:clickable="false"
                                     android:orientation="horizontal"
                                     android:overScrollMode="never"
-                                    android:clickable="false"
                                     app:layout_constraintLeft_toLeftOf="@id/tvVisit"
                                     app:layout_constraintRight_toRightOf="@id/tvVisit"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -412,8 +422,8 @@
                     <com.flyco.tablayout.SegmentTabLayout
                         android:id="@+id/tabMySquareAndTag"
                         android:layout_width="match_parent"
-                        android:layout_gravity="center"
                         android:layout_height="36dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/shape_rectangle_f7f8fa_8dp"
