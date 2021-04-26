@@ -336,19 +336,6 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
         if (rCode == 1000) {
             if (result != null && result.query != null) {
                 adapter.setNewData(result.pois)
-                if (!adapter.data.contains(
-                        PoiItem(
-                            "",
-                            LatLonPoint(0.0, 0.0),
-                            getString(R.string.no_yaoqiu),
-                            ""
-                        )
-                    )
-                )
-                    adapter.addData(
-                        0,
-                        PoiItem("", LatLonPoint(0.0, 0.0), getString(R.string.no_yaoqiu), "")
-                    )
                 binding.barCl.rightTextBtn.isEnabled = true
 
                 if (adapter.data.size > 1) {

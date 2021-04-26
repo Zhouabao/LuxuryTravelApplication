@@ -1,14 +1,12 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
 import android.view.LayoutInflater
-import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemChatDatingBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.nim.attachment.ChatDatingAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
 import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
-import com.sdy.luxurytravelapplication.viewbinding.bindViewWithGeneric
 
 /**
  *    author : ZFM
@@ -23,31 +21,31 @@ class MsgViewHolderChatDating(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAd
 
     private lateinit var binding: ItemChatDatingBinding
     override fun inflateContentView() {
-        binding = ItemChatDatingBinding.inflate(LayoutInflater.from(context), contentContainer, true)
+        binding =
+            ItemChatDatingBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
     override fun bindContentView() {
         binding.apply {
             datingContent.setText(attachment.content)
-            GlideUtil.loadRoundImgCenterCrop(
+            GlideUtil.loadImg(
                 context,
                 attachment.img,
-                datingImg,
-                SizeUtils.dp2px(10f)
+                datingImg
             )
         }
     }
 
     override fun leftBackground(): Int {
-        return super.leftBackground()
+        return R.drawable.shape_rectangle_stroke_eceff4_15dp
     }
 
     override fun rightBackground(): Int {
-        return R.drawable.shape_nim_left_bg
+        return R.drawable.shape_rectangle_stroke_eceff4_15dp
     }
 
     override fun onItemClick() {
-        TravelDetailActivity.start(context,dating_id = attachment.datingId)
+        TravelDetailActivity.start(context, dating_id = attachment.datingId)
     }
 
 }

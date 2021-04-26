@@ -206,7 +206,7 @@ class UserCenterFragment :
 
     private fun initData() {
         if (userInfoBean != null) {
-            BarUtils.setStatusBarColor(activity!!, resources.getColor(R.color.colorAccent))
+//            BarUtils.setStatusBarColor(activity!!, resources.getColor(R.color.colorAccent))
             mLayoutStatusView?.showContent()
             binding.apply {
                 userInfoBean!!.apply {

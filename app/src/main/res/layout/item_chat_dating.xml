@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="238dp"
-    android:layout_height="106dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@drawable/shape_rectangle_stroke_eceff4_15dp"
+    android:layout_height="106dp">
 
     <TextView
         android:id="@+id/datingName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/initiated_event_registration"
-        android:textColor="#ff191919"
+        android:textColor="#ff333333"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFF6F7F9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datingName" />
 
     <TextView
         android:id="@+id/datingContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/icon_arrow_right_black"
+        android:layout_marginRight="5dp"
         android:maxLines="2"
-        tools:text="活动内容的预览文本活动内容的预览文本活动内容的预"
-        android:textColor="#ff888d92"
+        android:textColor="#FF333333"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="@id/datingName"
-        app:layout_constraintRight_toLeftOf="@id/datingImg"
-        app:layout_constraintTop_toBottomOf="@id/datingName" />
+        app:layout_constraintBottom_toBottomOf="@id/datingImg"
+        app:layout_constraintLeft_toRightOf="@id/datingImg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/datingImg"
+        tools:text="活动内容的预览文本活动内容的预览文本活动内容的预" />
 
     <com.sdy.luxurytravelapplication.widgets.RoundImageView
         android:id="@+id/datingImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/default_image_10dp"
         app:borderRadius="10dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/datingName"
+        app:layout_constraintLeft_toLeftOf="@id/datingName"
+        app:layout_constraintTop_toBottomOf="@id/view1"
         app:type="round" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/view_event"
-        android:textColor="#ffc5c6c8"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/datingName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

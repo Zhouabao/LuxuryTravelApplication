@@ -935,7 +935,7 @@
 
     <string name="is_sure_delete_label">确认删除兴趣？</string>
     <string name="view_event">查看伴游</string>
-    <string name="initiated_event_registration">发起了伴游报名</string>
+    <string name="initiated_event_registration">我报名了你的伴游活动</string>
 
     <string name="get_his_chat_gift">已获得对方的搭讪礼物</string>
     <string name="receive_candy_gift">领取旅券礼物</string>

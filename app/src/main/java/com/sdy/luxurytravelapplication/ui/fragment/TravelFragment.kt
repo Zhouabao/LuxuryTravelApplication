@@ -23,6 +23,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.TravelPlanBean
 import com.sdy.luxurytravelapplication.mvp.presenter.TravelPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.TravelAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.TravelCityAdapter
+import com.sdy.luxurytravelapplication.ui.adapter.TravelCityAdapterSmall
 import com.sdy.luxurytravelapplication.widgets.CenterLayoutManager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -39,6 +40,7 @@ class TravelFragment :
     private val travelAdapter by lazy { TravelAdapter() }
     private val travelCityAdapter by lazy { TravelCityAdapter() }
     private val travelCityAdapter1 by lazy { TravelCityAdapter(true) }
+    private val travelCityAdapter2 by lazy { TravelCityAdapterSmall() }
 
     private val params by lazy {
         hashMapOf<String, Any>(
@@ -52,7 +54,7 @@ class TravelFragment :
         binding.apply {
             mLayoutStatusView = root
             ClickUtils.applySingleDebouncing(
-                arrayOf(travelPublishBtn, collapseBtn, expandBtn),
+                arrayOf(travelPublishBtn, collapseBtn, expandBtn,expandBtn1),
                 this@TravelFragment
             )
 
@@ -69,28 +71,49 @@ class TravelFragment :
             travelCitys.adapter = travelCityAdapter
             travelCitys1.layoutManager = GridLayoutManager(activity!!, 5)
             travelCitys1.adapter = travelCityAdapter1
+
+            travelCitys2.layoutManager =
+                CenterLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            travelCitys2.adapter = travelCityAdapter2
+
             travelCityAdapter.setOnItemClickListener { _, view, position ->
                 travelCityAdapter.data.forEach {
                     it.checked = it == travelCityAdapter.data[position]
                 }
                 travelCityAdapter.notifyDataSetChanged()
                 travelCityAdapter1.notifyDataSetChanged()
+                travelCityAdapter2.notifyDataSetChanged()
                 params["goal_city"] = travelCityAdapter.data[position].id
                 binding.refreshTravel.autoRefresh()
             }
             travelCityAdapter1.setOnItemClickListener { _, view, position ->
                 travelCityAdapter1.data.forEach {
-                    it.checked = it == travelCityAdapter.data[position]
+                    it.checked = it == travelCityAdapter1.data[position]
                 }
                 travelCitys.smoothScrollToPosition(position)
-                travelCityAdapter1.notifyDataSetChanged()
                 travelCityAdapter.notifyDataSetChanged()
+                travelCityAdapter1.notifyDataSetChanged()
+                travelCityAdapter2.notifyDataSetChanged()
+                params["goal_city"] = travelCityAdapter.data[position].id
+                binding.refreshTravel.autoRefresh()
+            }
+            travelCityAdapter2.setOnItemClickListener { _, view, position ->
+                travelCityAdapter2.data.forEach {
+                    it.checked = it == travelCityAdapter2.data[position]
+                }
+                travelCitys.smoothScrollToPosition(position)
+                travelCityAdapter.notifyDataSetChanged()
+                travelCityAdapter1.notifyDataSetChanged()
+                travelCityAdapter2.notifyDataSetChanged()
                 params["goal_city"] = travelCityAdapter.data[position].id
                 binding.refreshTravel.autoRefresh()
             }
 
             userAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 citysCl.alpha = 1 - abs(verticalOffset) * 1F / (userAppbar.height - toolbar.height)
+                travelCitys2.isVisible = citysCl.alpha == 0f
+                expandBtn1.isVisible = citysCl.alpha == 0f
+                divider.isVisible = citysCl.alpha == 0f
             })
         }
 
@@ -102,7 +125,7 @@ class TravelFragment :
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.expandBtn -> {
+            binding.expandBtn,binding.expandBtn1 -> {
                 binding.travelListCl.isVisible = true
             }
             binding.collapseBtn -> {
@@ -130,6 +153,7 @@ class TravelFragment :
             }
         } else {
             travelAdapter.setNewInstance(datas)
+            binding.travelPlanRv.smoothScrollToPosition(0)
             if (datas.size < Constants.PAGESIZE) {
                 binding.refreshTravel.finishRefreshWithNoMoreData()
             } else {
@@ -145,6 +169,7 @@ class TravelFragment :
         }
         travelCityAdapter.setNewInstance(datas)
         travelCityAdapter1.setNewInstance(datas)
+        travelCityAdapter2.setNewInstance(datas)
         mPresenter?.planList(params)
     }
 

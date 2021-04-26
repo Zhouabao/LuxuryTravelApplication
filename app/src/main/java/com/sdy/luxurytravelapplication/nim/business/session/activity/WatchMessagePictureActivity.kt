@@ -85,7 +85,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
             layoutInflater
         )
     }
-    private val loadingBinding :NimWatchMediaDownloadProgressLayoutBinding by lazy {
+    private val loadingBinding: NimWatchMediaDownloadProgressLayoutBinding by lazy {
         NimWatchMediaDownloadProgressLayoutBinding.inflate(layoutInflater)
     }
 
@@ -103,7 +103,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
     override fun onDestroy() {
         registerObservers(false)
         EventBus.getDefault().unregister(this)
-          binding.viewPagerImage.adapter = null
+        binding.viewPagerImage.adapter = null
         if (downloadFuture != null) {
             downloadFuture!!.abort()
             downloadFuture = null
@@ -114,7 +114,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
     // 加载并显示
     private fun loadMsgAndDisplay() {
-        if (mode == MODE_NORMAL && message.status == MsgStatusEnum.success) {
+        if (mode == MODE_NORMAL/* && message.status == MsgStatusEnum.success*/) {
             queryImageMessages()
         } else {
             displaySimpleImage(mode == MODE_GIF)
@@ -239,9 +239,9 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
             }
         }
         binding.viewPagerImage.adapter = adapter
-          binding.viewPagerImage.offscreenPageLimit = 2
-          binding.viewPagerImage.currentItem = firstDisplayImageIndex
-          binding.viewPagerImage.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPagerImage.offscreenPageLimit = 2
+        binding.viewPagerImage.currentItem = firstDisplayImageIndex
+        binding.viewPagerImage.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -282,9 +282,9 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
     // 初始化每个view的image
     protected fun updateCurrentImageView(position: Int) {
-        val currentLayout: View =   binding.viewPagerImage.findViewWithTag(position)
+        val currentLayout: View = binding.viewPagerImage.findViewWithTag(position)
         if (currentLayout == null) {
-            ViewCompat.postOnAnimation(  binding.viewPagerImage) { updateCurrentImageView(position) }
+            ViewCompat.postOnAnimation(binding.viewPagerImage) { updateCurrentImageView(position) }
             return
         }
         image = currentLayout.findViewById<View>(R.id.watch_image_view) as BaseZoomableImageView
@@ -359,7 +359,11 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
         if (mode == MODE_NORMAL) {
             image.imageBitmap = ImageUtil.getBitmapFromDrawableRes(getImageResOnFailed())
         } else if (mode == MODE_GIF) {
-            binding.simpleImageView.setImageBitmap(ImageUtil.getBitmapFromDrawableRes(getImageResOnFailed()))
+            binding.simpleImageView.setImageBitmap(
+                ImageUtil.getBitmapFromDrawableRes(
+                    getImageResOnFailed()
+                )
+            )
         }
         ToastHelper.showToastLong(this, R.string.download_picture_fail)
     }
@@ -561,9 +565,9 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
         titleBinding.btnBack.isVisible = false
 
         binding.apply {
-            if (mode == MODE_NORMAL && message.status == MsgStatusEnum.success) {
+            if (mode == MODE_NORMAL /*&& message.status == MsgStatusEnum.success*/) {
                 simpleImageView.isVisible = false
-                  binding.viewPagerImage.isVisible = true
+                binding.viewPagerImage.isVisible = true
             } else {
                 simpleImageView.isVisible = true
                 simpleImageView.setOnLongClickListener {
@@ -572,7 +576,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
                     }
                     true
                 }
-                  binding.viewPagerImage.isVisible = false
+                binding.viewPagerImage.isVisible = false
             }
 
         }
@@ -582,6 +586,6 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
     }
 
     override fun initView() {
-        
+
     }
 }
