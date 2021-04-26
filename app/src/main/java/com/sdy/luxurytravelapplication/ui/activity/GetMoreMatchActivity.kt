@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
+import android.view.KeyEvent
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
@@ -45,5 +46,7 @@ class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
 
     override fun start() {
     }
-
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK
+    }
 }

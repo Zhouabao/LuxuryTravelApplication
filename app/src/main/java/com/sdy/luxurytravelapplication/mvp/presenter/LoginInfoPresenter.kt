@@ -16,17 +16,23 @@ class LoginInfoPresenter : BasePresenter<LoginInfoContract.Model, LoginInfoContr
     LoginInfoContract.Presenter {
     override fun createModel(): LoginInfoContract.Model? = LoginInfoModel()
     override fun setPersonal(params: HashMap<String, Any>) {
-        mModel?.setPersonal(params)?.sss(mView, true, {
+        mModel?.setPersonal(params)?.sss(mView, false, {
+            mView?.hideLoading()
             mView?.setPersonalResult(it.data, true)
         }, {
+            mView?.hideLoading()
             mView?.setPersonalResult(null, false)
         })
     }
 
     override fun uploadAvatar(filePath: String, imageName: String) {
+        mView?.showLoading()
         mModel?.uploadAvatar(filePath, imageName,
             UpCompletionHandler { key, info, response ->
-                mView?.uploadAvatarResult(key, !key.isNullOrEmpty())
+                if (!info.isOK) {
+                    mView?.hideLoading()
+                } else
+                    mView?.uploadAvatarResult(key, !key.isNullOrEmpty())
             })
     }
 }

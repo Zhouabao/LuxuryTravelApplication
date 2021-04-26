@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
+import android.view.KeyEvent
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -110,6 +111,8 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
         }
     }
-
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK
+    }
 
 }

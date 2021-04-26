@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.baidu.idl.face.platform.FaceEnvironment
 import com.baidu.idl.face.platform.FaceSDKManager
@@ -326,4 +327,7 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
     }
 
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK && type == TYPE_LIVE_CAPTURE
+    }
 }

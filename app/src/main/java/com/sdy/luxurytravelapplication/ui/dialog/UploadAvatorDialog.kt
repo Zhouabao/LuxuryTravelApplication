@@ -1,24 +1,16 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.TimeUtils
-import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.style.PictureCropParameterStyle
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogUploadAvatorBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
-import com.sdy.luxurytravelapplication.glide.GlideEngine
-import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
 class UploadAvatorDialog : BaseBindingDialog<DialogUploadAvatorBinding>() {
@@ -32,17 +24,17 @@ class UploadAvatorDialog : BaseBindingDialog<DialogUploadAvatorBinding>() {
             }
             ClickUtils.applySingleDebouncing(takePhoto) {
                 PermissionUtils.permissionGroup(
-                        PermissionConstants.CAMERA,
-                        PermissionConstants.STORAGE
+                    PermissionConstants.CAMERA,
+                    PermissionConstants.STORAGE
                 ).callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
                         CommonFunction.openCamera(
-                                context,
-                                1,
-                                PictureMimeType.ofImage(),
-                                cropEnable = true,
-                                aspect_ratio_x = 1,
-                                aspect_ratio_y = 1
+                            context,
+                            PictureConfig.REQUEST_CAMERA,
+                            PictureMimeType.ofImage(),
+                            cropEnable = true,
+                            aspect_ratio_x = 1,
+                            aspect_ratio_y = 1
                         )
                         dismiss()
                     }
@@ -51,7 +43,7 @@ class UploadAvatorDialog : BaseBindingDialog<DialogUploadAvatorBinding>() {
                     }
 
                 })
-                        .request()
+                    .request()
 
             }
             ClickUtils.applySingleDebouncing(choosePhoto) {

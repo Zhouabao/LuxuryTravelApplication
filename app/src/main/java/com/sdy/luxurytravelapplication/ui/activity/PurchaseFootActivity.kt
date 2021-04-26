@@ -138,4 +138,19 @@ class PurchaseFootActivity :
         }
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        binding.coverBg.pauseAnimation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.coverBg.resumeAnimation()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.coverBg.clearAnimation()
+    }
 }

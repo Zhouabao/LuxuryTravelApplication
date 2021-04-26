@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.widget.TextView
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -18,6 +19,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.MyTapsBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import com.sdy.luxurytravelapplication.mvp.presenter.RegisterInfoTwoPresenter
 import org.jetbrains.anko.startActivity
+
 
 /**
  * 登录注册页面
@@ -172,4 +174,8 @@ class RegisterInfoTwoActivity :
                 && binding.travelPatener.text.isNotEmpty()
     }
 
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK
+    }
 }

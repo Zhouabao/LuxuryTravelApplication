@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
+import android.view.KeyEvent
 import android.view.View
 import com.blankj.utilcode.util.ClickUtils
 import com.jyn.vcview.VerificationCodeView
@@ -68,5 +69,8 @@ class InviteCodeActivity :
 
     override fun checkCode(success: Boolean) {
         MainActivity.startToMain(this)
+    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK
     }
 }

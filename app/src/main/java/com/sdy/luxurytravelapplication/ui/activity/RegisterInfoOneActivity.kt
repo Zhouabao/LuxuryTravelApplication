@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -214,4 +215,7 @@ class RegisterInfoOneActivity :
             mPresenter?.setPersonal(params)
         }
     }
+
+
+
 }
