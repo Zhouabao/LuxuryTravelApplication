@@ -10,6 +10,10 @@ import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 仅高级会员评论
+ *
+ */
 class CommentVipDialog : BaseBindingDialog<DialogPtVipCommentBinding>() {
 
 

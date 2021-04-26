@@ -35,4 +35,8 @@ class TargetUserModel : BaseModel(), TargetUserContract.Model {
     override fun dissolutionFriend(params: HashMap<String, Any>): Observable<BaseResp<Any>> {
         return RetrofitHelper.service.dissolutionFriend(params)
     }
+
+    override fun playMv(target_accid: String): Observable<BaseResp<Any>> {
+        return RetrofitHelper.service.playMv(hashMapOf("target_accid" to target_accid))
+    }
 }

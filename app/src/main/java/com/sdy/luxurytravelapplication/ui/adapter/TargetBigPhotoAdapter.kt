@@ -14,7 +14,12 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
  */
 class TargetBigPhotoAdapter :
     BaseBindingQuickAdapter<UserPhotoBean, ItemTargetBigPhotoBinding>(R.layout.item_target_big_photo) {
+    interface PlayVideoCallBack {
+        fun callback()
+    }
+
     lateinit var targetAccid: String
+    var playVideoCallBack:PlayVideoCallBack? = null
     var autoPlay: Boolean = false
     override fun convert(
         binding: ItemTargetBigPhotoBinding,
@@ -39,8 +44,10 @@ class TargetBigPhotoAdapter :
                     setUp(item.mv_detail_url, false, "")
                     setThumbImageView(item.avatar)
                     if (item.checked) {
-                        if (autoPlay)
+                        if (autoPlay) {
                             startPlayLogic()
+                            playVideoCallBack?.callback()
+                        }
 
                     }
 

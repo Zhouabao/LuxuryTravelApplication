@@ -553,6 +553,11 @@ class ChatActivity :
         return true
     }
 
+    override fun addReport(message: IMMessage) {
+
+        mPresenter?.addReport(message)
+    }
+
     private fun showConfirmSendDialog(message: IMMessage) {
 
         MessageDialog.show(
@@ -847,6 +852,11 @@ class ChatActivity :
                 android.R.id.content
             )
         }
+    }
+
+    override fun addReport(msg: String) {
+
+
     }
 
 

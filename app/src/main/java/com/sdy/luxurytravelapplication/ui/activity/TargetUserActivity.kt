@@ -66,7 +66,15 @@ class TargetUserActivity :
      * 初始化个人信息数据
      */
     private val baseInfoAdapter by lazy { TargetBaseInfoAdapter() }
-    private val bigPhotoAdapter by lazy { TargetBigPhotoAdapter() }
+    private val bigPhotoAdapter by lazy {
+        TargetBigPhotoAdapter().apply {
+            playVideoCallBack = object : TargetBigPhotoAdapter.PlayVideoCallBack {
+                override fun callback() {
+                    mPresenter?.playMv(targetAccid)
+                }
+            }
+        }
+    }
     private val smallPhotoAdapter by lazy { TargetSmallPhotoAdapter() }
     private val adapter by lazy { RecommendSquareAdapter() }
 
@@ -97,7 +105,11 @@ class TargetUserActivity :
             })
             bigPhotoAdapter.setOnItemClickListener { _, view, position ->
                 if (bigPhotoAdapter.data[position].isVideo && !bigPhotoAdapter.autoPlay) {
-                    CommonFunction.checkUnlockIntroduceVideo(this@TargetUserActivity, targetAccid,matchBean.mv_url)
+                    CommonFunction.checkUnlockIntroduceVideo(
+                        this@TargetUserActivity,
+                        targetAccid,
+                        matchBean.mv_url
+                    )
                 }
             }
             smallPhotosRv.layoutManager =
@@ -204,7 +216,7 @@ class TargetUserActivity :
                 smallPhotoAdapter.matchBean = matchBean
                 bigPhotoAdapter.targetAccid = matchBean.accid
                 bigPhotoAdapter.autoPlay =
-                    matchBean.myinfo.personal_auto_play && (matchBean.myinfo.residue_auto_count > 0 || matchBean.myinfo.isgoldvip)
+                    matchBean.personal_auto_play && (matchBean.residue_auto_count > 0 || matchBean.isplatinumvip)
                 smallPhotoAdapter.autoPlay = bigPhotoAdapter.autoPlay
                 headBinding.apply {
                     nickName.text = matchBean.nickname

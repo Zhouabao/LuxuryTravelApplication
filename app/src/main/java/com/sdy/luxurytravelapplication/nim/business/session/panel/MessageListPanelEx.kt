@@ -28,6 +28,7 @@ import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum
 import com.netease.nimlib.sdk.msg.model.RevokeMsgNotification
 import com.netease.nimlib.sdk.robot.model.RobotAttachment
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityChatBinding
 import com.sdy.luxurytravelapplication.event.RefreshCandyMessageEvent
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
@@ -945,7 +946,7 @@ class MessageListPanelEx @JvmOverloads constructor(
                 items.add(container.activity.getString(R.string.withdrawn_msg))
             }
 
-            if (item.msgType != MsgTypeEnum.custom)
+            if (item.msgType != MsgTypeEnum.custom && item.fromAccount != Constants.ASSISTANT_ACCID)
             //举报(文本、图片、视频、音频)
                 items.add(container.activity.getString(R.string.report))
 
@@ -1022,7 +1023,7 @@ class MessageListPanelEx @JvmOverloads constructor(
 
                     }
                     container.activity.getString(R.string.report) -> {
-//                        ReportChatContentDialog(container.activity, item).show()
+                        container.proxy.addReport(item)
                     }
                 }
             }
@@ -1074,7 +1075,7 @@ class MessageListPanelEx @JvmOverloads constructor(
             if (lastMessage.attachment is SendGiftAttachment
                 && (lastMessage.attachment as SendGiftAttachment).orderId == event.orderId
             ) {
-                (lastMessage.attachment as SendGiftAttachment).giftStatus=event.state
+                (lastMessage.attachment as SendGiftAttachment).giftStatus = event.state
                 items[i] = lastMessage
                 refreshViewHolderByIndex(i)
                 break

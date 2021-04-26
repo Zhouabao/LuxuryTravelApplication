@@ -38,7 +38,8 @@ class SquareZanFragment(val type: Int = TYPE_ZAN) :
     private val params by lazy {
         hashMapOf<String, Any>(
             "page" to page,
-            "pagesize" to Constants.PAGESIZE
+            "pagesize" to Constants.PAGESIZE,
+            "type" to type
         )
     }
     private val adapter by lazy { MessageSquareAdapter() }

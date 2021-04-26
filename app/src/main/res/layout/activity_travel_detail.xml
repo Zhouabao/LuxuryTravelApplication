@@ -88,6 +88,8 @@
                 android:gravity="center_vertical"
                 android:hint="@string/say_your_feel"
                 android:maxLength="150"
+                android:imeOptions="actionSend"
+                android:inputType="text"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp"
                 android:textColor="@color/color333"

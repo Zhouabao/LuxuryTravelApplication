@@ -60,7 +60,7 @@ class SquareCommentDetailModel: BaseModel(),SquareCommentDetailContract.Model {
         params: HashMap<String, Any>,
         position: Int
     ): Observable<BaseResp<Any>> {
-        return RetrofitHelper.service.commentReport(params)
+        return RetrofitHelper.service.addReport(params)
     }
 
     override fun removeMySquare(params: HashMap<String, Any>): Observable<BaseResp<Any>> {

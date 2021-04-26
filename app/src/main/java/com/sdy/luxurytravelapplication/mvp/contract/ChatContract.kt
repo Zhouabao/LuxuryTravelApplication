@@ -6,7 +6,6 @@ import com.sdy.luxurytravelapplication.base.IPresenter
 import com.sdy.luxurytravelapplication.base.IView
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseResp
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.FocusBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
 import io.reactivex.Observable
 
@@ -29,6 +28,8 @@ interface ChatContract {
 
         fun aideSendMsg(imMessage: IMMessage)
 
+        fun addReport(imMessage: IMMessage)
+
         fun uploadImgToQN(content: IMMessage, target_accid: String, imageUrl: String)
     }
 
@@ -43,6 +44,7 @@ interface ChatContract {
         ): Observable<BaseResp<SendMsgBean>>
 
         fun aideSendMsg(imMessage: IMMessage): Observable<BaseResp<Any>>
+        fun addReport(imMessage: IMMessage): Observable<BaseResp<Any>>
 
         fun uploadImgToQN(content: IMMessage, target_accid: String, imageUrl: String): String
     }
@@ -50,7 +52,7 @@ interface ChatContract {
     interface View : IView {
 
 
-        fun getTargetInfoResult(voiceBean: ChatInfoBean?, code: Int,msg: String)
+        fun getTargetInfoResult(voiceBean: ChatInfoBean?, code: Int, msg: String)
 
         fun uploadImgToQNResult(
             isOk: Boolean,
@@ -65,6 +67,9 @@ interface ChatContract {
             msg: String,
             content: IMMessage
         )
+
+        fun addReport(msg: String)
+
     }
 
 }

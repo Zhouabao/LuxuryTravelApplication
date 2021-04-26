@@ -211,7 +211,15 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.PurchaseFootActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activity.InviteCodeActivity"
             android:launchMode="singleTop" />
@@ -225,13 +233,7 @@
             android:name=".ui.activity.OnekeyLoginActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.activity.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.ProtocolActivity"

@@ -5,17 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="false"
     tools:context=".ui.activity.PurchaseFootActivity">
 
-    <View
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/coverBg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/icon_threshold_bg"
+        android:layout_height="wrap_content"
         app:layout_constraintDimensionRatio="375:350"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="lottie_foot_price.json"
+        app:lottie_imageAssetsFolder="images_foot/"
+        app:lottie_loop="true"
+        app:lottie_repeatCount="-1" />
+
+    <View
+        android:background="@drawable/shape_gradient_foot_cover"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/coverBg"
+        app:layout_constraintBottom_toBottomOf="@id/priceBg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <TextView
         android:id="@+id/t1"
@@ -45,17 +57,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="46dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/priceBg" />
+
     <ImageView
         android:id="@+id/priceBg"
         android:layout_width="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="325:91"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/icon_bg_foot_price"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="325:91"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -131,7 +153,6 @@
         android:id="@+id/leftCodeTv"
         android:layout_width="177dp"
         android:layout_height="57dp"
-        app:layout_constraintTop_toBottomOf="@id/t11"
         android:layout_marginTop="10dp"
         android:background="@drawable/shape_background_13dp"
         android:gravity="center"
@@ -139,6 +160,7 @@
         android:textSize="33sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t11"
         tools:text="0/200" />
 
     <TextView
@@ -152,21 +174,21 @@
         android:textColor="#ffffffff"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/leftCodeTv"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leftCodeTv" />
 
     <TextView
         android:id="@+id/whyPayBtn"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/buyBtn"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="为什么要付费"
         android:textColor="@color/colorAccent"
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buyBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

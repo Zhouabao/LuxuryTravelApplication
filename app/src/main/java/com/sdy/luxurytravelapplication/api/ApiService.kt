@@ -124,6 +124,14 @@ interface ApiService {
 
 
     /**
+     * 非会员播放视频
+     */
+    @FormUrlEncoded
+    @POST("MemberInfo/playMv${Constants.END_BASE_URL_v2}")
+    fun playMv(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+    /**
      * 获取用户广场列表
      */
     @FormUrlEncoded
@@ -352,6 +360,63 @@ interface ApiService {
     fun planInfo(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<TravelPlanBean?>>
 
 
+
+    /**
+     * 旅行计划评论列表
+     */
+    @FormUrlEncoded
+    @POST("Travel/getcommentPlan${Constants.END_BASE_URL_v2}")
+    fun getcommentPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<AllCommentBean?>>
+
+
+
+    /**
+     * 旅行计划添加评论
+     */
+    @FormUrlEncoded
+    @POST("Travel/addCommentPlan${Constants.END_BASE_URL_v2}")
+    fun addCommentPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+    /**
+     * 删除旅行计划
+     */
+    @FormUrlEncoded
+    @POST("Travel/delDating${Constants.END_BASE_URL_v2}")
+    fun delDating(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 删除旅行计划评论
+     */
+    @FormUrlEncoded
+    @POST("Travel/delCommentPlan${Constants.END_BASE_URL_v2}")
+    fun delCommentPlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 点赞旅行计划评论
+     */
+    @FormUrlEncoded
+    @POST("Travel/commentPlanLike${Constants.END_BASE_URL_v2}")
+    fun commentPlanLike(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
+
+
+
+
+    /**
+     * 旅行计划点赞
+     */
+    @FormUrlEncoded
+    @POST("Travel/likePlan${Constants.END_BASE_URL_v2}")
+    fun likePlan(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<AllCommentBean?>>
+
+
     /**
 
     旅行计划 发布选项
@@ -419,7 +484,7 @@ interface ApiService {
      * 广场消息列表
      */
     @FormUrlEncoded
-    @POST("tidings/squareListsEnd${Constants.END_BASE_URL}")
+    @POST("tidings/msgLists${Constants.END_BASE_URL_v2}")
     fun squareLists(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<MutableList<SquareMsgBean>>>
 
     /**
@@ -472,7 +537,7 @@ interface ApiService {
 
 
     /**
-     * type	1通话举报 2主页举报 3聊天内容举报 4广场动态举报 5广场评论举报
+     * type	1通话举报 2主页举报 3聊天内容举报 4广场动态举报 5广场评论举报 8旅行计划评论举报
      * content  当type为3和5 为举报内容 为4 广场动态的id
      * photo 举报图片json串
      * case_type 返回举报类型【色情涉黄/广告或垃圾信息。。。】

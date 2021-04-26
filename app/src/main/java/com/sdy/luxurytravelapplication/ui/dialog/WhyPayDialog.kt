@@ -36,7 +36,7 @@ class WhyPayDialog(val context1: Context) : BaseBindingDialog<DialogWhyPayBindin
         val window = this.window
         window?.setGravity(Gravity.BOTTOM)
         val params = window?.attributes
-        params?.width = ScreenUtils.getScreenWidth()- SizeUtils.dp2px(20F)
+        params?.width = ScreenUtils.getScreenWidth()
         params?.height = WindowManager.LayoutParams.WRAP_CONTENT
         params?.windowAnimations = R.style.MyDialogBottomAnimation
         window?.attributes = params

@@ -46,6 +46,12 @@ class ChatPresenter : BasePresenter<ChatContract.Model, ChatContract.View>(),
         }
     }
 
+    override fun addReport(imMessage: IMMessage) {
+        mModel?.addReport(imMessage)?.ssss {
+            mView?.addReport(it.msg)
+        }
+    }
+
     override fun uploadImgToQN(content: IMMessage, target_accid: String, imageUrl: String) {
         val key = mModel?.uploadImgToQN(content, target_accid, imageUrl)
         mView?.uploadImgToQNResult(!key.isNullOrEmpty(), key ?: "", content, target_accid)

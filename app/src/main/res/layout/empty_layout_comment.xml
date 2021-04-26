@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/tv1"
-        android:visibility="gone"
+        android:visibility="visible"
         layout="@layout/layout_comment_head"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

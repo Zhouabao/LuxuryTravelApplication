@@ -1,8 +1,10 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
@@ -95,7 +97,8 @@ class PurchaseFootActivity :
             .setTypeface(Typeface.createFromAsset(assets, "DIN_Alternate_Bold.ttf"))
             .append("/")
             .append("${chargeWayBeans.invite_code_all}")
-            .setForegroundColor(resources.getColor(R.color.colorAccent))
+            .setForegroundColor(Color.parseColor("#FFB6BCC6"))
+            .setTypeface(Typeface.createFromAsset(assets, "DIN_Alternate_Bold.ttf"))
             .create()
 
 

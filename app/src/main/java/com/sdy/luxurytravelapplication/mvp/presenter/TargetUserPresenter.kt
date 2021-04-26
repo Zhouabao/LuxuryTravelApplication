@@ -46,4 +46,8 @@ class TargetUserPresenter : BasePresenter<TargetUserContract.Model, TargetUserCo
         }
 
     }
+
+    override fun playMv(target_accid: String) {
+        mModel?.playMv(target_accid)
+    }
 }

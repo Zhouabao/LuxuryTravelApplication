@@ -41,6 +41,11 @@ public interface ModuleProxy {
     void onReplyMessage(IMMessage replyMsg);
 
 
+    /**
+     * 聊天内容举报
+     * @param message
+     */
+    void addReport(IMMessage message);
 
 
 

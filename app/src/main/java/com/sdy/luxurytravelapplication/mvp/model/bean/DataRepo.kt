@@ -597,11 +597,13 @@ data class CommentBean(
     var reply_content: String? = null,
     var reply_count: Int? = 0,
     var reply_id: Int? = 0,
+    var dating_id: Int? = 0,
     var replyed_nickname: String? = null,
     var nickname: String? = null,
     var square_id: Int? = 0,
     var type: Int = 1, //1数据  0标题
     override var itemType: Int = type
+
 ) : MultiItemEntity {
     companion object {
         const val TITLE = 0
@@ -609,6 +611,24 @@ data class CommentBean(
     }
 
 }
+
+
+data class A(
+    var avatar: String = "",
+    var content: String = "",
+    var create_time: String = "",
+    var dating_id: Int = 0,
+    var id: Int = 0,
+    var isliked: Int = 0,
+    var like_count: Int = 0,
+    var member_accid: String = "",
+    var nickname: String = "",
+    var out_time: String = "",
+    var reply_content: String = "",
+    var reply_count: Int = 0,
+    var reply_id: Int = 0,
+    var replyed_nickname: String = ""
+)
 
 data class AllCommentBean(
     var hotlist: MutableList<CommentBean>?,
@@ -682,6 +702,7 @@ data class TravelPlanBean(
     var goal_detail_address: String = "",
     var id: Int = 0,
     var like_cnt: Int = 0,
+    var comment_cnt: Int = 0,
     var nickname: String = "",
     var purpose: String = "",
     var rise_city: String = "",
@@ -722,55 +743,51 @@ data class ProviceBean(
  * 匹配用户
  */
 data class MatchBean(
-    var isvip: Int = 0,    //是否会员 true是 false不是
-    var isdirectvip: Boolean = false,    //是否铂金会员 true是 false不是
-    var isplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
-    var myisplatinumvip: Boolean = false,    //是否铂金会员 true是 false不是
-    var isfaced: Int = 0,  //0未认证/认证不成功     1认证通过     2认证中
     var accid: String = "",
     var age: Int = 0,
-    var avatar: String = "",
-    var distance: String = "",
-    var face_str: String = "",
-    var online_time: String = "",
-    var gender: Int = 0,
-    var nickname: String = "",
-    var contact_way: Int = 0, //联系方式  0  没有 1 电话 2微信 3 qq
-    var mv_btn: Boolean = false, //是否有视频
-    var mv_detail_url: String = "",
-    var mv_url: String = "",
-    var mv_faced: Boolean = false,
-    var photos: ArrayList<String> = arrayListOf(),
-    var sign: String = "",
-    var constellation: String = "",
-    var isfriend: Int = 0,
-    var isblock: Int = 1,//1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
-    var mycandy_amount: Int = 0,
-    var personal_info: MutableList<DetailUserInfoBean> = mutableListOf(),
-    var birth: Int = 0,
     var assets_audit_way: Int = 0,
-    val assets_audit_descr: String = "",
+    var avatar: String = "",
+    var birth: Int = 0,
+    var constellation: String = "",
+    var contact_way: Int = 0,//联系方式  0  没有 1 电话 2微信 3 qq
+    var dating: TravelPlanBean? = null,
+    var direct_vip_expire: Int = 0,
+    var distance: String = "",
     var face_type: Int = 0,//	0没有认证 1活体 2 真人 3 颜值 4奢旅
     var approve_square_id: Int = 0,//满足是face_type 为4的时侯可以查看动态详情
-    var dating: TravelPlanBean? = null,
-    var myinfo: Myinfo = Myinfo(),
-    var gift_list: MutableList<GiftBean> = mutableListOf()
-)
-
-data class Myinfo(
-    var assets_audit_state: Int = 0,//资产认证状态 0 1房产 2号车 3充值
-    var education_audit_state: Boolean = false,
-    var faced_state: Int = 0,//	0 1认证2男神3女神
-    var isdiamondvip: Boolean = false,
-    var isfaced: Boolean = false,
-    var isgoldvip: Boolean = false,//	是否会员（使用）
-    var isvip: Boolean = false,
-    var istalk_btn: Boolean = false,//为True才显示  为false不显示
+    var gender: Int = 0,
+    var gift_list: List<Any> = listOf(),
+    var greet_state: Boolean = false,
+    var greet_switch: Boolean = false,
+    var isblock: Int = 0,//1 互相没有拉黑  2 我拉黑了他  3  ta拉黑了我   4 互相拉黑
+    var isdirectvip: Boolean = false,//是否铂金会员 true是 false不是
+    var isdisliked: Int = 0,
+    var isfaced: Int = 0, //0未认证/认证不成功     1认证通过     2认证中
+    var isfriend: Int = 0,
+    var isliked: Int = 0,
+    var isplatinumvip: Boolean = false, //是否铂金会员 true是 false不是
+    var isvip: Int = 0,//是否会员 true是 false不是
+    var jobname: String = "",
+    var mv_btn: Boolean = false, //是否有视频
+    var mv_cover_url: String = "",
+    var mv_detail_url: String = "",
+    var mv_faced: Boolean = false,
     var mv_url: String = "",
-    var personal_auto_play: Boolean = false,//是否开启自动播放 true 开启 false未开启
-    var residue_auto_count: Int = 0,//	剩余 可看视频次数 -1 会员免费 >0次数
-    var wechat_audit_state: Boolean = false,
-    var work_audit_state: Boolean = false
+    var my_like_times: Int = 0,
+    var my_percent_complete: Int = 0,
+    var mycandy_amount: Int = 0,
+    var myisplatinumvip: Boolean = false, //是否铂金会员 true是 false不是
+    var nickname: String = "",
+    var normal_percent_complete: Int = 0,
+    var online_time: String = "",
+    var personal_auto_play: Boolean = false,
+    var personal_info: MutableList<DetailUserInfoBean> = mutableListOf(),
+    var photos: List<String> = listOf(),
+    var residue_auto_count: Int = 0,
+    var sign: String = "",
+    var total_like_times: Int = 0
+
+
 )
 
 
@@ -897,6 +914,7 @@ data class TodayFateBean(
     val list: MutableList<IndexBean> = mutableListOf(),
     var gift_list: MutableList<GiftBean> = mutableListOf()
 )
+
 data class MessageGiftBean(
     var mid: String = "",
     var id: Int = 0,
@@ -924,7 +942,6 @@ data class BatchGreetBean(
     var order_id: String = "",
     var msg: String = ""
 )
-
 
 
 data class MessageListBean(

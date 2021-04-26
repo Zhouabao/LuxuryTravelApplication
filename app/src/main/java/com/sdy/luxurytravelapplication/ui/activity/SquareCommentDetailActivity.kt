@@ -131,36 +131,43 @@ class SquareCommentDetailActivity :
                 true
             }
             adapter.setOnItemClickListener { _, _, position ->
-                reply = true
-                reply_id = adapter.data[position].id!!.toInt()
-                showCommentEt.isFocusable = true
-                showCommentEt.hint =
-                    "『${getString(R.string.reply)}" + "\t${adapter.data[position].nickname}" + "：』"
-                KeyboardUtils.showSoftInput(showCommentEt)
+                if (adapter.data[position].itemType == CommentBean.CONTENT) {
+                    reply = true
+                    reply_id = adapter.data[position].id!!.toInt()
+                    showCommentEt.isFocusable = true
+                    showCommentEt.hint =
+                        "『${getString(R.string.reply)}" + "\t${adapter.data[position].nickname}" + "：』"
+                    KeyboardUtils.showSoftInput(showCommentEt)
+                }
             }
 
             adapter.setOnItemChildClickListener { _, view, position ->
                 when (view.id) {
                     R.id.llCommentDianzanBtn -> {
-                        mPresenter?.getCommentLike(
-                            hashMapOf(
-                                "reply_id" to adapter.data[position].id!!,
-                                "type" to if (adapter.data[position].isliked == 0) {
-                                    1
-                                } else {
-                                    2
-                                }
-                            )
-                            , position
-                        )
+                        if (adapter.data[position].itemType == CommentBean.CONTENT) {
 
+                            mPresenter?.getCommentLike(
+                                hashMapOf(
+                                    "reply_id" to adapter.data[position].id!!,
+                                    "type" to if (adapter.data[position].isliked == 0) {
+                                        1
+                                    } else {
+                                        2
+                                    }
+                                )
+                                , position
+                            )
+
+                        }
                     }
                     R.id.commentReplyBtn -> {
-                        reply = true
-                        reply_id = adapter.data[position].id!!
-                        showCommentEt.hint =
-                            "『${getString(R.string.reply)}${adapter.data[position].replyed_nickname}：』"
-                        KeyboardUtils.showSoftInput(showCommentEt)
+                        if (adapter.data[position].itemType == CommentBean.CONTENT) {
+                            reply = true
+                            reply_id = adapter.data[position].id!!
+                            showCommentEt.hint =
+                                "『${getString(R.string.reply)}${adapter.data[position].nickname}：』"
+                            KeyboardUtils.showSoftInput(showCommentEt)
+                        }
                     }
                 }
             }
@@ -496,7 +503,11 @@ class SquareCommentDetailActivity :
                     } else {
                         //举报
                         mPresenter?.commentReport(
-                            hashMapOf("id" to adapter.data[position].id!!),
+                            hashMapOf(
+                                "content" to adapter.data[position].id!!,
+                                "type" to 5,
+                                "target_accid" to adapter.data[position].member_accid!!
+                            ),
                             position
                         )
                     }
@@ -582,10 +593,6 @@ class SquareCommentDetailActivity :
                         allCommentBean.list!![i].itemType = CommentBean.CONTENT
                     }
                 }
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
             }
             binding.refreshLayout.finishRefresh(true)
         } else {
@@ -679,13 +686,13 @@ class SquareCommentDetailActivity :
                 )
                 binding.bottomLayout.squareCommentBtn1.text = "${squareBean!!.comment_cnt}"
             }
-            202->{
+            202 -> {
                 CommonFunction.startToFootPrice(this)
             }
-            203->{
+            203 -> {
                 CommentVipDialog().show()
             }
-            else->{
+            else -> {
                 ToastUtil.toast(data.msg)
             }
         }

@@ -37,6 +37,7 @@ interface TargetUserContract {
 
 
         fun onRemoveBlockResult(success: Boolean)
+
     }
 
     interface Presenter : IPresenter<View> {
@@ -57,6 +58,11 @@ interface TargetUserContract {
          * 解除匹配
          */
         fun dissolutionFriend(params: HashMap<String, Any>)
+
+        /**
+         * 非会员播放视频
+         */
+        fun playMv(target_accid: String)
     }
 
     interface Model : IModel {
@@ -80,5 +86,11 @@ interface TargetUserContract {
          * 解除匹配
          */
         fun dissolutionFriend(params: HashMap<String, Any>):Observable<BaseResp<Any>>
+
+
+        /**
+         * 非会员播放视频
+         */
+        fun playMv(target_accid: String):Observable<BaseResp<Any>>
     }
 }
