@@ -581,10 +581,10 @@ class SquareCommentDetailActivity :
                         allCommentBean.list!![i].itemType = CommentBean.CONTENT
                     }
                 }
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
-                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
+//                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
+//                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
+//                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
+//                adapter.addData(CommentBean("", "hhhhhhhhhhhhh", "十分钟之前", nickname = "aaa"))
             }
             binding.refreshLayout.finishRefresh(true)
         } else {

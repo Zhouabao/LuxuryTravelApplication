@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import com.sdy.luxurytravelapplication.ui.activity.PublishActivity
 import com.sdy.luxurytravelapplication.ui.adapter.MainPager2Adapter
 import com.sdy.luxurytravelapplication.utils.RandomUtils
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -99,7 +101,6 @@ class FindFragment :
             binding.uploadCl.postDelayed({
                 binding.uploadCl.isVisible = false
             }, 500L)
-
             SPUtils.getInstance(Constants.SPNAME).remove("draft", true)
         } else {
             UserManager.cancelUpload = true

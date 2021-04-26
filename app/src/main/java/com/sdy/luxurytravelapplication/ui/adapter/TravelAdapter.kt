@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import android.view.View
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -12,6 +13,7 @@ import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import com.sdy.luxurytravelapplication.widgets.FindAudioView
+import org.jetbrains.anko.backgroundColorResource
 
 /**
  *    author : ZFM
@@ -19,19 +21,19 @@ import com.sdy.luxurytravelapplication.widgets.FindAudioView
  *    desc   :
  *    version: 1.0
  */
-class TravelAdapter(val formDetail: Boolean = false) :
+class TravelAdapter(val formDetail: Boolean = false ,val type : Int = 0) :
     BaseBindingQuickAdapter<TravelPlanBean, ItemTravelBinding>(R.layout.item_travel) {
     val myAudioView by lazy { mutableListOf<FindAudioView?>() }
 
     override fun convert(binding: ItemTravelBinding, position: Int, item: TravelPlanBean) {
         binding.apply {
-            ClickUtils.applySingleDebouncing(arrayOf(root, chatBtn, userAvatar)) {
+            ClickUtils.applySingleDebouncing(arrayOf(root, signUpBtn, userAvatar)) {
                 when (it) {
                     root -> {
                         if (!formDetail)
                             TravelDetailActivity.start(context, item)
                     }
-                    chatBtn -> {
+                    signUpBtn -> {
                         CommonFunction.checkApplyForDating(context, item)
                     }
                     userAvatar -> {
@@ -39,6 +41,18 @@ class TravelAdapter(val formDetail: Boolean = false) :
                     }
                 }
             }
+
+            if(type==1){
+                //个人中心的旅行
+                bg.setBackgroundResource(R.drawable.icon_my_travel_bg)
+                userAvatar.isVisible = false
+                travelCost.isVisible = false
+                travelRequire.isVisible = false
+                travelAimbition.isVisible = false
+                signUpBtn.isVisible = false
+                detailsTv.isVisible = true
+            }
+
 
             GlideUtil.loadRoundImgCenterCrop(context, item.avatar, userAvatar, SizeUtils.dp2px(15F))
             travelTitle.text = item.dating_title

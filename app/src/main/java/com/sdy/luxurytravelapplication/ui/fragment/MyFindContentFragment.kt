@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,12 +14,17 @@ import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.EmptyMysquareLayoutBinding
 import com.sdy.luxurytravelapplication.databinding.FragmentMyFindContentBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewMyFragmentBinding
+import com.sdy.luxurytravelapplication.event.AnnounceEvent
+import com.sdy.luxurytravelapplication.event.RefreshDeleteSquareEvent
+import com.sdy.luxurytravelapplication.event.RefreshLikeEvent
 import com.sdy.luxurytravelapplication.mvp.contract.MyFindContentContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyFindContentPresenter
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.ui.activity.PublishActivity
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 
@@ -162,5 +168,18 @@ class MyFindContentFragment :
 
     override fun onCheckBlockResult(b: Boolean) {
         PublishActivity.startToPublish(activity!!)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun monRefreshDeleteSquareEvent(event : RefreshDeleteSquareEvent){
+       binding.refreshFind.autoRefresh()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onAnnounceEvent(event: AnnounceEvent) {
+        if (event.serverSuccess) {
+            binding.refreshFind.autoRefresh()
+        }
     }
 }

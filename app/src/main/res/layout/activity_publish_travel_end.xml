@@ -58,7 +58,6 @@
                 android:background="@drawable/shape_f7f8fa_15dp"
                 android:gravity="start"
                 android:hint="详细说说你的旅行的时间/要求/具体计划/行程天数等，越具体的计划会让人越有参与的积极性哦"
-                android:inputType="text"
                 android:padding="15dp"
                 android:lines="3"
                 android:textColor="@color/color333"

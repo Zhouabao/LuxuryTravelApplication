@@ -69,7 +69,7 @@ class RecordContentDialog : BaseBindingDialog<DialogRecordContentBinding>(),
                         countTimeThread?.cancel()
                     }
 
-                    if (totalSecond == 170) {
+                    if (totalSecond == 290) {
                         ToastUtil.toast(context.getString(R.string.left_10_seconds_to_record))
                     }
                     recordTimeTv.text = UriUtils.getShowTime(totalSecond)
