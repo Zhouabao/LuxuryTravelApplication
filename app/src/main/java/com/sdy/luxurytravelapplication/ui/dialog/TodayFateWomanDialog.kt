@@ -1,10 +1,10 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.WindowManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.google.gson.Gson
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.RequestCallback
@@ -27,26 +27,31 @@ import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 class TodayFateWomanDialog(
     val nearBean: IndexRecommendBean,
     val data: TodayFateBean
-) : BaseBindingDialog<DialogTodayFateWomanBinding>() {
+) : BaseBindingDialog<DialogTodayFateWomanBinding>(
+    SizeUtils.dp2px(300F),
+    WindowManager.LayoutParams.WRAP_CONTENT,
+    R.style.MyDialogCenterAnimation,
+    true
+) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initWindow()
+//        initWindow()
         initView()
     }
 
     private val adapter by lazy { FateAdapter() }
 
-    private fun initWindow() {
-        val window = this.window
-        window?.setGravity(Gravity.CENTER)
-        val params = window?.attributes
-        params?.width = WindowManager.LayoutParams.MATCH_PARENT
-        params?.height = WindowManager.LayoutParams.MATCH_PARENT
-        params?.windowAnimations = R.style.MyDialogCenterAnimation
-        window?.attributes = params
-        setCanceledOnTouchOutside(true)
-    }
+//    private fun initWindow() {
+//        val window = this.window
+//        window?.setGravity(Gravity.CENTER)
+//        val params = window?.attributes
+//        params?.width = SizeUtils.dp2px(300F)
+//        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+//        params?.windowAnimations = R.style.MyDialogCenterAnimation
+//        window?.attributes = params
+//        setCanceledOnTouchOutside(true)
+//    }
 
     private fun initView() {
         binding.apply {
@@ -95,7 +100,7 @@ class TodayFateWomanDialog(
                 binding.hiFateBtn.isEnabled = true
                 break
             } else {
-                binding. hiFateBtn.isEnabled = false
+                binding.hiFateBtn.isEnabled = false
             }
         }
     }
@@ -114,44 +119,44 @@ class TodayFateWomanDialog(
         }
         val params = hashMapOf<String, Any>()
         params["batch_accid"] = Gson().toJson(ids)
-       RetrofitHelper.service
+        RetrofitHelper.service
             .batchGreetWoman(params)
-           .ssss{t->
-               if (t.code == 200 && !t.data.isNullOrEmpty()) {
-                   for (data in t.data.withIndex()) {
-                       if (!data.value.msg.isEmpty()) {
-                           //随机发送一条搭讪语消息
-                           val chatUpAttachment = ChatUpAttachment(data.value.msg)
-                           val msg = MessageBuilder.createCustomMessage(
-                               data.value.accid,
-                               SessionTypeEnum.P2P,
-                               chatUpAttachment
-                           )
+            .ssss { t ->
+                if (t.code == 200 && !t.data.isNullOrEmpty()) {
+                    for (data in t.data.withIndex()) {
+                        if (!data.value.msg.isEmpty()) {
+                            //随机发送一条搭讪语消息
+                            val chatUpAttachment = ChatUpAttachment(data.value.msg)
+                            val msg = MessageBuilder.createCustomMessage(
+                                data.value.accid,
+                                SessionTypeEnum.P2P,
+                                chatUpAttachment
+                            )
 
 
-                           NIMClient.getService(MsgService::class.java).sendMessage(msg, false)
-                               .setCallback(object : RequestCallback<Void> {
-                                   override fun onSuccess(p0: Void?) {
-                                       if (data.index == t.data.size - 1) {
-                                           loadingDialog.dismiss()
-                                           dismiss()
-                                           ToastUtil.toast(context.getString(R.string.send_hi_success))
-                                       }
-                                   }
+                            NIMClient.getService(MsgService::class.java).sendMessage(msg, false)
+                                .setCallback(object : RequestCallback<Void> {
+                                    override fun onSuccess(p0: Void?) {
+                                        if (data.index == t.data.size - 1) {
+                                            loadingDialog.dismiss()
+                                            dismiss()
+                                            ToastUtil.toast(context.getString(R.string.send_hi_success))
+                                        }
+                                    }
 
-                                   override fun onFailed(p0: Int) {
-                                   }
+                                    override fun onFailed(p0: Int) {
+                                    }
 
-                                   override fun onException(p0: Throwable?) {
-                                   }
+                                    override fun onException(p0: Throwable?) {
+                                    }
 
-                               })
-                       }
-                   }
-               } else {
-                   loadingDialog.dismiss()
-               }
-           }
+                                })
+                        }
+                    }
+                } else {
+                    loadingDialog.dismiss()
+                }
+            }
 
     }
 

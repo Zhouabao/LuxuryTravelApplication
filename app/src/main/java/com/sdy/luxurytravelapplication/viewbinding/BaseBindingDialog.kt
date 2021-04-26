@@ -20,11 +20,12 @@ package com.sdy.luxurytravelapplication.viewbinding
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
+import android.view.WindowManager
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.app.TravelApp
 
 /**
  * How to modify the base class to use view binding, you need the following steps:
@@ -37,18 +38,38 @@ import com.sdy.luxurytravelapplication.app.TravelApp
  *
  * @author Dylan Cai
  */
-abstract class BaseBindingDialog<VB : ViewBinding>(context: Context, themeResId: Int) : Dialog(context, themeResId) {
+abstract class BaseBindingDialog<VB : ViewBinding>(
+    val width: Int = ScreenUtils.getScreenWidth(),
+    val height: Int = WindowManager.LayoutParams.WRAP_CONTENT,
+    val animation: Int = R.style.MyDialogBottomAnimation,
+    val cancelable: Boolean = true,
+    context: Context = ActivityUtils.getTopActivity(),
+    themeResId: Int = R.style.MyDialog
+) : Dialog(context, themeResId) {
 
-  lateinit var binding: VB
+    lateinit var binding: VB
 
 
-  constructor(context: Context) : this(context, R.style.MyDialog)
-  constructor() : this(ActivityUtils.getTopActivity(), R.style.MyDialog)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = inflateBindingWithGeneric(layoutInflater)
+        setContentView(binding.root)
+        initBaseWindow()
+    }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = inflateBindingWithGeneric(layoutInflater)
-    setContentView(binding.root)
-  }
+   private fun initBaseWindow() {
+        val window = this.window
+        if (animation == R.style.MyDialogBottomAnimation) {
+            window?.setGravity(Gravity.BOTTOM)
+        } else {
+            window?.setGravity(Gravity.CENTER)
+        }
+        val params = window?.attributes
+        params?.width = width
+        params?.height = height
+        params?.windowAnimations = animation
+        window?.attributes = params
+        setCancelable(cancelable)
+    }
 
 }

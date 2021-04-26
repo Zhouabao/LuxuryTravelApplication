@@ -24,7 +24,7 @@ import org.jetbrains.anko.startActivity
  *    version: 1.0
  */
 class PrivacyDialog :
-    BaseBindingDialog<DialogPrivacyBinding>(ActivityUtils.getTopActivity(), R.style.MyDialog) {
+    BaseBindingDialog<DialogPrivacyBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

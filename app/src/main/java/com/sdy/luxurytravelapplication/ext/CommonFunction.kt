@@ -431,7 +431,7 @@ object CommonFunction {
         context: Context,
         requestCode: Int = -1
     ) {
-        VideoIntroduceActivity.start(context, requestCode)
+        VideoIntroduceActivity.start(ActivityUtils.getTopActivity(), requestCode)
     }
 
     /**

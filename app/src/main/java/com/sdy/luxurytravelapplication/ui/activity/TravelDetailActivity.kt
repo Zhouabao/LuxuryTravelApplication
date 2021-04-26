@@ -255,12 +255,14 @@ class TravelDetailActivity :
         page = 1
         adapter.data.clear()
         commentParams["page"] = page
+        refreshLayout.finishRefresh()
 //        mPresenter?.getCommentList(commentParams, true)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         page++
         commentParams["page"] = page
+        refreshLayout.finishLoadMore()
 //        mPresenter?.getCommentList(commentParams, false)
     }
 

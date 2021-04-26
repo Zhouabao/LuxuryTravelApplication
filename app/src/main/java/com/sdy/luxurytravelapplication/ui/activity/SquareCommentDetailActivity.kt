@@ -45,6 +45,7 @@ import com.sdy.luxurytravelapplication.mvp.presenter.SquareCommentDetailPresente
 import com.sdy.luxurytravelapplication.ui.adapter.ListSquareImgsAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.MultiListCommentAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareTitleAdapter
+import com.sdy.luxurytravelapplication.ui.dialog.CommentVipDialog
 import com.sdy.luxurytravelapplication.ui.dialog.MoreActionNewDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.widgets.switchplay.SwitchUtil
@@ -663,20 +664,32 @@ class SquareCommentDetailActivity :
 
     override fun onAddCommentResult(data: BaseResp<Any>, result: Boolean) {
         resetCommentEt()
-        if (result) {
-            page = 1
-            adapter.data.clear()
-            commentParams["page"] = page
-            mPresenter?.getCommentList(commentParams, true)
-            squareBean!!.comment_cnt = squareBean!!.comment_cnt.plus(1)
-            EventBus.getDefault().post(
-                RefreshCommentEvent(
-                    squareBean!!.comment_cnt,
-                    intent.getIntExtra("position", 0)
+        when (data.code) {
+            200 -> {
+                page = 1
+                adapter.data.clear()
+                commentParams["page"] = page
+                mPresenter?.getCommentList(commentParams, true)
+                squareBean!!.comment_cnt = squareBean!!.comment_cnt.plus(1)
+                EventBus.getDefault().post(
+                    RefreshCommentEvent(
+                        squareBean!!.comment_cnt,
+                        intent.getIntExtra("position", 0)
+                    )
                 )
-            )
-            binding.bottomLayout.squareCommentBtn1.text = "${squareBean!!.comment_cnt}"
+                binding.bottomLayout.squareCommentBtn1.text = "${squareBean!!.comment_cnt}"
+            }
+            202->{
+                CommonFunction.startToFootPrice(this)
+            }
+            203->{
+                CommentVipDialog().show()
+            }
+            else->{
+                ToastUtil.toast(data.msg)
+            }
         }
+
     }
 
     override fun onRemoveMySquareResult(b: Boolean) {

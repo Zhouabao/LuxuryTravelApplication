@@ -23,7 +23,7 @@ import org.jetbrains.anko.startActivity
  *    version: 1.0
  */
 class ChooseLoginWayDialog(context: Context, val syCode: Int = 0) :
-    BaseBindingDialog<DialogChooseLoginWayBinding>(context) {
+    BaseBindingDialog<DialogChooseLoginWayBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

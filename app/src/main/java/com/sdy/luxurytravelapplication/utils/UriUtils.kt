@@ -15,6 +15,7 @@ import com.luck.picture.lib.compress.Luban
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.mvp.model.bean.ContactInfo
 import com.sdy.luxurytravelapplication.mvp.model.bean.MediaBean
+import com.sdy.luxurytravelapplication.nim.config.NimSDKOptionConfig
 import java.io.File
 
 /**
@@ -388,8 +389,8 @@ object UriUtils {
      * 设置缓存文件夹地址
      */
     fun getCacheDir(context: Context): String {
-//        return NimSDKOptionConfig.getAppCacheDir(context).plus(Constants.CACHE_DIR)
-        return ""
+        return NimSDKOptionConfig.getAppCacheDir(context).plus(Constants.CACHE_DIR)
+//        return ""
     }
 
 

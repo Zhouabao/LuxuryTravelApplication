@@ -1026,4 +1026,6 @@
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
+    <string name="leave_your_comment_to_see_you">留下你的评论，让TA看到你</string>
+    <string name="only_gold_can_comment">仅高级会员支持评论</string>
 </resources>
