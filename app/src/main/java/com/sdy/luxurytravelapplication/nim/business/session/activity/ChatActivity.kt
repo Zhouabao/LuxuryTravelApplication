@@ -509,11 +509,14 @@ class ChatActivity :
             }
             binding.gotoVerifyBtn -> {// 去认证
                 if (!nimBean.my_isfaced) {
-                    CommonFunction.startToFace(
-                        this,
-                        FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
-                        -1
-                    )
+                    if (UserManager.isverify == 2)
+                        ToastUtil.toast("真人认证正在审核中....")
+                    else
+                        CommonFunction.startToFace(
+                            this,
+                            FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
+                            -1
+                        )
                 } else if (nimBean.mv_state == 0) {
                     CommonFunction.startToVideoIntroduce(this, -1)
                 }
