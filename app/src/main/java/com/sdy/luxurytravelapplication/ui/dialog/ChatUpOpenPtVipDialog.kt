@@ -90,7 +90,7 @@ class ChatUpOpenPtVipDialog(
                         null
                     )
 
-                    chatupContact.setTextColor(Color.parseColor("FF1E9CF0"))
+                    chatupContact.setTextColor(Color.parseColor("#FF1E9CF0"))
                     chatupContact.text="QQ\t${chatUpBean.contact}"
                 }
             }
