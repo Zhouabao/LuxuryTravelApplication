@@ -46,9 +46,11 @@ class PeopleRecommendTopAdapter :
                 selectedMine.isVisible = false
                 lottieMine.isVisible = true
                 if (UserManager.gender == 1) {
+                    userMvBtn.setImageResource(R.drawable.icon_index_video)
                     userMvBtn.isVisible = item.source_type == 1
                 } else {
                     userMvBtn.isVisible = item.isplatinum
+                    userMvBtn.setImageResource(R.drawable.icon_index_vip)
                 }
             }
             ClickUtils.applySingleDebouncing(itemView) {

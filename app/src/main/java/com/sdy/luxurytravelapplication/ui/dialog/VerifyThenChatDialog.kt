@@ -52,7 +52,7 @@ class VerifyThenChatDialog(
                 }
                 FROM_CHAT_VERIFY -> {//认证才能聊天
                     closeBtn.isVisible = false
-                    accountDangerLogo.setImageResource(R.drawable.icon_verify_to_logo)
+                    accountDangerLogo.setImageResource(R.drawable.icon_verify_then_chat)
                     moreInfoTitle.text = context1.getString(R.string.verify_then_chat)
                     SpanUtils.with(t2)
                         .append(context1.getString(R.string.verify_then_chat_content))

@@ -431,7 +431,8 @@ object CommonFunction {
         context: Context,
         requestCode: Int = -1
     ) {
-        VideoIntroduceActivity.start(ActivityUtils.getTopActivity(), requestCode)
+        VideoIntroduceBeforeDialog(ActivityUtils.getTopActivity(), requestCode).show()
+//        VideoIntroduceActivity.start(ActivityUtils.getTopActivity(), requestCode)
     }
 
     /**

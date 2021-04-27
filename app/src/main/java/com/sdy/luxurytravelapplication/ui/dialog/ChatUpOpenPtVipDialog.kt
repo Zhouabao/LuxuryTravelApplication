@@ -36,14 +36,14 @@ class ChatUpOpenPtVipDialog(
     val context1: Context,
     val target_accid: String,
     val type: Int = TYPE_CHAT,
-    val chatUpBean: ChatUpBean,
-    val msg: String = ""
+    val chatUpBean: ChatUpBean
 ) : BaseBindingDialog<DialogChatUpOpenPtVipBinding>() {
 
     companion object {
         const val TYPE_CHAT = 1
         const val TYPE_CONTACT = 2
         const val TYPE_ROAMING = 3
+        const val TYPE_CHAT_DETAIL = 4//在聊天内页
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -313,6 +313,21 @@ class ChatUpOpenPtVipDialog(
                         }
                     }
                 }
+                TYPE_CHAT_DETAIL->{
+                    if (chatUpBean.avatar.isNotEmpty())
+                        GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
+                    //2.对方用户是普通用户
+                    chatupTitle.text = context1.getString(R.string.her_level_privay)
+                    chatupContent.text =
+                        context1.getString(R.string.she_allow_gold_contact_her)
+                    chatupUnlockChat.isVisible = false
+                    openPtVipBtn.text = context1.getString(R.string.tobe_gold_approve_power)
+                    ClickUtils.applySingleDebouncing(openPtVipBtn) {
+                        CommonFunction.startToVip(context1)
+                        dismiss()
+                    }
+                }
+
             }
         }
     }

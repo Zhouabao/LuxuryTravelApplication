@@ -22,7 +22,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/inputCl"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barCl">
+        app:layout_constraintTop_toBottomOf="@id/verifyLl">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messageListRv"
@@ -48,7 +48,7 @@
         android:id="@+id/verifyLl"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:background="#FFFFEFE7"
+        android:background="#FFF1FFFC"
         android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,7 +62,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="还有2次聊天机会，认证后无限制"
-            android:textColor="#ffff6318"
+            android:textColor="@color/colorAccent"
             android:textSize="12sp"
             android:textStyle="bold" />
 

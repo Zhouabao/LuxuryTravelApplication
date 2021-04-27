@@ -40,10 +40,7 @@ import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.mvp.contract.ChatContract
-import com.sdy.luxurytravelapplication.mvp.model.bean.ChatInfoBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.CustomerMsgBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendMsgBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.SendTipBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.*
 import com.sdy.luxurytravelapplication.mvp.presenter.ChatPresenter
 import com.sdy.luxurytravelapplication.nim.api.NimUIKit
 import com.sdy.luxurytravelapplication.nim.api.model.contact.ContactChangedObserver
@@ -64,6 +61,7 @@ import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
+import com.sdy.luxurytravelapplication.ui.dialog.ChatUpOpenPtVipDialog
 import com.sdy.luxurytravelapplication.ui.dialog.ContactCandyReceiveDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VideoAddChatTimeDialog
@@ -137,6 +135,7 @@ class ChatActivity :
 
 
     override fun initData() {
+
         initSensor()
         val container = Container(this, sessionId, SessionTypeEnum.P2P, this, true)
         val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
@@ -532,15 +531,28 @@ class ChatActivity :
 
     private fun canSendMsg(): Boolean {
         // 发起方并且次数为0 禁止发送
-        return if (nimBean.islimit) {
-            // 如果没有认证就弹认证才能聊天,如果认证了就查看是否添加了认证视频
-            if (!nimBean.my_isfaced)
-                VerifyAddChatDialog(this, nimBean.approve_chat_times).show()
-            else if (nimBean.mv_state == 0)
-                VideoAddChatTimeDialog(this).show()
-            false
+        return if (UserManager.gender == 2) {
+            if (nimBean.islimit) {
+                // 如果没有认证就弹认证才能聊天,如果认证了就查看是否添加了认证视频
+                if (!nimBean.my_isfaced) {
+                    VerifyAddChatDialog(this, nimBean.approve_chat_times).show()
+                } else if (nimBean.mv_state == 0) {
+                    VideoAddChatTimeDialog(this).show()
+                }
+                false
+            } else {
+                true
+            }
         } else {
-            true
+            if (nimBean.private_chat_state && !nimBean.isplatinum) {
+                ChatUpOpenPtVipDialog(
+                    this, sessionId, ChatUpOpenPtVipDialog.TYPE_CHAT_DETAIL,
+                    ChatUpBean(avatar = nimBean.avatar, contact_way = nimBean.unlock_contact_way)
+                ).show()
+                false
+            } else {
+                true
+            }
         }
     }
 
