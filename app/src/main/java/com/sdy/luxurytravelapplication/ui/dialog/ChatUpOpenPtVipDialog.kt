@@ -182,6 +182,7 @@ class ChatUpOpenPtVipDialog(
                         } else if (chatUpBean.private_chat_btn) {
                             if (chatUpBean.avatar.isNotEmpty())
                                 GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
+                            openPtVipBtn.setBackgroundResource(R.drawable.shape_rectangle_orange_25dp)
                             //2.对方用户是普通用户
                             chatupTitle.text = context1.getString(R.string.her_level_privay)
                             chatupContent.text =
@@ -242,7 +243,7 @@ class ChatUpOpenPtVipDialog(
                         GlideUtil.loadImg(context1, chatUpBean.avatar, chatupAvator)
                     chatupContact.isVisible = true
                     if (chatUpBean.private_chat_btn && !chatUpBean.isplatinum) {
-                        openPtVipBtn.setBackgroundResource(R.drawable.shape_rectangle_green_25dp)
+                        openPtVipBtn.setBackgroundResource(R.drawable.shape_rectangle_orange_25dp)
                         chatupTitle.text = context1.getString(
                             R.string.her_level_privay
                         )
