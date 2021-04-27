@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
-            android:background="@drawable/orange_bg_rectangle"
+            android:background="@drawable/gray_bg_round"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"

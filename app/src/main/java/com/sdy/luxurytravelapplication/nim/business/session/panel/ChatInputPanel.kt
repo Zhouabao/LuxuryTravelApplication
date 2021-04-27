@@ -41,6 +41,7 @@ import com.sdy.luxurytravelapplication.nim.business.session.actions.BaseAction
 import com.sdy.luxurytravelapplication.nim.common.util.string.StringUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.dialog.SendGiftDialog
+import com.sdy.luxurytravelapplication.utils.ToastUtil
 import java.io.File
 
 /**
@@ -406,7 +407,16 @@ class ChatInputPanel(
                 MotionEvent.ACTION_CANCEL,
                 MotionEvent.ACTION_UP -> {
                     touched = false
-                    onEndAudioRecord(isCancelled(view1, event))
+                    //增加录音时间判断
+                    if(audioTime>=3){
+                        onEndAudioRecord(isCancelled(view1, event))
+                    }else{
+                        onEndAudioRecord(true)
+                        //不是上滑取消弹出Toast提示
+                        if(!isCancelled(view1, event)){
+                            ToastUtil.toast("录音时间太短")
+                        }
+                    }
                 }
                 MotionEvent.ACTION_MOVE -> {
                     touched = true
@@ -481,13 +491,14 @@ class ChatInputPanel(
      * 开始语音录制动画
      */
 
+    var audioTime = 0 //增加录音时长判断
     private fun playAudioRecordAnim() {
         binding.recordAnimation.playAnimation()
         binding.recordTimeTv.base = SystemClock.elapsedRealtime()
         binding.recordTimeTv.start()
         binding.recordTimeTv.setOnChronometerTickListener {
             val time = (SystemClock.elapsedRealtime() - it.base) / 1000L
-            Log.e( "playAudioRecordAnim: ","$time" )
+            audioTime = time.toInt()
             binding.recordProgressTime.progress =
                 (time * 1f / NimUIKitImpl.getOptions().audioRecordMaxTime * 100).toInt()
         }

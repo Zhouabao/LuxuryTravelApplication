@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.blankj.utilcode.constant.PermissionConstants
@@ -17,6 +18,7 @@ import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.Constants
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivitySettingsBinding
 import com.sdy.luxurytravelapplication.event.UpdateSettingEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
@@ -30,6 +32,7 @@ import com.sdy.luxurytravelapplication.utils.UriUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.userManager
 
 /**
  * 系统设置
@@ -104,6 +107,7 @@ class SettingsActivity :
                 privacyPowers = settingsBean!!.private_chat_list
                 hideModeContent.text = invisible_state.title
                 privacyPowerContent.text = private_chat_state.title
+                blockPrivacyCl.isVisible = UserManager.gender==2
             }
         }
     }

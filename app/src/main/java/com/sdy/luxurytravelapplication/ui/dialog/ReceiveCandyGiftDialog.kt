@@ -102,8 +102,13 @@ class ReceiveCandyGiftDialog(
             }
 
             GlideUtil.loadImg(context1, giftStateBean.icon, giftImg)
-            giftName.text = giftStateBean.title
-            giftCandyAmount.text = "${giftStateBean.amount}"
+            if (!isReceive) {
+                giftName.text = "我赠送的「 ${giftStateBean.title} 」"
+            }else{
+                giftName.text = "对方赠送了你「 ${giftStateBean.title} 」"
+            }
+
+            giftCandyAmount.text = "+${giftStateBean.amount}"
 
             when (giftStateBean.state) {
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL -> {
@@ -126,6 +131,20 @@ class ReceiveCandyGiftDialog(
                 }
             }
         }
+    }
+
+    private fun startWaitReceiveAnimation() {
+        //底部light的旋转动画
+        val rotateLight =
+            ObjectAnimator.ofFloat(binding.receiveCandyLight, "rotation", 0.0f, 360.0f)
+        //设定动画的旋转周期
+        rotateLight.duration = 4000L
+        //设置动画的插值器，这个为匀速旋转
+        rotateLight.interpolator = LinearInterpolator()
+        //设置动画为无限重复
+        rotateLight.repeatCount = -1
+        rotateLight.start()
+
     }
 
 
