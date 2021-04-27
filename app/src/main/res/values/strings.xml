@@ -818,11 +818,12 @@
 
     <string name="unlocked_chat">已解锁聊天</string>
     <string name="talk_freely">快尽情聊天吧</string>
-    <string name="open_gift">开启礼物</string>
-    <string name="gift_wait_open">旅券礼物待开启</string>
+    <string name="open_gift">送你一个旅券礼物</string>
+    <string name="gift_wait_open">点击领取礼物</string>
+    <string name="gift_wait_open_my">对方回复后即可领取</string>
     <string name="gift_has_received">已领取旅券礼物</string>
     <string name="gift_revoke">礼物已退回</string>
-    <string name="wait_open">待开启</string>
+    <string name="wait_open">送你一个旅券礼物</string>
     <string name="gift_has_been_received">旅券礼物已被领取</string>
     <string name="revoke_cause_time_out">超时已退回</string>
     <string name="gift_has_been_revoked">旅券礼物已退回</string>

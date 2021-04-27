@@ -1,6 +1,8 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
+import android.util.Log
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.NimMessageSendGiftBinding
@@ -38,10 +40,12 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
                 binding.giftTitle.setText(R.string.gift_revoke)
                 binding.giftType.setText(R.string.gift_has_revoked)
             }
+            binding.giftImg.isVisible = false
+            binding.rightGiftImg.isVisible = true
         } else {
             if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL) {
                 binding.giftTitle.setText(R.string.wait_open)
-                binding.giftType.setText(R.string.gift_wait_open)
+                binding.giftType.setText(R.string.gift_wait_open_my)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN) {
                 binding.giftTitle.setText(R.string.gift_has_opend)
                 binding.giftType.setText(R.string.gift_has_been_received)
@@ -49,6 +53,8 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
                 binding.giftTitle.setText(R.string.revoke_cause_time_out)
                 binding.giftType.setText(R.string.gift_has_been_revoked)
             }
+            binding.giftImg.isVisible = true
+            binding.rightGiftImg.isVisible = false
         }
 
         ClickUtils.applySingleDebouncing(binding.root) {

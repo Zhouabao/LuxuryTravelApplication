@@ -102,8 +102,13 @@ class ReceiveCandyGiftDialog(
             }
 
             GlideUtil.loadImg(context1, giftStateBean.icon, giftImg)
-            giftName.text = giftStateBean.title
-            giftCandyAmount.text = "${giftStateBean.amount}"
+            if (!isReceive) {
+                giftName.text = "我赠送的「 ${giftStateBean.title} 」"
+            }else{
+                giftName.text = "对方赠送了你「 ${giftStateBean.title} 」"
+            }
+
+            giftCandyAmount.text = "+${giftStateBean.amount}"
 
             when (giftStateBean.state) {
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL -> {
@@ -113,8 +118,8 @@ class ReceiveCandyGiftDialog(
                     } else {
                         tempRefuseBtn.isVisible = true
                         receiveGiftBtn.text = context1.getString(R.string.receive_candy_gift)
-                        startWaitReceiveAnimation()
                     }
+                    startWaitReceiveAnimation()
                 }
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN -> {
                     receiveGiftBtn.text = context1.getString(R.string.ok)
