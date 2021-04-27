@@ -798,9 +798,9 @@ class ChatActivity :
     ) {
         if (code == 200 || code == 211) {
             // 搭讪礼物如果返回不为空，就代表成功领取对方的搭讪礼物
-            if (nimBeanBaseResp?.rid_data != null && nimBeanBaseResp.rid_data!!.icon.isNotEmpty()) {
+//            if (nimBeanBaseResp?.rid_data != null && nimBeanBaseResp.rid_data!!.icon.isNotEmpty()) {
 //                ReceiveAccostGiftDialog(this, nimBeanBaseResp.rid_data).show()
-            }
+//            }
             sendMsgS(content)
             if (nimBeanBaseResp!!.ret_tips_arr.isNotEmpty())
                 CommonFunction.sendTips(sessionId, nimBeanBaseResp.ret_tips_arr)
