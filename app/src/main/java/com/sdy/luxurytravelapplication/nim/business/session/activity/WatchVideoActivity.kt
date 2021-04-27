@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Bundle
 import android.os.Handler
 import android.view.SurfaceHolder
 import android.view.View
@@ -32,7 +31,6 @@ import com.sdy.luxurytravelapplication.databinding.LayoutActionbarBinding
 import com.sdy.luxurytravelapplication.nim.common.ToastHelper
 import com.sdy.luxurytravelapplication.nim.common.util.file.FileUtil
 import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
 
@@ -118,34 +116,10 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
         }
     }
 
-    private val titleBinding = LayoutActionbarBinding.inflate(layoutInflater)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_watch_video)
-
-
-        initView()
-
-
-        showVideoInfo()
-
-        registerObservers(true)
-
-        download()
-
-    }
 
 
     override fun initView() {
-        BarUtils.addMarginTopEqualStatusBarHeight(titleBinding.llTitle)
         message = intent.getSerializableExtra(INTENT_EXTRA_DATA) as IMMessage
-        titleBinding.actionbarTitle.text =
-            getString(R.string.video_send_at_time, TimeUtil.getDateString(message.getTime()))
-        titleBinding.actionbarTitle.setTextColor(Color.WHITE)
-        titleBinding.actionbarTitle.isInvisible = false
-        titleBinding.btnBack.setOnClickListener {
-            finish()
-        }
 
         surfaceHolder = binding.videoView.holder
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
@@ -168,6 +142,12 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             )
         }
 
+
+        showVideoInfo()
+
+        registerObservers(true)
+
+        download()
 
     }
 
@@ -248,7 +228,6 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             mediaPlayer!!.reset()
             mediaPlayer!!.release()
             mediaPlayer = null
-            titleBinding.llTitle.isVisible = true
         }
     }
 
@@ -284,7 +263,6 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             handlerTimes.removeCallbacks(timeRunnable)
             playState =
                 PLAY_STATE_PAUSE
-            titleBinding.llTitle.isVisible = true
         }
     }
 
@@ -295,7 +273,6 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
                 mediaPlayer!!.start()
                 playState = PLAY_STATE_PLAYING
                 handlerTimes.postDelayed(timeRunnable, 100)
-                titleBinding.llTitle.isInvisible = true
             }
         }
     }
@@ -326,7 +303,6 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             }
             setMediaPlayerListener()
             mediaPlayer!!.prepareAsync()
-            titleBinding.llTitle.isInvisible = true
         }
     }
 
@@ -336,7 +312,6 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
             playState = PLAY_STATE_STOP
             binding.lblVideoTimes.setText("00:00")
             handlerTimes.removeCallbacks(timeRunnable)
-            titleBinding.llTitle.isVisible = true
         }
         mediaPlayer!!.setOnErrorListener { mp, what, extra ->
             try {
@@ -501,11 +476,9 @@ class WatchVideoActivity : BaseActivity<ActivityWatchVideoBinding>(), SurfaceHol
     }
 
     override fun initData() {
-        TODO("Not yet implemented")
     }
 
     override fun start() {
-        TODO("Not yet implemented")
     }
 
 }

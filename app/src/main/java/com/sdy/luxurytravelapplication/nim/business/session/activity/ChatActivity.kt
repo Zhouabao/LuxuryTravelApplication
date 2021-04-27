@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.FragmentUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.kongzue.dialog.v3.MessageDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -348,9 +345,11 @@ class ChatActivity :
                 }
 
                 override fun onFailed(code: Int) {
+                    LogUtils.d("${code}")
                 }
 
                 override fun onException(exception: Throwable?) {
+                    LogUtils.d("${exception}")
                 }
 
             })

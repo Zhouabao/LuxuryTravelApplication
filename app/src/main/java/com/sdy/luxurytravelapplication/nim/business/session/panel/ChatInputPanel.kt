@@ -472,7 +472,7 @@ class ChatInputPanel(
      * 结束语音录制动画
      */
     private fun stopAudioRecordAnim() {
-        binding.recordAnimation.isVisible = false
+        binding.recordAnimation.cancelAnimation()
         binding.recordTimeTv.stop()
         binding.recordTimeTv.base = SystemClock.elapsedRealtime()
     }
@@ -482,7 +482,7 @@ class ChatInputPanel(
      */
 
     private fun playAudioRecordAnim() {
-        binding.recordAnimation.isVisible = true
+        binding.recordAnimation.playAnimation()
         binding.recordTimeTv.base = SystemClock.elapsedRealtime()
         binding.recordTimeTv.start()
         binding.recordTimeTv.setOnChronometerTickListener {

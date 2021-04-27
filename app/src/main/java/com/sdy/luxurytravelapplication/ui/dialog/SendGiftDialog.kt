@@ -1,6 +1,9 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.Gravity
 import android.view.View
@@ -128,9 +131,15 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
         RetrofitHelper.service.getGiftList(hashMapOf())?.ssss {
             if (it.code == 200) {
                 SpanUtils.with(binding.goldAmount)
+                    .setTypeface(Typeface.createFromAsset(context.assets, "DIN_Alternate_Bold.ttf"))
                     .append("${it.data.my_coin_amount}")
-                    .append("\t\t充值")
+                    .append("\t充值")
+                    .setForegroundColor(Color.parseColor("#FF1ED0A7"))
                     .setClickSpan(object : ClickableSpan() {
+                        override fun updateDrawState(ds: TextPaint) {
+                            ds.color = Color.parseColor("#FF1ED0A7")
+                            ds.isUnderlineText = false
+                        }
                         override fun onClick(widget: View) {
                             CandyRechargeActivity.gotoCandyRecharge(context)
                         }
