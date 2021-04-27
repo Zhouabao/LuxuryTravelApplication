@@ -209,7 +209,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PurchaseFootActivity"
             android:launchMode="singleTop" >
@@ -227,7 +228,8 @@
         <activity
             android:name=".ui.activity.OnekeyLoginActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.activity.WelcomeActivity">
+        <activity android:name=".ui.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -241,7 +243,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.RegisterInfoOneActivity"
             android:launchMode="singleTop" />
