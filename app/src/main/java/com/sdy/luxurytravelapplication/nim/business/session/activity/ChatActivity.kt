@@ -21,6 +21,7 @@ import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.MsgServiceObserve
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment
+import com.netease.nimlib.sdk.msg.attachment.FileAttachment
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.attachment.VideoAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
@@ -61,6 +62,7 @@ import com.sdy.luxurytravelapplication.nim.business.session.panel.ChatInputPanel
 import com.sdy.luxurytravelapplication.nim.business.session.panel.MessageListPanelEx
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
+import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
 import com.sdy.luxurytravelapplication.ui.dialog.ContactCandyReceiveDialog
 import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
@@ -341,7 +343,10 @@ class ChatActivity :
                     } else {
                         setMessageStatus(message, MsgStatusEnum.success)
                     }
-
+                    //如果是图片消息并且有扩展字段，则为地图消息，删除图片
+                    if (message.msgType == MsgTypeEnum.image && message.remoteExtension != null && message.remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null) {
+                        FileUtils.delete((message.attachment as FileAttachment).path)
+                    }
                 }
 
                 override fun onFailed(code: Int) {
@@ -599,11 +604,14 @@ class ChatActivity :
                 )
             }
             MsgTypeEnum.image -> {
-                mPresenter?.uploadImgToQN(
-                    message,
-                    sessionId,
-                    (message.attachment as ImageAttachment).path
-                )
+                if (message.remoteExtension != null && message.remoteExtension[LocationActivity.EXTENSION_LATITUDE] != null) {
+                    mPresenter?.sendMsgRequest(message, sessionId, islocation = true)
+                } else
+                    mPresenter?.uploadImgToQN(
+                        message,
+                        sessionId,
+                        (message.attachment as ImageAttachment).path
+                    )
             }
             MsgTypeEnum.text -> {
                 mPresenter?.sendMsgRequest(message, sessionId)
@@ -708,7 +716,10 @@ class ChatActivity :
                 } else {
                     gotoVerifyBtn.text = "视频介绍"
                     leftChatTimes.text =
-                        getString(R.string.unverify_today_residue_count, nimBean.residue_msg_cnt)
+                        getString(
+                            R.string.unverify_today_residue_count,
+                            nimBean.residue_msg_cnt
+                        )
                 }
             }
         } else {

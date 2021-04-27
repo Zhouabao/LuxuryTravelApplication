@@ -65,9 +65,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * 提示View
      */
-    protected lateinit var mTipView: View
-    protected lateinit var mWindowManager: WindowManager
-    protected lateinit var mLayoutParams: WindowManager.LayoutParams
+//    protected lateinit var mTipView: View
+//    protected lateinit var mWindowManager: WindowManager
+//    protected lateinit var mLayoutParams: WindowManager.LayoutParams
 
     /**
      * 布局文件id
@@ -175,21 +175,21 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     /**
      * 初始化 TipView
      */
-    private fun initTipView() {
-        mTipView = layoutInflater.inflate(R.layout.layout_network_tip, null)
-        mWindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        mLayoutParams = WindowManager.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            PixelFormat.TRANSLUCENT
-        )
-        mLayoutParams.gravity = Gravity.TOP
-        mLayoutParams.x = 0
-        mLayoutParams.y = 0
-        mLayoutParams.windowAnimations = R.style.anim_float_view // add animations
-    }
+//    private fun initTipView() {
+//        mTipView = layoutInflater.inflate(R.layout.layout_network_tip, null)
+//        mWindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+//        mLayoutParams = WindowManager.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT,
+//            WindowManager.LayoutParams.TYPE_APPLICATION,
+//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//            PixelFormat.TRANSLUCENT
+//        )
+//        mLayoutParams.gravity = Gravity.TOP
+//        mLayoutParams.x = 0
+//        mLayoutParams.y = 0
+//        mLayoutParams.windowAnimations = R.style.anim_float_view // add animations
+//    }
 
     private fun initListener() {
         mLayoutStatusView?.setOnClickListener(mRetryClickListener)

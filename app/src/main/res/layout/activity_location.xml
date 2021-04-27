@@ -81,4 +81,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/locationUserInfoCl"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+
+        <com.sdy.luxurytravelapplication.nim.common.ui.imageview.HeadImageView
+            android:id="@+id/userAvator"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/icon_default_avator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/userLocationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="太古里"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/userLocationDescr"
+            app:layout_constraintLeft_toRightOf="@id/userAvator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/userLocationDescr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="四川省成都市锦江区红星路三段91号"
+            android:textColor="#ffb6bcc6"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/userLocationName"
+            app:layout_constraintTop_toBottomOf="@id/userLocationName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

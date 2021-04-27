@@ -1,11 +1,17 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +21,8 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
+import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.*
-import com.amap.api.maps.model.animation.TranslateAnimation
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.poisearch.PoiResult
@@ -24,21 +30,62 @@ import com.amap.api.services.poisearch.PoiSearch
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityLocationBinding
+import com.sdy.luxurytravelapplication.databinding.LayoutLocationMyLocationBinding
+import com.sdy.luxurytravelapplication.nim.api.model.location.LocationProvider
 import com.sdy.luxurytravelapplication.ui.adapter.LocationAdapter
 import com.sdy.luxurytravelapplication.widgets.DividerItemDecoration
-import kotlin.math.sqrt
+import org.jetbrains.anko.startActivity
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 /**
  * 选择定位
  */
 class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPoiSearchListener,
     View.OnClickListener,
-    AMapLocationListener {
+    AMapLocationListener, AMap.OnMapScreenShotListener, LocationSource,
+    AMap.OnMyLocationChangeListener {
+    private val locationMessage: IMMessage? by lazy { intent.getSerializableExtra(MESSAGE) as IMMessage? }
+    private val longitude by lazy { locationMessage?.remoteExtension?.get(EXTENSION_LONGITUDE) as Double }
+    private val latitude by lazy { locationMessage?.remoteExtension?.get(EXTENSION_LATITUDE) as Double }
+
+    companion object {
+        const val EXTENSION_NAME = "name"
+        const val EXTENSION_ADDRESS = "address"
+        const val EXTENSION_LATITUDE = "latitude"
+        const val EXTENSION_LONGITUDE = "longitude"
+
+        const val MESSAGE = "message"
+        const val NICKNAME = "nickname"
+        const val LATITUDE = "latitude"
+        const val LONGTITUDE = "longtitude"
+        const val ADDRESS = "address"
+        var callback: LocationProvider.Callback? = null
+
+        @JvmOverloads
+        fun start(context: Context, callback: LocationProvider.Callback? = null) {
+            this.callback = callback
+            context.startActivity<LocationActivity>()
+        }
+
+        @JvmOverloads
+        fun startedLocated(context: Context, imMessage: IMMessage? = null) {
+            context.startActivity<LocationActivity>(MESSAGE to imMessage)
+        }
+    }
+
+
     private var mLocationClient: AMapLocationClient? = null
 
     //创建AMapLocationClientOption对象
@@ -64,89 +111,107 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
             barCl.btnBack.setOnClickListener {
                 finish()
             }
-            barCl.actionbarTitle.text = getString(R.string.choose_location)
-            barCl.rightTextBtn.text = getString(R.string.ok)
-            barCl.rightTextBtn.setTextColor(Color.WHITE)
-            barCl.rightTextBtn.isVisible = true
-            barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
-            barCl.rightTextBtn.setOnClickListener(this@LocationActivity)
-            backToMyLocationBtn.setOnClickListener(this@LocationActivity)
-
-            bottomSheetBehavior.peekHeight = SizeUtils.dp2px(263F)
-            bottomSheetBehavior.setBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            if (locationMessage == null) {
+                barCl.actionbarTitle.text = getString(R.string.choose_location)
+                barCl.rightTextBtn.text = getString(R.string.ok)
+                barCl.rightTextBtn.setTextColor(Color.WHITE)
+                barCl.rightTextBtn.isVisible = true
+                barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
+                barCl.rightTextBtn.setOnClickListener(this@LocationActivity)
+                backToMyLocationBtn.setOnClickListener(this@LocationActivity)
+                backToMyLocationBtn.isVisible = true
+                scrollLocationSv.isVisible = true
+                locationUserInfoCl.isVisible = false
+                bottomSheetBehavior.peekHeight = SizeUtils.dp2px(263F)
+                bottomSheetBehavior.setBottomSheetCallback(object :
+                    BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
 //                Log.d("slideOffset", "slideOffset=====${slideOffset}")
-                }
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-                    if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                        KeyboardUtils.hideSoftInput(this@LocationActivity)
-                        expandBtn.setImageResource(R.drawable.icon_search_expand)
-                    } else {
-                        expandBtn.setImageResource(R.drawable.icon_search_collapsed)
                     }
+
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                            KeyboardUtils.hideSoftInput(this@LocationActivity)
+                            expandBtn.setImageResource(R.drawable.icon_search_expand)
+                        } else {
+                            expandBtn.setImageResource(R.drawable.icon_search_collapsed)
+                        }
 //                val params = bottomSheet.layoutParams
 //                if (params.height > SizeUtils.dp2px(432F)) {
 //                    params.height = SizeUtils.dp2px(432F)
 //                    bottomSheet.layoutParams = params
 //                }
 //                Log.d("slideOffset", "slideOffset=====${params.height}")
-                }
+                    }
 
-            })
+                })
 
 
 
-            locationRv.layoutManager =
-                LinearLayoutManager(this@LocationActivity, RecyclerView.VERTICAL, false)
-            locationRv.addItemDecoration(
-                DividerItemDecoration(
-                    this@LocationActivity, DividerItemDecoration.HORIZONTAL_LIST,
-                    SizeUtils.dp2px(1F),
-                    resources.getColor(R.color.colorDivider)
-                )
-            )
-            locationRv.adapter = adapter
-            adapter.setOnItemClickListener { _, view, position ->
-//            if (adapter.checkPosition != position) {
-                adapter.checkPosition = position
-                adapter.notifyDataSetChanged()
-                if (position != 0) {
-                    isTouch = false
-                    moveMapCamera(
-                        adapter.data[position].latLonPoint.latitude,
-                        adapter.data[position].latLonPoint.longitude
+                locationRv.layoutManager =
+                    LinearLayoutManager(this@LocationActivity, RecyclerView.VERTICAL, false)
+                locationRv.addItemDecoration(
+                    DividerItemDecoration(
+                        this@LocationActivity, DividerItemDecoration.HORIZONTAL_LIST,
+                        SizeUtils.dp2px(1F),
+                        resources.getColor(R.color.colorDivider)
                     )
-                }
-                searchLocation.clearFocus()
-//            }
-            }
-
-
-            searchLocation.setOnQueryTextFocusChangeListener { v, hasFocus ->
-                if (hasFocus) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                } else {
-                    KeyboardUtils.hideSoftInput(this@LocationActivity)
-                }
-            }
-
-
-            searchLocation.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    keyWordSearch(query ?: "")
+                )
+                locationRv.adapter = adapter
+                adapter.setOnItemClickListener { _, view, position ->
+//            if (adapter.checkPosition != position) {
+                    adapter.checkPosition = position
+                    adapter.notifyDataSetChanged()
+                    if (position != 0) {
+                        isTouch = false
+                        moveMapCamera(
+                            adapter.data[position].latLonPoint.latitude,
+                            adapter.data[position].latLonPoint.longitude
+                        )
+                    }
                     searchLocation.clearFocus()
-                    return true
+//            }
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    keyWordSearch(newText ?: "")
-                    return true
+
+                searchLocation.setOnQueryTextFocusChangeListener { v, hasFocus ->
+                    if (hasFocus) {
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    } else {
+                        KeyboardUtils.hideSoftInput(this@LocationActivity)
+                    }
                 }
 
-            })
+
+                searchLocation.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        keyWordSearch(query ?: "")
+                        searchLocation.clearFocus()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        keyWordSearch(newText ?: "")
+                        return true
+                    }
+
+                })
+
+            } else {
+                barCl.actionbarTitle.text =
+                    getString(R.string.someone_position, locationMessage!!.fromNick)
+                backToMyLocationBtn.isVisible = false
+                scrollLocationSv.isVisible = false
+                (locationMap.layoutParams as ConstraintLayout.LayoutParams).bottomMargin = 0
+
+                locationUserInfoCl.isVisible = true
+                userAvator.loadBuddyAvatar(locationMessage!!)
+                userLocationName.text = locationMessage!!.remoteExtension[EXTENSION_NAME].toString()
+                userLocationDescr.text =
+                    locationMessage!!.remoteExtension[EXTENSION_ADDRESS].toString()
+
+            }
 
         }
     }
@@ -160,44 +225,93 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
         binding.locationMap.onCreate(savedInstanceState)
         //初始化地图控制器对象
         aMap = binding.locationMap.map
-//        aMap.setCustomMapStyle(
-//            CustomMapStyleOptions()
-//                .setEnable(true)
-//                .setStyleData(getAssetsStyle("style.data"))
-//                .setStyleExtraData(getAssetsStyle("style_extra.data"))
-//        )
-//        aMap.setWorldVectorMapStyle("style_local")
-//        if (!UserManager.overseas) {
-//            aMap.accelerateNetworkInChinese(true)
-//        }
         aMap.mapType = AMap.MAP_TYPE_NORMAL
-//        aMap.moveCamera(CameraUpdateFactory.zoomTo(zoom))
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(zoom))
         aMap.uiSettings.isZoomControlsEnabled = false
-        // 对amap添加移动地图事件监听器
-        aMap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
-            override fun onCameraChangeFinish(p0: CameraPosition) {
-                if (isTouch)
-                    doWhenLocationSuccess(p0.target.latitude, p0.target.longitude)
-                screenMoveMarker!!.position = LatLng(p0.target.latitude, p0.target.longitude)
-                startJumpAnimation()
+        aMap.setLocationSource(this)//设置定位数据源的监听
+
+        initMyStyle()
+        //点击回到当前定位位置
+        aMap.setOnMyLocationChangeListener(this)
+
+        if (locationMessage == null) {
+            // 对amap添加移动地图事件监听器
+            aMap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+                override fun onCameraChangeFinish(p0: CameraPosition) {
+                    if (isTouch)
+                        doWhenLocationSuccess(p0.target.latitude, p0.target.longitude)
+                    addScreenMoveMarker(p0.target.latitude, p0.target.longitude)
+                }
+
+                override fun onCameraChange(p0: CameraPosition) {
+
+                }
+
+            })
+
+            aMap.setOnMapClickListener {
+                doWhenLocationSuccess(it.latitude, it.longitude)
+                addScreenMoveMarker(it.latitude, it.longitude)
             }
 
-            override fun onCameraChange(p0: CameraPosition) {
-
+            // 对amap添加触摸地图事件监听器
+            aMap.setOnMapTouchListener {
+                isTouch = true
             }
-
-        })
-
-        aMap.setOnMapClickListener {
-            doWhenLocationSuccess(it.latitude, it.longitude)
-            screenMoveMarker!!.position = it
-            startJumpAnimation()
+        } else {
+            aMap.uiSettings.isZoomGesturesEnabled = true
         }
 
-        // 对amap添加触摸地图事件监听器
-        aMap.setOnMapTouchListener {
-            isTouch = true
-        }
+    }
+
+    private fun initMyStyle() {
+        val style = MyLocationStyle()
+        style.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+        //设置定位蓝点
+        style.myLocationIcon(BitmapDescriptorFactory.fromBitmap(createMyLocationView()))
+        style.strokeColor(Color.TRANSPARENT)
+        style.radiusFillColor(Color.TRANSPARENT)
+        style.showMyLocation(true)
+        aMap.myLocationStyle = style
+        aMap.isMyLocationEnabled = true //可触发定位并显示当前位置
+    }
+
+
+    /**
+     * 我的定位蓝点
+     */
+    private fun createMyLocationView(): Bitmap? {
+        var bitmap: Bitmap? = null
+        Glide.with(this)
+            .asBitmap()
+            .load(UserManager.avatar)
+            .thumbnail(0.2f)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .centerCrop()
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    val binding = LayoutLocationMyLocationBinding.inflate(layoutInflater)
+                    binding.userAvatorLocation.setImageBitmap(resource)
+                    bitmap = convertViewToBitmap(binding.root)
+                }
+            })
+        return bitmap
+    }
+
+    /**
+     * bitmap转换
+     */
+    fun convertViewToBitmap(view: View): Bitmap {
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+
+        view.buildDrawingCache()
+
+        return view.drawingCache
 
     }
 
@@ -222,7 +336,6 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
             aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), zoom))
         }
 
-        startJumpAnimation()
     }
 
 
@@ -261,57 +374,30 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
     }
 
     private var screenMoveMarker: Marker? = null
-    private var growMarker: Marker? = null
-
-    private fun addScreenMoveMarker() {
-        if (screenMoveMarker == null) {
-            val latLng = aMap.cameraPosition.target
-            val screenPoint = aMap.projection.toScreenLocation(latLng)
-            screenMoveMarker = aMap.addMarker(
-                MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_map_anchor))
-                    .position(LatLng(location!!.latitude, location!!.longitude))
-                    .anchor(0.5f, 0.5f)
-            )
-            screenMoveMarker!!.setPositionByPixels(screenPoint.x, screenPoint.y)
+    private fun addScreenMoveMarker(latitude: Double, longitude: Double) {
+        if (screenMoveMarker != null) {
+            screenMoveMarker!!.remove()
+            screenMoveMarker = null
         }
-    }
-
-    fun startJumpAnimation() {
-        if (screenMoveMarker == null) {
-            addScreenMoveMarker()
-        } else
-            if (screenMoveMarker != null) {
-                val latLng = screenMoveMarker!!.position
-                val point = aMap.projection.toScreenLocation(latLng)
-                point.y = point.y - SizeUtils.dp2px(125F)
-
-                val target = aMap.projection.fromScreenLocation(point)
-                val animation = TranslateAnimation(target)
-                animation.setInterpolator { it ->
-                    (if (it <= 0.5f) {
-                        0.5F - 2 * (0.5f - it) * (0.5f - it)
-                    } else {
-                        0.5F - sqrt((it - 0.5F) * (1.5f - it))
-                    })
-                }
-                animation.setDuration(600)
-                screenMoveMarker!!.setAnimation(animation)
-                screenMoveMarker!!.startAnimation()
-            }
-
+        screenMoveMarker = aMap.addMarker(
+            MarkerOptions()
+                .icon(
+                    BitmapDescriptorFactory.fromView(
+                        LayoutInflater.from(this)
+                            .inflate(R.layout.layout_location_move_located, null)
+                    )
+                )
+                .position(LatLng(latitude, longitude))
+                .anchor(0.5f, 0.75f)
+        )
+        moveMapCamera(latitude, longitude)
     }
 
 
     override fun onPause() {
         super.onPause()
         binding.locationMap.onPause()
-        if (null != mLocationClient) {
-            mLocationClient!!.stopLocation()
-            mLocationClient!!.onDestroy();
-            mLocationClient = null
-
-        }
+        stopLocate()
     }
 
     override fun onResume() {
@@ -322,11 +408,7 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
     override fun onDestroy() {
         super.onDestroy()
         binding.locationMap.onDestroy()
-        if (null != mLocationClient) {
-            mLocationClient!!.stopLocation()
-            mLocationClient!!.onDestroy()
-            mLocationClient = null
-        }
+        stopLocate()
     }
 
     override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
@@ -348,45 +430,163 @@ class LocationActivity : BaseActivity<ActivityLocationBinding>(), PoiSearch.OnPo
         }
     }
 
+    private fun addMyScreeMarker(latitude: Double, longitude: Double) {
+        aMap.addMarker(
+            MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromBitmap(createMyLocationView()))
+                .position(LatLng(latitude, longitude))
+                .anchor(0.5f, 0.75f)
+        )
+//        BitmapDescriptorFactory.fromBitmap(createMyLocationView())
+    }
 
     override fun onLocationChanged(it: AMapLocation?) {
-        if (it != null) {
-            if (mLocationClient != null) mLocationClient!!.stopLocation()
-            if (it.errorCode == 0) {
-                location = it
-                //可在其中解析amapLocation获取相应内容。
-                UserManager.saveLocation(
-                    "${it.latitude}",
-                    "${it.longitude}",
-                    it.province,
-                    it.city
-                )
-                addScreenMoveMarker()
-                doWhenLocationSuccess(location!!.latitude, location!!.longitude)
-                moveMapCamera(location!!.latitude, location!!.longitude)
-            } else {
-                LogUtils.e("${it.errorCode},,,,${it.errorInfo}")
-                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+        if (locationMessage != null) {
+            if (it != null) {
+                if (mLocationClient != null) mLocationClient!!.stopLocation()
+                if (it.errorCode == 0) {
+                    addScreenMoveMarker(latitude, longitude)
+                    addMyScreeMarker(it.latitude, it.longitude)
+                } else {
+                    mLocationClient?.startLocation()
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    LogUtils.d("locationMessage ${it.errorCode},${it.errorInfo}")
+                }
+            }
+        } else {
+            if (it != null) {
+                LogUtils.d("onLocationChanged=== ${it.errorCode},${it.errorInfo}")
+                if (mLocationClient != null) mLocationClient!!.stopLocation()
+                if (it.errorCode == 0) {
+                    if (mListener != null) {
+                        mListener!!.onLocationChanged(it)
+                    }
+                    //可在其中解析amapLocation获取相应内容。
+                    addScreenMoveMarker(it.latitude, it.longitude)
+                    doWhenLocationSuccess(it.latitude, it.longitude)
+                    // moveMapCamera(location!!.latitude, location!!.longitude)
+                } else {
+                    mLocationClient?.startLocation()
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    LogUtils.d("${it.errorCode},${it.errorInfo}")
+                }
             }
         }
     }
 
+    /**
+     * 地图截图
+     */
+    private fun screenShot() {
+        aMap.myLocationStyle.showMyLocation(false)
+//        aMap.clear()
+
+        aMap.getMapScreenShot(this)
+
+
+    }
+
+    override fun onMapScreenShot(bitmap: Bitmap?) {
+        if (bitmap == null || checkedItem == null) {
+            return
+        }
+        val path = "${getExternalFilesDir(null)}/map_shoot_${System.currentTimeMillis()}.png"
+        try {
+            val fos = FileOutputStream(path)
+            val b = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            try {
+                fos.flush()
+            } catch (e: IOException) {
+                Log.e("screenShot", e.printStackTrace().toString())
+            }
+            try {
+                fos.close()
+            } catch (e: IOException) {
+                Log.e("screenShot", e.printStackTrace().toString())
+            }
+
+            if (b) {
+                callback?.onSuccess(
+                    checkedItem!!.latLonPoint.longitude,
+                    checkedItem!!.latLonPoint.latitude,
+                    checkedItem!!.title, checkedItem!!.snippet, path
+                )
+                finish()
+
+            } else {
+                Log.e("screenShot", "截屏失败")
+            }
+
+        } catch (e: FileNotFoundException) {
+            Log.e("screenShot", e.printStackTrace().toString())
+        }
+    }
+
+    override fun onMapScreenShot(p0: Bitmap?, p1: Int) {
+    }
+
+
+    private var checkedItem: PoiItem? = null
     override fun onClick(view: View) {
         when (view) {
-            binding.backToMyLocationBtn-> {
+            binding.backToMyLocationBtn -> {
                 mLocationClient?.stopLocation()
                 mLocationClient?.startLocation()
             }
-            binding.barCl.rightTextBtn-> {
-                if (adapter.data.size > adapter.checkPosition) {
-                    setResult(
-                        Activity.RESULT_OK,
-                        intent.putExtra("poiItem", adapter.data[adapter.checkPosition])
-                    )
+            binding.barCl.rightTextBtn -> {
+                if (callback != null) {
+                    if (adapter.data.size > adapter.checkPosition) {
+                        checkedItem = adapter.data[adapter.checkPosition]
+                        screenShot()
+                    }
                 } else {
-                    setResult(Activity.RESULT_OK)
+                    if (adapter.data.size > adapter.checkPosition) {
+                        setResult(
+                            Activity.RESULT_OK,
+                            intent.putExtra("poiItem", adapter.data[adapter.checkPosition])
+                        )
+                    } else {
+                        setResult(Activity.RESULT_OK)
+                    }
+                    finish()
                 }
-                finish()
+            }
+        }
+
+    }
+
+    private var mListener: LocationSource.OnLocationChangedListener? = null
+
+    private fun stopLocate() {
+        if (null != mLocationClient) {
+            mLocationClient!!.stopLocation()
+            mLocationClient!!.onDestroy()
+            mLocationClient = null
+        }
+    }
+
+    override fun deactivate() {
+        LogUtils.d("deactivate===  ")
+
+        mListener = null
+        stopLocate()
+    }
+
+    override fun activate(p0: LocationSource.OnLocationChangedListener?) {
+        LogUtils.d("activate===  ")
+        mListener = p0
+        initLocation()
+    }
+
+    override fun onMyLocationChange(p0: Location) {
+        if (p0 is AMapLocation) {
+            p0.apply {
+                UserManager.saveLocation(
+                    "${this.latitude}",
+                    "${this.longitude}",
+                    this.province,
+                    this.city
+                )
             }
         }
 

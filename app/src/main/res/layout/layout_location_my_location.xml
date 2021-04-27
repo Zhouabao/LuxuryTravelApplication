@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/icon_location_blue_bg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userAvatorLocation"
+        android:layout_width="22dp"
+        android:src="@drawable/icon_default_avator"
+        android:layout_gravity="center"
+        android:layout_height="22dp" />
+
+</FrameLayout>
+

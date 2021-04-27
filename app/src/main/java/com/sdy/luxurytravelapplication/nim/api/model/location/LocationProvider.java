@@ -18,5 +18,7 @@ public interface LocationProvider {
     // 定位请求的回调函数。如果定位不成功，或者用户取消，不回调即可。
     interface Callback {
         void onSuccess(double longitude, double latitude,String address);
+        void onSuccess(double longitude, double latitude,String name, String address, String path);
+
     }
 }

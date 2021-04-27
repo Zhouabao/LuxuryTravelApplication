@@ -1028,4 +1028,5 @@
     <string name="day">日</string>
     <string name="leave_your_comment_to_see_you">留下你的评论，让TA看到你</string>
     <string name="only_gold_can_comment">仅高级会员支持评论</string>
+    <string name="someone_position">%1$s的位置</string>
 </resources>

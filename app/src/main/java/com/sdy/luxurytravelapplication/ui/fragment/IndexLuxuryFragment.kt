@@ -109,7 +109,7 @@ class IndexLuxuryFragment :
             }
 
             //保存 VIP信息
-            UserManager.isvip = data.isvip
+            UserManager.isvip = data.isplatinum
             //保存认证信息
             UserManager.isverify = data.isfaced
             //保存是否进行过人脸验证

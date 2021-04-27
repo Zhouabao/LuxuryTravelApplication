@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.sdy.luxurytravelapplication.R;
 import com.sdy.luxurytravelapplication.nim.business.session.activity.WatchMessagePictureActivity;
 import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
+import com.sdy.luxurytravelapplication.ui.activity.LocationActivity;
 
 /**
  * Created by zhoujianghua on 2015/8/4.
@@ -26,9 +27,9 @@ public class MsgViewHolderPicture extends MsgViewHolderThumbBase {
 
     @Override
     public int getContentResId() {
-//      if (isLocationImage())
-//        return R.layout.nim_message_item_location;
-//      else
+//        if (isLocationImage())
+//            return R.layout.nim_message_item_location;
+//        else
         return R.layout.nim_message_item_picture;
     }
 
@@ -60,16 +61,17 @@ public class MsgViewHolderPicture extends MsgViewHolderThumbBase {
 
     @Override
     public void onItemClick() {
-//        if (isLocationImage())
-//            LocationActivity.Companion.startedLocated(context,message);
-//        else
-        WatchMessagePictureActivity.Companion.start(context, message, false);
+        if (isLocationImage())
+            LocationActivity.Companion.startedLocated(context, message);
+        else
+            WatchMessagePictureActivity.Companion.start(context, message, false);
 
     }
 
     @Override
     protected int maskBg() {
         if (isLocationImage())
+//            return 0;
             return R.drawable.nim_message_item_bottom_round_bg;
         else
 //            return 0;

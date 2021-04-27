@@ -45,11 +45,8 @@ class SnackBarFragment(val msgBean: CustomerMsgBean) : BaseFragment<FragmentSnac
         binding.apply {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 BarUtils.addMarginTopEqualStatusBarHeight(contentView)
-//                StatusBarUtil.setMargin(activity!!, contentView)
             }
 
-//        contentView
-//        EventBus.getDefault().register(this)
             when (msgBean.type) {
                 SOMEONE_LIKE_YOU, SOMEONE_MATCH_SUCCESS -> {
                     contentView.setCardBackgroundColor(colors[0])

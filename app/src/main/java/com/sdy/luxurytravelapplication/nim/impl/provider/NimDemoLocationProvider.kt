@@ -12,8 +12,6 @@ import com.kongzue.dialog.util.BaseDialog
 import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.nim.api.model.location.LocationProvider
-import com.sdy.luxurytravelapplication.nim.location.LocationAmapActivity
-import com.sdy.luxurytravelapplication.nim.location.LocationExtras
 import com.sdy.luxurytravelapplication.nim.location.NavigationAmapActivity
 import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 
@@ -29,7 +27,8 @@ class NimDemoLocationProvider : LocationProvider {
             PermissionUtils.permission(PermissionConstants.LOCATION)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
-                        LocationAmapActivity.start(context, callback)
+                        LocationActivity.start(context, callback)
+//                        LocationAmapActivity.start(context, callback)
                     }
 
                     override fun onDenied() {
@@ -67,9 +66,11 @@ class NimDemoLocationProvider : LocationProvider {
         address: String
     ) {
         val intent = Intent(context, NavigationAmapActivity::class.java)
-        intent.putExtra(LocationExtras.LONGITUDE, longitude)
-        intent.putExtra(LocationExtras.LATITUDE, latitude)
-        intent.putExtra(LocationExtras.ADDRESS, address)
+        intent.putExtra(LocationActivity.LONGTITUDE, longitude)
+        intent.putExtra(LocationActivity.LATITUDE, latitude)
+        intent.putExtra(LocationActivity.ADDRESS, address)
         context.startActivity(intent)
+
+
     }
 }
