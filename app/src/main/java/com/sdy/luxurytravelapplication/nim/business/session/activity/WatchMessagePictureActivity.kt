@@ -9,7 +9,6 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
@@ -28,13 +27,13 @@ import com.netease.nimlib.sdk.msg.MsgServiceObserve
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.constant.AttachStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum
-import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityWatchMessagePictureBinding
 import com.sdy.luxurytravelapplication.databinding.LayoutActionbarBinding
+import com.sdy.luxurytravelapplication.databinding.NimImageLayoutMultiTouchBinding
 import com.sdy.luxurytravelapplication.databinding.NimWatchMediaDownloadProgressLayoutBinding
 import com.sdy.luxurytravelapplication.event.SavePictureEvent
 import com.sdy.luxurytravelapplication.nim.common.ToastHelper
@@ -80,25 +79,44 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
         }
     }
 
-    private val titleBinding: LayoutActionbarBinding by lazy {
-        LayoutActionbarBinding.inflate(
-            layoutInflater
+    override fun initData() {
+
+    }
+
+    override fun start() {
+    }
+
+    override fun initView() {
+        message = intent.getSerializableExtra(INTENT_EXTRA_IMAGE) as IMMessage
+        binding.llTitle.actionbarTitle.text = String.format(
+            getString(
+                R.string.pic_send_at_time,
+                TimeUtil.getDateString(message.getTime())
+            )
         )
-    }
-    private val loadingBinding: NimWatchMediaDownloadProgressLayoutBinding by lazy {
-        NimWatchMediaDownloadProgressLayoutBinding.inflate(layoutInflater)
-    }
+        binding.llTitle.actionbarTitle.setTextColor(Color.WHITE)
+        binding.llTitle.actionbarTitle.isInvisible = true
+        binding.llTitle.btnBack.isVisible = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_watch_message_picture)
+        binding.apply {
+            if (mode == MODE_NORMAL /*&& message.status == MsgStatusEnum.success*/) {
+                simpleImageView.isVisible = false
+                binding.viewPagerImage.isVisible = true
+            } else {
+                simpleImageView.isVisible = true
+                simpleImageView.setOnLongClickListener {
+                    if (isOriginImageHasDownloaded(message)) {
+                        showWatchPictureAction()
+                    }
+                    true
+                }
+                binding.viewPagerImage.isVisible = false
+            }
 
-        initView()
+        }
         loadMsgAndDisplay()
         registerObservers(true)
-
     }
-
 
     override fun onDestroy() {
         registerObservers(false)
@@ -194,54 +212,53 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
     private fun setViewPagerAdapter() {
         adapter = object : PagerAdapter() {
-            override fun getCount(): Int {
-                return imageMsgList?.size ?: 0
-            }
-
-            override fun notifyDataSetChanged() {
-                super.notifyDataSetChanged()
-            }
-
-            override fun destroyItem(
-                container: ViewGroup,
-                position: Int,
-                `object`: Any
-            ) {
-                val layout = `object` as View
-                val iv: BaseZoomableImageView =
-                    layout.findViewById<View>(R.id.watch_image_view) as BaseZoomableImageView
-                iv.clear()
-                container.removeView(layout)
-            }
-
-            override fun isViewFromObject(
-                view: View,
-                `object`: Any
-            ): Boolean {
-                return view === `object`
-            }
-
-            override fun instantiateItem(container: ViewGroup, position: Int): Any {
-                val layout: ViewGroup
-                layout = LayoutInflater.from(this@WatchMessagePictureActivity)
-                    .inflate(R.layout.nim_image_layout_multi_touch, null) as ViewGroup
-                layout.setBackgroundColor(Color.BLACK)
-                container.addView(layout)
-                layout.tag = position
-                if (position == firstDisplayImageIndex) {
-                    onViewPagerSelected(position)
+                override fun getCount(): Int {
+                    return imageMsgList?.size ?: 0
                 }
-                return layout
-            }
 
-            override fun getItemPosition(`object`: Any): Int {
-                return POSITION_NONE
+                override fun notifyDataSetChanged() {
+                    super.notifyDataSetChanged()
+                }
+
+                override fun destroyItem(
+                    container: ViewGroup,
+                    position: Int,
+                    `object`: Any
+                ) {
+                    val layout = `object` as View
+                    val iv: BaseZoomableImageView =
+                        layout.findViewById<View>(R.id.watch_image_view) as BaseZoomableImageView
+                    iv.clear()
+                    container.removeView(layout)
+                }
+
+                override fun isViewFromObject(
+                    view: View,
+                    `object`: Any
+                ): Boolean {
+                    return view === `object`
+                }
+
+                override fun instantiateItem(container: ViewGroup, position: Int): Any {
+                    val binding = NimImageLayoutMultiTouchBinding.inflate(layoutInflater)
+                    val layout = binding.root
+                    layout.setBackgroundColor(Color.BLACK)
+                    container.addView(layout)
+                    layout.tag = position
+                    if (position == firstDisplayImageIndex) {
+                        onViewPagerSelected(position)
+                    }
+                    return layout
+                }
+
+                override fun getItemPosition(`object`: Any): Int {
+                    return POSITION_NONE
+                }
             }
-        }
         binding.viewPagerImage.adapter = adapter
         binding.viewPagerImage.offscreenPageLimit = 2
         binding.viewPagerImage.currentItem = firstDisplayImageIndex
-        binding.viewPagerImage.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPagerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -267,7 +284,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
             downloadFuture = null
         }
 
-        titleBinding.actionbarTitle.text = String.format(
+        binding.llTitle.actionbarTitle.text = String.format(
             getString(
                 R.string.pic_send_at_time,
                 TimeUtil.getDateString(imageMsgList[position].time)
@@ -334,9 +351,9 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
     private fun onDownloadStart(msg: IMMessage) {
         if (TextUtils.isEmpty((msg.attachment as ImageAttachment).path)) {
-            loadingBinding.loadingLayout.visibility = View.VISIBLE
+            binding.loadingLayout.root.visibility = View.VISIBLE
         } else {
-            loadingBinding.loadingLayout.visibility = View.GONE
+            binding.loadingLayout.root.visibility = View.GONE
         }
         if (mode == MODE_NORMAL) {
             setThumbnail(msg)
@@ -345,7 +362,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
 
     private fun onDownloadSuccess(msg: IMMessage) {
-        loadingBinding.loadingLayout.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.GONE
         if (mode == MODE_NORMAL) {
             handler.post({ setImageView(msg) })
         } else if (mode == MODE_GIF) {
@@ -355,7 +372,7 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
 
 
     private fun onDownloadFailed() {
-        loadingBinding.loadingLayout.setVisibility(View.GONE)
+        binding.loadingLayout.root.setVisibility(View.GONE)
         if (mode == MODE_NORMAL) {
             image.imageBitmap = ImageUtil.getBitmapFromDrawableRes(getImageResOnFailed())
         } else if (mode == MODE_GIF) {
@@ -552,40 +569,4 @@ class WatchMessagePictureActivity : BaseActivity<ActivityWatchMessagePictureBind
         savePicture()
     }
 
-    override fun initData() {
-        message = intent.getSerializableExtra(INTENT_EXTRA_IMAGE) as IMMessage
-        titleBinding.actionbarTitle.text = String.format(
-            getString(
-                R.string.pic_send_at_time,
-                TimeUtil.getDateString(message.getTime())
-            )
-        )
-        titleBinding.actionbarTitle.setTextColor(Color.WHITE)
-        titleBinding.actionbarTitle.isInvisible = true
-        titleBinding.btnBack.isVisible = false
-
-        binding.apply {
-            if (mode == MODE_NORMAL /*&& message.status == MsgStatusEnum.success*/) {
-                simpleImageView.isVisible = false
-                binding.viewPagerImage.isVisible = true
-            } else {
-                simpleImageView.isVisible = true
-                simpleImageView.setOnLongClickListener {
-                    if (isOriginImageHasDownloaded(message)) {
-                        showWatchPictureAction()
-                    }
-                    true
-                }
-                binding.viewPagerImage.isVisible = false
-            }
-
-        }
-    }
-
-    override fun start() {
-    }
-
-    override fun initView() {
-
-    }
 }

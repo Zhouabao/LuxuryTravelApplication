@@ -55,7 +55,6 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding
     }
 
     override fun showNetError(msg: String) {
-        mTipView
         ToastUtils.showShort(msg)
     }
 

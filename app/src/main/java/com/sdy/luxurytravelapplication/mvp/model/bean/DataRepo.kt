@@ -258,8 +258,8 @@ data class SendMsgBean(
     var residue_msg_cnt: Int = 0,//剩余可发送的招呼消息次数
     var get_help_amount: Int = 0,
 
-    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf(),
-    var rid_data: GiftBean? = null
+    var ret_tips_arr: MutableList<SendTipBean> = mutableListOf()
+//    var rid_data: GiftBean? = null
 )
 
 
