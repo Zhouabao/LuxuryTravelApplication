@@ -424,7 +424,7 @@ class ChatInputPanel(
     fun isCancelled(view: View, event: MotionEvent): Boolean {
         val location = intArrayOf(0, 0)
         binding.root.getLocationOnScreen(location)
-        if (event.rawX < location[0] || event.rawX > location[0] + binding.root.width || event.rawY < location[1] - 40) {
+        if (event.rawX < location[0] || event.rawX > location[0] + binding.root.width || event.rawY < location[1] + 200) {
             return true
         }
         return false
@@ -480,12 +480,14 @@ class ChatInputPanel(
     /**
      * 开始语音录制动画
      */
+
     private fun playAudioRecordAnim() {
         binding.recordAnimation.isVisible = true
         binding.recordTimeTv.base = SystemClock.elapsedRealtime()
         binding.recordTimeTv.start()
         binding.recordTimeTv.setOnChronometerTickListener {
             val time = (SystemClock.elapsedRealtime() - it.base) / 1000L
+            Log.e( "playAudioRecordAnim: ","$time" )
             binding.recordProgressTime.progress =
                 (time * 1f / NimUIKitImpl.getOptions().audioRecordMaxTime * 100).toInt()
         }
