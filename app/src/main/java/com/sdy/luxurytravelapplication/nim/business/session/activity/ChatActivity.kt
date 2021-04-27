@@ -509,11 +509,14 @@ class ChatActivity :
             }
             binding.gotoVerifyBtn -> {// 去认证
                 if (!nimBean.my_isfaced) {
-                    CommonFunction.startToFace(
-                        this,
-                        FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
-                        -1
-                    )
+                    if (UserManager.isverify == 2)
+                        ToastUtil.toast("真人认证正在审核中....")
+                    else
+                        CommonFunction.startToFace(
+                            this,
+                            FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
+                            -1
+                        )
                 } else if (nimBean.mv_state == 0) {
                     CommonFunction.startToVideoIntroduce(this, -1)
                 }
@@ -544,7 +547,7 @@ class ChatActivity :
     override fun sendMessage(message: IMMessage): Boolean {
         if (isChatWithRobot()) {
             sendMsgS(message)
-        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender === 1 && nimBean.target_gender === 2) {
+        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender == 1 && nimBean.target_gender == 2) {
             showConfirmSendDialog(message)
         } else if (canSendMsg()) {
             sendMsgRequest(message)

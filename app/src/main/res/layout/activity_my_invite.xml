@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="金币奖励"
+                    android:text="旅券奖励"
                     android:textColor="#ffffffff"
                     android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"

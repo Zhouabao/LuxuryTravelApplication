@@ -19,7 +19,7 @@ class MessagePresenter : BasePresenter<MessageContract.Model, MessageContract.Vi
 
     override fun createModel(): MessageContract.Model? = MessageModel()
     override fun messageCensus() {
-        mModel?.messageCensus()?.ssss {
+        mModel?.messageCensus()?.ssss(mView,false) {
             mView?.messageCensus(it.data)
         }
 

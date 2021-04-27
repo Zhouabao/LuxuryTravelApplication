@@ -37,6 +37,7 @@
         android:layout_marginRight="@dimen/bubble_layout_margin_side"
         android:background="@drawable/nim_new_message_notify"
         android:contentDescription="@string/empty"
+        android:visibility="gone"
         android:focusable="false"
         android:gravity="center_horizontal"
         android:longClickable="true" />

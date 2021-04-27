@@ -101,13 +101,18 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        page++
-        params["page"] = page
-        mPresenter?.squareEliteList(params, type)
+        if (adapter.data.size < Constants.PAGESIZE * page) {
+            refreshLayout.finishLoadMoreWithNoMoreData()
+        } else {
+            page++
+            params["page"] = page
+            mPresenter?.squareEliteList(params, type)
+        }
 
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
+        refreshLayout.resetNoMoreData()
         page = 1
         params["page"] = page
         mPresenter?.squareEliteList(params, type)

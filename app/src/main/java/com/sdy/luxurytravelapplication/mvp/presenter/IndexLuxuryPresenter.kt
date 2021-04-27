@@ -16,7 +16,7 @@ class IndexLuxuryPresenter :
     IndexLuxuryContract.Presenter {
     override fun createModel(): IndexLuxuryContract.Model?  = IndexLuxuryModel()
     override fun sweetheart(params: HashMap<String, Any>) {
-        mModel?.sweetheart(params)?.ssss {
+        mModel?.sweetheart(params)?.ssss(mView,false) {
             mView?.sweetheart(it.data)
         }
     }

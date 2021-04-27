@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
+import android.graphics.Color
 import android.view.View
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -66,6 +67,7 @@ class UserCenterFragment :
     override fun initView(view: View) {
         super.initView(view)
         binding.apply {
+            mLayoutStatusView = root
             ClickUtils.applySingleDebouncing(
                 arrayOf(
                     shareBtn,
@@ -204,6 +206,8 @@ class UserCenterFragment :
 
     private fun initData() {
         if (userInfoBean != null) {
+//            BarUtils.setStatusBarColor(activity!!, resources.getColor(R.color.colorAccent))
+            mLayoutStatusView?.showContent()
             binding.apply {
                 userInfoBean!!.apply {
                     UserManager.avatar = userinfo!!.avatar
@@ -243,11 +247,31 @@ class UserCenterFragment :
                     checkVip()
                 }
             }
+        }else {
+            mLayoutStatusView?.showError()
         }
     }
 
     private fun checkVip() {
+
         binding.vipLevelSaveCount.text = userInfoBean!!.platinum_vip_str
+        userInfoBean!!.apply {
+            if (userinfo!!.isdirectvip && userinfo.isvip) {
+                binding.isVipPowerBtn.text = "立即续费"
+            } else {
+                binding.isVipPowerBtn.text = "立即开通"
+            }
+            if (userinfo!!.isdirectvip) {
+                binding.vipLevelSaveCount.setTextColor(Color.parseColor("#FFFFD57D"))
+                binding.isVipPowerBtn.setBackgroundResource(R.drawable.shape_rectangle_direct_16dp)
+                binding.vipLevelLogo.setImageResource(R.drawable.icon_vip_connnect)
+            } else {
+                binding.vipLevelLogo.setImageResource(R.drawable.icon_vip)
+                binding.isVipPowerBtn.setBackgroundResource(R.drawable.shape_rectangle_gold_16dp)
+                binding.vipLevelSaveCount.setTextColor(Color.parseColor("#FFFFD57D"))
+
+            }
+        }
         binding.userVip.isVisible = userInfoBean!!.userinfo!!.isplatinum
         binding.userPtVip.isVisible = userInfoBean!!.userinfo!!.isdirectvip
     }

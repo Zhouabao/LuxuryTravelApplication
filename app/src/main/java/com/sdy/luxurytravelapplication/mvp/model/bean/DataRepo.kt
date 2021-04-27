@@ -783,6 +783,7 @@ data class MatchBean(
     var personal_auto_play: Boolean = false,
     var personal_info: MutableList<DetailUserInfoBean> = mutableListOf(),
     var photos: List<String> = listOf(),
+    var personal_info_arr: MutableList<String> = mutableListOf(),
     var residue_auto_count: Int = 0,
     var sign: String = "",
     var total_like_times: Int = 0

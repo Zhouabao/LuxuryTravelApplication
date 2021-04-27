@@ -8,10 +8,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.*
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.msg.MsgService
@@ -133,7 +130,7 @@ class MainActivity :
             return
         if (position == 4) {
             (fragments[position] as UserCenterFragment).userCenterVisible = true
-            if (!(fragments[position] as UserCenterFragment).appbarTop)
+            if (!(fragments[position] as UserCenterFragment).appbarTop && NetworkUtils.isConnected())
                 BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
         } else {
             BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorWhite))

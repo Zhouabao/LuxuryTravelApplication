@@ -63,7 +63,7 @@ public class MsgViewHolderPicture extends MsgViewHolderThumbBase {
 //        if (isLocationImage())
 //            LocationActivity.Companion.startedLocated(context,message);
 //        else
-//            WatchMessagePictureActivity.Companion.start(context, message,false);
+        WatchMessagePictureActivity.Companion.start(context, message, false);
 
     }
 
@@ -82,7 +82,7 @@ public class MsgViewHolderPicture extends MsgViewHolderThumbBase {
         return path;
     }
 
-    private boolean isLocationImage(){
+    private boolean isLocationImage() {
         if (message.getRemoteExtension() != null && message.getRemoteExtension().get("latitude") != null) {
             return true;
         }
@@ -90,30 +90,30 @@ public class MsgViewHolderPicture extends MsgViewHolderThumbBase {
     }
 
 
-    private Double getLocationLatitude(){
-        if ( message.getRemoteExtension()!=null && message.getRemoteExtension().get("latitude")!=null)
+    private Double getLocationLatitude() {
+        if (message.getRemoteExtension() != null && message.getRemoteExtension().get("latitude") != null)
             return (Double) message.getRemoteExtension().get("latitude");
         else
             return 0.0;
     }
 
-    private Double getLocationLongitude(){
-        if ( message.getRemoteExtension()!=null && message.getRemoteExtension().get("longitude")!=null)
+    private Double getLocationLongitude() {
+        if (message.getRemoteExtension() != null && message.getRemoteExtension().get("longitude") != null)
             return (Double) message.getRemoteExtension().get("longitude");
         else
             return 0.0;
     }
 
-    private String getLocationAddress(){
-        if ( message.getRemoteExtension()!=null && message.getRemoteExtension().get("address")!=null)
+    private String getLocationAddress() {
+        if (message.getRemoteExtension() != null && message.getRemoteExtension().get("address") != null)
             return (String) message.getRemoteExtension().get("address");
         else
             return "";
 
     }
 
-    private String getLocationName(){
-        if ( message.getRemoteExtension()!=null && message.getRemoteExtension().get("name")!=null)
+    private String getLocationName() {
+        if (message.getRemoteExtension() != null && message.getRemoteExtension().get("name") != null)
             return (String) message.getRemoteExtension().get("name");
         else
             return "";

@@ -54,7 +54,7 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>, VB : ViewBinding
         ToastUtils.showShort(errorMsg)
     }
 
-    override fun showDefaultMsg(msg: String) {
+    override fun showNetError(msg: String) {
         ToastUtils.showShort(msg)
     }
 

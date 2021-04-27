@@ -19,7 +19,7 @@ class UserCenterPresenter : BasePresenter<UserCenterContract.Model, UserCenterCo
 
     override fun myInfoCandy() {
 
-        mModel?.myInfoCandy()?.ssss {
+        mModel?.myInfoCandy()?.ssss(mView,false) {
             mView?.onGetMyInfoResult(it.data)
         }
     }

@@ -24,7 +24,7 @@ class IndexRecommendPresenter :
     }
 
     override fun todayRecommend() {
-        mModel?.todayRecommend()?.ss(isShowLoading = false) {
+        mModel?.todayRecommend()?.ssss(mView,isShowLoading = false) {
             mView?.onTodayRecommendResult(it.data)
         }
     }

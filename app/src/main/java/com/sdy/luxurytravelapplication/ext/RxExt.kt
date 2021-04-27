@@ -40,7 +40,7 @@ fun <T : BaseBean> Observable<T>.ss(
                 if (isShowLoading) view?.showLoading()
                 model?.addDisposable(d)
                 if (!NetworkUtils.isConnected()) {
-                    view?.showDefaultMsg(TravelApp.instance.resources.getString(R.string.network_unavailable_tip))
+                    view?.showNetError(TravelApp.instance.resources.getString(R.string.network_unavailable_tip))
                     onComplete()
                 }
             }
@@ -61,7 +61,7 @@ fun <T : BaseBean> Observable<T>.ss(
                                 false
                             }
                     }
-                    else -> view?.showDefaultMsg(t.msg)
+                    else -> view?.showMsg(t.msg)
                 }
             }
 
@@ -103,14 +103,14 @@ fun <T : BaseBean> Observable<T>.sss(
                         onError.invoke(it)
                     } else {
                         if (it.msg.isNotEmpty())
-                            view?.showDefaultMsg(it.msg)
+                            view?.showMsg(it.msg)
                     }
                 }
             }
             view?.hideLoading()
         }, {
             view?.hideLoading()
-            view?.showError(ExceptionHandle.handleException(it))
+            view?.showNetError(ExceptionHandle.handleException(it))
         })
 }
 
@@ -146,7 +146,7 @@ fun <T : BaseBean> Observable<T>.ssss(
             view?.hideLoading()
         }, {
             view?.hideLoading()
-            view?.showError(ExceptionHandle.handleException(it))
+            view?.showNetError(ExceptionHandle.handleException(it))
         })
 }
 
@@ -182,7 +182,7 @@ fun <T : BaseBean> Observable<T>.startAndResult(
             view?.hideLoading()
         }, {
             view?.hideLoading()
-            view?.showError(ExceptionHandle.handleException(it))
+            view?.showNetError(ExceptionHandle.handleException(it))
         }, {}, {
             onStart.invoke()
         })
