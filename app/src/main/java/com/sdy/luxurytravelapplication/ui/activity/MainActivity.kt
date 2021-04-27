@@ -91,6 +91,8 @@ class MainActivity :
     }
 
     override fun initData() {
+        NIMClient.getService(MsgServiceObserve::class.java)
+                .observeReceiveMessage(incomingMessageObserver, true)
         binding.apply {
             ClickUtils.applySingleDebouncing(
                 arrayOf(indexBtn, findBtn, messageBtn, travelBtn, mineBtn),
