@@ -80,7 +80,7 @@ class ChangeUserContactActivity :
                 KeyboardUtils.hideSoftInput(this)
                 showContactPicker()
             }
-            R.id.rightBtn1 -> {
+            R.id.rightTextBtn -> {
                 mPresenter?.setContact(
                     contactWay,
                     binding.contactEt.text.trim().toString(),

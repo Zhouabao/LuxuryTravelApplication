@@ -116,7 +116,7 @@ class MyInfoActivity :
                     if (item.child.isEmpty()) {
                         val heights = mutableListOf<FindTagBean>()
                         for (i in 60 until 250) {
-                            heights.add(FindTagBean(-1, "$i"))
+                            heights.add(FindTagBean(-1, "${i}cm"))
                         }
                         heights
                     } else {
