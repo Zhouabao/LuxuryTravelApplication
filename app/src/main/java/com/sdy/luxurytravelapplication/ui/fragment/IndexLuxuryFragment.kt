@@ -90,7 +90,7 @@ class IndexLuxuryFragment :
 
             if (binding.refreshLuxury.state != RefreshState.Loading) {
                 //更新奢旅圈状态
-                EventBus.getDefault().post(RefreshSweetAddEvent(data.is_honey))
+                EventBus.getDefault().post(RefreshSweetAddEvent(data.is_honey, data.progress))
             }
 
             if (binding.refreshLuxury.state == RefreshState.Refreshing) {
@@ -131,6 +131,7 @@ class IndexLuxuryFragment :
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         if (!isHoney) {
             refreshLayout.finishLoadMore(0)
+            EventBus.getDefault().post(RefreshSweetAddEvent(isHoney, progressBean))
             JoinLuxuryActivity.startJoinLuxuxy(activity!!, progressBean)
         } else {
             if (adapter.data.size < Constants.PAGESIZE * page) {

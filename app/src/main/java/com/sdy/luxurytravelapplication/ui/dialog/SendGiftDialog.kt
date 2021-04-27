@@ -132,7 +132,7 @@ class SendGiftDialog(val container: Container) : BaseBindingDialog<DialogSendGif
             if (it.code == 200) {
                 SpanUtils.with(binding.goldAmount)
                     .setTypeface(Typeface.createFromAsset(context.assets, "DIN_Alternate_Bold.ttf"))
-                    .append("${it.data.my_coin_amount}")
+                    .append("${it.data.candy_amount}")
                     .append("\t充值")
                     .setForegroundColor(Color.parseColor("#FF1ED0A7"))
                     .setClickSpan(object : ClickableSpan() {

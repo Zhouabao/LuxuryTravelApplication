@@ -5,6 +5,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.mvp.model.bean.Alipay
 import com.sdy.luxurytravelapplication.mvp.model.bean.GiftBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import java.io.File
 
 /**
@@ -120,7 +121,7 @@ class RePublishEvent(var republish: Boolean, val context: String)
 
 
 //刷新加入甜心圈显示
-class RefreshSweetAddEvent(val isHoney: Boolean = false)
+class RefreshSweetAddEvent(val isHoney: Boolean = false,val sweetProgressBean: SweetProgressBean)
 
 
 //首页更新红点消息

@@ -142,7 +142,7 @@ class ChatActivity :
         val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
 
         if (!this::messageListPanel.isInitialized) {
-            messageListPanel = MessageListPanelEx(container, binding, anchor)
+            messageListPanel = MessageListPanelEx(container, binding.messageListRv, anchor)
         } else {
             messageListPanel.reload(container, anchor)
         }
@@ -166,10 +166,7 @@ class ChatActivity :
     override fun start() {
         if (!isChatWithRobot()) {
             mPresenter?.getTargetInfo(sessionId)
-        } else {
-            binding.barCl.rightIconBtn.isVisible = false
         }
-
     }
 
 
@@ -185,6 +182,9 @@ class ChatActivity :
             ), this
         )
         binding.barCl.divider.isVisible = true
+        binding.barCl.rightIconBtn.setImageResource(R.drawable.icon_more_black)
+        binding.barCl.rightIconBtn.isVisible = !isChatWithRobot()
+
     }
 
     private fun displayOnlineState() {
@@ -689,7 +689,6 @@ class ChatActivity :
      * 设置消息体制内的数据
      * verifyLl
      */
-    private var isSendChargePtVip = false // 是否发送过此条tip
     private var isDirectIn = false // 是否存在回复消息
     private var showSendGift = false // 显示过发送礼物
 
@@ -756,7 +755,7 @@ class ChatActivity :
         }
         if (!isChatWithRobot() && UserManager.gender == 2
             && !nimBean.private_chat_state
-            && !isSendChargePtVip && messageListPanel.messageSize() > 0
+            && !UserManager.isSendChargePtVip && messageListPanel.messageSize() > 0
             && messageListPanel.items.last().direct == MsgDirectionEnum.In
         ) {
             val tips = arrayListOf<SendTipBean>()
@@ -767,9 +766,9 @@ class ChatActivity :
                 )
             )
             CommonFunction.sendTips(sessionId, tips)
-            isSendChargePtVip = true
+            UserManager.isSendChargePtVip = true
         } else {
-            isSendChargePtVip = true
+            UserManager.isSendChargePtVip = true
         }
 
     }
@@ -815,7 +814,7 @@ class ChatActivity :
             if (nimBeanBaseResp!!.ret_tips_arr.isNotEmpty())
                 CommonFunction.sendTips(sessionId, nimBeanBaseResp.ret_tips_arr)
             nimBean.is_send_msg = true
-            if (UserManager.gender == 1 && !isSendChargePtVip
+            if (UserManager.gender == 1 && !UserManager.isSendChargePtVip
                 && sessionId != Constants.ASSISTANT_ACCID && !nimBean.isplatinum
             ) {
                 val tips = ArrayList<SendTipBean>()
@@ -826,7 +825,7 @@ class ChatActivity :
                     )
                 )
                 CommonFunction.sendTips(sessionId, tips)
-                isSendChargePtVip = true
+                UserManager.isSendChargePtVip = true
             }
         } else if (code == 409) { // 用户被封禁
             setMessageStatus(content, MsgStatusEnum.fail)

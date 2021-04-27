@@ -79,12 +79,6 @@ class MessageFragment :
             adapter.addHeaderView(initMessageAllHeader(), 0)
             adapter.addHeaderView(initAssistHeadsView(), 1)
             adapter.headerWithEmptyEnable = true
-            adapter.addChildClickViewIds(R.id.menuTop, R.id.menuDetele, R.id.content)
-            adapter.setOnItemChildClickListener { _, view, position ->
-                NIMClient.getService(MsgService::class.java).clearUnreadCount(adapter.data[position].contactId, SessionTypeEnum.P2P)
-                ChatActivity.start(activity!!, adapter.data[position].contactId)
-                EventBus.getDefault().post(GetNewMsgEvent())
-            }
             ClickUtils.applySingleDebouncing(contactBookBtn) {
                 ContactBookActivity.start(activity!!)
             }

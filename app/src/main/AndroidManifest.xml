@@ -58,13 +58,15 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:preserveLegacyExternalStorage="true"
         android:requestLegacyExternalStorage="true"
-        android:preserveLegacyExternalStorage = "true"
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".nim.business.session.activity.DisplayMessageActivity"></activity>
+        <activity android:name=".nim.business.session.activity.SearchMessageActivity" />
         <activity
             android:name=".ui.activity.RegisterTooManyActivity"
             android:launchMode="singleTop" />
@@ -212,15 +214,13 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.PurchaseFootActivity"
-            android:launchMode="singleTop" >
-
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.InviteCodeActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GuideActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.GetMoreMatchActivity"
             android:launchMode="singleTop" />

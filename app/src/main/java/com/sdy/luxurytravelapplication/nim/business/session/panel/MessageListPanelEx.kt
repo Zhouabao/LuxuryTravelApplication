@@ -62,7 +62,7 @@ import kotlin.collections.ArrayList
  */
 class MessageListPanelEx @JvmOverloads constructor(
     private var container: Container,
-    private val binding: ActivityChatBinding,
+    private val binding: RecyclerView,
     private val anchor: IMMessage? = null,
     val recordOnly: Boolean = false,//仅显示消息记录，不接收和发送消息
     private val remote: Boolean = false,//从服务器拉取消息记录
@@ -243,7 +243,7 @@ class MessageListPanelEx @JvmOverloads constructor(
     lateinit var messageListView: RecyclerView
     private fun initListView(anchor: IMMessage?) {
         // RecyclerView
-        messageListView = binding.messageListRv
+        messageListView = binding
         messageListView.layoutManager =
             LinearLayoutManager(container.activity, RecyclerView.VERTICAL, false)
         messageListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -316,7 +316,7 @@ class MessageListPanelEx @JvmOverloads constructor(
             if ((message.attachment is SendCustomTipAttachment && (message.attachment as SendCustomTipAttachment).ifSendUserShow != isSend)
                 || (message.attachment is ContactAttachment && message.direct == MsgDirectionEnum.Out)
             ) {
-                NIMClient.getService(MsgService::class.java).deleteMsgSelf(message, "")
+                NIMClient.getService(MsgService::class.java).deleteChattingHistory(message)
                 iterator.remove()
             }
         }
@@ -534,7 +534,7 @@ class MessageListPanelEx @JvmOverloads constructor(
                                 || message.attachment is ContactAttachment && isSend
                             ) {
                                 NIMClient.getService(MsgService::class.java)
-                                    .deleteMsgSelf(message, "")
+                                    .deleteChattingHistory(message)
                                 iterator.remove()
                             }
                         }

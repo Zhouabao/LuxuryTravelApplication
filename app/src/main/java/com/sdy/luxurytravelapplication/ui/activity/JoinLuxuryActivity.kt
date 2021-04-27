@@ -62,17 +62,12 @@ class JoinLuxuryActivity :
                     .create()
 
                 if (sweetProgressBean.now_money.toFloat() > sweetProgressBean.normal_money.toFloat()) {
-                    purchaseBtn.setTextColor(Color.parseColor("#FF212225"))
-                    purchaseBtn.isEnabled = true
                     purchaseBtn.text = getString(R.string.join_now)
                     ClickUtils.applySingleDebouncing(purchaseBtn) {
                         mPresenter?.joinSweetApply()
                     }
                 } else {
-                    purchaseBtn.setTextColor(Color.parseColor("#FFC5C6C8"))
-                    purchaseBtn.setBackgroundColor(Color.WHITE)
-                    purchaseBtn.text =
-                        "${sweetProgressBean.now_money}/${sweetProgressBean.normal_money}"
+                    purchaseBtn.text ="立即充值"
                     ClickUtils.applySingleDebouncing(purchaseBtn) {
                         CommonFunction.startToVip(
                             this@JoinLuxuryActivity

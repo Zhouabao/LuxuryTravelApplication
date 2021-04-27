@@ -17,15 +17,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/receiveCandyLight"
             android:layout_width="280dp"
             android:layout_height="280dp"
-            android:src="@drawable/icon_animation_gift_bottom_light"
             app:layout_constraintBottom_toTopOf="@id/receiveGiftBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_get_gift.json"
+            app:lottie_imageAssetsFolder="images/"
+            app:lottie_loop="true"
+            app:lottie_repeatCount="-1" />
 
 
         <ImageView

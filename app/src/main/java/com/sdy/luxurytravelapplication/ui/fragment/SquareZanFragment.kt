@@ -54,9 +54,7 @@ class SquareZanFragment(val type: Int = TYPE_ZAN) :
             rvMsgSquare.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             rvMsgSquare.adapter = adapter
-            val emptyBinding = EmptyLayoutCommentBinding.inflate(layoutInflater)
-            emptyBinding.emptyTip.text = getString(R.string.empty_messgae)
-            adapter.setEmptyView(emptyBinding.root)
+            adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.setOnItemClickListener { _, view, position ->
                 val item = adapter.data[position]
                 SquareCommentDetailActivity.start(activity!!, squareId = item.id)

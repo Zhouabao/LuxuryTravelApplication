@@ -819,16 +819,15 @@
     <string name="unlocked_chat">已解锁聊天</string>
     <string name="talk_freely">快尽情聊天吧</string>
     <string name="open_gift">开启礼物</string>
-    <string name="gift_wait_open">旅券礼物待开启</string>
-    <string name="gift_has_received">已领取旅券礼物</string>
-    <string name="gift_revoke">礼物已退回</string>
-    <string name="wait_open">待开启</string>
-    <string name="gift_has_been_received">旅券礼物已被领取</string>
-    <string name="revoke_cause_time_out">超时已退回</string>
-    <string name="gift_has_been_revoked">旅券礼物已退回</string>
+    <string name="send_you_a_gift">送你一个旅券礼物</string>
+    <string name="gift_receive_wait_open">点击领取礼物</string>
+    <string name="gift_receive_has_received">已领取礼物</string>
+    <string name="gift_receive_has_revoked">超时已退回</string>
+    <string name="gift_send_wait_open">等待对方领取</string>
+    <string name="gift_send_has_been_received">对方已领取</string>
+    <string name="gift_send_has_been_revoked">超时已退回</string>
     <string name="contact_has_been_copyed">已复制联系方式</string>
     <string name="gift_has_opend">礼物已开启</string>
-    <string name="gift_has_revoked">礼物已退回</string>
     <string name="cost_candy_count">价值 %1$d 旅券</string>
     <string name="she_left_contact_way">她给你留下了联系方式</string>
     <string name="hide_message_if_gold_vip">消息太多？你可以设置私聊权限仅高级会员过滤消息</string>
@@ -1029,4 +1028,5 @@
     <string name="leave_your_comment_to_see_you">留下你的评论，让TA看到你</string>
     <string name="only_gold_can_comment">仅高级会员支持评论</string>
     <string name="someone_position">%1$s的位置</string>
+    <string name="search_history">搜索聊天记录</string>
 </resources>

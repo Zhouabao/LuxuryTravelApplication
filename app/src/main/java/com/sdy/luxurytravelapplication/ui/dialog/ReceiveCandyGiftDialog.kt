@@ -113,7 +113,7 @@ class ReceiveCandyGiftDialog(
                     } else {
                         tempRefuseBtn.isVisible = true
                         receiveGiftBtn.text = context1.getString(R.string.receive_candy_gift)
-                        startWaitReceiveAnimation()
+                        receiveCandyLight.playAnimation()
                     }
                 }
                 SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN -> {
@@ -126,20 +126,6 @@ class ReceiveCandyGiftDialog(
                 }
             }
         }
-    }
-
-    private fun startWaitReceiveAnimation() {
-        //底部light的旋转动画
-        val rotateLight =
-            ObjectAnimator.ofFloat(binding.receiveCandyLight, "rotation", 0.0f, 360.0f)
-        //设定动画的旋转周期
-        rotateLight.duration = 4000L
-        //设置动画的插值器，这个为匀速旋转
-        rotateLight.interpolator = LinearInterpolator()
-        //设置动画为无限重复
-        rotateLight.repeatCount = -1
-        rotateLight.start()
-
     }
 
 

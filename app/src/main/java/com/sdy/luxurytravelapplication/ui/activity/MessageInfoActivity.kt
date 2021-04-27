@@ -21,6 +21,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.MessageInfoContract
 import com.sdy.luxurytravelapplication.mvp.presenter.MessageInfoPresenter
 import com.sdy.luxurytravelapplication.nim.business.helper.MessageListPanelHelper
+import com.sdy.luxurytravelapplication.nim.business.session.activity.SearchMessageActivity
 import com.sdy.luxurytravelapplication.nim.business.uinfo.UserInfoHelper
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
@@ -74,9 +75,9 @@ class MessageInfoActivity :
                     friendDelete,
                     friendHistory,
                     friendHistoryClean,
-                    friendNoBother,
+                    llNoBother,
                     friendReport,
-                    friendStar
+                    flStar
                 ), this@MessageInfoActivity
             )
 
@@ -102,14 +103,14 @@ class MessageInfoActivity :
             }
             //历史聊天记录
             binding.friendHistory -> {
-//                SearchMessageActivity.start(this, account, SessionTypeEnum.P2P)
+                SearchMessageActivity.start(this, account, SessionTypeEnum.P2P)
             }
             //清除聊天记录
             binding.friendHistoryClean -> {
                 showDeleteDialog(1)
             }
             //消息免打扰
-            binding.friendNoBother -> {
+            binding.llNoBother -> {
                 NIMClient.getService(FriendService::class.java).setMessageNotify(
                     account,
                     !NIMClient.getService(FriendService::class.java).isNeedMessageNotify(account)
@@ -134,7 +135,7 @@ class MessageInfoActivity :
                 ReportReasonActivity.startReport(this, account)
             }
             //星标好友
-            binding.friendStar -> {
+            binding.flStar -> {
                 if (star) {
                     mPresenter?.removeStarTarget(account)
                 } else {

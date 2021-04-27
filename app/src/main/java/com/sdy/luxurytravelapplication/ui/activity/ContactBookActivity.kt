@@ -14,7 +14,9 @@ import com.sdy.luxurytravelapplication.databinding.ActivityContactBookBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewContactBinding
 import com.sdy.luxurytravelapplication.databinding.ItemContactBookBinding
 import com.sdy.luxurytravelapplication.mvp.contract.ContactBookContract
+import com.sdy.luxurytravelapplication.mvp.model.LetterComparator
 import com.sdy.luxurytravelapplication.mvp.model.bean.ContactBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.ContactDataBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean
 import com.sdy.luxurytravelapplication.mvp.presenter.ContactBookPresenter
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
@@ -25,13 +27,15 @@ import com.sdy.luxurytravelapplication.widgets.sortcontacts.Cn2Spell
 import com.sdy.luxurytravelapplication.widgets.sortcontacts.PinnedHeaderDecoration
 import com.sdy.luxurytravelapplication.widgets.sortcontacts.WaveSideBarView
 import org.jetbrains.anko.startActivity
+import java.util.*
 
 /**
  * 通讯录
  * 包括转发到好友也是在这里面操作
  */
 class ContactBookActivity :
-    BaseMvpActivity<ContactBookContract.View, ContactBookContract.Presenter, ActivityContactBookBinding>() {
+    BaseMvpActivity<ContactBookContract.View, ContactBookContract.Presenter, ActivityContactBookBinding>(),
+    ContactBookContract.View {
 
     private var sqauareBean: SquareBean? = null
 
@@ -44,6 +48,46 @@ class ContactBookActivity :
                 context.startActivity<ContactBookActivity>("square" to squareBean)
             else
                 context.startActivity<ContactBookActivity>()
+        }
+    }
+
+    override fun onGetContactListResult(data: ContactDataBean?) {
+        if (data != null) {
+            if (!data.list.isNullOrEmpty()) {
+                for (data in data.list!!) {
+                    data.index = Cn2Spell.getPinYinFirstLetter(
+                        if (data.nickname.isNullOrEmpty()) {
+                            "#"
+                        } else {
+                            data.nickname
+                        }
+                    )
+                }
+
+                adapter.setNewInstance(data.list!!)
+                Collections.sort(adapter.data, LetterComparator())
+                adapter.notifyDataSetChanged()
+            } else {
+                adapter.notifyDataSetChanged()
+            }
+            if (!data.asterisk.isNullOrEmpty()) {
+                for (data in data.asterisk!!) {
+                    data.index = Cn2Spell.getPinYinFirstLetter(
+                        if (data.nickname.isEmpty()) {
+                            "#"
+                        } else {
+                            data.nickname
+                        }
+                    )
+                }
+                Collections.sort(data.asterisk?: arrayListOf(), LetterComparator())
+                headAdapter.setNewInstance(data.asterisk!!)
+            } else {
+                headAdapter.notifyDataSetChanged()
+            }
+        } else {
+            adapter.notifyDataSetChanged()
+            headAdapter.notifyDataSetChanged()
         }
     }
 

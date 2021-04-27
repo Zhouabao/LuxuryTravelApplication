@@ -1,13 +1,13 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.NimMessageSendGiftBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.nim.attachment.SendGiftAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
-import com.sdy.luxurytravelapplication.viewbinding.bindViewWithGeneric
 
 /**
  *    author : ZFM
@@ -22,32 +22,30 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
 
     private lateinit var binding: NimMessageSendGiftBinding
     override fun inflateContentView() {
-        binding = NimMessageSendGiftBinding.inflate(LayoutInflater.from(context), contentContainer, true)
+        binding =
+            NimMessageSendGiftBinding.inflate(LayoutInflater.from(context), contentContainer, true)
     }
 
     override fun bindContentView() {
         val giftReceiveStatus: Int = attachment.giftStatus
+        binding.revokeStatus.isVisible =
+            giftReceiveStatus != SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL
+        binding.giftTitle.text = "旅券礼物待开启"
         if (isReceivedMessage) {
             if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL) {
-                binding.giftTitle.setText(R.string.open_gift)
-                binding.giftType.setText(R.string.gift_wait_open)
+                binding.giftType.setText(R.string.gift_receive_wait_open)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN) {
-                binding.giftTitle.setText(R.string.gift_has_opend)
-                binding.giftType.setText(R.string.gift_has_received)
+                binding.giftType.setText(R.string.gift_receive_has_received)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_RETURNED) {
-                binding.giftTitle.setText(R.string.gift_revoke)
-                binding.giftType.setText(R.string.gift_has_revoked)
+                binding.giftType.setText(R.string.gift_receive_has_revoked)
             }
         } else {
             if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL) {
-                binding.giftTitle.setText(R.string.wait_open)
-                binding.giftType.setText(R.string.gift_wait_open)
+                binding.giftType.setText(R.string.gift_send_wait_open)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_OPEN) {
-                binding.giftTitle.setText(R.string.gift_has_opend)
-                binding.giftType.setText(R.string.gift_has_been_received)
+                binding.giftType.setText(R.string.gift_send_has_been_received)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_RETURNED) {
-                binding.giftTitle.setText(R.string.revoke_cause_time_out)
-                binding.giftType.setText(R.string.gift_has_been_revoked)
+                binding.giftType.setText(R.string.gift_send_has_been_revoked)
             }
         }
 
@@ -64,11 +62,18 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
     }
 
     override fun leftBackground(): Int {
+//        if (attachment.giftStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL)
         return R.drawable.shape_rectangle_stroke_eceff4_15dp
+//        else
+//            return R.drawable.shape_gift_revoked_15dp
+
     }
 
-    override fun rightBackground(): Int{
+    override fun rightBackground(): Int {
+//        if (attachment.giftStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_NORMAL)
         return R.drawable.shape_rectangle_stroke_eceff4_15dp
+//        else
+//            return R.drawable.shape_gift_revoked_15dp
     }
 
     override fun onItemClick() {

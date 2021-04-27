@@ -274,7 +274,7 @@ data class FocusBean(
 
 data class GetGiftBean(
     var list: List<GiftBean> = listOf(),
-    var my_coin_amount: Int = 0
+    var candy_amount: Int = 0
 )
 
 

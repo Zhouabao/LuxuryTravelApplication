@@ -31,11 +31,12 @@ class ReportReasonActivity :
                 finish()
             }
             binding.barCl.actionbarTitle.text = "举报理由"
-            reportRv.layoutManager = LinearLayoutManager(this@ReportReasonActivity, RecyclerView.VERTICAL, false)
+            reportRv.layoutManager =
+                LinearLayoutManager(this@ReportReasonActivity, RecyclerView.VERTICAL, false)
             reportRv.adapter = adapter
             adapter.setOnItemClickListener { _, view, position ->
                 startActivity<ReportReasonUploadActivity>(
-                    "case_type" to adapter.data[position].reason,
+                    "case_type" to adapter.data[position],
                     "target_accid" to intent.getStringExtra("target_accid")
                 )
             }
@@ -46,6 +47,9 @@ class ReportReasonActivity :
         mPresenter?.getReportMsg()
     }
 
-    override fun onGetReportMsgResult(b: Boolean, msg: MutableList<String>) {
+    override fun onGetReportMsgResult(b: Boolean, datas: MutableList<String>) {
+        if (b) {
+            adapter.setNewInstance(datas)
+        }
     }
 }

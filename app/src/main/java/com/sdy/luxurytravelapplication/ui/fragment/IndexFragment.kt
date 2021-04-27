@@ -106,7 +106,7 @@ class IndexFragment :
     override fun onClick(v: View) {
         when (v) {
             binding.addLuxuryBtn -> {
-                JoinLuxuryActivity.startJoinLuxuxy(activity!!, SweetProgressBean())
+                JoinLuxuryActivity.startJoinLuxuxy(activity!!, sweetProgressBean)
             }
             binding.tobeSelectedBtn -> {
                 ToBeSelectedDialog(false,indexListBean).show()
@@ -120,11 +120,12 @@ class IndexFragment :
      */
     private var isHoney = false
     private var isInitialize = false
-
+    private lateinit var sweetProgressBean: SweetProgressBean
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTopCardEvent(event: RefreshSweetAddEvent) {
         isInitialize = true
         isHoney = event.isHoney
+        this.sweetProgressBean = event.sweetProgressBean
         if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
             binding.addLuxuryCl.isVisible = !isHoney
     }

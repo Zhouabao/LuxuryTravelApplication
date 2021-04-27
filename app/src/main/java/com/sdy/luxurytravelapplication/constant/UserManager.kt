@@ -96,6 +96,7 @@ object UserManager {
         SPUtils.getInstance(Constants.SPNAME).remove("mvFaced")
         SPUtils.getInstance(Constants.SPNAME).remove("isPtvip")
         SPUtils.getInstance(Constants.SPNAME).remove("isvip1")
+        SPUtils.getInstance(Constants.SPNAME).remove("isSendChargePtVip")
 
 
         SPUtils.getInstance(Constants.SPNAME).remove("myVerifyBtn")
@@ -297,6 +298,13 @@ object UserManager {
     var hasFaceUrl: Boolean
         get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("hasFaceUrl", false)
         set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("hasFaceUrl", isFaced)
+
+    /**
+     * 是否提示过设置隐私权县
+     */
+    var isSendChargePtVip: Boolean
+        get() = SPUtils.getInstance(Constants.SPNAME).getBoolean("isSendChargePtVip", false)
+        set(isFaced) = SPUtils.getInstance(Constants.SPNAME).put("isSendChargePtVip", isFaced)
 
 
     var alertProtocol

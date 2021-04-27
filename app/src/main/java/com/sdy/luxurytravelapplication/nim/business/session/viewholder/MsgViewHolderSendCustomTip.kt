@@ -31,7 +31,8 @@ class MsgViewHolderSendCustomTip(adapter: MsgAdapter) : MsgViewHolderBase(adapte
     override fun inflateContentView() {
         binding = NimMessageItemCustomTipBinding.inflate(
             LayoutInflater.from(context),
-            contentContainer
+            contentContainer,
+            true
         )
     }
 
@@ -122,6 +123,8 @@ class MsgViewHolderSendCustomTip(adapter: MsgAdapter) : MsgViewHolderBase(adapte
     override fun shouldDisplayNick(): Boolean {
         return false
     }
+
+    override val isMiddleItem: Boolean = true
 
 
 }
