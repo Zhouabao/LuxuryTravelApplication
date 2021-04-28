@@ -367,7 +367,7 @@ class ChatActivity :
     private fun setMessageStatus(message: IMMessage, msgStatus: MsgStatusEnum) {
         message.status = msgStatus
         NIMClient.getService(MsgService::class.java).updateIMMessageStatus(message)
-        messageListPanel.refreshMessageList()
+        messageListPanel.refreshMessageItem(message.uuid)
     }
 
 
@@ -863,17 +863,13 @@ class ChatActivity :
             CommonFunction.startToFootPrice(this)
         } else {
             setMessageStatus(content, MsgStatusEnum.fail)
-            FragmentUtils.add(
-                (ActivityUtils.getTopActivity() as AppCompatActivity).supportFragmentManager,
-                SnackBarFragment(
-                    CustomerMsgBean(
-                        SnackBarFragment.SEND_FAILED,
-                        getString(R.string.send_failed),
-                        msg,
-                        R.drawable.icon_wrong
-                    )
-                ),
-                android.R.id.content
+            SnackBarFragment.showAlert(
+                CustomerMsgBean(
+                    SnackBarFragment.SEND_FAILED,
+                    getString(R.string.send_failed),
+                    msg,
+                    R.drawable.icon_wrong
+                )
             )
         }
     }

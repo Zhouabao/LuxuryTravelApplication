@@ -53,7 +53,7 @@ class MessageListAdapter :
 
             msgNew.isVisible = false
             text.text = CommonFunction.getRecentContent(item)
-
+            latelyTime.isVisible = item.time != 0L
             latelyTime.text = TimeUtil.getTimeShowString(item.time, true)
             if (item.unreadCount == 0) {
                 newCount.visibility = View.GONE

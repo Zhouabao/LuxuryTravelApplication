@@ -65,7 +65,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".nim.business.session.activity.DisplayMessageActivity"></activity>
+        <activity android:name=".ui.activity.BigImageActivity"></activity>
+        <activity android:name=".nim.business.session.activity.DisplayMessageActivity" />
         <activity android:name=".nim.business.session.activity.SearchMessageActivity" />
         <activity
             android:name=".ui.activity.RegisterTooManyActivity"
@@ -212,7 +213,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.PurchaseFootActivity"
             android:launchMode="singleTop" />
@@ -228,7 +229,8 @@
         <activity
             android:name=".ui.activity.OnekeyLoginActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.activity.WelcomeActivity"
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -244,7 +246,7 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RegisterInfoOneActivity"
             android:launchMode="singleTop" />

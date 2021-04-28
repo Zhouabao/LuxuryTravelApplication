@@ -456,10 +456,10 @@ class SquareCommentDetailActivity :
                     mPresenter?.getSquareLike(params, true)
                 }
 
-//                startActivity<BigImageActivity>(
-//                    BigImageActivity.IMG_KEY to squareBean!!,
-//                    BigImageActivity.IMG_POSITION to position
-//                )
+                startActivity<BigImageActivity>(
+                    BigImageActivity.IMG_KEY to squareBean!!,
+                    BigImageActivity.IMG_POSITION to position
+                )
             }
         }
 
@@ -568,6 +568,7 @@ class SquareCommentDetailActivity :
         if (binding.refreshLayout.state != RefreshState.Loading) {
             binding.refreshLayout.setNoMoreData(false)
             if (allCommentBean != null) {
+                adapter.data.clear()
                 if (allCommentBean.hotlist != null && allCommentBean.hotlist!!.size > 0) {
                     adapter.addData(
                         CommentBean(
@@ -592,7 +593,10 @@ class SquareCommentDetailActivity :
                     for (i in 0 until allCommentBean.list!!.size) {
                         allCommentBean.list!![i].itemType = CommentBean.CONTENT
                     }
+                    adapter.addData(allCommentBean.list!!)
+
                 }
+                adapter.notifyDataSetChanged()
             }
             binding.refreshLayout.finishRefresh(true)
         } else {

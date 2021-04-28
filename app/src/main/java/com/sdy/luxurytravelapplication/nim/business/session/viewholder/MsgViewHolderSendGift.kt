@@ -38,7 +38,7 @@ class MsgViewHolderSendGift(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdap
                 binding.giftType.setText(R.string.gift_has_received)
             } else if (giftReceiveStatus == SendGiftAttachment.GIFT_RECEIVE_STATUS_HAS_RETURNED) {
                 binding.giftTitle.setText(R.string.gift_revoke)
-                binding.giftType.setText(R.string.gift_has_revoked)
+                binding.giftType.setText(R.string.revoke_cause_time_out)
             }
             binding.giftImg.isVisible = false
             binding.rightGiftImg.isVisible = true

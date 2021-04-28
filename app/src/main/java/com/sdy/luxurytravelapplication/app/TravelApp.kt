@@ -299,12 +299,7 @@ class TravelApp : Application() {
                 SnackBarFragment.GREET_SUCCESS,
                 SnackBarFragment.GIVE_GIFT -> {
                     if (ActivityUtils.getTopActivity() is MainActivity)
-                        FragmentUtils.add(
-                            (ActivityUtils.getTopActivity() as AppCompatActivity).supportFragmentManager,
-                            SnackBarFragment(customerMsgBean),
-                            android.R.id.content
-                        )
-
+                        SnackBarFragment.showAlert(customerMsgBean)
                 }
                 106, 300, 301 -> {
                     //106门槛支付成功
