@@ -258,7 +258,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="22dp"
-                android:background="@drawable/shape_rectangle_stroke_green_15dp"
+                android:background="@drawable/shape_rectangle_stroke_gray_15dp"
                 android:paddingLeft="8dp"
                 android:paddingTop="3dp"
                 android:paddingRight="8dp"
