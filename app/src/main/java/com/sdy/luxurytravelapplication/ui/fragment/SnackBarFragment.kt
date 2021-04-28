@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -8,12 +9,13 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.FragmentSnackBarBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.CustomerMsgBean
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.tapadoo.alerter.Alerter
 
 /**
  * 顶级通知fragment
  */
-object SnackBarFragment{
+object SnackBarFragment {
     const val SOMEONE_LIKE_YOU = 31//喜欢了你
     const val SOMEONE_MATCH_SUCCESS = 32//匹配成功
     const val GREET_SUCCESS = 41//招呼
@@ -31,9 +33,13 @@ object SnackBarFragment{
             Color.parseColor("#FFFF7736")
         )
     }
+
     fun showAlert(msgBean: CustomerMsgBean) {
         val alert = Alerter.create(ActivityUtils.getTopActivity(), R.layout.fragment_snack_bar)
             .enableSwipeToDismiss()
+            .setOnClickListener(View.OnClickListener {
+                ChatActivity.start(ActivityUtils.getTopActivity(), msgBean.accid)
+            })
             .setBackgroundColorRes(R.color.transparent)
             .setDuration(250L)
             .also { alerter ->

@@ -298,7 +298,7 @@ class TravelApp : Application() {
                 SnackBarFragment.CHAT_SUCCESS,
                 SnackBarFragment.GREET_SUCCESS,
                 SnackBarFragment.GIVE_GIFT -> {
-                    if (ActivityUtils.getTopActivity() is MainActivity)
+                    if (ActivityUtils.getTopActivity() is MainActivity && (ActivityUtils.getTopActivity() as MainActivity).binding.vpMain.currentItem != 3)
                         SnackBarFragment.showAlert(customerMsgBean)
                 }
                 106, 300, 301 -> {
