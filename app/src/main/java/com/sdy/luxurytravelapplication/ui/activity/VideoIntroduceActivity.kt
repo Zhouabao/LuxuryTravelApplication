@@ -179,7 +179,7 @@ class VideoIntroduceActivity :
         currentTime = 0
         mainHandler.postDelayed(progressRunnable, 0)
 
-        videoSavePath = ImageUtil.getPath() + "/" + System.currentTimeMillis() + ".mp4"
+        videoSavePath = ImageUtil.getPath(this@VideoIntroduceActivity) + "/" + System.currentTimeMillis() + ".mp4"
 //        videoSavePath = CameraUtils.getOutputMediaFile(
 //            MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO,
 //            System.currentTimeMillis().toString()
@@ -268,7 +268,7 @@ class VideoIntroduceActivity :
 
     //停止按下按钮动画
     private fun stopButtonAnimation() {
-        if (isRecording) {
+        if (!isRecording) {
             binding.startRecordBtn.setImageResource(R.drawable.icon_record_play)
             binding.view1.isVisible = false
             animatorSet.cancel()
