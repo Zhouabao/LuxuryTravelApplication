@@ -238,7 +238,7 @@ class SquareCommentDetailActivity :
                 binding.squareUserVideo.visibility = View.VISIBLE
                 initVideo()
             }
-            else -> {
+            squareBean!!.type == 3 -> {
                 binding.audioCl.isVisible = true
                 initAudio()
             }
@@ -381,8 +381,8 @@ class SquareCommentDetailActivity :
 
     private fun initAudio() {
         binding.audioCl.prepareAudio(
-            squareBean!!.audio_json!!.get(0).url,
-            squareBean!!.audio_json!!.get(0).duration, autoPlay = true
+            squareBean!!.audio_json!![0].url,
+            squareBean!!.audio_json!![0].duration, autoPlay = true
         )
     }
 
@@ -811,52 +811,6 @@ class SquareCommentDetailActivity :
                 }
 
             }).showDialog()
-//        moreActionDialog.show()
-//        val binding = moreActionDialog.binding
-//
-//        binding.apply {
-//            if (squareBean!!.accid == UserManager.accid) {
-//                delete.visibility = View.VISIBLE
-//                report.visibility = View.GONE
-//            } else {
-//                delete.visibility = View.GONE
-//                report.visibility = View.VISIBLE
-//            }
-//            delete.setOnClickListener {
-//                val params = hashMapOf<String, Any>("square_id" to squareBean!!.id!!)
-//                mPresenter?.removeMySquare(params)
-//                moreActionDialog.dismiss()
-//
-//            }
-//
-//            report.setOnClickListener {
-//                MessageDialog.show(
-//                    this@SquareCommentDetailActivity,
-//                    R.string.report_square,
-//                    R.string.report_square_title,
-//                    R.string.report,
-//                    R.string.cancel
-//                )
-//                    .setOnOkButtonClickListener { _, v ->
-//                        //发起举报请求
-//                        val params = hashMapOf<String, Any>(
-//                            "type" to if (squareBean!!.iscollected == 0) {
-//                                1
-//                            } else {
-//                                2
-//                            },
-//                            "square_id" to squareBean!!.id!!
-//                        )
-//                        mPresenter?.getSquareReport(params)
-//                        false
-//                    }
-//                    .setOnCancelButtonClickListener { _, v ->
-//                        false
-//                    }
-//            }
-//            moreActionDialog.dismiss()
-//        }
-
 
     }
 
@@ -914,7 +868,9 @@ class SquareCommentDetailActivity :
         Log.d(TAG, "super.onPause()")
         if (binding.audioCl.isPlaying())
             binding.audioCl.pauseAudio()
+        binding.squareUserVideo.onVideoPause()
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -925,11 +881,12 @@ class SquareCommentDetailActivity :
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "super.onResume()")
-        binding.squareUserVideo.onVideoResume(false)
         if (binding.audioCl.isPause())
             binding.audioCl.resumeAudio()
 
-//        squareUserVideo.onVideoResume()
+//        GSYVideoManager.onResume()
+        binding.squareUserVideo.onVideoResume()
+
     }
 
     override fun onDestroy() {
@@ -938,13 +895,6 @@ class SquareCommentDetailActivity :
         binding.audioCl.release()
         if (binding.showCommentEt.isFocused)
             resetCommentEt()
-    }
-
-    override fun finish() {
-        super.finish()
-        binding.audioCl.release()
-        if (binding.showCommentEt.isFocused)
-            resetCommentEt()
         //释放所有
         binding.squareUserVideo.gsyVideoManager.setListener(binding.squareUserVideo.gsyVideoManager.lastListener())
         binding.squareUserVideo.gsyVideoManager.setLastListener(null)
@@ -953,19 +903,5 @@ class SquareCommentDetailActivity :
         SwitchUtil.release()
     }
 
-    override fun onBackPressed() {
-        if (binding.showCommentEt.isFocused) {
-            resetCommentEt()
-        }
-        binding.audioCl.release()
-
-        //释放所有
-        binding.squareUserVideo.gsyVideoManager.setListener(binding.squareUserVideo.gsyVideoManager.lastListener())
-        binding.squareUserVideo.gsyVideoManager.setLastListener(null)
-        binding.squareUserVideo.release()
-        GSYVideoManager.releaseAllVideos()
-        SwitchUtil.release()
-        super.onBackPressed()
-    }
 
 }

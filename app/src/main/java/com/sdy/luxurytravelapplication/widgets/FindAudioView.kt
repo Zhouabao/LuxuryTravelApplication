@@ -7,13 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.LayoutFindAudioBinding
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
-import com.sdy.luxurytravelapplication.ui.activity.PublishActivity
-import com.sdy.luxurytravelapplication.ui.dialog.RecordContentDialog
 import com.sdy.luxurytravelapplication.utils.UriUtils
 import com.sdy.luxurytravelapplication.widgets.player.MediaPlayerHelper
 import com.sdy.luxurytravelapplication.widgets.player.UpdateVoiceTimeThread
@@ -74,17 +70,6 @@ class FindAudioView @JvmOverloads constructor(
 
         filePath = path
         this.duration = duration
-//        val params = binding.root.layoutParams as FrameLayout.LayoutParams
-//        params.width =
-//            SizeUtils.dp2px(115F) + (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(115 + 15 * 2 + 10 * 2F)) /
-//                    RecordContentDialog.MAX_RECORD_TIME *
-//                    if (duration > RecordContentDialog.MAX_RECORD_TIME) {
-//                        RecordContentDialog.MAX_RECORD_TIME
-//                    } else {
-//                        duration
-//                    }
-//        binding.audioPlayBtn.layoutParams = params
-
         positionId = id
         setDurationText(duration)
         binding.audioPlayBtn.setOnClickListener {
@@ -103,13 +88,13 @@ class FindAudioView @JvmOverloads constructor(
         }
 
         if (autoPlay) {
-            EventBus.getDefault().post(OneVoicePlayEvent(id, type, context))
+//            EventBus.getDefault().post(OneVoicePlayEvent(id, type, context))
             playAudio()
         }
 
     }
 
-    fun initResource(bgResource: Int, textColor: Int, playImg: Int,animation:String) {
+    fun initResource(bgResource: Int, textColor: Int, playImg: Int, animation: String) {
         binding.audioPlayBtn.setBackgroundResource(bgResource)
         binding.audioTime.setTextColor(textColor)
         binding.audioState.setImageResource(playImg)
@@ -144,13 +129,15 @@ class FindAudioView @JvmOverloads constructor(
             MediaPlayerHelper.realese()
         }
         MediaPlayerHelper.playSound(filePath,
-            { completeAudio() },
             {
-                countTimeThread?.start()
-            })
-        playState = MEDIA_PLAY
-        binding.audioState.playAnimation()
+                completeAudio()
+            },
+            {
 
+                countTimeThread?.start()
+                playState = MEDIA_PLAY
+                binding.audioState.playAnimation()
+            })
     }
 
     /**
@@ -162,8 +149,8 @@ class FindAudioView @JvmOverloads constructor(
         UpdateVoiceTimeThread.getInstance(UriUtils.getShowTime(duration), binding.audioTime).pause()
         if (duration > 0 && filePath.isNotEmpty()) {
             countTimeThread?.pause()
+            binding.audioState.pauseAnimation()
         }
-        binding.audioState.pauseAnimation()
     }
 
 
@@ -176,8 +163,8 @@ class FindAudioView @JvmOverloads constructor(
         UpdateVoiceTimeThread.getInstance(UriUtils.getShowTime(duration), binding.audioTime).start()
         if (duration > 0 && filePath.isNotEmpty()) {
             countTimeThread?.resume()
+            binding.audioState.resumeAnimation()
         }
-        binding.audioState.resumeAnimation()
     }
 
     fun isPlaying() = playState == MEDIA_PLAY

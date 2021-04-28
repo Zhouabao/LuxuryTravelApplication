@@ -108,7 +108,7 @@ class TargetUserActivity :
                     CommonFunction.checkUnlockIntroduceVideo(
                         this@TargetUserActivity,
                         targetAccid,
-                        matchBean.mv_url
+                        matchBean.mv_cover_url
                     )
                 }
             }
@@ -549,8 +549,12 @@ class TargetUserActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        GSYVideoManager.releaseAllVideos()
-        headBinding.travelAduio.release()
+        if (this::matchBean.isInitialized && matchBean.mv_detail_url.isNotEmpty() && (matchBean.myisplatinumvip || matchBean.residue_auto_count > 0)) {
+            GSYVideoManager.releaseAllVideos()
+        }
+        if (headBinding.travelAduio.isPlaying()) {
+            headBinding.travelAduio.release()
+        }
     }
 
 }
