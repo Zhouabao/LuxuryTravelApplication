@@ -560,8 +560,8 @@ data class SquareBannerBean(
     var link_url: String = "",
     var title: String = "",
     var icon: String = "",
-    val used_cnt: Int = 0,
-    val visit_cnt: Int = 0
+    val all_count: Int = 0,
+    val used_cnt: Int = 0
 )
 
 
@@ -575,7 +575,9 @@ data class SquareTagBean(
     var is_join: Boolean = false,
     var child: MutableList<SquarePicBean> = mutableListOf(),
     var place_type: Int = 0,//位置类型 0 没有操作 1置顶 2置底
-    var title: String = ""
+    var title: String = "",
+    val all_count: Int = 0,
+    val used_cnt: Int = 0
 )
 
 data class TagSquareListBean(

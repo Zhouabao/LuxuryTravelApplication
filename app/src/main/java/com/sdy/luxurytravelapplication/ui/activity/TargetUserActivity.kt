@@ -230,7 +230,7 @@ class TargetUserActivity :
                 smallPhotoAdapter.matchBean = matchBean
                 bigPhotoAdapter.targetAccid = matchBean.accid
                 bigPhotoAdapter.autoPlay =
-                    matchBean.personal_auto_play && (matchBean.residue_auto_count > 0 || matchBean.isplatinumvip)
+                    matchBean.personal_auto_play && (matchBean.residue_auto_count > 0 || matchBean.myisplatinumvip)
                 smallPhotoAdapter.autoPlay = bigPhotoAdapter.autoPlay
                 headBinding.apply {
                     nickName.text = matchBean.nickname

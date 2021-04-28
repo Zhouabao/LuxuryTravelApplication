@@ -151,7 +151,7 @@ class TagDetailCategoryActivity :
                     RoundedCornersTransformation.CornerType.BOTTOM
                 )
                 binding.samePersonTitle.text = it.title
-                binding.joinCnt.text = "${it.visit_cnt}人参与·${it.used_cnt}条帖子"
+                binding.joinCnt.text = "${it.all_count}人参与·${it.used_cnt}条帖子"
                 binding.hotT1.text = it.title
             }
             adapter.data.clear()
