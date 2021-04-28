@@ -188,7 +188,7 @@ class ConfirmPayCandyDialog(
         loadingDialog.show()
         RetrofitHelper.service
             .createOrder(params)
-            .ssss {
+            .ssss (loadingDialog = loadingDialog){
                 loadingDialog.dismiss()
                 if (it.code == 200) {
                     //发起微信

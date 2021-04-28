@@ -436,7 +436,7 @@ class ChatUpOpenPtVipDialog(
         loading.show()
         RetrofitHelper.service
             .unlockContact(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
+            .ssss(loadingDialog = loading) { t ->
                 if (t.code == 200) {
                     if (ActivityUtils.getTopActivity() !is ChatActivity) {
                         Handler().postDelayed({
@@ -474,7 +474,7 @@ class ChatUpOpenPtVipDialog(
         loading.show()
         RetrofitHelper.service
             .unlockChat(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
+            .ssss(loadingDialog = loading) { t ->
                 if (t.code == 201) {
                     loading.dismiss()
                     CommonFunction.startToFootPrice(context1)

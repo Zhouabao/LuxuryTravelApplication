@@ -90,7 +90,7 @@ object CommonFunction {
         val loading = LoadingDialog()
         loading.show()
         RetrofitHelper.service.checkChat(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
+            .ssss(loadingDialog = loading) { t ->
                 loading.dismiss()
                 when (t.code) {
                     200 -> {
@@ -163,7 +163,7 @@ object CommonFunction {
         loading.show()
         RetrofitHelper.service
             .checkUnlockContact(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
+            .ssss(loadingDialog = loading) { t ->
                 loading.dismiss()
                 when (t.code) {
                     200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
@@ -243,7 +243,7 @@ object CommonFunction {
         waitDialog.show()
         RetrofitHelper.service
             .checkUnlockMv(hashMapOf("target_accid" to target_accid))
-            .ssss { t ->
+            .ssss(loadingDialog = waitDialog) { t ->
                 waitDialog.dismiss()
                 when (t.code) {
                     222 -> {//铂金会员解锁成功/已经解锁过了 isnew_friend 是否新好友
@@ -273,7 +273,7 @@ object CommonFunction {
         waitDialog.show()
         RetrofitHelper.service
             .checkDatingapply(hashMapOf("dating_id" to datingBean.id))
-            .ssss { t ->
+            .ssss (loadingDialog = waitDialog){ t ->
                 waitDialog.dismiss()
                 when (t.code) {
                     200 -> {//amount 解锁旅券 isplatinumvip 是否铂金会员true是 false不是
@@ -415,7 +415,7 @@ object CommonFunction {
 
     fun startToFace(
         context: Context,
-        type: Int = 0,
+        type: Int = FaceLivenessExpActivity.TYPE_ACCOUNT_NORMAL,
         requestCode: Int = -1
     ) {
         if (requestCode != -1)
@@ -773,7 +773,7 @@ object CommonFunction {
     fun checkPublishDating(context: Context) {
         val loadingDialog = LoadingDialog()
         loadingDialog.show()
-        RetrofitHelper.service.checkPlan(hashMapOf()).ssss { t ->
+        RetrofitHelper.service.checkPlan(hashMapOf()).ssss (loadingDialog = loadingDialog){ t ->
             loadingDialog.dismiss()
             when (t.code) {
                 200 -> {//amount 解锁糖果 isplatinumvip 是否铂金会员true是 false不是

@@ -1,11 +1,14 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.google.gson.Gson
+import com.luck.picture.lib.PictureSelector
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityReportReasonUploadBinding
@@ -93,6 +96,36 @@ class ReportReasonUploadActivity :
             })
         }
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_REPORT_PIC) {
+            if (data != null && !PictureSelector.obtainMultipleResult(data).isNullOrEmpty()) {
+                for (data in PictureSelector.obtainMultipleResult(data)) {
+                    adapter.addData(
+                        adapter.data.size - 1,
+                        UploadInfoBean(
+                            chooseIcon =
+                            if (data.isCompressed) {
+                                data.compressPath
+                            } else if (!data.androidQToPath.isNullOrEmpty()) {
+                                data.androidQToPath
+                            } else {
+                                data.path
+                            }, height = data.height, width = data.width
+                        )
+                    )
+                }
+                checkConfirmEnable()
+                if (adapter.data.size - 1 == MAX_COUNT) {
+                    adapter.removeAt(MAX_COUNT)
+                }
+            }
+        }
+
+    }
+
 
     private fun checkConfirmEnable() {
         var allHasPath = false

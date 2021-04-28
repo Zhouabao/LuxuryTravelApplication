@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
+import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -17,6 +18,7 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.BannerGuideBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.JoinLuxuryPresenter
 import com.sdy.luxurytravelapplication.ui.adapter.GuideBannerAdapter
+import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.zhpan.bannerview.BannerViewPager
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
@@ -93,7 +95,26 @@ class JoinLuxuryActivity :
                         purchaseBtn.text = "去认证"
                         purchaseBtn.isEnabled = true
                         ClickUtils.applySingleDebouncing(purchaseBtn) {
-                            CommonFunction.startToVideoIntroduce(this@JoinLuxuryActivity, -1)
+                            //0未认证/认证不成功     1认证通过     2认证中
+                            when (sweetProgressBean.isfaced) {
+                                1 -> {
+                                    CommonFunction.startToVideoIntroduce(this@JoinLuxuryActivity, -1)
+                                }
+                                2 -> {
+                                    ToastUtil.toast("请等待真人认证完成")
+                                }
+                                else -> {
+                                    MessageDialog.show(this@JoinLuxuryActivity,"提示","请先完成真人认证","去认证","取消")
+                                        .setOnOkButtonClickListener { _, v ->
+                                            CommonFunction.startToFace(this@JoinLuxuryActivity)
+                                            false
+                                        }.setOnCancelButtonClickListener { _, v ->
+                                            false
+                                        }
+
+                                }
+                            }
+
                         }
                     }
                 }

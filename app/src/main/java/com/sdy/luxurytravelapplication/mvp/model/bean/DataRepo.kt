@@ -487,6 +487,7 @@ data class SweetProgressBean(
     var now_money: String = "0",
     var normal_money: String = "0",
     val gender: Int = 0,
+    val isfaced: Int = 0,//0未认证/认证不成功     1认证通过     2认证中
     val assets_audit_state: Int = 0,//学历认证 1没有 2认证中 3认证通过
     val img: String = "",
     val female_mv_state: Int = 0//女性视频认证 1没有通过 2审核中 3视频认证通过
