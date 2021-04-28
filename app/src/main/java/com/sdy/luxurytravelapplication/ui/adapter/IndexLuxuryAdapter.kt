@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -86,22 +87,18 @@ class IndexLuxuryAdapter :
             userLabelRv.isVisible = item.want.isNotEmpty()
 
 
-            if (UserManager.gender == 2) {
-                if (item.contact_way != 0) {
-                    contactBtn.text = "获取联系方式"
-                    contactBtn.isVisible = true
-                    ClickUtils.applySingleDebouncing(contactBtn) {
-                        CommonFunction.checkUnlockContact(context, item.accid, item.gender)
-                    }
+            if (item.contact_way != 0) {
+                contactBtn.text = "获取联系方式"
+                contactBtn.isVisible = true
+                ClickUtils.applySingleDebouncing(contactBtn) {
+                    CommonFunction.checkUnlockContact(context, item.accid, item.gender)
+                }
 
-                } else if (item.mv_btn) {
-                    contactBtn.text = "视频介绍"
-                    contactBtn.isVisible = true
-                    ClickUtils.applySingleDebouncing(contactBtn) {
-                        CommonFunction.checkUnlockIntroduceVideo(context, item.accid,item.mv_url)
-                    }
-                } else {
-                    contactBtn.isVisible = false
+            } else if (item.mv_btn) {
+                contactBtn.text = "视频介绍"
+                contactBtn.isVisible = true
+                ClickUtils.applySingleDebouncing(contactBtn) {
+                    CommonFunction.checkUnlockIntroduceVideo(context, item.accid,item.mv_url)
                 }
             } else {
                 contactBtn.isVisible = false
