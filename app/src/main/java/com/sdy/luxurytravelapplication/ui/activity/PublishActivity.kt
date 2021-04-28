@@ -4,13 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,11 +66,14 @@ class PublishActivity :
         fun startToPublish(activity: Activity) {
             activity.startActivity<PublishActivity>()
         }
+
+        fun startToPublish(activity: Activity, title: String) {
+            activity.startActivity<PublishActivity>("title" to title)
+        }
     }
 
     private var pickedPhotos: MutableList<MediaBean> = mutableListOf()
     private val pickedPhotoAdapter by lazy { ChoosePhotosAdapter(1) }//选中的封面
-
 
     private var recordCompleteEvent: RecordCompleteEvent? = null
 
@@ -86,6 +86,18 @@ class PublishActivity :
             barCl.rightTextBtn.setTextColor(Color.WHITE)
             barCl.rightTextBtn.setBackgroundResource(R.drawable.selector_button_14dp)
 
+            if (!intent.getStringExtra("title").isNullOrEmpty()) {
+                publishTopic.text = intent.getStringExtra("title")
+                publishTopic.setTextColor(resources.getColor(R.color.colorAccent))
+                publishTopic.setBackgroundResource(R.drawable.shape_c7f3e9_13dp)
+
+                publishTopic.setCompoundDrawablesWithIntrinsicBounds(
+                    getDrawable(R.drawable.icon_topic_small),
+                    null,
+                    getDrawable(R.drawable.icon_delete_green),
+                    null
+                )
+            }
             ClickUtils.applySingleDebouncing(
                 arrayOf(
                     barCl.btnBack,
@@ -194,7 +206,7 @@ class PublishActivity :
                 finish()
             }
             binding.barCl.rightTextBtn -> {//发布
-                if(binding.publishContentEt.text.isEmpty()){
+                if (binding.publishContentEt.text.isEmpty()) {
                     ToastUtil.toast("文字是必填项")
                     return
                 }
@@ -210,7 +222,7 @@ class PublishActivity :
                         ToastUtil.toast("最多只能选择${MAX_PHOTO_SIZE}张图片")
                         return
                     }
-                }else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())){
+                } else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())) {
                     ToastUtil.toast("图片和语音不能同时选择")
                     return
                 }
@@ -246,7 +258,7 @@ class PublishActivity :
                         ToastUtil.toast("最多只能选择一个视频")
                         return
                     }
-                }else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())){
+                } else if (!(recordCompleteEvent == null || recordCompleteEvent?.filePath.isNullOrEmpty())) {
                     ToastUtil.toast("视频和语音不能同时选择")
                     return
                 }

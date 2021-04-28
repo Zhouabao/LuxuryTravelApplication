@@ -151,6 +151,7 @@ class TagDetailCategoryActivity :
                     RoundedCornersTransformation.CornerType.BOTTOM
                 )
                 binding.samePersonTitle.text = it.title
+                binding.joinCnt.text = "${it.visit_cnt}人参与·${it.used_cnt}条帖子"
                 binding.hotT1.text = it.title
             }
             adapter.data.clear()
@@ -174,7 +175,7 @@ class TagDetailCategoryActivity :
 
     override fun onCheckBlockResult(b: Boolean) {
         if (b) {
-            PublishActivity.startToPublish(this)
+            PublishActivity.startToPublish(this, binding.samePersonTitle.text.toString())
             finish()
         }
     }
