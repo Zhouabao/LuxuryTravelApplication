@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.sdy.luxurytravelapplication.R
@@ -17,7 +16,6 @@ import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
 import com.sdy.luxurytravelapplication.event.RefreshSweetAddEvent
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexPresenter
 import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
@@ -109,7 +107,7 @@ class IndexFragment :
                 JoinLuxuryActivity.startJoinLuxuxy(activity!!, sweetProgressBean)
             }
             binding.tobeSelectedBtn -> {
-                ToBeSelectedDialog(false,indexListBean).show()
+                ToBeSelectedDialog(false, indexListBean).show()
             }
         }
 
@@ -121,12 +119,12 @@ class IndexFragment :
     private var isHoney = false
     private var isInitialize = false
     private lateinit var sweetProgressBean: SweetProgressBean
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTopCardEvent(event: RefreshSweetAddEvent) {
         isInitialize = true
         isHoney = event.isHoney
         this.sweetProgressBean = event.sweetProgressBean
-        if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
-            binding.addLuxuryCl.isVisible = !isHoney
+        binding.addLuxuryCl.isVisible = !isHoney && binding.vpIndex.currentItem == 2
     }
 }

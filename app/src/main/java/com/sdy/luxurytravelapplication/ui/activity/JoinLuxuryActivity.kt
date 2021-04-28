@@ -67,7 +67,7 @@ class JoinLuxuryActivity :
                         mPresenter?.joinSweetApply()
                     }
                 } else {
-                    purchaseBtn.text ="立即充值"
+                    purchaseBtn.text = "立即充值"
                     ClickUtils.applySingleDebouncing(purchaseBtn) {
                         CommonFunction.startToVip(
                             this@JoinLuxuryActivity
@@ -203,6 +203,9 @@ class JoinLuxuryActivity :
 
     override fun joinSweetApplyResult(success: Boolean) {
         EventBus.getDefault().post(UpdateLuxuryEvent())
+        if (success) {
+            finish()
+        }
     }
 
 }

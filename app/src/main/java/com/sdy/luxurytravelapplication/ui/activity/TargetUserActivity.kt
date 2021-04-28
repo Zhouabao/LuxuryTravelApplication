@@ -198,7 +198,14 @@ class TargetUserActivity :
                 baseInfoAdapter.setNewInstance(matchBean.personal_info_arr)
                 bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_cover_url, true, matchBean.mv_detail_url))
+                        add(
+                            UserPhotoBean(
+                                true,
+                                matchBean.mv_cover_url,
+                                true,
+                                matchBean.mv_detail_url
+                            )
+                        )
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -207,7 +214,14 @@ class TargetUserActivity :
 
                 smallPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_cover_url, true,matchBean.mv_detail_url))
+                        add(
+                            UserPhotoBean(
+                                true,
+                                matchBean.mv_cover_url,
+                                true,
+                                matchBean.mv_detail_url
+                            )
+                        )
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -295,7 +309,14 @@ class TargetUserActivity :
                                 null,
                                 null
                             )
-                            verifyBtn.isVisible = true
+                            verifyBtn.isVisible = matchBean.approve_square_id != 0
+                            ClickUtils.applySingleDebouncing(verifyBtn) {
+                                SquareCommentDetailActivity.start(
+                                    this@TargetUserActivity,
+                                    squareId = matchBean.approve_square_id,
+                                    type = SquareCommentDetailActivity.TYPE_SWEET
+                                )
+                            }
                         }
                         else -> {
                             verifyCl.isVisible = false

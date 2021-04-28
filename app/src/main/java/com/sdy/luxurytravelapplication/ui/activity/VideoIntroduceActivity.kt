@@ -40,9 +40,9 @@ import com.sdy.luxurytravelapplication.mvp.model.bean.VideoVerifyBannerBean
 import com.sdy.luxurytravelapplication.mvp.presenter.VideoIntroducePresenter
 import com.sdy.luxurytravelapplication.nim.common.ToastHelper
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import com.sdy.luxurytravelapplication.utils.UriUtils
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
-import org.wysaid.myUtils.ImageUtil
 import org.wysaid.nativePort.CGENativeLibrary
 import java.io.File
 
@@ -179,15 +179,12 @@ class VideoIntroduceActivity :
         currentTime = 0
         mainHandler.postDelayed(progressRunnable, 0)
 
-        videoSavePath = ImageUtil.getPath() + "/" + System.currentTimeMillis() + ".mp4"
-//        videoSavePath = CameraUtils.getOutputMediaFile(
-//            MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO,
-//            System.currentTimeMillis().toString()
-//        ).getAbsolutePath()
+        videoSavePath = UriUtils.getCacheDir(this) + "/" + System.currentTimeMillis() + ".mp4"
         mEndRecordingFilterCallback.setVideoFilePath(videoSavePath)
         binding.cameraPreview.startRecording(videoSavePath, mStartRecordingFilterCallback)
 
     }
+
 
     private fun stopMediaRecorder() {
         if (currentTime <= RECORD_MIN_TIME) {
@@ -195,10 +192,10 @@ class VideoIntroduceActivity :
             isAction = true
             return
         }
-        isRecording = false
         mainHandler.removeCallbacks(progressRunnable)
         stopButtonAnimation()
         binding.mProgressView.reset()
+        isRecording = false
 //        mEndRecordingFilterCallback.endRecordingOK()
         binding.cameraPreview.endRecording(mEndRecordingFilterCallback)
 
@@ -272,6 +269,7 @@ class VideoIntroduceActivity :
             binding.startRecordBtn.setImageResource(R.drawable.icon_record_play)
             binding.view1.isVisible = false
             animatorSet.cancel()
+            binding.view1.clearAnimation()
             binding.tvBalanceTime.stop()
             binding.tvBalanceTime.base = SystemClock.elapsedRealtime()
         }
@@ -280,6 +278,8 @@ class VideoIntroduceActivity :
 
     //恢复默认状态
     private fun switchNormalState() {
+        currentTime = 0
+        isRecording = false
         isComplete = false
         binding.tvBalanceTime.stop()
         binding.tvBalanceTime.base = SystemClock.elapsedRealtime()
@@ -480,10 +480,10 @@ class VideoIntroduceActivity :
     override fun onPause() {
         super.onPause()
         isAction = false
-        isRecording = false
         binding.cameraPreview.stopPreview()
         stopButtonAnimation()
         binding.mProgressView.reset()
+        isRecording = false
 
     }
 

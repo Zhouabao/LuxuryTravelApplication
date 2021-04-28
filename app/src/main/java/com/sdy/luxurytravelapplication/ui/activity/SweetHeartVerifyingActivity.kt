@@ -6,10 +6,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
 import com.sdy.luxurytravelapplication.databinding.ActivitySweetHeartVerifyingBinding
-import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
-import com.sdy.luxurytravelapplication.event.TopCardEvent
-import com.sdy.luxurytravelapplication.event.UpdateApproveEvent
-import com.sdy.luxurytravelapplication.event.UpdateLuxuryEvent
+import com.sdy.luxurytravelapplication.event.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
@@ -91,6 +88,9 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
     private fun clearActivity() {
         if (ActivityUtils.isActivityExistsInStack(ChooseVerifyActivity::class.java)) {
             ActivityUtils.finishActivity(ChooseVerifyActivity::class.java)
+        }
+        if (ActivityUtils.isActivityExistsInStack(JoinLuxuryActivity::class.java)) {
+            ActivityUtils.finishActivity(JoinLuxuryActivity::class.java)
         }
         if (ActivityUtils.isActivityExistsInStack(UploadVerifyInfoActivity::class.java)) {
             ActivityUtils.finishActivity(UploadVerifyInfoActivity::class.java)

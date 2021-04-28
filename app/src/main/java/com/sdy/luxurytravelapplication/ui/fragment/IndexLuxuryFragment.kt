@@ -96,10 +96,16 @@ class IndexLuxuryFragment :
             if (binding.refreshLuxury.state == RefreshState.Refreshing) {
                 adapter.setNewInstance(data.list)
                 binding.luxuryRv.smoothScrollToPosition(0)
-                if (adapter.data.size < Constants.PAGESIZE * page)
-                    binding.refreshLuxury.finishRefreshWithNoMoreData()
-                else
+                if (isHoney) {
+                    if (adapter.data.size < Constants.PAGESIZE * page) {
+                        binding.refreshLuxury.finishRefreshWithNoMoreData()
+                    } else {
+                        binding.refreshLuxury.finishRefresh(true)
+                    }
+                } else {
                     binding.refreshLuxury.finishRefresh(true)
+                }
+
             } else {
                 adapter.addData(data.list)
 //                if (adapter.data.size < Constants.PAGESIZE * page)

@@ -110,9 +110,9 @@ class SquareCommentDetailActivity :
             mLayoutStatusView = binding.root
             if (type == TYPE_SWEET) {
                 barCl.actionbarTitle.text = if (UserManager.gender == 1) {
-                    getString(R.string.he)
-                } else {
                     getString(R.string.she)
+                } else {
+                    getString(R.string.he)
                 } + getString(R.string.verify_info)
             } else {
                 barCl.actionbarTitle.text = getString(R.string.square_detail)
@@ -307,23 +307,7 @@ class SquareCommentDetailActivity :
                 binding.bottomLayout.squareSweetVerifyContentCl.layoutParams as ConstraintLayout.LayoutParams
             params.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15 * 2F)
             params.height = (params.width * (285F / 1065F)).toInt()
-
-            //// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证
-//            if (squareBean!!.approve_type == 1 || squareBean!!.approve_type == 2 || squareBean!!.approve_type == 5) {
-//                binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFFCD52"))
-//
-//                binding.topLayout.squareUserSweetLogo.imageAssetsFolder = "images_sweet_logo_man"
-//                binding.topLayout.squareUserSweetLogo.setAnimation("data_sweet_logo_man.json")
-//                binding.topLayout.squareUserSweetLogo.playAnimation()
-//            } else {
-//                binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFF7CA8"))
-//                binding.topLayout.squareUserSweetLogo.imageAssetsFolder =
-//                    "images_sweet_logo_woman"
-//                binding.topLayout.squareUserSweetLogo.setAnimation("data_sweet_logo_woman.json")
-//                binding.topLayout.squareUserSweetLogo.playAnimation()
-//
-//            }
-
+            binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFFCD52"))
             binding.bottomLayout.squareSweetVerifyName.text = squareBean!!.assets_audit_descr
             binding.bottomLayout.squareSweetVerifyContent.text = when (squareBean!!.approve_type) {
                 1 -> {
