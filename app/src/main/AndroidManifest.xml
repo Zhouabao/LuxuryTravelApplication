@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- 8.0+系统需要 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.sdy.luxurytravelapplication.permission.RECEIVE_MSG" />
 
     <queries>

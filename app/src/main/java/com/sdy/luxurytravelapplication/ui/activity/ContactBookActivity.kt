@@ -13,6 +13,7 @@ import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityContactBookBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewContactBinding
 import com.sdy.luxurytravelapplication.databinding.ItemContactBookBinding
+import com.sdy.luxurytravelapplication.event.UpdateContactBookEvent
 import com.sdy.luxurytravelapplication.mvp.contract.ContactBookContract
 import com.sdy.luxurytravelapplication.mvp.model.LetterComparator
 import com.sdy.luxurytravelapplication.mvp.model.bean.ContactBean
@@ -26,6 +27,8 @@ import com.sdy.luxurytravelapplication.ui.dialog.ShareToFriendsDialog
 import com.sdy.luxurytravelapplication.widgets.sortcontacts.Cn2Spell
 import com.sdy.luxurytravelapplication.widgets.sortcontacts.PinnedHeaderDecoration
 import com.sdy.luxurytravelapplication.widgets.sortcontacts.WaveSideBarView
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
 import java.util.*
 
@@ -259,4 +262,8 @@ class ContactBookActivity :
             ChatActivity.start(this, squareBean.accid ?: "")
         }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateContactBookEvent(event: UpdateContactBookEvent) {
+        mPresenter?.getContactLists()
+    }
 }

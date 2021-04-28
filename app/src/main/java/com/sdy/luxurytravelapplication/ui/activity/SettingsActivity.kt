@@ -12,12 +12,10 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.SPUtils
 import com.kongzue.dialog.util.TextInfo
 import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
-import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivitySettingsBinding
 import com.sdy.luxurytravelapplication.event.UpdateSettingEvent
@@ -32,7 +30,6 @@ import com.sdy.luxurytravelapplication.utils.UriUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.userManager
 
 /**
  * 系统设置
@@ -52,6 +49,7 @@ class SettingsActivity :
     override fun initData() {
 
         binding.apply {
+            barCl.actionbarTitle.text = "设置"
             ClickUtils.applySingleDebouncing(
                 arrayOf(
                     blockContactCl,
@@ -107,7 +105,7 @@ class SettingsActivity :
                 privacyPowers = settingsBean!!.private_chat_list
                 hideModeContent.text = invisible_state.title
                 privacyPowerContent.text = private_chat_state.title
-                blockPrivacyCl.isVisible = UserManager.gender==2
+                blockPrivacyCl.isVisible = UserManager.gender == 2
             }
         }
     }
@@ -119,13 +117,13 @@ class SettingsActivity :
                     mPresenter?.blockedAddressBook(mutableListOf())
                 } else {
                     PermissionUtils.permissionGroup(PermissionConstants.CONTACTS)
-                        .callback { isAllGranted, granted, deniedForever, denied ->
-                            if (isAllGranted) {
+                        .callback(object : PermissionUtils.SimpleCallback {
+                            override fun onGranted() {
                                 //权限申请成功
-                                val contacts = UriUtils.getPhoneContacts(this)
+                                val contacts = UriUtils.getPhoneContacts(this@SettingsActivity)
                                 if (contacts.isNullOrEmpty()) {
                                     ToastUtil.toast(getString(R.string.empty_contact1))
-                                    return@callback
+                                    return
                                 }
                                 val content = mutableListOf<String?>()
                                 for (contact in contacts.withIndex()) {
@@ -138,7 +136,12 @@ class SettingsActivity :
 
                                 mPresenter?.blockedAddressBook(content)
                             }
-                        }
+
+                            override fun onDenied() {
+                                ToastUtil.toast(getString(R.string.permission_storage))
+                            }
+
+                        })
                         .request()
                 }
             }
