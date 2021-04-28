@@ -829,6 +829,7 @@
     <string name="gift_has_been_revoked">旅券礼物已退回</string>
     <string name="contact_has_been_copyed">已复制联系方式</string>
     <string name="gift_has_opend">礼物已开启</string>
+    <string name="gift_has_revoked">礼物已退回</string>
     <string name="cost_candy_count">价值 %1$d 旅券</string>
     <string name="she_left_contact_way">她给你留下了联系方式</string>
     <string name="hide_message_if_gold_vip">消息太多？你可以设置私聊权限仅高级会员过滤消息</string>
