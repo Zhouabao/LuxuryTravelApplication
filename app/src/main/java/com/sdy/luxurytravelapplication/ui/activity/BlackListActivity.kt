@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kongzue.dialog.util.DialogSettings
@@ -60,6 +61,8 @@ class BlackListActivity :
             blackList.adapter = adapter
             adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.addChildClickViewIds(R.id.removeBtn)
+            adapter.headerWithEmptyEnable = true
+            adapter.isUseEmpty = false
             adapter.setOnItemChildClickListener { _, view, position ->
                 when (view.id) {
                     R.id.removeBtn -> {
@@ -102,6 +105,10 @@ class BlackListActivity :
             if (data != null)
                 adapter.setNewInstance(data)
 
+        }
+
+        if (adapter.data.isEmpty()) {
+            adapter.isUseEmpty = true
         }
     }
 
