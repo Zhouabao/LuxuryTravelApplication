@@ -1,21 +1,18 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.style.ClickableSpan
-import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
-import android.view.WindowManager
-import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
-import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogPrivacyBinding
 import com.sdy.luxurytravelapplication.ui.activity.ProtocolActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
-import org.jetbrains.anko.startActivity
+import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
 /**
  *    author : ZFM
@@ -24,7 +21,11 @@ import org.jetbrains.anko.startActivity
  *    version: 1.0
  */
 class PrivacyDialog :
-    BaseBindingDialog<DialogPrivacyBinding>() {
+    BaseBindingDialog<DialogPrivacyBinding>(
+        width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(
+            80F
+        ), animation = R.style.MyDialogCenterAnimation
+    ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,12 +114,12 @@ class PrivacyDialog :
     }
 
     private fun initWindow() {
-//        val window = this.window
-//        window?.setGravity(Gravity.CENTER)
-//        val params = window?.attributes
-//        params?.width = WindowManager.LayoutParams.MATCH_PARENT
-//        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
-//        window?.attributes = params
+/*        val window = this.window
+        window?.setGravity(Gravity.CENTER)
+        val params = window?.attributes
+        params?.width = WindowManager.LayoutParams.MATCH_PARENT
+        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window?.attributes = params*/
         setCancelable(false)
         setCanceledOnTouchOutside(false)
         setOnKeyListener { dialogInterface, keyCode, event ->
