@@ -11,8 +11,10 @@
     tools:context=".ui.fragment.TravelFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/contentCl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/userAppbar"
@@ -21,6 +23,7 @@
             android:background="@color/colorWhite"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="0dp">
+
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -166,9 +169,9 @@
             android:id="@+id/travelListCl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
             android:layout_marginTop="44dp"
             android:background="#99000000"
+            android:clickable="true"
             android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout

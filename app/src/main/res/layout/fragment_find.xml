@@ -8,8 +8,17 @@
     tools:context=".ui.fragment.FindFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentCl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/statues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tabFind"
@@ -45,7 +54,7 @@
             android:src="@drawable/icon_publish"
             app:layout_constraintLeft_toRightOf="@id/tabFind"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/statues" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/content"
@@ -58,17 +67,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/uploadCl"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_rectangle_gray_white_10dp">
+        android:background="@drawable/shape_rectangle_gray_white_10dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/publishStatusIcon"

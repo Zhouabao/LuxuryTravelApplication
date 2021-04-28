@@ -130,13 +130,7 @@ class MainActivity :
     private fun updateTabChecked(position: Int, fromVp: Boolean = false) {
         if (checkedPosition == position)
             return
-        if (position == 4) {
-            (fragments[position] as UserCenterFragment).userCenterVisible = true
-            if (!(fragments[position] as UserCenterFragment).appbarTop && NetworkUtils.isConnected())
-                BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorAccent))
-        } else {
-            BarUtils.setStatusBarColor(this, resources.getColor(R.color.colorWhite))
-        }
+
 
         if (!fromVp) {
             binding.vpMain.setCurrentItem(position, false)

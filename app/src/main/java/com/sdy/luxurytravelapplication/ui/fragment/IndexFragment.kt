@@ -6,9 +6,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.google.android.material.appbar.AppBarLayout
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -54,6 +56,7 @@ class IndexFragment :
         super.initView(view)
 
         binding.apply {
+            BarUtils.addMarginTopEqualStatusBarHeight(indexCl)
             recommendUsers.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter

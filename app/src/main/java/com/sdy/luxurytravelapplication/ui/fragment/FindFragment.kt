@@ -2,12 +2,10 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.*
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -56,6 +54,8 @@ class FindFragment :
 
     override fun lazyLoad() {
         binding.apply {
+            (statues.layoutParams as ConstraintLayout.LayoutParams).height =
+                BarUtils.getStatusBarHeight()
             content.isUserInputEnabled = false
             content.offscreenPageLimit = fragments.size
             content.adapter = MainPager2Adapter(activity!!, fragments)
