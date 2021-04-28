@@ -196,7 +196,8 @@ class UpdateBlackEvent()
 
 //刷新甜心圈认证状态
 class UpdateLuxuryEvent()
-
+//刷新精选用户状态
+class UpdateFeaturedEvent()
 
 
 //认证状态修改

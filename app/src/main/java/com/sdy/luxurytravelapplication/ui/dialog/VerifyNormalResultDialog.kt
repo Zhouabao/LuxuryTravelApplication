@@ -47,6 +47,7 @@ class VerifyNormalResultDialog(val status: Int = 0) :
                     verifyTip.text = context.getString(R.string.mv_pass_content)
                     continueBtn.text = context.getString(R.string.continue_use)
                     continueBtn.setOnClickListener {
+
                         dismiss()
                     }
                 }

@@ -15,6 +15,7 @@ import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
 import com.sdy.luxurytravelapplication.event.RefreshSweetAddEvent
+import com.sdy.luxurytravelapplication.event.UpdateFeaturedEvent
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
@@ -129,4 +130,10 @@ class IndexFragment :
         if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
             binding.addLuxuryCl.isVisible = !isHoney
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateFeaturedEvent(event: UpdateFeaturedEvent) {
+        mPresenter?.indexTop(hashMapOf())
+    }
+
+
 }
