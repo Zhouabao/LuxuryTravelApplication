@@ -529,7 +529,6 @@ class MyInfoActivity :
                 userFinishProgress.progress = progress
             }
 
-            Log.d("setScroeProgress", "${userFinishProgress.progress}")
             val translate = ObjectAnimator.ofFloat(
                 userScore20, "translationX",
                 ((ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70F + 15 * 2) - SizeUtils.dp2px(38F)) * userFinishProgress.progress * 1.0f / 100)
