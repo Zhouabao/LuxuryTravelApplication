@@ -116,11 +116,12 @@
 
     <TextView
         android:id="@+id/travel_province"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
         android:text="成都"
         android:textColor="#ff1ed0a7"
+        android:maxLines="1"
         android:textSize="19sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -130,11 +131,12 @@
 
     <TextView
         android:id="@+id/travelAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="天府三街福年广场"
         android:textColor="#ffb6bcc6"
+        android:maxLines="1"
         android:textSize="12sp"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="@id/userAvatar"
@@ -154,11 +156,12 @@
 
     <TextView
         android:id="@+id/travel_dest_province"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
         android:text="成都"
         android:textColor="#ff1ed0a7"
+        android:maxLines="1"
         android:textSize="19sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -168,11 +171,12 @@
 
     <TextView
         android:id="@+id/travelDestAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="天府三街福年广场"
         android:textColor="#ffb6bcc6"
+        android:maxLines="1"
         android:textSize="12sp"
         android:gravity="center"
         app:layout_constraintRight_toRightOf="@id/signUpBtn"
