@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.graphics.Color
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -67,6 +68,7 @@ class UserCenterFragment :
     override fun initView(view: View) {
         super.initView(view)
         binding.apply {
+            BarUtils.addMarginTopEqualStatusBarHeight(settingBtn)
             mLayoutStatusView = root
             ClickUtils.applySingleDebouncing(
                 arrayOf(
@@ -106,20 +108,12 @@ class UserCenterFragment :
                         shareBtn.setImageResource(R.drawable.icon_user_share_black)
                         settingBtn.setImageResource(R.drawable.icon_user_setting_black)
                         settingCl.setBackgroundColor(resources.getColor(R.color.colorWhite))
-                        BarUtils.setStatusBarColor(
-                            activity!!,
-                            resources.getColor(R.color.colorWhite)
-                        )
                         appbarTop = true
                     } else {
                         myNickname0.isVisible = false
                         shareBtn.setImageResource(R.drawable.icon_user_share_white)
                         settingBtn.setImageResource(R.drawable.icon_setting_white)
                         settingCl.setBackgroundColor(resources.getColor(R.color.colorAccent))
-                        BarUtils.setStatusBarColor(
-                            activity!!,
-                            resources.getColor(R.color.colorAccent)
-                        )
                         appbarTop = false
                     }
 

@@ -112,7 +112,7 @@ class TargetUserActivity :
                     CommonFunction.checkUnlockIntroduceVideo(
                         this@TargetUserActivity,
                         targetAccid,
-                        matchBean.mv_url
+                        matchBean.mv_cover_url
                     )
                 }
             }
@@ -238,7 +238,14 @@ class TargetUserActivity :
                 baseInfoAdapter.setNewInstance(matchBean.personal_info_arr)
                 bigPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_cover_url, true, matchBean.mv_detail_url))
+                        add(
+                            UserPhotoBean(
+                                true,
+                                matchBean.mv_cover_url,
+                                true,
+                                matchBean.mv_detail_url
+                            )
+                        )
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -247,7 +254,14 @@ class TargetUserActivity :
 
                 smallPhotoAdapter.setNewInstance(arrayListOf<UserPhotoBean>().apply {
                     if (matchBean.mv_btn) {
-                        add(UserPhotoBean(true, matchBean.mv_cover_url, true,matchBean.mv_detail_url))
+                        add(
+                            UserPhotoBean(
+                                true,
+                                matchBean.mv_cover_url,
+                                true,
+                                matchBean.mv_detail_url
+                            )
+                        )
                     }
                     matchBean.photos.forEachWithIndex { index, s ->
                         add(UserPhotoBean(!matchBean.mv_btn && index == 0, s))
@@ -256,7 +270,7 @@ class TargetUserActivity :
                 smallPhotoAdapter.matchBean = matchBean
                 bigPhotoAdapter.targetAccid = matchBean.accid
                 bigPhotoAdapter.autoPlay =
-                    matchBean.personal_auto_play && (matchBean.residue_auto_count > 0 || matchBean.isplatinumvip)
+                    matchBean.personal_auto_play && (matchBean.residue_auto_count > 0 || matchBean.myisplatinumvip)
                 smallPhotoAdapter.autoPlay = bigPhotoAdapter.autoPlay
                 headBinding.apply {
                     nickName.text = matchBean.nickname
@@ -335,7 +349,14 @@ class TargetUserActivity :
                                 null,
                                 null
                             )
-                            verifyBtn.isVisible = true
+                            verifyBtn.isVisible = matchBean.approve_square_id != 0
+                            ClickUtils.applySingleDebouncing(verifyBtn) {
+                                SquareCommentDetailActivity.start(
+                                    this@TargetUserActivity,
+                                    squareId = matchBean.approve_square_id,
+                                    type = SquareCommentDetailActivity.TYPE_SWEET
+                                )
+                            }
                         }
                         else -> {
                             verifyCl.isVisible = false
@@ -568,8 +589,12 @@ class TargetUserActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        GSYVideoManager.releaseAllVideos()
-        headBinding.travelAduio.release()
+        if (this::matchBean.isInitialized && matchBean.mv_detail_url.isNotEmpty() && (matchBean.myisplatinumvip || matchBean.residue_auto_count > 0)) {
+            GSYVideoManager.releaseAllVideos()
+        }
+        if (headBinding.travelAduio.isPlaying()) {
+            headBinding.travelAduio.release()
+        }
     }
 
 }

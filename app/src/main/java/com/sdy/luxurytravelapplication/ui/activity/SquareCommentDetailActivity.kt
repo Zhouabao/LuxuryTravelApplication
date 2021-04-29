@@ -110,9 +110,9 @@ class SquareCommentDetailActivity :
             mLayoutStatusView = binding.root
             if (type == TYPE_SWEET) {
                 barCl.actionbarTitle.text = if (UserManager.gender == 1) {
-                    getString(R.string.he)
-                } else {
                     getString(R.string.she)
+                } else {
+                    getString(R.string.he)
                 } + getString(R.string.verify_info)
             } else {
                 barCl.actionbarTitle.text = getString(R.string.square_detail)
@@ -238,7 +238,7 @@ class SquareCommentDetailActivity :
                 binding.squareUserVideo.visibility = View.VISIBLE
                 initVideo()
             }
-            else -> {
+            squareBean!!.type == 3 -> {
                 binding.audioCl.isVisible = true
                 initAudio()
             }
@@ -307,23 +307,7 @@ class SquareCommentDetailActivity :
                 binding.bottomLayout.squareSweetVerifyContentCl.layoutParams as ConstraintLayout.LayoutParams
             params.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15 * 2F)
             params.height = (params.width * (285F / 1065F)).toInt()
-
-            //// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证
-//            if (squareBean!!.approve_type == 1 || squareBean!!.approve_type == 2 || squareBean!!.approve_type == 5) {
-//                binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFFCD52"))
-//
-//                binding.topLayout.squareUserSweetLogo.imageAssetsFolder = "images_sweet_logo_man"
-//                binding.topLayout.squareUserSweetLogo.setAnimation("data_sweet_logo_man.json")
-//                binding.topLayout.squareUserSweetLogo.playAnimation()
-//            } else {
-//                binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFF7CA8"))
-//                binding.topLayout.squareUserSweetLogo.imageAssetsFolder =
-//                    "images_sweet_logo_woman"
-//                binding.topLayout.squareUserSweetLogo.setAnimation("data_sweet_logo_woman.json")
-//                binding.topLayout.squareUserSweetLogo.playAnimation()
-//
-//            }
-
+            binding.bottomLayout.squareContent1.setTextColor(Color.parseColor("#FFFFCD52"))
             binding.bottomLayout.squareSweetVerifyName.text = squareBean!!.assets_audit_descr
             binding.bottomLayout.squareSweetVerifyContent.text = when (squareBean!!.approve_type) {
                 1 -> {
@@ -397,8 +381,8 @@ class SquareCommentDetailActivity :
 
     private fun initAudio() {
         binding.audioCl.prepareAudio(
-            squareBean!!.audio_json!!.get(0).url,
-            squareBean!!.audio_json!!.get(0).duration, autoPlay = true
+            squareBean!!.audio_json!![0].url,
+            squareBean!!.audio_json!![0].duration, autoPlay = true
         )
     }
 
@@ -456,10 +440,10 @@ class SquareCommentDetailActivity :
                     mPresenter?.getSquareLike(params, true)
                 }
 
-//                startActivity<BigImageActivity>(
-//                    BigImageActivity.IMG_KEY to squareBean!!,
-//                    BigImageActivity.IMG_POSITION to position
-//                )
+                startActivity<BigImageActivity>(
+                    BigImageActivity.IMG_KEY to squareBean!!,
+                    BigImageActivity.IMG_POSITION to position
+                )
             }
         }
 
@@ -568,6 +552,7 @@ class SquareCommentDetailActivity :
         if (binding.refreshLayout.state != RefreshState.Loading) {
             binding.refreshLayout.setNoMoreData(false)
             if (allCommentBean != null) {
+                adapter.data.clear()
                 if (allCommentBean.hotlist != null && allCommentBean.hotlist!!.size > 0) {
                     adapter.addData(
                         CommentBean(
@@ -592,7 +577,10 @@ class SquareCommentDetailActivity :
                     for (i in 0 until allCommentBean.list!!.size) {
                         allCommentBean.list!![i].itemType = CommentBean.CONTENT
                     }
+                    adapter.addData(allCommentBean.list!!)
+
                 }
+                adapter.notifyDataSetChanged()
             }
             binding.refreshLayout.finishRefresh(true)
         } else {
@@ -823,52 +811,6 @@ class SquareCommentDetailActivity :
                 }
 
             }).showDialog()
-//        moreActionDialog.show()
-//        val binding = moreActionDialog.binding
-//
-//        binding.apply {
-//            if (squareBean!!.accid == UserManager.accid) {
-//                delete.visibility = View.VISIBLE
-//                report.visibility = View.GONE
-//            } else {
-//                delete.visibility = View.GONE
-//                report.visibility = View.VISIBLE
-//            }
-//            delete.setOnClickListener {
-//                val params = hashMapOf<String, Any>("square_id" to squareBean!!.id!!)
-//                mPresenter?.removeMySquare(params)
-//                moreActionDialog.dismiss()
-//
-//            }
-//
-//            report.setOnClickListener {
-//                MessageDialog.show(
-//                    this@SquareCommentDetailActivity,
-//                    R.string.report_square,
-//                    R.string.report_square_title,
-//                    R.string.report,
-//                    R.string.cancel
-//                )
-//                    .setOnOkButtonClickListener { _, v ->
-//                        //发起举报请求
-//                        val params = hashMapOf<String, Any>(
-//                            "type" to if (squareBean!!.iscollected == 0) {
-//                                1
-//                            } else {
-//                                2
-//                            },
-//                            "square_id" to squareBean!!.id!!
-//                        )
-//                        mPresenter?.getSquareReport(params)
-//                        false
-//                    }
-//                    .setOnCancelButtonClickListener { _, v ->
-//                        false
-//                    }
-//            }
-//            moreActionDialog.dismiss()
-//        }
-
 
     }
 
@@ -926,7 +868,9 @@ class SquareCommentDetailActivity :
         Log.d(TAG, "super.onPause()")
         if (binding.audioCl.isPlaying())
             binding.audioCl.pauseAudio()
+        binding.squareUserVideo.onVideoPause()
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -937,11 +881,12 @@ class SquareCommentDetailActivity :
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "super.onResume()")
-        binding.squareUserVideo.onVideoResume(false)
         if (binding.audioCl.isPause())
             binding.audioCl.resumeAudio()
 
-//        squareUserVideo.onVideoResume()
+//        GSYVideoManager.onResume()
+        binding.squareUserVideo.onVideoResume()
+
     }
 
     override fun onDestroy() {
@@ -950,13 +895,6 @@ class SquareCommentDetailActivity :
         binding.audioCl.release()
         if (binding.showCommentEt.isFocused)
             resetCommentEt()
-    }
-
-    override fun finish() {
-        super.finish()
-        binding.audioCl.release()
-        if (binding.showCommentEt.isFocused)
-            resetCommentEt()
         //释放所有
         binding.squareUserVideo.gsyVideoManager.setListener(binding.squareUserVideo.gsyVideoManager.lastListener())
         binding.squareUserVideo.gsyVideoManager.setLastListener(null)
@@ -965,19 +903,5 @@ class SquareCommentDetailActivity :
         SwitchUtil.release()
     }
 
-    override fun onBackPressed() {
-        if (binding.showCommentEt.isFocused) {
-            resetCommentEt()
-        }
-        binding.audioCl.release()
-
-        //释放所有
-        binding.squareUserVideo.gsyVideoManager.setListener(binding.squareUserVideo.gsyVideoManager.lastListener())
-        binding.squareUserVideo.gsyVideoManager.setLastListener(null)
-        binding.squareUserVideo.release()
-        GSYVideoManager.releaseAllVideos()
-        SwitchUtil.release()
-        super.onBackPressed()
-    }
 
 }

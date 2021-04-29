@@ -13,6 +13,7 @@ import com.sdy.luxurytravelapplication.http.exception.ErrorStatus
 import com.sdy.luxurytravelapplication.http.exception.ExceptionHandle
 import com.sdy.luxurytravelapplication.http.function.RetryWithDelay
 import com.sdy.luxurytravelapplication.mvp.model.bean.BaseBean
+import com.sdy.luxurytravelapplication.ui.dialog.LoadingDialog
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -24,8 +25,8 @@ import io.reactivex.disposables.Disposable
  */
 
 fun <T : BaseBean> Observable<T>.ss(
-    model: IModel?=null,
-    view: IView?=null,
+    model: IModel? = null,
+    view: IView? = null,
     isShowLoading: Boolean = false,
     onSuccess: (T) -> Unit
 ) {
@@ -118,6 +119,7 @@ fun <T : BaseBean> Observable<T>.sss(
 fun <T : BaseBean> Observable<T>.ssss(
     view: IView? = null,
     isShowLoading: Boolean = false,
+    loadingDialog: LoadingDialog? = null,
     onResult: (T) -> Unit
 ): Disposable {
     if (isShowLoading) view?.showLoading()
@@ -146,6 +148,7 @@ fun <T : BaseBean> Observable<T>.ssss(
             view?.hideLoading()
         }, {
             view?.hideLoading()
+            loadingDialog?.dismiss()
             view?.showNetError(ExceptionHandle.handleException(it))
         })
 }

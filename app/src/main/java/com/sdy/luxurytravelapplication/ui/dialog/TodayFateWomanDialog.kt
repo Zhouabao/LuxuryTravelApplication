@@ -121,7 +121,7 @@ class TodayFateWomanDialog(
         params["batch_accid"] = Gson().toJson(ids)
         RetrofitHelper.service
             .batchGreetWoman(params)
-            .ssss { t ->
+            .ssss (loadingDialog = loadingDialog){ t ->
                 if (t.code == 200 && !t.data.isNullOrEmpty()) {
                     for (data in t.data.withIndex()) {
                         if (!data.value.msg.isEmpty()) {

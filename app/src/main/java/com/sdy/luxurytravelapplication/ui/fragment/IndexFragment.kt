@@ -7,10 +7,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.google.android.material.appbar.AppBarLayout
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -20,7 +21,6 @@ import com.sdy.luxurytravelapplication.event.UpdateFeaturedEvent
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SweetProgressBean
 import com.sdy.luxurytravelapplication.mvp.presenter.IndexPresenter
 import com.sdy.luxurytravelapplication.ui.activity.JoinLuxuryActivity
@@ -59,6 +59,7 @@ class IndexFragment :
         super.initView(view)
 
         binding.apply {
+            BarUtils.addMarginTopEqualStatusBarHeight(indexCl)
             recommendUsers.layoutManager =
                 LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
             recommendUsers.adapter = peopleRecommendTopAdapter
@@ -151,8 +152,7 @@ class IndexFragment :
         isInitialize = true
         isHoney = event.isHoney
         this.sweetProgressBean = event.sweetProgressBean
-        if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
-            binding.addLuxuryCl.isVisible = !isHoney
+        binding.addLuxuryCl.isVisible = !isHoney && binding.vpIndex.currentItem == 2
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateFeaturedEvent(event: UpdateFeaturedEvent) {

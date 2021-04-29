@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityUploadVerifyInfoBinding
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
@@ -130,7 +131,7 @@ class UploadVerifyInfoActivity :
                     UploadInfoNormalDialog(type, REQUEST_CODE_INFO).show()
                     infoPathTip = true
                 } else {
-                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_INFO)
+                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_INFO,compress = true)
                 }
             }
             binding.uploadIdFaceBtn -> {
@@ -141,7 +142,7 @@ class UploadVerifyInfoActivity :
                     ).show()
                     facePathTip = true
                 } else {
-                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_ID_FACE)
+                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_ID_FACE,compress = true)
                 }
             }
             binding.uploadIdHandBtn -> {
@@ -152,7 +153,7 @@ class UploadVerifyInfoActivity :
                     ).show()
                     handPathTip = true
                 } else {
-                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_ID_HAND)
+                    CommonFunction.onTakePhoto(this, 1, REQUEST_CODE_ID_HAND,compress = true)
                 }
             }
 

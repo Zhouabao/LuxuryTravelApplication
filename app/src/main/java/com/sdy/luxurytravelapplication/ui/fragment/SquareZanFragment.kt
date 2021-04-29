@@ -42,7 +42,7 @@ class SquareZanFragment(val type: Int = TYPE_ZAN) :
             "type" to type
         )
     }
-    private val adapter by lazy { MessageSquareAdapter() }
+    private val adapter by lazy { MessageSquareAdapter(type) }
 
     override fun createPresenter(): MessageSquareContract.Presenter = MessageSquarePresenter()
 

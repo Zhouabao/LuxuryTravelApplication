@@ -192,7 +192,7 @@ class DatingOpenPtVipDialog(
         loadingDialog.show()
         RetrofitHelper.service
             .datingApply(hashMapOf("dating_id" to datingBean!!.id))
-            .ssss { t ->
+            .ssss (loadingDialog = loadingDialog){ t ->
                 if (t.code == 200 && t.data != null) {
                     val attachment =
                         ChatDatingAttachment(

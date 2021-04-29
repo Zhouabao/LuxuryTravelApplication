@@ -203,13 +203,16 @@
 
             <TextView
                 android:id="@+id/distance"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:textColor="#ff1ed0a7"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="890m" />
+                tools:text="890m890m890m890m890m890m890m" />
 
         </LinearLayout>
 

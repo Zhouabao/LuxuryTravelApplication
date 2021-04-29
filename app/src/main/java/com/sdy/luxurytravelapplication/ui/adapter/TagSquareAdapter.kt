@@ -49,7 +49,7 @@ class TagSquareAdapter(var spanCnt: Int=3) :
             rvTagSquareImg.adapter = adapter
             GlideUtil.loadCircleImg(context, item.icon, tagImg)
             tagName.text = item.title
-            tagIsHot.text = "645人参与·5555次浏览"
+            tagIsHot.text =  "${item.all_count}人参与·${item.used_cnt}条帖子"
             ClickUtils.applySingleDebouncing(btnTagMore) {
 
             }

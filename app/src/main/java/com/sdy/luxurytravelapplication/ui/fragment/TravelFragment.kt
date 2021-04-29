@@ -1,10 +1,12 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -53,6 +55,8 @@ class TravelFragment :
         super.initView(view)
         binding.apply {
             mLayoutStatusView = root
+            BarUtils.addMarginTopEqualStatusBarHeight(contentCl)
+            BarUtils.addMarginTopEqualStatusBarHeight(contentCl)
             ClickUtils.applySingleDebouncing(
                 arrayOf(travelPublishBtn, collapseBtn, expandBtn,expandBtn1),
                 this@TravelFragment

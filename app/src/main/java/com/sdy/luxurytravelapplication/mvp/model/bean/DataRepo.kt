@@ -487,6 +487,7 @@ data class SweetProgressBean(
     var now_money: String = "0",
     var normal_money: String = "0",
     val gender: Int = 0,
+    val isfaced: Int = 0,//0未认证/认证不成功     1认证通过     2认证中
     val assets_audit_state: Int = 0,//学历认证 1没有 2认证中 3认证通过
     val img: String = "",
     val female_mv_state: Int = 0//女性视频认证 1没有通过 2审核中 3视频认证通过
@@ -560,8 +561,8 @@ data class SquareBannerBean(
     var link_url: String = "",
     var title: String = "",
     var icon: String = "",
-    val used_cnt: Int = 0,
-    val visit_cnt: Int = 0
+    val all_count: Int = 0,
+    val used_cnt: Int = 0
 )
 
 
@@ -575,7 +576,9 @@ data class SquareTagBean(
     var is_join: Boolean = false,
     var child: MutableList<SquarePicBean> = mutableListOf(),
     var place_type: Int = 0,//位置类型 0 没有操作 1置顶 2置底
-    var title: String = ""
+    var title: String = "",
+    val all_count: Int = 0,
+    val used_cnt: Int = 0
 )
 
 data class TagSquareListBean(

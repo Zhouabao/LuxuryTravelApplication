@@ -510,7 +510,7 @@ interface ApiService {
      * 解除匹配
      */
     @FormUrlEncoded
-    @POST("Relationship/removeFriend${Constants.END_BASE_URL}")
+    @POST("Relationship/dissolutionFriend${Constants.END_BASE_URL}")
     fun removeFriend(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<Any>>
 
     /**

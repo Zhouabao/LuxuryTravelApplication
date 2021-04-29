@@ -1,6 +1,5 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
-import android.view.View
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -13,7 +12,6 @@ import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.activity.TravelDetailActivity
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 import com.sdy.luxurytravelapplication.widgets.FindAudioView
-import org.jetbrains.anko.backgroundColorResource
 
 /**
  *    author : ZFM
@@ -21,7 +19,7 @@ import org.jetbrains.anko.backgroundColorResource
  *    desc   :
  *    version: 1.0
  */
-class TravelAdapter(val formDetail: Boolean = false ,val type : Int = 0) :
+class TravelAdapter(val formDetail: Boolean = false, val type: Int = 0) :
     BaseBindingQuickAdapter<TravelPlanBean, ItemTravelBinding>(R.layout.item_travel) {
     val myAudioView by lazy { mutableListOf<FindAudioView?>() }
 
@@ -42,7 +40,7 @@ class TravelAdapter(val formDetail: Boolean = false ,val type : Int = 0) :
                 }
             }
 
-            if(type==1){
+            if (type == 1) {
                 //个人中心的旅行
                 bg.setBackgroundResource(R.drawable.icon_my_travel_bg)
                 userAvatar.isVisible = false
@@ -71,7 +69,13 @@ class TravelAdapter(val formDetail: Boolean = false ,val type : Int = 0) :
             } else {
                 travelAduio.isVisible = true
                 travelDescr.isVisible = false
-                travelAduio.prepareAudio(item.content, item.duration, item.id, item.content_type, false)
+                travelAduio.prepareAudio(
+                    item.content,
+                    item.duration,
+                    item.id,
+                    item.content_type,
+                    false
+                )
                 myAudioView.add(travelAduio)
             }
 
@@ -82,14 +86,15 @@ class TravelAdapter(val formDetail: Boolean = false ,val type : Int = 0) :
 
     fun resetMyAudioViews() {
         for (myaudio in myAudioView) {
-            myaudio?.release()
+            if (myaudio?.isPlaying() == true)
+                myaudio.release()
         }
     }
 
     fun notifySomeOneAudioView(positionId: Int) {
         for (myaudio in myAudioView.withIndex()) {
-            if (myaudio?.value?.positionId != positionId) {
-                myaudio?.value?.release()
+            if (myaudio.value?.positionId != positionId && myaudio.value?.isPlaying()==true) {
+                myaudio.value?.release()
             }
         }
     }

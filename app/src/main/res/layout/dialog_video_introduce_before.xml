@@ -35,7 +35,7 @@
             app:layout_constraintRight_toRightOf="@id/videoCover"
             app:layout_constraintTop_toTopOf="@id/videoCover" />
 
-        <com.sdy.luxurytravelapplication.widgets.switchplay.EmptyControlVideo
+        <com.sdy.luxurytravelapplication.widgets.switchplay.SwitchVideo
             android:id="@+id/videoStandard"
             android:layout_width="125dp"
             android:layout_height="166dp"

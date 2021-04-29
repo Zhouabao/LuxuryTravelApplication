@@ -3,7 +3,6 @@ package com.sdy.luxurytravelapplication.ui.adapter
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemFindRecommendHeadBinding
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBannerBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.TopicBean
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 class SquareHeadTopicAdapter :
@@ -16,7 +15,7 @@ class SquareHeadTopicAdapter :
         binding.apply {
 
             topicTitle.text = item.title
-            topicContent.text="${item.used_cnt}人参与·${item.visit_cnt}次浏览"
+            topicContent.text="${item.all_count}人参与·${item.used_cnt}次浏览"
         }
     }
 }
