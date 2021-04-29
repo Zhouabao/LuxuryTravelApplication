@@ -328,6 +328,9 @@ class FaceLivenessExpActivity : FaceLivenessActivity() {
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return keyCode == KeyEvent.KEYCODE_BACK && type == TYPE_LIVE_CAPTURE
+        if (type == TYPE_LIVE_CAPTURE)
+          return  true
+        else
+            return super.onKeyDown(keyCode, event)
     }
 }
