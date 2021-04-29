@@ -1,8 +1,11 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.Rect
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.baidu.idl.face.platform.utils.DensityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -131,6 +135,20 @@ class TargetUserActivity :
         return headBinding.root
     }
 
+    //判断控件是否可见
+    fun getLocalVisibleRect(context: Context, view: View, offsetY: Int): Boolean {
+        val p = Point()
+        (context as Activity).windowManager.defaultDisplay.getSize(p)
+        val screenWidth: Int = p.x
+        val screenHeight: Int = p.y
+        val rect = Rect(0, 0, screenWidth, screenHeight)
+        val location = IntArray(2)
+        location[1] = location[1] + DensityUtils.dip2px(context, offsetY.toFloat())
+        view.getLocationInWindow(location)
+        view.tag = location[1] //存储y方向的位置
+        return view.getLocalVisibleRect(rect)
+    }
+
     override fun initData() {
         binding.apply {
             mLayoutStatusView = root
@@ -152,12 +170,36 @@ class TargetUserActivity :
                 ), this@TargetUserActivity
             )
 
-
             val manager1 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             manager1.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
             mySquareRv.layoutManager = manager1
             mySquareRv.animation = null
             mySquareRv.adapter = adapter
+
+
+            mySquareRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if(getLocalVisibleRect(this@TargetUserActivity,headBinding.bigPhotosRv,dy)){
+                        //可见
+                        BarUtils.transparentStatusBar(this@TargetUserActivity)
+                        BarUtils.setStatusBarColor(this@TargetUserActivity,Color.TRANSPARENT)
+                        barlCl.actionbarTitle.text = matchBean.online_time
+                        barlCl.actionbarTitle.setTextColor(Color.WHITE)
+                        barlCl.btnBack.setImageResource(R.drawable.icon_back_white)
+                        barlCl.rightIconBtn.setImageResource(R.drawable.icon_more_gray)
+                        barlCl.root.setBackgroundColor(Color.TRANSPARENT)
+                    }else{
+                        //不可见
+                        BarUtils.setStatusBarColor(this@TargetUserActivity,resources.getColor(R.color.white))
+                        barlCl.actionbarTitle.text = matchBean.nickname+"\n"+matchBean.online_time
+                        barlCl.actionbarTitle.setTextColor(resources.getColor(R.color.color333))
+                        barlCl.btnBack.setImageResource(R.drawable.icon_return_arrow)
+                        barlCl.rightIconBtn.setImageResource(R.drawable.icon_more_black)
+                        barlCl.root.setBackgroundColor(resources.getColor(R.color.white))
+                    }
+                }
+            })
             mySquareRv.addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
                     outRect: Rect,
@@ -186,8 +228,6 @@ class TargetUserActivity :
             adapter.setOnItemClickListener { _, view, position ->
                 ToastUtil.toast("$position")
             }
-
-
         }
     }
 

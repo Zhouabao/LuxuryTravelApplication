@@ -270,6 +270,7 @@ class TravelApp : Application() {
                     VerifyNormalResultDialog(VerifyNormalResultDialog.VERIFY_NORMAL_PASS).show()
                     //更新录制视频介绍
                     EventBus.getDefault().post(FemaleVideoEvent(1))
+                    EventBus.getDefault().post(UpdateFeaturedEvent())
                     EventBus.getDefault().post(UpdateLuxuryEvent())
                 }
                 //视频介绍审核不通过

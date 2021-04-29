@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder;
 
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.sdy.luxurytravelapplication.glide.GlideUtil;
 import com.sdy.luxurytravelapplication.mvp.model.bean.SquareBean;
 import com.sdy.luxurytravelapplication.nim.attachment.ShareSquareAttachment;
 import com.sdy.luxurytravelapplication.nim.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
+import com.sdy.luxurytravelapplication.ui.activity.SquareCommentDetailActivity;
 
 /**
  * 动态分享
@@ -77,6 +79,7 @@ public class MsgViewHolderShareSquare extends MsgViewHolderBase {
 
     @Override
     public void onItemClick() {
+        SquareCommentDetailActivity.Companion.start(context,null,attachment.getSquareId(),0,1,0);
 //        FindCommentActivity.Companion.startToFindComment(context,null,attachment.getSquareId());
 //        FindDetailActivity.Companion.startActivity((Activity) context, null, null, null, FindRecommendFragment.TYPE_RECOMMEND, attachment.getSquareId());
     }

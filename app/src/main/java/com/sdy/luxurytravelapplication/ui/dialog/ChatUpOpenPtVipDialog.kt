@@ -289,13 +289,16 @@ class ChatUpOpenPtVipDialog(
                             }
                         } else {  //不是的话,弹起购买直联卡
                             chatupUnlockChat.isVisible = true
-                            chatupContent.isVisible = false
+                            chatupContent.isVisible = true
                             chatupTitle.text = context1.getString(R.string.unlock_lovely_girl)
                             chatupUnlockChat.text =
                                 context1.getString(
                                     R.string.unlock_contact_left,
                                     chatUpBean.contact_amount
                                 )
+                            chatupContent.text = "解锁联系方式是至尊直连卡独享功能\n" +
+                                    "免费开启聊天和解锁她的联系方式"
+
                             // 解锁联系方式
                             ClickUtils.applySingleDebouncing(chatupUnlockChat) {
                                 unlockContact()

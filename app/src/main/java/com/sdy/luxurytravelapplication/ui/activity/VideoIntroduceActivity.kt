@@ -185,7 +185,6 @@ class VideoIntroduceActivity :
 
     }
 
-
     private fun stopMediaRecorder() {
         if (currentTime <= RECORD_MIN_TIME) {
             TipDialog.show(this, getString(R.string.min_duration, 5), TipDialog.TYPE.WARNING)
