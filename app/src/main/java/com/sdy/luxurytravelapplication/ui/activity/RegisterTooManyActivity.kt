@@ -6,7 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.base.BaseActivity
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ActivityRegisterTooManyBinding
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import org.jetbrains.anko.startActivity
 
 /**
@@ -28,6 +30,11 @@ class RegisterTooManyActivity : BaseActivity<ActivityRegisterTooManyBinding>() {
 
     override fun initView() {
         binding.apply {
+            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL)
+            loginMv.isLooping = true
+            loginMv.setUp(Constants.WELCOME_MV_URL, false, "")
+            loginMv.startPlayLogic()
+
             (btnBack.layoutParams as ConstraintLayout.LayoutParams).topMargin =
                 BarUtils.getStatusBarHeight() + SizeUtils.dp2px(10F)
             BarUtils.setStatusBarLightMode(this@RegisterTooManyActivity, false)
@@ -36,11 +43,26 @@ class RegisterTooManyActivity : BaseActivity<ActivityRegisterTooManyBinding>() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.timeRunTextView.stopTime()
-    }
     override fun start() {
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        binding.loginMv.onVideoPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.loginMv.onVideoResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.loginMv.release()
+        binding.timeRunTextView.stopTime()
+
+    }
+
 
 }

@@ -2,17 +2,18 @@ package com.sdy.luxurytravelapplication.ui.activity
 
 import android.content.Context
 import android.graphics.Color
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseActivity
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityLoginBinding
 import com.sdy.luxurytravelapplication.ui.dialog.ChooseLoginWayDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import org.jetbrains.anko.startActivity
 
 /**
@@ -37,9 +38,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     override fun initView() {
-
         binding.apply {
-            SpanUtils.with(loginPrivacy)
+            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL)
+            loginMv.isLooping = true
+            loginMv.setUp(Constants.WELCOME_MV_URL, false, "")
+            loginMv.startPlayLogic()
             SpanUtils.with(loginPrivacy)
                 .append("登录注册代表你已同意")
                 .append(getString(R.string.user_protocol))
@@ -71,7 +74,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             //加入尤玩旅行
             ClickUtils.applySingleDebouncing(loginBtn) {
                 if (agreeCb.isChecked) {
-//            startActivity<PhoneActivity>()
                     ChooseLoginWayDialog(this@LoginActivity, syCode).show()
                 } else {
                     ToastUtil.toast("请先同意隐私协议及用户协议")
@@ -84,5 +86,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun start() {
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.loginMv.onVideoPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.loginMv.onVideoResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.loginMv.release()
+    }
 
 }
