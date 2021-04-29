@@ -29,7 +29,7 @@ class IndexLuxuryAdapter :
             onlineTime.text = item.online_time
             userNickname.text = item.nickname
             userTravelPlace.isVisible = item.dating_title.isNotEmpty()
-            userTravelPlace.text = item.dating_title
+            userTravelPlace.text = item.dating_content
             if (UserManager.gender == 1) {
                 userContact.isVisible = item.isplatinumvip || item.isdirectvip
                 if (item.isplatinumvip) {
