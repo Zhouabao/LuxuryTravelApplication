@@ -1,5 +1,8 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import android.os.Handler
+import android.text.TextUtils
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -61,6 +64,15 @@ class TravelAdapter(val formDetail: Boolean = false, val type: Int = 0) :
             travelAddress.text = item.rise_city
             travelDestProvince.text = item.goal_province
             travelDestAddress.text = item.goal_city
+
+            //延迟启动跑马灯 避免一进去因为赋值问题导致设置的属性不起作用
+            Handler().postDelayed({
+                setMarqueeAttributes(travelProvince)
+                setMarqueeAttributes(travelDestProvince)
+                setMarqueeAttributes(travelAddress)
+                setMarqueeAttributes(travelDestAddress)
+            }, 500L)
+
             if (item.content_type == 1) {
                 travelDescr.text = item.content
                 travelAduio.isVisible = false
@@ -83,6 +95,14 @@ class TravelAdapter(val formDetail: Boolean = false, val type: Int = 0) :
 
     }
 
+    fun setMarqueeAttributes(text : TextView){
+        text.ellipsize = TextUtils.TruncateAt.MARQUEE
+        text.maxLines = 1
+        text.isSelected = true
+        text.isFocusable = true
+        text.isFocusableInTouchMode = true
+        text.marqueeRepeatLimit = -1
+    }
 
     fun resetMyAudioViews() {
         for (myaudio in myAudioView) {
