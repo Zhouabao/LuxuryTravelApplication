@@ -185,6 +185,23 @@ class NotificationActivity :
     }
 
     override fun onSettingsBeanResult(success: Boolean, settingsBean: SettingsBean?) {
+
+        if (success) {
+            binding.switchComment.isChecked = settingsBean!!.notify_square_comment_state
+            binding.switchDianzan.isChecked = settingsBean.notify_square_like_state
+            binding.switchMessage.isChecked = settingsBean.sms_state
+            wechatPublicState = settingsBean.we_openid
+            wechatState = settingsBean.wechat_tem_state
+            binding.switchWechat.isChecked = wechatState
+            binding.wechatPublicTv.isVisible = wechatState
+            binding.wechatPublic.isVisible = wechatState
+
+            if (wechatPublicState) {
+                binding.wechatPublic.text = getString(R.string.Binded)
+            } else {
+                binding.wechatPublic.text = getString(R.string.Bind_now)
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

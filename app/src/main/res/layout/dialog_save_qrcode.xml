@@ -16,7 +16,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/default_avator_image" />
+        android:src="@drawable/default_image_15dp" />
 
     <TextView
         android:layout_width="wrap_content"
