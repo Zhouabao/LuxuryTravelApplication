@@ -246,36 +246,42 @@ class SquareCommentDetailActivity :
 
 
         GlideUtil.loadAvatorImg(this, squareBean!!.avatar, binding.topLayout.squareUserIv1)
-        if (!squareBean!!.title.isNullOrEmpty()) {
-            binding.bottomLayout.squareTagName.text = squareBean!!.title ?: ""
+        if (squareBean!!.title_list?.size != 0) {
+            binding.bottomLayout.squareTagName.text = squareBean!!.title_list?.get(0)?.title ?: ""
             binding.bottomLayout.squareTagLl.isVisible = true
         } else {
             binding.bottomLayout.squareTagLl.isVisible = false
         }
-
-
-        //标题跳转
-        val manager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
-        manager.alignItems = AlignItems.STRETCH
-        manager.justifyContent = JustifyContent.FLEX_START
-        binding.bottomLayout.squareTitleRv.layoutManager = manager
-        val titleAdapter = SquareTitleAdapter()
-        titleAdapter.addData(squareBean!!.title_list ?: mutableListOf())
-        binding.bottomLayout.squareTitleRv.adapter = titleAdapter
-        titleAdapter.setOnItemClickListener { _, view, position ->
-            startActivity<TagDetailCategoryActivity>(
-                "id" to titleAdapter.data[position].id,
+        binding.bottomLayout.squareTagLl.setOnClickListener {
+                        startActivity<TagDetailCategoryActivity>(
+                "id" to squareBean!!.title_list?.get(0)?.id,
                 "type" to TagDetailCategoryActivity.TYPE_TOPIC
             )
         }
-        binding.bottomLayout.squareTitleRv.isVisible = !squareBean!!.title_list.isNullOrEmpty()
-        setLikeStatus(
-            squareBean!!.isliked,
-            squareBean!!.like_cnt,
-            binding.bottomLayout.squareDianzanBtn1,
-            binding.bottomLayout.squareDianzanAni,
-            false
-        )
+
+
+//        //标题跳转
+//        val manager = FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP)
+//        manager.alignItems = AlignItems.STRETCH
+//        manager.justifyContent = JustifyContent.FLEX_START
+//        binding.bottomLayout.squareTitleRv.layoutManager = manager
+//        val titleAdapter = SquareTitleAdapter()
+//        titleAdapter.addData(squareBean!!.title_list ?: mutableListOf())
+//        binding.bottomLayout.squareTitleRv.adapter = titleAdapter
+//        titleAdapter.setOnItemClickListener { _, view, position ->
+//            startActivity<TagDetailCategoryActivity>(
+//                "id" to titleAdapter.data[position].id,
+//                "type" to TagDetailCategoryActivity.TYPE_TOPIC
+//            )
+//        }
+//        binding.bottomLayout.squareTitleRv.isVisible = !squareBean!!.title_list.isNullOrEmpty()
+//        setLikeStatus(
+//            squareBean!!.isliked,
+//            squareBean!!.like_cnt,
+//            binding.bottomLayout.squareDianzanBtn1,
+//            binding.bottomLayout.squareDianzanAni,
+//            false
+//        )
 
         if (intent.getIntExtra("position", -1) != -1)
             EventBus.getDefault().post(
@@ -342,8 +348,8 @@ class SquareCommentDetailActivity :
                 binding.bottomLayout.squareLocationAndTime1Ll.isVisible = true
             }
 
-            if (!squareBean!!.title.isNullOrEmpty()) {
-                binding.bottomLayout.squareTagName.text = squareBean!!.title ?: ""
+            if (squareBean!!.title_list?.size != 0) {
+                binding.bottomLayout.squareTagName.text = squareBean!!.title_list?.get(0)?.title ?: ""
                 binding.bottomLayout.squareTagLl.isVisible = true
             } else {
                 binding.bottomLayout.squareTagLl.isVisible = false
