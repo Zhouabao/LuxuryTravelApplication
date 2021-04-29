@@ -111,10 +111,6 @@ class CandyRechargeActivity :
         if (candyCoun != null) {
             mycandy = candyCoun.candy_amount
             binding.candyAmount.text = CommonFunction.num2thousand("${candyCoun.candy_amount}")
-
-            candyCoun.is_withdraw = true
-
-
             binding.withdrawBtn.isVisible = candyCoun.is_withdraw
             binding.candyUse.isVisible = !candyCoun.is_withdraw
             isWithdraw = candyCoun.is_withdraw

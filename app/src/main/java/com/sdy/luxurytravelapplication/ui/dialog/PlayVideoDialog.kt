@@ -27,8 +27,8 @@ class PlayVideoDialog(val mv_url: String) : BaseBindingDialog<DialogPlayVideoBin
 
         window?.attributes = params
 
-        setCancelable(false)
-        setCanceledOnTouchOutside(false)
+        setCancelable(true)
+        setCanceledOnTouchOutside(true)
     }
 
     private fun showVideoPreview() {

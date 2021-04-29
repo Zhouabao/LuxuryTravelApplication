@@ -285,6 +285,7 @@ class TravelApp : Application() {
                 //联系方式审核未通过
                 99 -> {
                     ContactNotPassDialog().show()
+                    EventBus.getDefault().post(UserCenterContactEvent(0))
                 }
                 //10头像未通过审核去进行人脸认证
                 10, 101 -> {
@@ -307,6 +308,7 @@ class TravelApp : Application() {
                     //106门槛支付成功
                     //300通过甜心认证,301甜心认证不通过
                     EventBus.getDefault().post(UpdateLuxuryEvent())
+                    EventBus.getDefault().postSticky(UserCenterEvent(true))
                 }
 
                 111, 112 -> {//微信公众号绑定成功

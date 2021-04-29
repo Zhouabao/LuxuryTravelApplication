@@ -156,7 +156,7 @@ object UserManager {
         } else if (data.userinfo.gender == 2 && data.extra_data.living_btn) {
             //  true  需要活体   false  不需要活体
             //todo 女性判断是否做过活体认证
-//            living_btn = data.extra_data.living_btn
+            living_btn = data.extra_data.living_btn
 //            if (living_btn) {
             CommonFunction.startToFace(context, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
 //            }

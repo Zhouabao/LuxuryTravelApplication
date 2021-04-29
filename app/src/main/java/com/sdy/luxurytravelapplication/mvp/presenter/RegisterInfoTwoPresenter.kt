@@ -17,7 +17,7 @@ class RegisterInfoTwoPresenter :
     RegisterInfoTwoContract.Presenter {
     override fun createModel(): RegisterInfoTwoContract.Model? = RegisterInfoTwoModel()
     override fun setPersonal(params: HashMap<String, Any>) {
-        mModel?.setPersonal(params)?.ss(mModel, mView) {
+        mModel?.setPersonal(params)?.ss(mModel, mView,true) {
             mView?.apply {
                 if (it.code != ErrorStatus.SUCCESS) {
                     setPersonalFail()
@@ -29,7 +29,7 @@ class RegisterInfoTwoPresenter :
     }
 
     override fun getRegisterProcessType() {
-        mModel?.getRegisterProcessType()?.ss(mModel, mView) {
+        mModel?.getRegisterProcessType()?.ss(mModel, mView,true) {
             mView?.apply {
                 if (it.code == 200) {
                     getRegisterProcessType(it.data?: mutableListOf())

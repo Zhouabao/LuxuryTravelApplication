@@ -10,12 +10,14 @@ import android.widget.TextView
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.google.gson.Gson
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityRegisterInfoTwoBinding
 import com.sdy.luxurytravelapplication.mvp.contract.RegisterInfoTwoContract
+import com.sdy.luxurytravelapplication.mvp.model.bean.AnswerBean
+import com.sdy.luxurytravelapplication.mvp.model.bean.FindTagBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.MoreMatchBean
-import com.sdy.luxurytravelapplication.mvp.model.bean.MyTapsBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.SetPersonalBean
 import com.sdy.luxurytravelapplication.mvp.presenter.RegisterInfoTwoPresenter
 import org.jetbrains.anko.startActivity
@@ -35,6 +37,7 @@ class RegisterInfoTwoActivity :
         }
     }
 
+    private val wants = arrayListOf(0,0,0)
     override fun initData() {
         binding.apply {
             ClickUtils.applySingleDebouncing(
@@ -74,7 +77,7 @@ class RegisterInfoTwoActivity :
                     binding.travelAim,
                     travelAims[0].child,
                     travelAims[0].title,
-                    travelAims[0].field
+                    0
                 )
             }
             binding.travelPatener -> {
@@ -82,7 +85,7 @@ class RegisterInfoTwoActivity :
                     binding.travelPatener,
                     travelAims[1].child,
                     travelAims[1].title,
-                    travelAims[1].field
+                    1
                 )
             }
             binding.travelKeepTime -> {
@@ -90,29 +93,30 @@ class RegisterInfoTwoActivity :
                     binding.travelKeepTime,
                     travelAims[2].child,
                     travelAims[2].title,
-                    travelAims[2].field
+                    2
                 )
             }
             binding.nextBtn -> {
                 params["nickname"] = binding.nicknameEt.text
+                params["find_id"] = Gson().toJson(wants)
                 mPresenter?.setPersonal(params)
             }
         }
     }
 
-    private val travelAims by lazy { arrayListOf<MyTapsBean>() }
+    private val travelAims by lazy { arrayListOf<AnswerBean>() }
     private val params by lazy { hashMapOf<String, Any>() }
 
     private fun showPickerView(
         textview: TextView,
-        data: ArrayList<String>,
+        data: MutableList<FindTagBean>,
         title: String,
-        paramName: String
+        index: Int
     ) {
         KeyboardUtils.hideSoftInput(this)
         val pvOptions = OptionsPickerBuilder(this) { options1, _, _, _ ->
-            textview.text = data[options1]
-            params[paramName] = data[options1]
+            textview.text = data[options1].title
+            wants[index] = data[options1].id
             checkConfirmEnable()
         }
             .setTitleText(title)
@@ -122,7 +126,7 @@ class RegisterInfoTwoActivity :
             .setCancelColor(resources.getColor(R.color.color_c6cad4))
             .setTitleSize(16)
             .setTitleBgColor(Color.WHITE)
-            .build<String>()
+            .build<FindTagBean>()
         pvOptions.setPicker(data)
         pvOptions.show()
 
@@ -152,7 +156,7 @@ class RegisterInfoTwoActivity :
 
     }
 
-    override fun getRegisterProcessType(data: MutableList<MyTapsBean>) {
+    override fun getRegisterProcessType(data: MutableList<AnswerBean>) {
         if (data.isNotEmpty()) {
             travelAims.addAll(data)
             binding.apply {

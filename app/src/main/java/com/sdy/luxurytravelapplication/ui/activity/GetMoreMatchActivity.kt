@@ -23,7 +23,7 @@ class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
 
     private val moreMatchBean by lazy { intent.getSerializableExtra("moreMatchBean") as MoreMatchBean }
     override fun initData() {
-        if (UserManager.gender == 1) {
+        if (moreMatchBean.gender == 1) {
             binding.lottieUsers.setAnimation("lottie_find_more_match_man.json")
         } else {
             binding.lottieUsers.setAnimation("lottie_find_more_match_woman.json")
@@ -31,11 +31,11 @@ class GetMoreMatchActivity : BaseActivity<ActivityGetMoreMatchBinding>() {
         binding.userCnt.text = getString(
             R.string.user_cnt,
             moreMatchBean.people_amount,
-            if (UserManager.gender == 1) {
-                "女性"
+            if (moreMatchBean.gender == 1) {
+                "女"
             } else
-                "男性",
-            if (UserManager.gender == 1) {
+                "男",
+            if (moreMatchBean.gender == 1) {
                 "她"
             } else
                 "他"

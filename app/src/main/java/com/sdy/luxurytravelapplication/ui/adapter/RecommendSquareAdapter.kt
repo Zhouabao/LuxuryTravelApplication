@@ -142,7 +142,7 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
 
 
 
-            squareContent.isVisible = !item.descr.isNullOrEmpty()
+            squareContent.isVisible = !item.descr.isNullOrEmpty() && item.type != 0
             squareContent.text = "${item.descr}"
             squareLike.text = "${item.like_cnt}"
             squareName.text = item.nickname

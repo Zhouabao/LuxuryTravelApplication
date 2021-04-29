@@ -28,14 +28,12 @@ class InviteCodeActivity :
         }
     }
 
+    var result: String = ""
     override fun initData() {
         ClickUtils.applySingleDebouncing(arrayOf(binding.nextBtn, binding.noInviteCodeBtn)) {
             when (it) {
                 binding.nextBtn -> {
-                    moreMatchBean.apply {
-                        UserManager.savePersonalInfo(avatar, birth, gender, nickname)
-                    }
-                    MainActivity.startToMain(this, true)
+                    mPresenter?.checkCode(result)
                 }
                 binding.noInviteCodeBtn -> {
                     PurchaseFootActivity.start(
@@ -56,11 +54,13 @@ class InviteCodeActivity :
     }
 
     override fun onComplete(view: View?, content: String) {
-        mPresenter?.checkCode(content)
+        result = content
+
     }
 
     override fun onTextChange(view: View?, content: String) {
         binding.nextBtn.isEnabled = content.length == 4
+
     }
 
     override fun createPresenter(): InviteCodeContract.Presenter {
@@ -68,8 +68,14 @@ class InviteCodeActivity :
     }
 
     override fun checkCode(success: Boolean) {
-        MainActivity.startToMain(this)
+        if (success) {
+            moreMatchBean.apply {
+                UserManager.savePersonalInfo(avatar, birth, gender, nickname)
+            }
+            MainActivity.startToMain(this, true)
+        }
     }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return keyCode == KeyEvent.KEYCODE_BACK
     }

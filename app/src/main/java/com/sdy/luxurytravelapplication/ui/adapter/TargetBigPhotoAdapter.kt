@@ -19,7 +19,7 @@ class TargetBigPhotoAdapter :
     }
 
     lateinit var targetAccid: String
-    var playVideoCallBack:PlayVideoCallBack? = null
+    var playVideoCallBack: PlayVideoCallBack? = null
     var autoPlay: Boolean = false
     override fun convert(
         binding: ItemTargetBigPhotoBinding,
@@ -41,6 +41,7 @@ class TargetBigPhotoAdapter :
             }
             if (item.isVideo) {
                 userVideo.apply {
+                    isLooping = true
                     setUp(item.mv_detail_url, false, "")
                     setThumbImageView(item.avatar)
                     if (item.checked) {

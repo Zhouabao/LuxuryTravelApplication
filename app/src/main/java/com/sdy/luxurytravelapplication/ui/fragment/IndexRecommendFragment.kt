@@ -73,6 +73,13 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
                 mLayoutStatusView?.showError()
             }
         } else {
+            //保存 VIP信息
+            UserManager.isvip = indexRecommendBean.isplatinum
+            //保存认证信息
+            UserManager.isverify = indexRecommendBean.isfaced
+            //保存是否进行过人脸验证
+            UserManager.hasFaceUrl = indexRecommendBean.has_face_url
+
             if (binding.refreshIndex.state == RefreshState.Refreshing) {
                 binding.refreshIndex.finishRefresh(true)
                 adapter.setNewInstance(indexRecommendBean.list)

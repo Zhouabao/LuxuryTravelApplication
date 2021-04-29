@@ -88,17 +88,17 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
         ClickUtils.applySingleDebouncing(binding.nextBtn) {
 
-            when(mPosition){
-                0 ->{
+            when (mPosition) {
+                0 -> {
                     binding.bannerGuide.setCurrentItem(1)
                 }
-                1 ->{
+                1 -> {
                     binding.bannerGuide.setCurrentItem(2)
                 }
-                else ->{
-                    if (UserManager.gender == 1 && moreMatchBean.threshold && !moreMatchBean.isvip) {
+                else -> {
+                    if (moreMatchBean.gender == 1 && moreMatchBean.threshold && !moreMatchBean.isvip) {
                         InviteCodeActivity.start(this, moreMatchBean)
-                    } else if (UserManager.gender == 2 && moreMatchBean.living_btn) {
+                    } else if (moreMatchBean.gender == 2 && moreMatchBean.living_btn) {
                         CommonFunction.startToFace(this, FaceLivenessExpActivity.TYPE_LIVE_CAPTURE)
                     } else {
                         moreMatchBean.apply {
@@ -111,8 +111,13 @@ class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
         }
     }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return keyCode == KeyEvent.KEYCODE_BACK
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        guideBannerAdapter.clearAnimation()
+    }
 }

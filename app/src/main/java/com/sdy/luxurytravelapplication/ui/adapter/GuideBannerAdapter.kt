@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
 import androidx.core.view.isVisible
+import com.airbnb.lottie.LottieAnimationView
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemGuideBannerBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
@@ -16,6 +17,7 @@ import com.zhpan.bannerview.BaseViewHolder
  */
 class GuideBannerAdapter : BaseBannerAdapter<BannerGuideBean>() {
 
+    private val lotties = arrayListOf<LottieAnimationView>()
     override fun getLayoutId(viewType: Int): Int {
         return R.layout.item_guide_banner
     }
@@ -34,6 +36,7 @@ class GuideBannerAdapter : BaseBannerAdapter<BannerGuideBean>() {
                 view1.isVisible = true
                 bannerAnimation.imageAssetsFolder = data.imageName
                 bannerAnimation.setAnimation(data.fileName)
+                lotties.add(bannerAnimation)
             } else {
                 view1.isVisible = false
                 bannerAnimation.isVisible = false
@@ -42,6 +45,12 @@ class GuideBannerAdapter : BaseBannerAdapter<BannerGuideBean>() {
             }
             bannerTitle.text = data.title
             bannerContent.text = data.descr
+        }
+    }
+
+    fun clearAnimation() {
+        lotties.forEach {
+            it.clearAnimation()
         }
     }
 }

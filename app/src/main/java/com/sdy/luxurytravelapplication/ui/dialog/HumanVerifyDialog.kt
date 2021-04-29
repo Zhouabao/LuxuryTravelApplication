@@ -1,34 +1,29 @@
 package com.sdy.luxurytravelapplication.ui.dialog
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
-import android.view.KeyEvent
 import android.view.WindowManager
 import androidx.core.view.isVisible
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.DialogAccountDangerBinding
-import com.sdy.luxurytravelapplication.ext.CommonFunction
+import com.sdy.luxurytravelapplication.event.FemaleVerifyEvent
 import com.sdy.luxurytravelapplication.ext.ss
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
-import com.sdy.luxurytravelapplication.liveface.FaceLivenessExpActivity
 import com.sdy.luxurytravelapplication.ui.activity.MyInfoActivity
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 
-class HumanVerifyDialog(val type: Int, val showToast: Boolean):
+class HumanVerifyDialog(val type: Int, val showToast: Boolean) :
     BaseBindingDialog<DialogAccountDangerBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initWindow()
+//        initWindow()
         changeVerifyStatus()
     }
 
@@ -46,9 +41,9 @@ class HumanVerifyDialog(val type: Int, val showToast: Boolean):
             )
             accountDangerTitle.text = context.getString(R.string.avata_verify_fail)
 
-            accountDangerContent.text =  context.getString(R.string.avatar_compare_fail)
+            accountDangerContent.text = context.getString(R.string.avatar_compare_fail)
             accountDangerBtn.text = context.getString(R.string.change_avatar)
-            humanVerify.setTextColor(Color.parseColor("#FFFF6318"))
+            humanVerify.setTextColor(Color.parseColor("#FF1ED0A7"))
             accountDangerBtn.isEnabled = true
             accountDangerBtn.setOnClickListener {
                 context.startActivity<MyInfoActivity>(
@@ -92,6 +87,8 @@ class HumanVerifyDialog(val type: Int, val showToast: Boolean):
             .ss { t ->
                 if (t.code == 200) {
                     ToastUtil.toast(context.getString(R.string.has_commit_human_verify))
+                    UserManager.isverify = 2
+                    EventBus.getDefault().post(FemaleVerifyEvent(2))
                     dismiss()
                 }
             }
