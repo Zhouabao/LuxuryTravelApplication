@@ -25,8 +25,8 @@ class AccountAboutModel:BaseModel(),AccountAboutContract.Model {
         return RetrofitHelper.service.unbundWeChat(hashMapOf())
     }
 
-    override fun bundWeChat(wxcode: String): Observable<BaseResp<WechatNameBean>> {
+    override fun bundWeChat(wxcode: String, nickname: String): Observable<BaseResp<WechatNameBean>> {
 
-        return RetrofitHelper.service.bundWeChat(hashMapOf("wxcode" to wxcode))
+        return RetrofitHelper.service.bundWeChat(hashMapOf("openid" to wxcode,"nickname" to nickname))
     }
 }

@@ -129,7 +129,7 @@ class AccountAboutActivity :
     override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>) {
         LogUtils.d("onComplete===${p0!!.getName()}")
         LogUtils.d("onComplete===$p2")
-        mPresenter?.bundWeChat(p2["uid"].toString())
+        mPresenter?.bundWeChat(p2["uid"].toString(), p2["name"].toString())
     }
 
     override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {

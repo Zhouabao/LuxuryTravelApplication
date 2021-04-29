@@ -30,8 +30,8 @@ class AccountAboutPresenter :
         }
     }
 
-    override fun bundWeChat(wxcode: String) {
-        mModel?.bundWeChat(wxcode)?.ss(mModel,mView,true) {
+    override fun bundWeChat(wxcode: String,nickname:String) {
+        mModel?.bundWeChat(wxcode,nickname)?.ss(mModel,mView,true) {
             mView?.bundWeChatResult(it.data)
         }
     }

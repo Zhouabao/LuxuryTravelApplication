@@ -62,7 +62,7 @@ object Constants {
 
     //微信支付appid
     const val WECHAT_APP_ID = "wx4b574e4037526791"
-    const val WECHAT_APP_KEY = "44ffcfa1e1044f2267c873eb3329fbe2"
+    const val WECHAT_APP_KEY = "d375a14c33ab8a97d37090b359214743"
 
 
     //QQ

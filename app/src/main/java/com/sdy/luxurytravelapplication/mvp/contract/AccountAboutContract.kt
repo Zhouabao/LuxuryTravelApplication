@@ -39,7 +39,7 @@ interface AccountAboutContract {
         /**
          *微信绑定
          */
-        fun bundWeChat(wxcode: String)
+        fun bundWeChat(wxcode: String, nickname: String)
     }
 
     interface Model : IModel {
@@ -57,6 +57,6 @@ interface AccountAboutContract {
         /**
          *微信绑定
          */
-        fun bundWeChat(wxcode: String): Observable<BaseResp<WechatNameBean>>
+        fun bundWeChat(wxcode: String, nickname: String): Observable<BaseResp<WechatNameBean>>
     }
 }
