@@ -9,10 +9,13 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.FragmentFindContentBinding
+import com.sdy.luxurytravelapplication.event.RefreshLikeEvent
 import com.sdy.luxurytravelapplication.mvp.contract.MyCollectionAndLikeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyCollectionAndLikePresenter
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -108,5 +111,24 @@ class MyCollectionAndLikeFragment(val type: Int) :
             adapter.isUseEmpty = true
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRefreshLikeEvent(event: RefreshLikeEvent) {
+        if (event.position != -1 && event.squareId == adapter.data[event.position].id) {
+            adapter.data[event.position].originalLike = event.isLike == 1
+            adapter.data[event.position].isliked = event.isLike == 1
+            adapter.data[event.position].like_cnt =
+                if (event.likeCount >= 0) {
+                    event.likeCount
+                } else {
+                    if (event.isLike == 1) {
+                        adapter.data[event.position].like_cnt + 1
+                    } else {
+                        adapter.data[event.position].like_cnt - 1
+                    }
+                }
+            adapter.notifyItemChanged(event.position)
+        }
     }
 }

@@ -531,7 +531,8 @@ class ChatActivity :
     private fun canSendMsg(): Boolean {
         // 发起方并且次数为0 禁止发送
         return if (UserManager.gender == 2) {
-            if (nimBean.islimit) {
+            true
+            /*if (nimBean.islimit) {
                 // 如果没有认证就弹认证才能聊天,如果认证了就查看是否添加了认证视频
                 if (!nimBean.my_isfaced) {
                     VerifyAddChatDialog(this, nimBean.approve_chat_times).show()
@@ -541,7 +542,7 @@ class ChatActivity :
                 false
             } else {
                 true
-            }
+            }*/
         } else {
             if (nimBean.private_chat_state && !nimBean.isplatinum) {
                 ChatUpOpenPtVipDialog(
@@ -707,7 +708,7 @@ class ChatActivity :
         UserManager.showCandyMessage = nimBean.chat_expend_amount > 0
         UserManager.showCandyTime = nimBean.chat_expend_time
         // 显示提示认证的悬浮
-        if (nimBean.my_gender == 2 && (!nimBean.my_isfaced || nimBean.mv_state == 0)) {
+        /*if (nimBean.my_gender == 2 && (!nimBean.my_isfaced || nimBean.mv_state == 0)) {
             binding.apply {
                 verifyLl.isVisible = true
                 if (!nimBean.my_isfaced) {
@@ -734,7 +735,7 @@ class ChatActivity :
             }
         } else {
             binding.verifyLl.isInvisible = true
-        }
+        }*/
 
         showLockChat()
 

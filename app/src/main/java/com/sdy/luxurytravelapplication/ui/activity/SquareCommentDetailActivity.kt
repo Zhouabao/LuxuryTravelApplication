@@ -14,9 +14,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.VibrateUtils
 import com.google.android.flexbox.*
 import com.kongzue.dialog.util.DialogSettings
 import com.kongzue.dialog.util.TextInfo
@@ -841,13 +843,18 @@ class SquareCommentDetailActivity :
         isliked: Int,
         likeCount: Int,
         likeView: TextView,
-        likeAni: ImageView,
+        likeAni: LottieAnimationView,
         animated: Boolean = true
     ) {
         if (isliked == 1) {
-            likeAni.setImageResource(R.drawable.icon_zan_comment_checked)
+            if (animated) {
+                likeAni.playAnimation()
+                VibrateUtils.vibrate(50L)
+            } else {
+                likeAni.progress = 1F
+            }
         } else {
-            likeAni.setImageResource(R.drawable.icon_zan_normal)
+            likeAni.progress = 0F
         }
 
         likeView.text = "${if (likeCount < 0) {

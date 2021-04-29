@@ -168,16 +168,15 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
                         )
                     }
             }
-//         squareLike.onClick {
-//            if (item.accid != UserManager.getAccid()) {
-//                clickZan(
-//                     clickZanViewImg,
-//                     clickZanViewAni,
-//                     squareLike,
-//                    helper.layoutPosition - headerLayoutCount
-//                )
-//            }
-//        }
+         squareLike.setOnClickListener {
+            if (item.accid != UserManager.accid) {
+                clickZan(
+                     clickZanViewAni,
+                     squareLike,
+                    position - headerLayoutCount
+                )
+            }
+        }
 
             //点击跳转
             root.setOnClickListener {

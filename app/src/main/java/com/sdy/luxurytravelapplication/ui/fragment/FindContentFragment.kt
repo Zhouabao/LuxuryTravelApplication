@@ -17,6 +17,7 @@ import com.sdy.luxurytravelapplication.databinding.FragmentFindContentBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewRecommendBannerBinding
 import com.sdy.luxurytravelapplication.event.AnnounceEvent
 import com.sdy.luxurytravelapplication.event.RefreshDeleteSquareEvent
+import com.sdy.luxurytravelapplication.event.RefreshLikeEvent
 import com.sdy.luxurytravelapplication.mvp.contract.FindContentContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.RecommendSquareListBean
 import com.sdy.luxurytravelapplication.mvp.presenter.FindContentPresenter
@@ -170,6 +171,29 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     fun onAnnounceEvent(event: AnnounceEvent) {
         if (event.serverSuccess && TYPE_NEWEST == 3) {
             binding.refreshFind.autoRefresh()
+        }
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRefreshLikeEvent(event: RefreshLikeEvent) {
+        val dataPosition = event.position-adapter.headerLayoutCount
+        adapter.getItem(event.position)
+        if (event.position != -1 && event.squareId == adapter.data[dataPosition].id) {
+            adapter.data[dataPosition].originalLike = event.isLike == 1
+            adapter.data[dataPosition].isliked = event.isLike == 1
+            adapter.data[dataPosition].like_cnt =
+                if (event.likeCount >= 0) {
+                    event.likeCount
+                } else {
+                    if (event.isLike == 1) {
+                        adapter.data[dataPosition].like_cnt + 1
+                    } else {
+                        adapter.data[dataPosition].like_cnt - 1
+                    }
+                }
+            adapter.notifyItemChanged(event.position)
         }
     }
 }

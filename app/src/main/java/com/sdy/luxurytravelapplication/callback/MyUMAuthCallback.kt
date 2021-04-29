@@ -79,10 +79,6 @@ class MyUMAuthCallback(val context: Context) : UMAuthListener {
     nickname
      */
     private fun loginOrAlloc(openid: String = "", nickname: String = "", type: Int) {
-        if (!NetworkUtils.isAvailable()) {
-            return
-        }
-
         val params = hashMapOf<String, Any>()
         if (openid.isNotEmpty()) {
             params["openid"] = openid
