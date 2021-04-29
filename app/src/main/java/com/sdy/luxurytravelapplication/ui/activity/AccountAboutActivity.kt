@@ -15,6 +15,7 @@ import com.sdy.luxurytravelapplication.mvp.contract.AccountAboutContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.AccountBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.WechatNameBean
 import com.sdy.luxurytravelapplication.mvp.presenter.AccountAboutPresenter
+import com.sdy.luxurytravelapplication.utils.ToastUtil
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -110,6 +111,10 @@ class AccountAboutActivity :
                             false
                         }
                 } else {
+                    if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
+                        ToastUtil.toast(getString(R.string.unload_wechat))
+                        return
+                    }
                     //如果未绑定，显示未绑定及绑定按钮 ,点击后拉起微信、授权 ,完成后显示绑定成功弹窗
                     //微信授权登录
                     UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this)
@@ -128,12 +133,15 @@ class AccountAboutActivity :
     }
 
     override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {
+        LogUtils.d("onCancel===$p1")
     }
 
     override fun onError(p0: SHARE_MEDIA?, p1: Int, p2: Throwable?) {
+        LogUtils.d("onError===$p1,$p2")
     }
 
     override fun onStart(p0: SHARE_MEDIA?) {
+        LogUtils.d("onError===$p0")
     }
 
 

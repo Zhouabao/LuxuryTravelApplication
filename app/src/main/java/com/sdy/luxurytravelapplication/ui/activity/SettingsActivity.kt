@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -52,6 +53,7 @@ class SettingsActivity :
             barCl.actionbarTitle.text = "设置"
             ClickUtils.applySingleDebouncing(
                 arrayOf(
+                    barCl.btnBack,
                     blockContactCl,
                     blockDistanceCl,
                     blockHideCl,
@@ -86,6 +88,7 @@ class SettingsActivity :
     }
 
     override fun onGetVersionResult(versionBean: VersionBean?) {
+        binding.newVersion.isVisible = AppUtils.getAppVersionName() != versionBean?.version
     }
 
     private var settingsBean: SettingsBean? = null
@@ -112,6 +115,9 @@ class SettingsActivity :
 
     override fun onClick(v: View) {
         when (v) {
+            binding.barCl.btnBack -> {
+                finish()
+            }
             binding.blockContactCl -> {
                 if (binding.switchContacts.isChecked) {
                     mPresenter?.blockedAddressBook(mutableListOf())

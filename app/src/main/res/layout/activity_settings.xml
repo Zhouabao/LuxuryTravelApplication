@@ -150,7 +150,7 @@
                     android:drawableRight="@drawable/icon_arrow_right_setting"
                     android:drawablePadding="20dp"
                     android:gravity="center"
-                    android:text="不隐身"
+                    tools:text="不隐身"
                     android:textColor="#ffc6cad4"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -312,13 +312,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/newVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:drawableRight="@drawable/icon_arrow_right_setting"
                     android:drawablePadding="20dp"
                     android:gravity="center"
-                    android:text="有版本更新"
+                    android:text=""
                     android:textColor="#fffb1919"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"

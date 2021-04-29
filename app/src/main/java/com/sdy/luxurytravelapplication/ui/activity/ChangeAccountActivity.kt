@@ -2,6 +2,7 @@ package com.sdy.luxurytravelapplication.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
@@ -54,8 +55,10 @@ class ChangeAccountActivity :
                         countTimer.onFinish()
                         verifycodeBtn.isEnabled = true
                         verifycodeBtn.text = getString(R.string.get_verify_code)
+                        verifycodeBtn.setTextColor(resources.getColor(R.color.colorAccent))
                     } else {
                         verifycodeBtn.isEnabled = false
+                        verifycodeBtn.setTextColor(Color.parseColor("#ffc6cad4"))
                         verifycodeBtn.text = getString(R.string.get_verify_code)
                     }
 

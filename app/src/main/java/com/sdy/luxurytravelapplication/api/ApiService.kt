@@ -994,7 +994,7 @@ interface ApiService {
      * 验证解锁视频介绍
      */
     @FormUrlEncoded
-    @POST("Candy/checkUnlockMvV231${Constants.END_BASE_URL}")
+    @POST("Candy/checkUnlockMvV231${Constants.END_BASE_URL_v2}")
     fun checkUnlockMv(@FieldMap hashMapOf: HashMap<String, String>): Observable<BaseResp<UnlockCheckBean?>>
 
 
