@@ -121,7 +121,7 @@ class RePublishEvent(var republish: Boolean, val context: String)
 
 
 //刷新加入甜心圈显示
-class RefreshSweetAddEvent(val isHoney: Boolean = false,val sweetProgressBean: SweetProgressBean)
+class RefreshSweetAddEvent(val isHoney: Boolean = false, val sweetProgressBean: SweetProgressBean)
 
 
 //首页更新红点消息
@@ -165,8 +165,6 @@ class UpdateSettingEvent
 class UserCenterEvent(var refresh: Boolean)
 
 
-
-
 //更新用户联系方式
 class UserCenterContactEvent(var contact_way: Int)
 
@@ -178,7 +176,6 @@ class FemaleVideoEvent(val videoState: Int)
 
 //置顶卡片
 class TopCardEvent(val showTop: Boolean)
-
 
 
 /**
@@ -196,13 +193,13 @@ class UpdateBlackEvent()
 
 //刷新甜心圈认证状态
 class UpdateLuxuryEvent()
+
 //刷新精选用户状态
 class UpdateFeaturedEvent()
 
 
 //认证状态修改
 class FemaleVerifyEvent(val verifyState: Int)
-
 
 
 //重新认证事件通知
@@ -217,3 +214,6 @@ class AccountDangerEvent(val type: Int)
  * 更新推送开关
  */
 class UpdateWechatSettingsEvent(val isFollowPublic: Boolean)
+
+
+class EnablePicEvent(val cnt: Int)

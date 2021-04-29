@@ -30,6 +30,7 @@ import com.netease.nimlib.sdk.media.record.RecordType
 import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.LayoutNimInputBinding
+import com.sdy.luxurytravelapplication.event.EnablePicEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.model.bean.PublishWayBean
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
@@ -42,6 +43,9 @@ import com.sdy.luxurytravelapplication.nim.common.util.string.StringUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.dialog.SendGiftDialog
 import com.sdy.luxurytravelapplication.utils.ToastUtil
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
@@ -82,6 +86,7 @@ class ChatInputPanel(
         }
         // 初始化表情包
         initEmojViews()
+        EventBus.getDefault().register(this)
 
     }
 
@@ -103,15 +108,8 @@ class ChatInputPanel(
     }
 
     private val adapter by lazy { ChatActionAdapter() }
-    private fun initActionPanel(isRobot: Boolean = false) {
-        adapter.setNewInstance(
-            if (isRobot) {
-//                actions
-                actions.subList(0, actions.size - 2)
-            } else {
-                actions
-            }
-        )
+    private fun initActionPanel() {
+
         binding.inputActionsRv.layoutManager =
             GridLayoutManager(container.activity, adapter.data.size)
         binding.inputActionsRv.adapter = adapter
@@ -408,12 +406,12 @@ class ChatInputPanel(
                 MotionEvent.ACTION_UP -> {
                     touched = false
                     //增加录音时间判断
-                    if(audioTime>=3){
+                    if (audioTime >= 3) {
                         onEndAudioRecord(isCancelled(view1, event))
-                    }else{
+                    } else {
                         onEndAudioRecord(true)
                         //不是上滑取消弹出Toast提示
-                        if(!isCancelled(view1, event)){
+                        if (!isCancelled(view1, event)) {
                             ToastUtil.toast("录音时间太短")
                         }
                     }
@@ -608,6 +606,7 @@ class ChatInputPanel(
         if (this::audioMessageHelper.isInitialized) {
             audioMessageHelper.destroyAudioRecorder()
         }
+        EventBus.getDefault().unregister(this)
     }
 
     fun collapse(immediately: Boolean) {
@@ -634,6 +633,13 @@ class ChatInputPanel(
     private var isRobotSession = false
     fun switchRobotMode(isRobot: Boolean) {
         isRobotSession = isRobot
-        initActionPanel(isRobot)
+        adapter.setNewInstance(actions.subList(0, actions.size - 2))
+        initActionPanel()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun enablePicEvent(event: EnablePicEvent) {
+        adapter.setNewInstance(actions.subList(0, event.cnt))
+        initActionPanel()
     }
 }

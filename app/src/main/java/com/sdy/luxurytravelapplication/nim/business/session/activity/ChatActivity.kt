@@ -783,6 +783,12 @@ class ChatActivity :
             UserManager.isSendChargePtVip = true
         }
 
+        if ((nimBean.my_gender == 1 && nimBean.target_gender == 2 && nimBean.target_ishoney) || nimBean.my_gender == 2) {
+            EventBus.getDefault().post(EnablePicEvent(6))
+        } else {
+            EventBus.getDefault().post(EnablePicEvent(5))
+        }
+
     }
 
     private fun showLockChat() {
