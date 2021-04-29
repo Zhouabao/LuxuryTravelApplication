@@ -82,12 +82,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:maxWidth="100dp"
         android:background="@drawable/shape_rectangle_dcfff7_5dp"
         android:drawableLeft="@drawable/icon_index_nearby"
         android:paddingLeft="4dp"
         android:paddingTop="2dp"
         android:paddingRight="4dp"
         android:paddingBottom="2dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
         android:text="成都-三亚"
         android:textColor="#ff1ed0a7"
         android:textSize="11sp"
@@ -104,6 +107,16 @@
         android:src="@drawable/icon_index_wechat"
         app:layout_constraintBottom_toBottomOf="@id/userNickname"
         app:layout_constraintLeft_toRightOf="@id/userTravelPlace"
+        app:layout_constraintTop_toTopOf="@id/userNickname" />
+    <ImageView
+        android:id="@+id/userVip"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/icon_vip"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/userNickname"
+        app:layout_constraintLeft_toRightOf="@id/userContact"
         app:layout_constraintTop_toTopOf="@id/userNickname" />
 
 

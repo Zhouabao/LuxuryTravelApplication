@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogWithdrawCandyBinding
 import com.sdy.luxurytravelapplication.event.GetAlipayAccountEvent
+import com.sdy.luxurytravelapplication.event.RefreshMyCandyEvent
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.mvp.model.bean.PullWithdrawBean
@@ -178,6 +179,8 @@ class WithdrawCandyDialog : BaseBindingDialog<DialogWithdrawCandyBinding>(), Vie
                             R.string.count_unit
                         )
                         withdrawMoney1.text = "¥${t.data?.money_amount}"
+                        //刷新我的旅券
+                        EventBus.getDefault().post(RefreshMyCandyEvent())
                     } else {
                         ToastUtil.toast(t.msg)
                     }

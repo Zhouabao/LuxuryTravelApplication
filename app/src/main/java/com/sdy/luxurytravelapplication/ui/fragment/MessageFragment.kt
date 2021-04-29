@@ -110,7 +110,8 @@ class MessageFragment :
         }
         accostAdapter.setOnItemClickListener { _, _, position ->
             ChatActivity.start(activity!!, accostAdapter.data[position].accid)
-            EventBus.getDefault().post(GetNewMsgEvent())
+            accostAdapter.data[position].unreadCnt = 0
+            accostAdapter.notifyItemChanged(position)
         }
 
 

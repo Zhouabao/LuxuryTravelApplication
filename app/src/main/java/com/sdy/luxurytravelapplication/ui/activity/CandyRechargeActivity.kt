@@ -11,6 +11,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.databinding.ActivityCandyRechargeBinding
 import com.sdy.luxurytravelapplication.event.CloseDialogEvent
+import com.sdy.luxurytravelapplication.event.RefreshMyCandyEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.CandyRechargeContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.ChargeWayBeans
@@ -82,7 +83,7 @@ class CandyRechargeActivity :
                     payments
                 ).show()
             }
-            ClickUtils.applySingleDebouncing(binding.withdrawBtn){
+            ClickUtils.applySingleDebouncing(binding.withdrawBtn) {
                 WithdrawCandyDialog().show()
             }
 
@@ -130,6 +131,12 @@ class CandyRechargeActivity :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseDialogEvent(event: CloseDialogEvent) {
         finish()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRefreshMyCandyEvent(event: RefreshMyCandyEvent) {
+        mPresenter?.myCadny()
+
     }
 
 

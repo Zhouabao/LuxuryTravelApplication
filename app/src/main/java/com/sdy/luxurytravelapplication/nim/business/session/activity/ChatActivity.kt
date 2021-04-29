@@ -783,9 +783,9 @@ class ChatActivity :
         }
 
         if ((nimBean.my_gender == 1 && nimBean.target_gender == 2 && nimBean.target_ishoney) || nimBean.my_gender == 2) {
-            EventBus.getDefault().post(EnablePicEvent(6))
+            EventBus.getDefault().post(EnableGiftEvent(6))
         } else {
-            EventBus.getDefault().post(EnablePicEvent(5))
+            EventBus.getDefault().post(EnableGiftEvent(5))
         }
 
     }

@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.DialogContactCandyReceiveBinding
+import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.http.RetrofitHelper
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingDialog
 
@@ -46,8 +47,10 @@ class ContactCandyReceiveDialog(
     /**
      * 标准是否解锁联系方式弹窗
      */
-    fun tagUnlockPopup() {
-        RetrofitHelper.service.tagUnlockPopup(hashMapOf("target_accid" to target_accid))
+    private fun tagUnlockPopup() {
+        RetrofitHelper.service.tagUnlockPopup(hashMapOf("target_accid" to target_accid)).ssss {
+
+        }
     }
 
 }

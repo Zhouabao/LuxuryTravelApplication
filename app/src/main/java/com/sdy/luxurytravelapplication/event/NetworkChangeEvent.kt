@@ -216,4 +216,10 @@ class AccountDangerEvent(val type: Int)
 class UpdateWechatSettingsEvent(val isFollowPublic: Boolean)
 
 
-class EnablePicEvent(val cnt: Int)
+class EnableGiftEvent(val cnt: Int)
+
+
+/**
+ * 更新我的糖果之类的数据
+ */
+class RefreshMyCandyEvent()

@@ -1,6 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
-import android.util.Log
+import android.os.Handler
+import android.text.TextUtils
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,27 +29,35 @@ class IndexLuxuryAdapter :
         binding.apply {
             onlineTime.text = item.online_time
             userNickname.text = item.nickname
-            userTravelPlace.isVisible = item.dating_title.isNotEmpty()
-            userTravelPlace.text = item.dating_title
-            if (UserManager.gender == 1) {
-                userContact.isVisible = item.isplatinumvip || item.isdirectvip
-                if (item.isplatinumvip) {
-                    userContact.setImageResource(R.drawable.icon_vip_connnect)
-                } else if (item.isdirectvip) {
-                    userContact.setImageResource(R.drawable.icon_vip_connnect)
+            userTravelPlace.isVisible = item.dating_content.isNotEmpty()
+            userTravelPlace.text = item.dating_content
+            if(userTravelPlace.isVisible){
+                //延迟启动跑马灯 避免一进去因为赋值问题导致设置的属性不起作用
+                Handler().postDelayed({
+                    userTravelPlace.ellipsize = TextUtils.TruncateAt.MARQUEE
+                    userTravelPlace.maxLines = 1
+                    userTravelPlace.isSelected = true
+                    userTravelPlace.isFocusable = true
+                    userTravelPlace.isFocusableInTouchMode = true
+                    userTravelPlace.marqueeRepeatLimit = -1
+                }, 500L)
+            }
+            userVip.isVisible = UserManager.gender == 1 && (item.isplatinumvip || item.isdirectvip)
+            if (item.isplatinumvip) {
+                userVip.setImageResource(R.drawable.icon_index_vip)
+            } else if (item.isdirectvip) {
+                userVip.setImageResource(R.drawable.icon_vip_connnect)
+            }
+            userContact.isVisible = item.contact_way != 0
+            when (item.contact_way) {
+                1 -> {
+                    userContact.setImageResource(R.drawable.icon_index_phone)
                 }
-            } else {
-                userContact.isVisible = item.contact_way != 0
-                when (item.contact_way) {
-                    1 -> {
-                        userContact.setImageResource(R.drawable.icon_index_phone)
-                    }
-                    2 -> {
-                        userContact.setImageResource(R.drawable.icon_index_wechat)
-                    }
-                    3 -> {
-                        userContact.setImageResource(R.drawable.icon_index_qq)
-                    }
+                2 -> {
+                    userContact.setImageResource(R.drawable.icon_index_wechat)
+                }
+                3 -> {
+                    userContact.setImageResource(R.drawable.icon_index_qq)
                 }
             }
             SpanUtils.with(userBasicInfo).append(item.distance)
@@ -98,7 +107,7 @@ class IndexLuxuryAdapter :
                 contactBtn.text = "视频介绍"
                 contactBtn.isVisible = true
                 ClickUtils.applySingleDebouncing(contactBtn) {
-                    CommonFunction.checkUnlockIntroduceVideo(context, item.accid,item.mv_url)
+                    CommonFunction.checkUnlockIntroduceVideo(context, item.accid, item.mv_url)
                 }
             } else {
                 contactBtn.isVisible = false

@@ -30,7 +30,7 @@ import com.netease.nimlib.sdk.media.record.RecordType
 import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.LayoutNimInputBinding
-import com.sdy.luxurytravelapplication.event.EnablePicEvent
+import com.sdy.luxurytravelapplication.event.EnableGiftEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.model.bean.PublishWayBean
 import com.sdy.luxurytravelapplication.nim.api.model.session.SessionCustomization
@@ -638,7 +638,7 @@ class ChatInputPanel(
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun enablePicEvent(event: EnablePicEvent) {
+    fun enablePicEvent(event: EnableGiftEvent) {
         adapter.setNewInstance(actions.subList(0, event.cnt))
         initActionPanel()
     }

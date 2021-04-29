@@ -23,8 +23,8 @@ import com.sdy.luxurytravelapplication.event.UpdateHiEvent
 import com.sdy.luxurytravelapplication.mvp.contract.AccostListContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.AccostBean
 import com.sdy.luxurytravelapplication.mvp.presenter.AccostListPresenter
-import com.sdy.luxurytravelapplication.ui.adapter.AccostListAdapter
 import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
+import com.sdy.luxurytravelapplication.ui.adapter.AccostListAdapter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -66,6 +66,8 @@ class AccostListActivity :
                     R.id.content -> {
                         ChatActivity.start(this@AccostListActivity, adapter.data[position].accid)
                         EventBus.getDefault().post(GetNewMsgEvent())
+                        adapter.data[position].unreadCnt = 0
+                        adapter.notifyItemChanged(position)
                     }
                     //删除会话
                     R.id.menuDetele -> {

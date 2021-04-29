@@ -56,7 +56,7 @@ class AccostListAdapter :
                     item.content
                 }
                 else -> {
-                    context.getString(R.string.new_hi_message)
+                    ""
                 }
             }
 

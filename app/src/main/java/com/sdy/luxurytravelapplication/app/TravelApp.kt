@@ -309,6 +309,7 @@ class TravelApp : Application() {
                     //300通过甜心认证,301甜心认证不通过
                     EventBus.getDefault().post(UpdateLuxuryEvent())
                     EventBus.getDefault().postSticky(UserCenterEvent(true))
+                    EventBus.getDefault().postSticky(RefreshMyCandyEvent())
                 }
 
                 111, 112 -> {//微信公众号绑定成功
