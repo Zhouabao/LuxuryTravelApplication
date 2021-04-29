@@ -55,6 +55,7 @@ class ConfirmPayCandyDialog(
         const val SDK_PAY_FLAG = 1
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initWindow()
@@ -111,6 +112,16 @@ class ConfirmPayCandyDialog(
             alipayIv.setImageResource(R.drawable.icon_alipay)
             wechatIv.setImageResource(R.drawable.icon_wechat1)
 
+
+            val paymentTypes = arrayListOf<Int>().apply {
+                payways.forEach {
+                    add(it.payment_type)
+                }
+            }
+            alipayCl.isVisible = paymentTypes.contains(PAY_ALI)
+            wechatCl.isVisible = paymentTypes.size <= 1 && paymentTypes.contains(PAY_WECHAT)
+            showOtherWayBtn.isVisible = paymentTypes.size > 1 && alipayCl.isVisible
+
             ClickUtils.applySingleDebouncing(confrimBtn) {
                 if (alipayCheck.isChecked) {
                     createOrder(PAY_ALI)
@@ -157,7 +168,6 @@ class ConfirmPayCandyDialog(
     }
 
 
-
     private fun start2Pay(payment_type: Int, data: PayBean) {
         if (payment_type == PAY_WECHAT) {
             //微信支付
@@ -184,11 +194,11 @@ class ConfirmPayCandyDialog(
             params["source_type"] = source_type
         }
         params["product_id"] = chargeBean.id
-        val loadingDialog =LoadingDialog()
+        val loadingDialog = LoadingDialog()
         loadingDialog.show()
         RetrofitHelper.service
             .createOrder(params)
-            .ssss (loadingDialog = loadingDialog){
+            .ssss(loadingDialog = loadingDialog) {
                 loadingDialog.dismiss()
                 if (it.code == 200) {
                     //发起微信
@@ -238,7 +248,6 @@ class ConfirmPayCandyDialog(
             mHandler.sendMessage(msg)
         }).start()
     }
-
 
 
     @SuppressLint("HandlerLeak")

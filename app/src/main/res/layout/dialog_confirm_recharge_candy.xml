@@ -109,8 +109,10 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="@id/alipayCl"
-        app:layout_constraintRight_toRightOf="@id/alipayCl"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alipayCl">
 
         <TextView
