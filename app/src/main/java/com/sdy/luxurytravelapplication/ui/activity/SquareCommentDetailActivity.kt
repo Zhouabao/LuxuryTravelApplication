@@ -246,8 +246,8 @@ class SquareCommentDetailActivity :
 
 
         GlideUtil.loadAvatorImg(this, squareBean!!.avatar, binding.topLayout.squareUserIv1)
-        if (!squareBean!!.tags.isNullOrEmpty()) {
-            binding.bottomLayout.squareTagName.text = squareBean!!.tags ?: ""
+        if (!squareBean!!.title.isNullOrEmpty()) {
+            binding.bottomLayout.squareTagName.text = squareBean!!.title ?: ""
             binding.bottomLayout.squareTagLl.isVisible = true
         } else {
             binding.bottomLayout.squareTagLl.isVisible = false
@@ -342,8 +342,8 @@ class SquareCommentDetailActivity :
                 binding.bottomLayout.squareLocationAndTime1Ll.isVisible = true
             }
 
-            if (!squareBean!!.tags.isNullOrEmpty()) {
-                binding.bottomLayout.squareTagName.text = squareBean!!.tags
+            if (!squareBean!!.title.isNullOrEmpty()) {
+                binding.bottomLayout.squareTagName.text = squareBean!!.title ?: ""
                 binding.bottomLayout.squareTagLl.isVisible = true
             } else {
                 binding.bottomLayout.squareTagLl.isVisible = false
