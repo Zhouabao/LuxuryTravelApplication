@@ -864,7 +864,7 @@ interface ApiService {
      * phone :电话号码
      */
     @FormUrlEncoded
-    @POST("OpenApi/SendSms${Constants.END_BASE_URL}")
+    @POST("OpenApi/SendSms${Constants.END_BASE_URL_v2}")
     fun sendSms(@FieldMap params: MutableMap<String, Any>): Observable<BaseResp<RegisterTooManyBean?>>
 
     /**
