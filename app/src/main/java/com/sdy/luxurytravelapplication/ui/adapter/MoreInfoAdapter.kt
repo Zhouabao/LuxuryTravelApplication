@@ -1,5 +1,7 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
+import android.text.TextUtils.replace
+import android.util.Log
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.ItemMoreInfoBinding
 import com.sdy.luxurytravelapplication.mvp.model.bean.AnswerBean
@@ -15,7 +17,7 @@ class MoreInfoAdapter :
         binding.apply {
             moreInfoTitle.text = item.title
             moreInfoContent.hint = item.descr
-            if (item.title == context.getString(R.string.height) && !item.find_tag!!.title.isNullOrEmpty() && item.find_tag!!.title.toInt() > 0) {
+            if (item.title == context.getString(R.string.height) && !item.find_tag!!.title.isNullOrEmpty()) {
                 moreInfoContent.text = item.find_tag!!.title
             } else if (item.find_tag != null && item.child.contains(item.find_tag!!) && item.find_tag!!.id != 0) {
                 moreInfoContent.text = item.find_tag!!.title

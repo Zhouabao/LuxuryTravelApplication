@@ -27,7 +27,7 @@ class ReportReasonActivity :
 
     override fun initData() {
         binding.apply {
-            binding.barCl.actionbarTitle.setOnClickListener {
+            binding.barCl.btnBack.setOnClickListener {
                 finish()
             }
             binding.barCl.actionbarTitle.text = "举报理由"

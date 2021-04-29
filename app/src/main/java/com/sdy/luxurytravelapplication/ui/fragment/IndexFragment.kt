@@ -1,5 +1,6 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
+import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
@@ -15,6 +16,8 @@ import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentIndexBinding
 import com.sdy.luxurytravelapplication.event.RefreshSweetAddEvent
+import com.sdy.luxurytravelapplication.event.UpdateFeaturedEvent
+import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.IndexContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexListBean
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexTopBean
@@ -88,17 +91,34 @@ class IndexFragment :
         mPresenter?.indexTop(hashMapOf())
     }
 
+
     private lateinit var indexListBean: IndexListBean
+    var isPlatinumVip = false
+    var mvUrl = false
     override fun indexTop(data: IndexListBean) {
         this.indexListBean = data
         peopleRecommendTopAdapter.setNewInstance(data.list)
         UserManager.gender = data.gender
         if ((data.gender == 1 && data.isplatinumvip) || (data.gender == 2 && data.mv_url)) {
-            binding.tobeSelectedBtn.isVisible = false
-            val params = (binding.recommendUsers.layoutParams as ConstraintLayout.LayoutParams)
-            params.leftMargin = SizeUtils.dp2px(5F)
+            binding.tobeSelectedBtn.isVisible = true
+            binding.tobeSelectedSubscript.isVisible = true
+            isPlatinumVip = data.isplatinumvip
+            mvUrl = data.mv_url
+            GlideUtil.loadRoundImgCenterCrop(
+                    activity!!,
+                    UserManager.avatar,
+                    binding.tobeSelectedBtn,
+                    SizeUtils.dp2px(15f)
+            )
+            binding.alreadyFeaturedAnimation.isVisible = true
+            binding.alreadyFeaturedAnimation.playAnimation()
+
+//            val params = (binding.recommendUsers.layoutParams as ConstraintLayout.LayoutParams)
+//            params.leftMargin = SizeUtils.dp2px(5F)
         } else {
             binding.tobeSelectedBtn.isVisible = true
+            binding.alreadyFeaturedAnimation.isVisible = false
+            binding.tobeSelectedSubscript.isVisible = false
             binding.recommendUsers.scrollToPosition(1)
         }
     }
@@ -109,7 +129,12 @@ class IndexFragment :
                 JoinLuxuryActivity.startJoinLuxuxy(activity!!, sweetProgressBean)
             }
             binding.tobeSelectedBtn -> {
-                ToBeSelectedDialog(false,indexListBean).show()
+                if ((UserManager.gender == 1 && isPlatinumVip) || (UserManager.gender == 2 && mvUrl)) {
+                    ToBeSelectedDialog(true,indexListBean).show()
+                }else{
+                    ToBeSelectedDialog(false,indexListBean).show()
+                }
+
             }
         }
 
@@ -129,4 +154,10 @@ class IndexFragment :
         if (FragmentUtils.getTopShow(requireFragmentManager()) is IndexLuxuryFragment)
             binding.addLuxuryCl.isVisible = !isHoney
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateFeaturedEvent(event: UpdateFeaturedEvent) {
+        mPresenter?.indexTop(hashMapOf())
+    }
+
+
 }
