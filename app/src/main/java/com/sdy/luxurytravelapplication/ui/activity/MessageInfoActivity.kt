@@ -85,6 +85,13 @@ class MessageInfoActivity :
             flStar.isVisible = isfriend
             friendStar.isChecked = star
             friendDelete.isVisible = isfriend
+            /**
+             * 判断用户是否需要消息提醒/免打扰
+             *
+             * @param account 用户帐号
+             * @return true表示需要提醒；false表示免打扰
+             */
+            friendNoBother.isChecked = !NIMClient.getService(FriendService::class.java).isNeedMessageNotify(account)
         }
     }
 

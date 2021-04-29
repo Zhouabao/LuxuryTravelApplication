@@ -135,7 +135,6 @@ class ChatActivity :
 
 
     override fun initData() {
-
         initSensor()
         val container = Container(this, sessionId, SessionTypeEnum.P2P, this, true)
         val anchor = intent.getSerializableExtra(EXTRA_ANCHOR) as IMMessage?
@@ -211,9 +210,9 @@ class ChatActivity :
             )
         }
         messageListPanel.onResume()
-        NIMClient.getService(MsgService::class.java)
-            .setChattingAccount(sessionId, SessionTypeEnum.P2P)
-        EventBus.getDefault().post(UpdateUnreadCntEvent())
+        NIMClient.getService(MsgService::class.java).clearUnreadCount(Constants.ASSISTANT_ACCID, SessionTypeEnum.P2P)
+        NIMClient.getService(MsgService::class.java).setChattingAccount(sessionId, SessionTypeEnum.P2P)
+        EventBus.getDefault().post(GetNewMsgEvent())
         volumeControlStream = AudioManager.STREAM_VOICE_CALL//默认使用听筒播放
     }
 

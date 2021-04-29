@@ -8,7 +8,9 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.msg.MsgService
@@ -37,7 +39,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.startActivity
 
 class MainActivity :
     BaseMvpActivity<MainContract.View, MainContract.Presenter, ActivityMainBinding>(),
@@ -92,7 +93,7 @@ class MainActivity :
 
     override fun initData() {
         NIMClient.getService(MsgServiceObserve::class.java)
-                .observeReceiveMessage(incomingMessageObserver, true)
+            .observeReceiveMessage(incomingMessageObserver, true)
         binding.apply {
             ClickUtils.applySingleDebouncing(
                 arrayOf(indexBtn, findBtn, messageBtn, travelBtn, mineBtn),
@@ -123,7 +124,6 @@ class MainActivity :
             }
         }
     }
-
 
 
     private var checkedPosition = -1
@@ -389,16 +389,14 @@ class MainActivity :
     }
 
     override fun onMsgListResult(allMsgCount: AllMsgCount) {
-        if (allMsgCount != null) {
-            //未读消息个数
-            val msgCount = NIMClient.getService(MsgService::class.java).totalUnreadCount
-            Log.d(
-                "msgcount", "msgcount = ${msgCount},likecount = ${allMsgCount.likecount}" +
-                        ",square_count = ${allMsgCount.square_count}"
-            )
+        //未读消息个数
+        val msgCount = NIMClient.getService(MsgService::class.java).totalUnreadCount
+        Log.d(
+            "msgcount", "msgcount = ${msgCount},likecount = ${allMsgCount.likecount}" +
+                    ",square_count = ${allMsgCount.square_count}"
+        )
 
-            showMsgDot(allMsgCount.square_count > 0 || msgCount > 0)
-        }
+        showMsgDot(allMsgCount.square_count > 0 || msgCount > 0)
     }
 
     override fun startupRecord() {

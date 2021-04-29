@@ -154,8 +154,7 @@ class MessageFragment :
                 R.id.content -> {
                     when (position) {
                         0 -> {//官方助手
-                            NIMClient.getService(MsgService::class.java)
-                                .clearUnreadCount(Constants.ASSISTANT_ACCID, SessionTypeEnum.P2P)
+
                             ChatActivity.start(activity!!, Constants.ASSISTANT_ACCID)
 
                         }

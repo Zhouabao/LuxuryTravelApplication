@@ -6,10 +6,13 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.databinding.ItemMessageListBinding
+import com.sdy.luxurytravelapplication.event.GetNewMsgEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.MessageGiftBean
@@ -21,6 +24,7 @@ import com.sdy.luxurytravelapplication.nim.common.util.sys.TimeUtil
 import com.sdy.luxurytravelapplication.nim.impl.NimUIKitImpl
 import com.sdy.luxurytravelapplication.ui.fragment.MessageFragment
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
+import org.greenrobot.eventbus.EventBus
 
 class MessageListAdapter :
     BaseBindingQuickAdapter<RecentContact, ItemMessageListBinding>(R.layout.item_message_list) {
@@ -85,7 +89,6 @@ class MessageListAdapter :
 
             ClickUtils.applySingleDebouncing(content){
                 ChatActivity.start(context,item.contactId)
-
             }
 //             NIMClient.getService(MsgService::class.java).clearUnreadCount(adapter.data[position].contactId, SessionTypeEnum.P2P)
 //                ChatActivity.start(activity!!, adapter.data[position].contactId)

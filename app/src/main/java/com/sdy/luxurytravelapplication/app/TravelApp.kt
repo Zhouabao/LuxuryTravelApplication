@@ -299,6 +299,7 @@ class TravelApp : Application() {
                 SnackBarFragment.CHAT_SUCCESS,
                 SnackBarFragment.GREET_SUCCESS,
                 SnackBarFragment.GIVE_GIFT -> {
+                    EventBus.getDefault().postSticky(GetNewMsgEvent())
                     if (ActivityUtils.getTopActivity() is MainActivity && (ActivityUtils.getTopActivity() as MainActivity).binding.vpMain.currentItem != 3)
                         SnackBarFragment.showAlert(customerMsgBean)
                 }
