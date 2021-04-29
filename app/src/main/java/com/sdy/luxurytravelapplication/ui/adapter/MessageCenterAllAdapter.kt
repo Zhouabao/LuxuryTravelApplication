@@ -31,6 +31,8 @@ class MessageCenterAllAdapter :
             if (position == data.lastIndex) {
                 (root.layoutParams as RecyclerView.LayoutParams).rightMargin =
                     SizeUtils.dp2px(36 + 10F)
+            } else {
+                (root.layoutParams as RecyclerView.LayoutParams).rightMargin = SizeUtils.dp2px(10F)
             }
             if (NIMClient.getService(MsgService::class.java)
                     .queryRecentContact(item.accid, SessionTypeEnum.P2P) != null
