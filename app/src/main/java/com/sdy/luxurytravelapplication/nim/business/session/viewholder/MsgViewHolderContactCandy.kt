@@ -1,8 +1,7 @@
 package com.sdy.luxurytravelapplication.nim.business.session.viewholder
 
-import android.view.LayoutInflater
+import android.widget.TextView
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.databinding.ItemContactCandyBinding
 import com.sdy.luxurytravelapplication.nim.attachment.ContactCandyAttachment
 import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
 
@@ -14,17 +13,21 @@ import com.sdy.luxurytravelapplication.nim.business.module.list.MsgAdapter
  */
 class MsgViewHolderContactCandy(msgAdapter1: MsgAdapter) : MsgViewHolderBase(msgAdapter1) {
     private val attachment by lazy { message.attachment as ContactCandyAttachment }
+
+    private lateinit var giftAmount: TextView
+
+
     override val contentResId: Int
         get() = R.layout.item_contact_candy
 
-    private lateinit var binding: ItemContactCandyBinding
+    //    private lateinit var binding: ItemContactCandyBinding
     override fun inflateContentView() {
-        binding =
-            ItemContactCandyBinding.inflate(LayoutInflater.from(context), contentContainer, true)
+//        binding = ItemContactCandyBinding.inflate(LayoutInflater.from(context), contentContainer, true)
+        giftAmount = findViewById(R.id.giftAmount)
     }
 
     override fun bindContentView() {
-        binding.giftAmount.text = "${attachment.contactCandy}旅券"
+        /*binding.*/giftAmount.text = "${attachment.contactCandy}旅券"
     }
 
     override fun leftBackground(): Int {

@@ -6,6 +6,7 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.databinding.NimMessageItemCustomTipBinding
@@ -23,22 +24,29 @@ import java.util.*
  *    version: 1.0
  */
 class MsgViewHolderSendCustomTip(adapter: MsgAdapter) : MsgViewHolderBase(adapter) {
+    private val attachment by lazy { message.attachment as SendCustomTipAttachment }
+    private lateinit var messageItemNotificationLabel: TextView
+
+
     override val contentResId: Int
         get() = R.layout.nim_message_item_custom_tip
 
-    private val attachment by lazy { message.attachment as SendCustomTipAttachment }
     private lateinit var binding: NimMessageItemCustomTipBinding
     override fun inflateContentView() {
-        binding = NimMessageItemCustomTipBinding.inflate(
-            LayoutInflater.from(context),
-            contentContainer,
-            true
-        )
+
+        // 初始化数据
+        messageItemNotificationLabel = view.findViewById(R.id.message_item_notification_label)
+
+//        binding = NimMessageItemCustomTipBinding.inflate(
+//            LayoutInflater.from(context),
+//            contentContainer,
+//            true
+//        )
     }
 
 
     override fun bindContentView() {
-        binding.apply {
+//        binding.apply {
             when (attachment.showType) {
                 SendCustomTipAttachment.CUSTOME_TIP_EXCHANGE_FOR_ASSISTANT -> {
                     val tokenizer = StringTokenizer(
@@ -113,7 +121,7 @@ class MsgViewHolderSendCustomTip(adapter: MsgAdapter) : MsgViewHolderBase(adapte
                         .create()
                 else -> messageItemNotificationLabel.setText(attachment.content)
             }
-        }
+//        }
     }
 
     override val isShowBubble: Boolean get() = false
