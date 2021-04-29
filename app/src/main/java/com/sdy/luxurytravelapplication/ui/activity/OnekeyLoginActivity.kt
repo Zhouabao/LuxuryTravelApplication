@@ -109,11 +109,12 @@ class OnekeyLoginActivity :
 
     private var data: LoginBean? = null
     override fun loginOrAllocResult(data: LoginBean?, code: Int) {
-        if (code==200) {
+        if (code == 200) {
             this.data = data
             mPresenter?.loginIM(LoginInfo(data!!.accid, data.extra_data.im_token))
-        }else if (code == 401) {
+        } else if (code == 401) {
             RegisterTooManyActivity.start(data?.countdown_time ?: 0, this)
+            OneKeyLoginManager.getInstance().setLoadingVisibility(false)
         } else {
             OneKeyLoginManager.getInstance().setLoadingVisibility(false)
         }

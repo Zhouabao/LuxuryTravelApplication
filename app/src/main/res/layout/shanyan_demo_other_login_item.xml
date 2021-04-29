@@ -76,6 +76,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="60dp"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <ImageView

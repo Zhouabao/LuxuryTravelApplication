@@ -18,7 +18,7 @@ class OnekeyLoginPresenter : BasePresenter<OnekeyLoginContract.Model, OnekeyLogi
 
     override fun createModel(): OnekeyLoginContract.Model? = OnekeyLoginModel()
     override fun loginOrAlloc(params: HashMap<String, Any>) {
-        mModel?.loginOrAlloc(params)?.ssss(mView, true) {
+        mModel?.loginOrAlloc(params)?.ssss(mView, false) {
             mView?.loginOrAllocResult(it.data, it.code)
         }
 
