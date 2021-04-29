@@ -113,7 +113,7 @@ class SweetHeartVerifyingActivity : BaseActivity<ActivitySweetHeartVerifyingBind
             EventBus.getDefault().post(FemaleVideoEvent(2))
         }
 
-        //更新甜心圈认证状态
+        //更新奢旅圈认证状态
         EventBus.getDefault().post(UpdateLuxuryEvent())
         finish()
 

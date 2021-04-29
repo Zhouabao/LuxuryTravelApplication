@@ -891,7 +891,7 @@
     <string name="chatup_chance_run_up">今日免费打招呼的机会已用完</string>
     <string name="unlock_chat_left">解锁聊天 （%1$d旅券）</string>
     <string name="cannot_contact_in_level">当前会员等级无法与她联系</string>
-    <string name="avoid_trouble_with_normal_vip">因避免恋爱圈用户被骚扰\n普通会员不能直接与恋爱圈用户建立联系</string>
+    <string name="avoid_trouble_with_normal_vip">因避免奢旅圈用户被骚扰\n普通会员不能直接与奢旅圈用户建立联系</string>
     <string name="tobe_gold_to_contact_her">升级高级会员，立即与她取得联系</string>
     <string name="her_level_privay">她设置了等级权限</string>
     <string name="she_allow_gold_contact_her">她仅允许高级会员联系她\n立即成为高级会员，不要错过她</string>
@@ -946,11 +946,11 @@
     <string name="cancel_black">取消拉黑</string>
 
 
-    <string name="meet_any_one_come_sweet">满足下列任意一个条件即可进入恋爱圈</string>
+    <string name="meet_any_one_come_sweet">满足下列任意一个条件即可进入奢旅圈</string>
     <string name="charge_more_than">充值金额大于 %1$s</string>
     <string name="pass_wealth_verify">通过财产认证</string>
     <string name="veriy_pass">认证通过</string>
-    <string name="reach_auto_in_sweet">达成要求自动进入恋爱圈</string>
+    <string name="reach_auto_in_sweet">达成要求自动进入奢旅圈</string>
     <string name="upload_verify_video">上传认证视频</string>
     <string name="verify_figure_or_job">认证职业或学历</string>
     <string name="join_now">立即加入</string>

@@ -142,7 +142,7 @@ class IndexFragment :
     }
 
     /**
-     * 刷新加入甜心圈显示
+     * 刷新加入奢旅圈显示
      */
     private var isHoney = false
     private var isInitialize = false

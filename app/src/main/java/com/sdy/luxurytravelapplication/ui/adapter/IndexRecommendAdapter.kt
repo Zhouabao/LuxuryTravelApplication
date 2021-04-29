@@ -3,22 +3,15 @@ package com.sdy.luxurytravelapplication.ui.adapter
 import android.graphics.Color
 import android.os.Handler
 import android.text.TextUtils
-import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.sdy.luxurytravelapplication.R
-import com.sdy.luxurytravelapplication.databinding.DialogTodayHasDatingBinding
 import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
-import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
-import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
-import com.sdy.luxurytravelapplication.ui.dialog.PublishDatingDialog
-import com.sdy.luxurytravelapplication.ui.dialog.TodayHasDatingDialog
 import com.sdy.luxurytravelapplication.viewbinding.BaseBindingQuickAdapter
 
 /**
@@ -43,7 +36,7 @@ class IndexRecommendAdapter :
             userVideoIcon.isVisible = item.mv_btn
             userTravelPlace.isVisible = item.dating_content.isNotEmpty()
             userTravelPlace.text = item.dating_content
-            if(userTravelPlace.isVisible){
+            if (userTravelPlace.isVisible) {
                 //延迟启动跑马灯 避免一进去因为赋值问题导致设置的属性不起作用
                 Handler().postDelayed({
                     userTravelPlace.ellipsize = TextUtils.TruncateAt.MARQUEE
@@ -113,7 +106,12 @@ class IndexRecommendAdapter :
             }
 
             SpanUtils.with(userBasicInfo).append(item.distance)
-                .setForegroundColor(context.resources.getColor(R.color.colorAccent))
+                .setForegroundColor(
+                    if (item.distance == "在你身边")
+                        context.resources.getColor(R.color.colorAccent)
+                    else
+                        Color.parseColor("#FFB6BCC6")
+                )
                 .setBold()
                 .append(
                     if (item.distance.isNotEmpty()) {

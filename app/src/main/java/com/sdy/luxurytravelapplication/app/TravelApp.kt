@@ -101,23 +101,24 @@ class TravelApp : Application() {
             layout.setPrimaryColorsId(R.color.colorWhite)
                 .setReboundDuration(200)
                 .setEnableHeaderTranslationContent(false)
-                .setDisableContentWhenRefresh(true)
-                .setEnableLoadMoreWhenContentNotFull(false)
-                .setDisableContentWhenLoading(true)
+//                .setDisableContentWhenRefresh(true)
+//                .setEnableLoadMoreWhenContentNotFull(false)
+//                .setDisableContentWhenLoading(true)
         }
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
             layout.setPrimaryColorsId(R.color.colorWhite)
                 .setReboundDuration(200)
-                .setDisableContentWhenRefresh(true)
-                .setDisableContentWhenLoading(true)
+//                .setDisableContentWhenRefresh(true)
+//                .setDisableContentWhenLoading(true)
             MaterialHeader(context).setColorSchemeResources(R.color.colorAccent)
         }
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
             layout.setPrimaryColorsId(R.color.colorWhite)
                 .setReboundDuration(200)
-                .setDisableContentWhenRefresh(true)
-                .setDisableContentWhenLoading(true)
-                .setEnableScrollContentWhenLoaded(true)
+                .setEnableAutoLoadMore(false)
+//                .setDisableContentWhenRefresh(false)
+//                .setDisableContentWhenLoading(false)
+//                .setEnableScrollContentWhenLoaded(false)
             ClassicsFooter(context).setFinishDuration(200).setDrawableSize(20F)
         }
 

@@ -120,7 +120,7 @@ class AnnounceEvent(var serverSuccess: Boolean = false, var code: Int = 0)
 class RePublishEvent(var republish: Boolean, val context: String)
 
 
-//刷新加入甜心圈显示
+//刷新加入奢旅圈显示
 class RefreshSweetAddEvent(val isHoney: Boolean = false, val sweetProgressBean: SweetProgressBean)
 
 
@@ -191,7 +191,7 @@ class RefreshCandyMessageEvent(val orderId: Int, val state: Int)
 
 class UpdateBlackEvent()
 
-//刷新甜心圈认证状态
+//刷新奢旅圈认证状态
 class UpdateLuxuryEvent()
 
 //刷新精选用户状态

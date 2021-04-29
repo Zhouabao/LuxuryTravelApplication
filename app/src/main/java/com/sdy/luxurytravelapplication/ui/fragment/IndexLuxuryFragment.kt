@@ -93,7 +93,7 @@ class IndexLuxuryFragment :
                 EventBus.getDefault().post(RefreshSweetAddEvent(data.is_honey, data.progress))
             }
 
-            if (binding.refreshLuxury.state == RefreshState.Refreshing) {
+            if (binding.refreshLuxury.state != RefreshState.Refreshing) {
                 adapter.setNewInstance(data.list)
                 binding.luxuryRv.smoothScrollToPosition(0)
                 if (isHoney) {

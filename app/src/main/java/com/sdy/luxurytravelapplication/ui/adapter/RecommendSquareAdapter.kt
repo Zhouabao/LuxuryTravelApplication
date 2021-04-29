@@ -90,6 +90,7 @@ class RecommendSquareAdapter(var mine: Boolean = false) :
                     squareDistanceLl.isVisible = true
                     squareDistance.text = context.getString(R.string.recommend)
                 }
+                squareContent.setTextColor(Color.parseColor("#ff191919"))
             }
 
 

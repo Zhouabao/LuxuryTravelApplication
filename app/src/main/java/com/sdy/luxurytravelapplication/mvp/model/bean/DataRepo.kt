@@ -182,7 +182,7 @@ data class SquareBean(
     var title_list: MutableList<TopicBean>? = mutableListOf(),
     var approve_type: Int = 0,// 0普通 1资产认证 2豪车认证 3 身材认证 4 职业认证  5高额充值
     val assets_audit_descr: String = "",
-    var issweet: Boolean = true//是否是甜心圈
+    var issweet: Boolean = true//是否是奢旅圈
 ) : Serializable {
     companion object {
         const val TEXT = 0
@@ -247,7 +247,7 @@ data class ChatInfoBean(
     var unlock_contact_way: Int = 0, //是否有联系方式
     var unlock_popup_str: String = "", //	我是否被别人解锁弹框 大于0 弹框显示旅券数目
     var is_unlock_contact: Boolean = false,//是否解锁过联系方式
-    var target_ishoney: Boolean = false//	true 是甜心圈 fals 不是甜心圈
+    var target_ishoney: Boolean = false//	true 是奢旅圈 fals 不是奢旅圈
 
 )
 
@@ -481,7 +481,7 @@ data class IndexTopBean(
 }
 
 /**
- * 甜心圈进度
+ * 奢旅圈进度
  */
 data class SweetProgressBean(
     var now_money: String = "0",
@@ -850,7 +850,7 @@ data class DatingBean(
  * 首页数据
  */
 data class IndexBean(
-    var assets_audit_way: Int = 0,//0 不是甜心圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
+    var assets_audit_way: Int = 0,//0 不是奢旅圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
     var contact_way: Int = 0,//	0没有留下联系方式 1 电话 2 微信 3 qq 99隐藏
     var face_type: Int = 0,  //	0没有认证 1活体 2 真人 3 颜值 4奢旅
     var accid: String = "",

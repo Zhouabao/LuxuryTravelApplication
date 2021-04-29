@@ -71,7 +71,7 @@ class AccostListAdapter :
                 )
             newCount.isVisible = item.unreadCnt > 0
 
-            //0 不是甜心圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
+            //0 不是奢旅圈 1 资产认证 2豪车认证 3身材 4职业  5高额充值
             val extensionMap: Map<String, Any>? =
                 (NimUIKit.getUserInfoProvider()
                     .getUserInfo(item.accid) as NimUserInfo?)?.extensionMap

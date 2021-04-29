@@ -1040,7 +1040,7 @@ interface ApiService {
 
 
     /**
-     * 男性加入甜心圈
+     * 男性加入奢旅圈
      *
      */
     @FormUrlEncoded
@@ -1049,7 +1049,7 @@ interface ApiService {
 
 
     /**
-     * 甜心圈上传认证
+     * 奢旅圈上传认证
      *
      */
     @FormUrlEncoded
