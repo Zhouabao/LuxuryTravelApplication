@@ -67,7 +67,7 @@ class TravelDetailActivity :
     private var travelPlanBean: TravelPlanBean? = null
     private val dating_id by lazy { intent.getIntExtra("dating_id", -1) }
 
-
+    var enable = true
     override fun initData() {
         travelPlanBean = intent.getSerializableExtra("TravelPlanBean") as TravelPlanBean?
         binding.apply {
@@ -149,11 +149,11 @@ class TravelDetailActivity :
             showCommentEt.setHorizontallyScrolling(false)
             showCommentEt.maxLines = 2
             showCommentEt.setOnEditorActionListener { v, actionId, event ->
-                if (actionId == EditorInfo.IME_ACTION_SEND && showCommentEt.text.trim()
+                if (enable && actionId == EditorInfo.IME_ACTION_SEND && showCommentEt.text.trim()
                         .isNotEmpty()
                 ) {
-                    ToastUtil.toast(binding.showCommentEt.text.toString())
-                    if (travelPlanBean != null)
+                    if (travelPlanBean != null) {
+                        enable = false
                         mPresenter?.addCommentPlan(
                             hashMapOf(
                                 "dating_id" to travelPlanBean!!.id,
@@ -161,7 +161,8 @@ class TravelDetailActivity :
                                 "reply_id" to reply_id
                             )
                         )
-                    false
+                        false
+                    } else true
                 } else
                     true
             }
@@ -385,6 +386,7 @@ class TravelDetailActivity :
      * 重置输入框，清除焦点，隐藏键盘
      */
     private fun resetCommentEt() {
+        enable = true
         reply = false
         reply_id = 0
         binding.showCommentEt.clearFocus()

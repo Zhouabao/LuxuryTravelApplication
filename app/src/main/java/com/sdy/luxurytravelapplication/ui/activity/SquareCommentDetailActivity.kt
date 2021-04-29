@@ -105,6 +105,7 @@ class SquareCommentDetailActivity :
     }
 
 
+    var enable = true
     override fun initData() {
         binding.apply {
             mLayoutStatusView = binding.root
@@ -176,16 +177,20 @@ class SquareCommentDetailActivity :
             showCommentEt.setHorizontallyScrolling(false)
             showCommentEt.maxLines = 2
             showCommentEt.setOnEditorActionListener { v, actionId, event ->
-                if (actionId == EditorInfo.IME_ACTION_SEND && showCommentEt.text.trim().isNotEmpty()
+                if (enable && actionId == EditorInfo.IME_ACTION_SEND && showCommentEt.text.trim()
+                        .isNotEmpty()
                 ) {
-                    mPresenter?.addComment(
-                        hashMapOf(
-                            "square_id" to squareBean!!.id!!,
-                            "content" to binding.showCommentEt.text.toString(),
-                            "reply_id" to reply_id
+                    if (squareBean != null) {
+                        enable = false
+                        mPresenter?.addComment(
+                            hashMapOf(
+                                "square_id" to squareBean!!.id!!,
+                                "content" to binding.showCommentEt.text.toString(),
+                                "reply_id" to reply_id
+                            )
                         )
-                    )
-                    false
+                        false
+                    } else true
                 } else
                     true
             }
@@ -823,6 +828,7 @@ class SquareCommentDetailActivity :
      * 重置输入框，清除焦点，隐藏键盘
      */
     private fun resetCommentEt() {
+        enable = true
         reply = false
         reply_id = 0
         binding.showCommentEt.clearFocus()
