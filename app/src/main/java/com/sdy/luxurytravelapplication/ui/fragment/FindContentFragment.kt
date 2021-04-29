@@ -1,12 +1,11 @@
 package com.sdy.luxurytravelapplication.ui.fragment
 
-import android.util.Log
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.LogUtils
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
@@ -25,7 +24,6 @@ import com.sdy.luxurytravelapplication.ui.activity.FindAllTagActivity
 import com.sdy.luxurytravelapplication.ui.activity.TagDetailCategoryActivity
 import com.sdy.luxurytravelapplication.ui.adapter.RecommendSquareAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.SquareHeadTopicAdapter
-import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
@@ -54,6 +52,7 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     private val adapter by lazy { RecommendSquareAdapter() }
     private val topicAdapter by lazy { SquareHeadTopicAdapter() }
     private var page = 1
+    private var isLoadingMore = false
 
     //请求广场的参数 TODO要更新tagid
     private val params by lazy {
@@ -75,6 +74,34 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
             findRv.adapter = adapter
             adapter.setEmptyView(R.layout.layout_empty_view)
             adapter.headerWithEmptyEnable = true
+            findRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val range = intArrayOf(0, 0)
+                    val first = intArrayOf(0, 0)
+                    manager.findFirstVisibleItemPositions(first)
+                    val last = intArrayOf(0, 0)
+                    manager.findLastVisibleItemPositions(last)
+                    range[1] = first[0]
+                    last.sort()
+                    range[1] = last.last()
+                    LogUtils.d("first = ${first.contentToString()}")
+                    LogUtils.d("last = ${last.contentToString()}")
+                    LogUtils.d("range = ${range.contentToString()}")
+                    val lastVisible = range[1] - range[0]
+                    LogUtils.d("lastVisible = $lastVisible")
+                    if (lastVisible >= adapter.data.size - 5 && dy > 0) {
+                        if (!isLoadingMore) {
+                            if (adapter.data.size == Constants.PAGESIZE * page) {
+                                onLoadMore(refreshFind)
+                                isLoadingMore = true
+                            } else {
+                                refreshFind.finishLoadMoreWithNoMoreData()
+                            }
+                        }
+                    }
+                }
+            })
 //            adapter.isUseEmpty = false
         }
     }
@@ -159,11 +186,11 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
         if (adapter.data.isEmpty()) {
             adapter.isUseEmpty = true
         }
-
+        isLoadingMore = false
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun monRefreshDeleteSquareEvent(event : RefreshDeleteSquareEvent){
+    fun monRefreshDeleteSquareEvent(event: RefreshDeleteSquareEvent) {
         binding.refreshFind.autoRefresh()
     }
 
@@ -175,10 +202,9 @@ class FindContentFragment(val type: Int = TYPE_RECOMMEND) :
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRefreshLikeEvent(event: RefreshLikeEvent) {
-        val dataPosition = event.position-adapter.headerLayoutCount
+        val dataPosition = event.position - adapter.headerLayoutCount
         adapter.getItem(event.position)
         if (event.position != -1 && event.squareId == adapter.data[dataPosition].id) {
             adapter.data[dataPosition].originalLike = event.isLike == 1
