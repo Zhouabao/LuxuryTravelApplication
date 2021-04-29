@@ -4,6 +4,7 @@ import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sdy.luxurytravelapplication.R
+import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ItemMyCommentBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.MyCommentBean
@@ -16,9 +17,9 @@ class MyCommentAdapter :
     override fun convert(binding: ItemMyCommentBinding, position: Int, item: MyCommentBean) {
         binding.apply {
 
-            GlideUtil.loadCircleImg(context, item.avatar, footIcon)
-            footContent.text = item.reply_content
-            footNickname.text = item.replyed_nickname
+            GlideUtil.loadCircleImg(context, UserManager.avatar, footIcon)
+            footContent.text = item.content
+            footNickname.text = UserManager.nickname
             footTime.text = item.create_time
             findContent.text = item.square_descr
             findUserName.text = item.nickname
