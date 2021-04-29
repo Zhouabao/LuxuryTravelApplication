@@ -1,6 +1,10 @@
 package com.sdy.luxurytravelapplication.ui.adapter
 
 import android.graphics.Color
+import android.os.Handler
+import android.text.TextUtils
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -10,6 +14,7 @@ import com.sdy.luxurytravelapplication.databinding.DialogTodayHasDatingBinding
 import com.sdy.luxurytravelapplication.databinding.ItemIndexRecommendBinding
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.model.bean.IndexBean
+import com.sdy.luxurytravelapplication.nim.business.session.activity.ChatActivity
 import com.sdy.luxurytravelapplication.ui.activity.TargetUserActivity
 import com.sdy.luxurytravelapplication.ui.dialog.AccountDangerDialog
 import com.sdy.luxurytravelapplication.ui.dialog.PublishDatingDialog
@@ -36,6 +41,19 @@ class IndexRecommendAdapter :
             userNickname.text = item.nickname
             userSign.text = item.sign
             userVideoIcon.isVisible = item.mv_btn
+            userTravelPlace.isVisible = item.dating_content.isNotEmpty()
+            userTravelPlace.text = item.dating_content
+            if(userTravelPlace.isVisible){
+                //延迟启动跑马灯 避免一进去因为赋值问题导致设置的属性不起作用
+                Handler().postDelayed({
+                    userTravelPlace.ellipsize = TextUtils.TruncateAt.MARQUEE
+                    userTravelPlace.maxLines = 1
+                    userTravelPlace.isSelected = true
+                    userTravelPlace.isFocusable = true
+                    userTravelPlace.isFocusableInTouchMode = true
+                    userTravelPlace.marqueeRepeatLimit = -1
+                }, 500L)
+            }
             GlideUtil.loadRoundImgCenterCrop(context, item.avatar, userAvatar, SizeUtils.dp2px(10f))
             userVerifyLevel.isVisible = item.face_type == 2 || item.face_type == 3
             //	0没有认证 1活体 2 真人 3 颜值 4奢旅
