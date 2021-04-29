@@ -199,13 +199,13 @@ class SettingsActivity :
                     getString(R.string.ok),
                     getString(R.string.cancel)
                 )
-                    .setButtonPositiveTextInfo(TextInfo().setFontColor(Color.parseColor("#FF94AEFF")))
-                    .setButtonTextInfo(TextInfo().setFontColor(Color.parseColor("#FFC6CAD4")))
                     .setCancelable(false)
                     .setOnOkButtonClickListener { baseDialog, v ->
                         CommonFunction.loginOut(this)
                         false
                     }
+                    .setButtonPositiveTextInfo(TextInfo().setFontColor(Color.parseColor("#1ED0A7")))
+                    .setButtonTextInfo(TextInfo().setFontColor(Color.parseColor("#FFB6BCC6")))
 
             }
 

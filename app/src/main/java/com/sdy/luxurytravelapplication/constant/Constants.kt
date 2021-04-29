@@ -23,6 +23,7 @@ object Constants {
     const val END_BASE_URL_v2 = "/v2.json"
     const val PRIVACY_URL = "${BASE_URL}protocol/privacyProtocol${END_BASE_URL}"//
     const val PROTOCOL_URL = "${BASE_URL}protocol/userProtocol${END_BASE_URL}"//
+    const val WELCOME_MV_URL = "http://upload.slapp.talkdating.cn/619landing2.mov"//
 
     //    ppns/文件类型名/用户ID/当前时间戳/16位随机字符串
     const val FILE_NAME_INDEX = "ppsns/"

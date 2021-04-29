@@ -1,14 +1,15 @@
 package com.sdy.luxurytravelapplication.ui.activity
 
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
+import com.kongzue.dialog.util.TextInfo
+import com.kongzue.dialog.v3.MessageDialog
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
-import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMyInviteBinding
 import com.sdy.luxurytravelapplication.mvp.contract.MyInviteContract
-import com.sdy.luxurytravelapplication.mvp.model.bean.Invite
 import com.sdy.luxurytravelapplication.mvp.model.bean.MyInviteBean
 import com.sdy.luxurytravelapplication.mvp.presenter.MyInvitePresenter
 import com.sdy.luxurytravelapplication.ui.adapter.InviteUserAvatorAdater
@@ -87,34 +88,30 @@ class MyInviteActivity :
         when (v) {
             binding.inviteBtn,
             binding.inviteBtn1 -> {
+                if (myInviteBean != null && myInviteBean!!.residue_cnt > 0) {
                     showShareDialog()
-//                if (myInviteBean != null && myInviteBean!!.residue_cnt > 0) {
-//                    showShareDialog()
-//                    //todo 立即邀请
-//                } else {
-//                    MessageDialog.show(this, "邀请提示", "您当前没有邀请码，立即充值获得邀请码", "立即充值", "取消")
-//                        .setOnOkButtonClickListener { _, v ->
-//                            CandyRechargeActivity.gotoCandyRecharge(
-//                                this,
-//                                CandyRechargeActivity.TYPE_INVITE
-//                            )
-//                            false
-//                        }
-//                        .setOnCancelButtonClickListener { _, v ->
-//                            false
-//                        }
-//                        .setButtonPositiveTextInfo(TextInfo().setFontColor(Color.parseColor("#1ED0A7")))
-//                        .setButtonTextInfo(TextInfo().setFontColor(Color.parseColor("#FFB6BCC6")))
-//
-//                }
+                } else {
+                    MessageDialog.show(this, "邀请提示", "您当前没有邀请码，立即充值获得邀请码", "立即充值", "取消")
+                        .setOnOkButtonClickListener { _, v ->
+                            CandyRechargeActivity.gotoCandyRecharge(
+                                this,
+                                CandyRechargeActivity.TYPE_INVITE
+                            )
+                            false
+                        }
+                        .setOnCancelButtonClickListener { _, v ->
+                            false
+                        }
+                        .setButtonPositiveTextInfo(TextInfo().setFontColor(Color.parseColor("#1ED0A7")))
+                        .setButtonTextInfo(TextInfo().setFontColor(Color.parseColor("#FFB6BCC6")))
+
+                }
             }
             binding.purchaseBtn -> {
                 CandyRechargeActivity.gotoCandyRecharge(this, CandyRechargeActivity.TYPE_INVITE)
             }
         }
     }
-
-
 
 
     /**
@@ -124,13 +121,14 @@ class MyInviteActivity :
 //    lateinit var moreActionDialog: MoreActionNewDialog
     private fun showShareDialog() {
 //        moreActionDialog =
-            MoreActionNewDialog(this,
-                url = myInviteBean!!.invite_url,
-                type = MoreActionNewDialog.TYPE_SHARE_VIP_URL,
-                title = myInviteBean!!.invite_title,
-                content = myInviteBean!!.invite_descr,
-                pic = myInviteBean!!.invite_pic
-            ).showDialog()
+        MoreActionNewDialog(
+            this,
+            url = myInviteBean!!.invite_url,
+            type = MoreActionNewDialog.TYPE_SHARE_VIP_URL,
+            title = myInviteBean!!.invite_title,
+            content = myInviteBean!!.invite_descr,
+            pic = myInviteBean!!.invite_pic
+        ).showDialog()
 //        moreActionDialog.show()
 //
 //        moreActionDialog.binding.report.isVisible = false

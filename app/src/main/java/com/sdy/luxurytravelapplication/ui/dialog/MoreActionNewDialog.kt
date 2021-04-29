@@ -227,7 +227,7 @@ class MoreActionNewDialog(
     }
 
     public fun showDialog() {
-        DialogSettings.init()
+//        DialogSettings.init()
 //        DialogSettings.checkRenderscriptSupport(context)
         DialogSettings.style = DialogSettings.STYLE.STYLE_MIUI
         val itemList = arrayListOf<ShareDialog.Item>()
