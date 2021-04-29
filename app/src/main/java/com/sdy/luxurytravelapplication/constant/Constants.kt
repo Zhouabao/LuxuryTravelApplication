@@ -12,7 +12,7 @@ object Constants {
     const val NIM_APP_KEY = "789f6cf551ec789fbe39b0a4ea68c951"//测试1
 
     //  生产
-//    const val BASE_URL = "https://ppsns.duluduludala.com/ppsns/"
+//    const val BASE_URL = "https://slapp.talkdating.cn/"
 //    const val NIM_APP_KEY = "8556d54f7f6f3453efd7713dba23f852"//正式
 
     //是否处于测试环境
@@ -21,8 +21,8 @@ object Constants {
 
     const val END_BASE_URL = "/v1.json"
     const val END_BASE_URL_v2 = "/v2.json"
-    const val PRIVACY_URL = "${BASE_URL}Protocol/privacyProtocol${END_BASE_URL}"//
-    const val PROTOCOL_URL = "${BASE_URL}Protocol/userProtocol${END_BASE_URL}"//
+    const val PRIVACY_URL = "${BASE_URL}protocol/privacyProtocol${END_BASE_URL}"//
+    const val PROTOCOL_URL = "${BASE_URL}protocol/userProtocol${END_BASE_URL}"//
 
     //    ppns/文件类型名/用户ID/当前时间戳/16位随机字符串
     const val FILE_NAME_INDEX = "ppsns/"

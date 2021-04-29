@@ -1,6 +1,5 @@
 package com.sdy.luxurytravelapplication.constant
 
-import com.qiniu.android.common.FixedZone
 import com.qiniu.android.storage.Configuration
 import com.qiniu.android.storage.UploadManager
 
@@ -24,5 +23,21 @@ object QNUploadManager {
     fun getInstance(): UploadManager {
         return UploadManager(getConfiguration())
     }
+
+
+    /**
+     * ?vframe/jpg/offset/1
+     * 末位的数字1代表截取第一秒，可自定义
+     */
+    fun getCoverUrl(mvUrl: String) = "$mvUrl?vframe/jpg/offset/1"
+
+
+    /**
+     * ?vframe/jpg/offset/1/w/200/h/150
+     * 末位的数字1代表截取第一秒，可自定义 其中w/200代表宽200PX，h/150代表高150px.
+     */
+    fun getCoverUrlWithWH(mvUrl: String, width: Int, height: Int) =
+        "$mvUrl?vframe/jpg/offset/1/w/$width/h/$height "
+
 
 }
