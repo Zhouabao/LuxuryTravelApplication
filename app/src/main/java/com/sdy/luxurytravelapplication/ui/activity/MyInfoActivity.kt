@@ -658,7 +658,7 @@ class MyInfoActivity :
         val endDate = Calendar.getInstance()
         startDate.set(endDate.get(Calendar.YEAR) - 50, 0, 1)
         endDate.set(
-            endDate.get(Calendar.YEAR) - 18,
+            endDate.get(Calendar.YEAR) - 16,
             endDate.get(Calendar.MONTH),
             endDate.get(Calendar.DATE)
         )

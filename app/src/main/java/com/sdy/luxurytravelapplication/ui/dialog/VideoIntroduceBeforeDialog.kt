@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ActivityUtils
 import com.sdy.luxurytravelapplication.R
@@ -84,25 +85,23 @@ class VideoIntroduceBeforeDialog(
     private fun setVideoView() {
         binding.apply {
             if (copyMvBean != null && !copyMvBean?.mv_url.isNullOrEmpty()) {
-                videoCover.isVisible = true
-                videoPlay.isVisible = true
                 avator.isVisible = false
+                videoPlay.isVisible = true
                 playVideo()
+            } else {
                 GlideUtil.loadImg(
                     context1,
-                    copyMvBean?.mv_url_cover ?: "",
-                    videoCover
+                    UserManager.avatar,
+                    avator
                 )
-            } else {
-                videoCover.isVisible = false
-                videoPlay.isVisible = false
+                videoStandard.isInvisible = true
                 avator.isVisible = true
+                videoPlay.isVisible = true
             }
         }
     }
 
     private fun playVideo() {
-
         binding.videoStandard.setUp(copyMvBean?.mv_url ?: "", true, "")
         binding.videoStandard.startPlayLogic()
     }

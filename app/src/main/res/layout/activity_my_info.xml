@@ -339,7 +339,7 @@
 
             <TextView
                 android:id="@+id/userScore20"
-                android:layout_width="53dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="61dp"
@@ -349,7 +349,7 @@
                 android:gravity="center"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                android:text="0%"
+                tools:text="1%"
                 android:textColor="@color/white"
                 android:textSize="11sp"
                 android:textStyle="bold" />

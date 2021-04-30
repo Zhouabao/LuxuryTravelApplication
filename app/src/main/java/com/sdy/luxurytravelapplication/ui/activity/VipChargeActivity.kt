@@ -50,6 +50,9 @@ class VipChargeActivity :
                 checkTab(0)
                 rvVip.currentItem = 0
             }
+            backBtn.setOnClickListener{
+                finish()
+            }
             tabPtVip.setOnClickListener {
                 checkTab(1)
                 rvVip.currentItem = 1

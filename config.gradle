@@ -111,8 +111,8 @@ ext {
             "gsyjava"                     : 'com.shuyu:gsyVideoPlayer-java:8.1.0',
             "gsy-armv7a"                  : 'com.shuyu:gsyVideoPlayer-armv7a:8.1.0',
             "gsy-arm64"                   : 'com.shuyu:gsyVideoPlayer-arm64:8.1.0',
-            "gsy-x64"                     : 'com.shuyu:gsyVideoPlayer-x64:8.1.0',
-            "gsy-x86"                     : 'com.shuyu:gsyVideoPlayer-x86:8.1.0',
+//            "gsy-x64"                     : 'com.shuyu:gsyVideoPlayer-x64:8.1.0',
+//            "gsy-x86"                     : 'com.shuyu:gsyVideoPlayer-x86:8.1.0',
             //友盟统计
             "umeng-common"                : 'com.umeng.umsdk:common:9.3.3',
             "umeng-asms"                  : 'com.umeng.umsdk:asms:1.1.3', // asms包依赖(必选)

@@ -46,6 +46,7 @@
             android:hint="@string/contact_input"
             android:inputType="text"
             android:lines="1"
+            android:maxLength="20"
             android:textColor="#ff191919"
             android:textColorHint="#ffc5c6c8"
             android:textSize="14sp"
