@@ -1,35 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.sdy.luxurytravelapplication.widgets.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:emptyView="@layout/layout_empty_view"
-    app:errorView="@layout/layout_error_view"
-    app:loadingView="@layout/layout_loading_view"
-    app:noNetworkView="@layout/layout_network_view">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_luxury"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_luxury"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/luxuryRv"
+            style="@style/RecyclerViewStyle"
+            tools:listitem="@layout/item_index_luxury" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/luxuryRv"
-                style="@style/RecyclerViewStyle"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:listitem="@layout/item_index_luxury" />
-
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 
 </com.sdy.luxurytravelapplication.widgets.MultipleStatusView>

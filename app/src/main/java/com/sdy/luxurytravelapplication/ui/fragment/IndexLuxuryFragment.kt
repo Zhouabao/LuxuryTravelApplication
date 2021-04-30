@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -49,13 +50,14 @@ class IndexLuxuryFragment :
             refreshLuxury.setOnRefreshLoadMoreListener(this@IndexLuxuryFragment)
             luxuryRv.layoutManager = linearLayoutManager
             luxuryRv.adapter = adapter
+            adapter.setEmptyView(R.layout.layout_empty_view)
             luxuryRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (isHoney) {
                         val lastVisible = linearLayoutManager.findLastVisibleItemPosition()
                         val total = linearLayoutManager.itemCount
-                        if (lastVisible >= total - 5 && dy > 0) {
+                        if (total > 0 && lastVisible >= total - 5 && dy > 0) {
                             if (!isLoadingMore) {
                                 if (adapter.data.size == Constants.PAGESIZE * page) {
                                     onLoadMore(binding.refreshLuxury)
@@ -86,16 +88,12 @@ class IndexLuxuryFragment :
             mLayoutStatusView?.showContent()
             isHoney = data.is_honey
             progressBean = data.progress
-
-
             if (binding.refreshLuxury.state != RefreshState.Loading) {
                 //更新奢旅圈状态
                 EventBus.getDefault().post(RefreshSweetAddEvent(data.is_honey, data.progress))
-            }
-
-            if (binding.refreshLuxury.state != RefreshState.Refreshing) {
                 adapter.setNewInstance(data.list)
-                binding.luxuryRv.smoothScrollToPosition(0)
+                if (adapter.data.size > 0)
+                    binding.luxuryRv.smoothScrollToPosition(0)
                 if (isHoney) {
                     if (adapter.data.size < Constants.PAGESIZE * page) {
                         binding.refreshLuxury.finishRefreshWithNoMoreData()
@@ -108,10 +106,14 @@ class IndexLuxuryFragment :
 
             } else {
                 adapter.addData(data.list)
-//                if (adapter.data.size < Constants.PAGESIZE * page)
-//                    binding.refreshLuxury.finishLoadMoreWithNoMoreData()
-//                else
-                binding.refreshLuxury.finishLoadMore(true)
+                if (isHoney && adapter.data.size < Constants.PAGESIZE * page) {
+                    binding.refreshLuxury.finishLoadMoreWithNoMoreData()
+                } else {
+                    binding.refreshLuxury.finishLoadMore(true)
+                }
+            }
+            if (adapter.data.isEmpty()) {
+                adapter.isUseEmpty = true
             }
 
             //保存 VIP信息

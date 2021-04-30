@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
@@ -44,14 +45,33 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
         )
     }
 
+    var isLoadingMore = false
     override fun initView(view: View) {
         super.initView(view)
         binding.apply {
             mLayoutStatusView = root
             refreshIndex.setOnRefreshLoadMoreListener(this@IndexRecommendFragment)
-            recyclerView.layoutManager =
-                LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+            val linearLayoutManager = LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+            recyclerView.layoutManager = linearLayoutManager
             recyclerView.adapter = adapter
+            adapter.setEmptyView(R.layout.layout_empty_view)
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lastVisible = linearLayoutManager.findLastVisibleItemPosition()
+                    val total = linearLayoutManager.itemCount
+                    if (lastVisible >= total - 5 && dy > 0) {
+                        if (!isLoadingMore) {
+                            if (adapter.data.size == Constants.PAGESIZE * page) {
+                                onLoadMore(binding.refreshIndex)
+                                isLoadingMore = true
+                            } else {
+                                binding.refreshIndex.finishLoadMoreWithNoMoreData()
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -96,7 +116,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
             }
             if (type == TYPE_RECOMMEND && !(UserManager.getAccountDanger() || UserManager.getAccountDangerAvatorNotPass())) {
                 if (indexRecommendBean.complete_percent < indexRecommendBean.complete_percent_normal && !showComplete) {
-                    CompleteInfoDialog(indexRecommendBean,indexRecommends).show()
+                    CompleteInfoDialog(indexRecommendBean, indexRecommends).show()
                     showComplete = true
                 } else if (!indexRecommends?.list.isNullOrEmpty() && indexRecommends?.today_pull == false && !UserManager.showIndexRecommend) {
                     if (UserManager.gender == 2) {
@@ -105,7 +125,7 @@ class IndexRecommendFragment(val type: Int = TYPE_RECOMMEND) :
                 }
             }
         }
-
+        isLoadingMore = false
     }
 
     private var indexRecommends: TodayFateBean? = null
