@@ -2,7 +2,6 @@ package com.sdy.luxurytravelapplication.ui.fragment
 
 import android.graphics.Color
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,10 +17,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpFragment
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.FragmentMineBinding
-import com.sdy.luxurytravelapplication.event.FemaleVerifyEvent
-import com.sdy.luxurytravelapplication.event.FemaleVideoEvent
-import com.sdy.luxurytravelapplication.event.UserCenterContactEvent
-import com.sdy.luxurytravelapplication.event.UserCenterEvent
+import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.UserCenterContract
@@ -30,6 +26,7 @@ import com.sdy.luxurytravelapplication.mvp.presenter.UserCenterPresenter
 import com.sdy.luxurytravelapplication.ui.activity.*
 import com.sdy.luxurytravelapplication.ui.adapter.MainPagerAdapter
 import com.sdy.luxurytravelapplication.ui.adapter.VisitUserAvatorAdater
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
@@ -207,7 +204,7 @@ class UserCenterFragment :
                     UserManager.avatar = userinfo!!.avatar
                     UserManager.isvip = userinfo.isplatinum
                     UserManager.isPtvip = userinfo.isdirectvip
-
+                    EventBus.getDefault().post(UpdateTabAvatarEvent())
 
                     shareBtn.isVisible = red_packet_btn
                     visitsAdapter.freeShow = free_show
@@ -241,7 +238,7 @@ class UserCenterFragment :
                     checkVip()
                 }
             }
-        }else {
+        } else {
             mLayoutStatusView?.showError()
         }
     }

@@ -20,10 +20,7 @@ import com.sdy.luxurytravelapplication.R
 import com.sdy.luxurytravelapplication.base.BaseMvpActivity
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityMainBinding
-import com.sdy.luxurytravelapplication.event.AccountDangerEvent
-import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
-import com.sdy.luxurytravelapplication.event.GetNewMsgEvent
-import com.sdy.luxurytravelapplication.event.ReVerifyEvent
+import com.sdy.luxurytravelapplication.event.*
 import com.sdy.luxurytravelapplication.glide.GlideUtil
 import com.sdy.luxurytravelapplication.mvp.contract.MainContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.AllMsgCount
@@ -365,6 +362,12 @@ class MainActivity :
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onGetMSGEvent(event: GetNewMsgEvent) {
         mPresenter?.msgList()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateTabAvatarEvent(event: UpdateTabAvatarEvent) {
+        GlideUtil.loadAvatorImg(this, UserManager.avatar, binding.tabMine)
     }
 
 

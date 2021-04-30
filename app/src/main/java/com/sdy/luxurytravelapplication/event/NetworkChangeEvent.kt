@@ -126,6 +126,7 @@ class RefreshSweetAddEvent(val isHoney: Boolean = false, val sweetProgressBean: 
 
 //首页更新红点消息
 class GetNewMsgEvent
+class UpdateTabAvatarEvent
 
 /**
  * 更新招呼列表
