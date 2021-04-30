@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -104,6 +103,12 @@ class TargetUserActivity :
                     }
                     smallPhotoAdapter.notifyDataSetChanged()
 
+                    if (bigPhotoAdapter.autoPlay)
+                        if (position != 0) {
+                            GSYVideoManager.onPause()
+                        } else {
+                            GSYVideoManager.onResume()
+                        }
 
                 }
             })
@@ -115,6 +120,7 @@ class TargetUserActivity :
                         matchBean.mv_cover_url
                     )
                 }
+
             }
             smallPhotosRv.layoutManager =
                 CenterLayoutManager(this@TargetUserActivity, RecyclerView.HORIZONTAL, false)
@@ -123,6 +129,12 @@ class TargetUserActivity :
                 bigPhotosRv.currentItem = position
                 smallPhotoAdapter.data.forEach {
                     it.checked = it == smallPhotoAdapter.data[position]
+                    if (smallPhotoAdapter.autoPlay)
+                        if (position != 0) {
+                            GSYVideoManager.onPause()
+                        } else {
+                            GSYVideoManager.onResume()
+                        }
                 }
                 smallPhotoAdapter.notifyDataSetChanged()
 
@@ -180,19 +192,23 @@ class TargetUserActivity :
             mySquareRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if(getLocalVisibleRect(this@TargetUserActivity,headBinding.bigPhotosRv,dy)){
+                    if (getLocalVisibleRect(this@TargetUserActivity, headBinding.bigPhotosRv, dy)) {
                         //可见
                         BarUtils.transparentStatusBar(this@TargetUserActivity)
-                        BarUtils.setStatusBarColor(this@TargetUserActivity,Color.TRANSPARENT)
+                        BarUtils.setStatusBarColor(this@TargetUserActivity, Color.TRANSPARENT)
                         barlCl.actionbarTitle.text = matchBean.online_time
                         barlCl.actionbarTitle.setTextColor(Color.WHITE)
                         barlCl.btnBack.setImageResource(R.drawable.icon_back_white)
                         barlCl.rightIconBtn.setImageResource(R.drawable.icon_more_gray)
                         barlCl.root.setBackgroundColor(Color.TRANSPARENT)
-                    }else{
+                    } else {
                         //不可见
-                        BarUtils.setStatusBarColor(this@TargetUserActivity,resources.getColor(R.color.white))
-                        barlCl.actionbarTitle.text = matchBean.nickname+"\n"+matchBean.online_time
+                        BarUtils.setStatusBarColor(
+                            this@TargetUserActivity,
+                            resources.getColor(R.color.white)
+                        )
+                        barlCl.actionbarTitle.text =
+                            matchBean.nickname + "\n" + matchBean.online_time
                         barlCl.actionbarTitle.setTextColor(resources.getColor(R.color.color333))
                         barlCl.btnBack.setImageResource(R.drawable.icon_return_arrow)
                         barlCl.rightIconBtn.setImageResource(R.drawable.icon_more_black)
@@ -584,6 +600,20 @@ class TargetUserActivity :
             mPresenter?.someoneSquareCandy(params1)
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (this::matchBean.isInitialized && matchBean.mv_detail_url.isNotEmpty() && (matchBean.myisplatinumvip || matchBean.residue_auto_count > 0)) {
+            GSYVideoManager.onPause()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (this::matchBean.isInitialized && matchBean.mv_detail_url.isNotEmpty() && (matchBean.myisplatinumvip || matchBean.residue_auto_count > 0)) {
+            GSYVideoManager.onResume()
+        }
     }
 
 
