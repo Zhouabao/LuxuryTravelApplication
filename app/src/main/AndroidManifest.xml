@@ -66,149 +66,205 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.BigImageActivity"></activity>
-        <activity android:name=".nim.business.session.activity.DisplayMessageActivity" />
-        <activity android:name=".nim.business.session.activity.SearchMessageActivity" />
+        <activity
+            android:name=".ui.activity.BigImageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".nim.business.session.activity.DisplayMessageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".nim.business.session.activity.SearchMessageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RegisterTooManyActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".nim.location.LocationAmapActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".liveface.CollectionSuccessActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".liveface.FaceLivenessActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".liveface.FaceLivenessExpActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.CustomChatUpContentActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ContactBookActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.VideoIntroduceActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ChangeUserContactActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.NickNameActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.MyInfoActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.MyVisitActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MyFootPrintActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CountryCodeActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ChangeAccountActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.AccountAboutActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.BlackListActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.NotificationActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.AboutActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.MyInviteActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.BindAlipayAccountActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.CandyRecordActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.WomanPowerActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.VipChargeActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.CandyRechargeActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ReportReasonUploadActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ReportReasonActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.MessageInfoActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.MessageSquareActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.AccostListActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.TargetUserActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PublishTravelEndActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PublishTravelBeforeActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.TravelDetailActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.LocationActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ChooseTitleActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PublishActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PublishTravelActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.SquareCommentDetailActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.TagDetailCategoryActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.FindAllTagActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.SweetHeartVerifyingActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.UploadVerifyPublicActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.UploadVerifyInfoActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ChooseVerifyActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.JoinLuxuryActivity"
             android:launchMode="singleTop" />
         <activity
@@ -216,18 +272,23 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PurchaseFootActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.InviteCodeActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.GuideActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.GetMoreMatchActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.OnekeyLoginActivity"
             android:launchMode="singleTop" />
         <activity
@@ -242,41 +303,53 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.ProtocolActivity"
             android:launchMode="singleTop" />
         <activity
+
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.RegisterInfoOneActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.VerifycodeActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.PhoneActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.RegisterInfoTwoActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".nim.location.NavigationAmapActivity"
             android:launchMode="singleTop" /> <!-- 查看大图 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".nim.business.session.activity.WatchMessagePictureActivity"
             android:configChanges="keyboardHidden"
             android:launchMode="singleTop"
             android:theme="@style/DarkTheme" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".nim.business.session.activity.WatchVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/video_play"
             android:launchMode="singleTop"
             android:theme="@style/DarkTheme" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".nim.business.session.activity.ChatActivity"
-            android:launchMode="singleTop" /> <!-- ////////////闪验验证码一键登录//////////////// -->
+            android:launchMode="singleTop" />
+
+        <!-- ////////////闪验验证码一键登录//////////////// -->
         <activity
             android:name="com.chuanglan.shanyan_sdk.view.CmccLoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
