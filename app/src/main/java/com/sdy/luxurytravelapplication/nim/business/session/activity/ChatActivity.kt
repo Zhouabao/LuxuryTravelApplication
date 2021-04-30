@@ -10,7 +10,6 @@ import android.media.AudioManager
 import android.text.TextUtils
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.*
@@ -63,8 +62,6 @@ import com.sdy.luxurytravelapplication.ui.activity.LocationActivity
 import com.sdy.luxurytravelapplication.ui.activity.MessageInfoActivity
 import com.sdy.luxurytravelapplication.ui.dialog.ChatUpOpenPtVipDialog
 import com.sdy.luxurytravelapplication.ui.dialog.ContactCandyReceiveDialog
-import com.sdy.luxurytravelapplication.ui.dialog.VerifyAddChatDialog
-import com.sdy.luxurytravelapplication.ui.dialog.VideoAddChatTimeDialog
 import com.sdy.luxurytravelapplication.ui.fragment.SnackBarFragment
 import com.sdy.luxurytravelapplication.utils.ToastUtil
 import org.greenrobot.eventbus.EventBus
@@ -210,7 +207,8 @@ class ChatActivity :
             )
         }
         messageListPanel.onResume()
-        NIMClient.getService(MsgService::class.java).setChattingAccount(sessionId, SessionTypeEnum.P2P)
+        NIMClient.getService(MsgService::class.java)
+            .setChattingAccount(sessionId, SessionTypeEnum.P2P)
         EventBus.getDefault().post(GetNewMsgEvent())
         volumeControlStream = AudioManager.STREAM_VOICE_CALL//默认使用听筒播放
     }
@@ -562,7 +560,7 @@ class ChatActivity :
     override fun sendMessage(message: IMMessage): Boolean {
         if (isChatWithRobot()) {
             sendMsgS(message)
-        } else if (nimBean != null && !nimBean.is_send_msg && nimBean.my_gender == 1 && nimBean.target_gender == 2) {
+        } else if (this::nimBean.isInitialized && !nimBean.is_send_msg && nimBean.my_gender == 1 && nimBean.target_gender == 2) {
             showConfirmSendDialog(message)
         } else if (canSendMsg()) {
             sendMsgRequest(message)
