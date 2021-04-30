@@ -349,7 +349,7 @@
                 android:gravity="center"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                tools:text="1%"
+                android:text="  0%"
                 android:textColor="@color/white"
                 android:textSize="11sp"
                 android:textStyle="bold" />

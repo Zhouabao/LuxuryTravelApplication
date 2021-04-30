@@ -60,6 +60,7 @@
         android:inputType="number"
         android:textColor="#ff333333"
         android:textSize="17sp"
+        android:maxLength="11"
         app:layout_constraintBottom_toBottomOf="@id/bg"
         app:layout_constraintLeft_toRightOf="@id/phoneCodeBtn"
         app:layout_constraintRight_toRightOf="@id/bg"

@@ -417,8 +417,8 @@ class MyInfoActivity :
                 this as AppCompatActivity,
                 getString(R.string.save_content),
                 getString(R.string.is_save_content),
-                getString(R.string.give_up),
-                getString(R.string.save)
+                getString(R.string.save),
+                getString(R.string.give_up)
             )
                 .setOnCancelButtonClickListener { _, v ->
                     setResult(Activity.RESULT_OK)
@@ -492,13 +492,9 @@ class MyInfoActivity :
         }
     }
 
-
+    private val scoreWidth by lazy { binding.userScore20.width }
     private fun setScroeProgress() {
         binding.apply {
-            val params = userFinishProgress.layoutParams as RelativeLayout.LayoutParams
-            params.leftMargin = SizeUtils.dp2px(70F)
-            params.rightMargin = SizeUtils.dp2px(15F)
-            userFinishProgress.layoutParams = params
             //汇总每次的得分
             var totalGetScore = 0
             //相册的分数
@@ -506,7 +502,7 @@ class MyInfoActivity :
                 totalGetScore += (data!!.photos_wall.size - 2) * data!!.score_rule.photo
             }
             //个签分数
-            if (!data!!.sign.isEmpty() && data!!.sign.trim().isNotEmpty()) {
+            if (data!!.sign.isNotEmpty() && data!!.sign.trim().isNotEmpty()) {
                 userNickSign.text = data!!.sign
                 totalGetScore += data!!.score_rule.about
             }
@@ -516,25 +512,36 @@ class MyInfoActivity :
                     totalGetScore += data.point
                 }
             }
-
-
+            //计算进度条
             var progress = (totalGetScore * 1.0F / (data!!.score_rule!!.base_total) * 100).toInt()
+
+            //计算进度条总的宽度
+            val params = userFinishProgress.layoutParams as RelativeLayout.LayoutParams
+//            params.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70F) - SizeUtils.dp2px(15F)
+            params.leftMargin = SizeUtils.dp2px(70F)
+            params.rightMargin = SizeUtils.dp2px(15F)
+            userFinishProgress.layoutParams = params
+
+            val totalWitdh = userFinishProgress.width - scoreWidth * 0.75f
+            val currentPercent = progress * 1f / 100
+            val userscoreProgress = scoreWidth * 1f / totalWitdh
+
             userScore20.text = "${progress}%"
-            if (!UserManager.isvip && UserManager.gender == 1) {
-                progress = (progress * 0.8).toInt()
-            }
+            progress = (progress * (1 - userscoreProgress * 0.5)).toInt()
             if (Build.VERSION.SDK_INT >= 24) {
                 userFinishProgress.setProgress(progress, true)
             } else {
                 userFinishProgress.progress = progress
             }
-
             val translate = ObjectAnimator.ofFloat(
                 userScore20, "translationX",
-                ((ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70F + 15 * 2) - SizeUtils.dp2px(38F)) * userFinishProgress.progress * 1.0f / 100)
+                totalWitdh * currentPercent
+//                (userFinishProgress.width - userScore20.width - SizeUtils.dp2px(15F)) * progress * 1F/100
+//                ((ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70F + 15 * 2)) * userFinishProgress.progress * 1.0f / 100)
             )
             translate.duration = 100
             translate.start()
+
 
         }
 
@@ -747,7 +754,7 @@ class MyInfoActivity :
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
+//        super.onBackPressed()
         checkIsForceChangeAvator()
         if (intent.getIntExtra(
                 "type",

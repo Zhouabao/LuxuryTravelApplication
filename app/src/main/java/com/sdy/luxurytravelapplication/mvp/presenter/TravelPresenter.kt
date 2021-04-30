@@ -17,7 +17,7 @@ class TravelPresenter : BasePresenter<TravelContract.Model, TravelContract.View>
 
 
     override fun planList(params: HashMap<String, Any>) {
-        mModel?.planList(params)?.ssss(mView, true) {
+        mModel?.planList(params)?.ssss(mView, false) {
             mView?.planList(it.code == 200, it.data ?: mutableListOf())
         }
     }
