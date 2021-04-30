@@ -18,6 +18,7 @@ import com.sdy.luxurytravelapplication.constant.Constants
 import com.sdy.luxurytravelapplication.constant.UserManager
 import com.sdy.luxurytravelapplication.databinding.ActivityPublishTravelEndBinding
 import com.sdy.luxurytravelapplication.event.RecordCompleteEvent
+import com.sdy.luxurytravelapplication.event.UpdateMyTravelEvent
 import com.sdy.luxurytravelapplication.mvp.contract.PublishTravelEndContract
 import com.sdy.luxurytravelapplication.mvp.presenter.PublishTravelEndPresenter
 import com.sdy.luxurytravelapplication.ui.dialog.RecordContentDialog
@@ -383,6 +384,7 @@ class PublishTravelEndActivity :
         if (success) {
             ToastUtil.toast("旅行计划发布成功")
             //todo  更新自己的旅行计划
+            EventBus.getDefault().post(UpdateMyTravelEvent())
             if (ActivityUtils.isActivityExistsInStack(PublishTravelBeforeActivity::class.java)) {
                 ActivityUtils.finishActivity(PublishTravelBeforeActivity::class.java)
             }

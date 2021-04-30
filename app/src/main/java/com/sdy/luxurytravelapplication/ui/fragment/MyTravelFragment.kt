@@ -17,6 +17,7 @@ import com.sdy.luxurytravelapplication.databinding.FragmentMyTravelBinding
 import com.sdy.luxurytravelapplication.databinding.HeaderviewMyFragmentBinding
 import com.sdy.luxurytravelapplication.event.DatingStopPlayEvent
 import com.sdy.luxurytravelapplication.event.OneVoicePlayEvent
+import com.sdy.luxurytravelapplication.event.UpdateMyTravelEvent
 import com.sdy.luxurytravelapplication.ext.CommonFunction
 import com.sdy.luxurytravelapplication.mvp.contract.MyTravelContract
 import com.sdy.luxurytravelapplication.mvp.model.bean.TravelCityBean
@@ -173,6 +174,10 @@ class MyTravelFragment :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDatingOnePlayEvent(eve: OneVoicePlayEvent) {
         travelAdapter.notifySomeOneAudioView(eve.playPosition)
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateMyTravelEvent(eve: UpdateMyTravelEvent) {
+        binding.refreshTravel.autoRefresh()
     }
 
     override fun onStop() {

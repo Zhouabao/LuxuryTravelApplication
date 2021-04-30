@@ -8,6 +8,7 @@ import com.sdy.luxurytravelapplication.ext.sss
 import com.sdy.luxurytravelapplication.ext.ssss
 import com.sdy.luxurytravelapplication.mvp.contract.VerifycodeContract
 import com.sdy.luxurytravelapplication.mvp.model.VerifycodeModel
+import com.sdy.luxurytravelapplication.utils.ToastUtil
 
 /**
  *    author : ZFM
@@ -19,7 +20,11 @@ class VerifycodePresenter : BasePresenter<VerifycodeContract.Model, VerifycodeCo
     VerifycodeContract.Presenter {
     override fun createModel(): VerifycodeContract.Model? = VerifycodeModel()
     override fun sendSms(params: HashMap<String, Any>) {
-        mModel?.sendSms(params)?.ssss(mView, false) { mView?.sendSms(it.code, it.data) }
+        mModel?.sendSms(params)?.ssss(mView, false) {
+            if (it.code != 200) {
+                ToastUtil.toast(it.msg)
+            }
+            mView?.sendSms(it.code, it.data) }
     }
 
     override fun loginOrAlloc(params: HashMap<String, Any>) {

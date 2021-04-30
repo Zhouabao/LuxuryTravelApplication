@@ -55,7 +55,7 @@ class PurchaseFootActivity :
                 when (it) {
                     //购买邀请码
                     buyBtn -> {
-                        //todo 拉起购买弹窗
+                        // 拉起购买弹窗
                         if (chargeWayBeans.isNotEmpty())
                             ConfirmPayCandyDialog(
                                 this@PurchaseFootActivity,

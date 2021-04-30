@@ -223,3 +223,8 @@ class EnableGiftEvent(val cnt: Int)
  * 更新我的糖果之类的数据
  */
 class RefreshMyCandyEvent()
+
+/**
+ * 更新我的旅行计划
+ */
+class UpdateMyTravelEvent()

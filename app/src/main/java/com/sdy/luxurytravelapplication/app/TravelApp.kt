@@ -319,7 +319,7 @@ class TravelApp : Application() {
                     UserManager.saveShowGuideWechat(true)
 
                 }
-                401 -> { //todo 系统假消息，以及真人的第一条搭讪语打招呼成功 发送系统消息
+                401 -> { // 系统假消息，以及真人的第一条搭讪语打招呼成功 发送系统消息
                     if (ActivityUtils.getTopActivity() != null && ActivityUtils.getTopActivity() is MainActivity
                         && FragmentUtils.getTopShow((ActivityUtils.getTopActivity() as MainActivity).supportFragmentManager) != null
                         && FragmentUtils.getTopShow((ActivityUtils.getTopActivity() as MainActivity).supportFragmentManager) !is MessageFragment

@@ -107,7 +107,7 @@ public abstract class MsgViewHolderThumbBase extends MsgViewHolderBase {
             //thumbnail.loadAsPath(thumbPath, getImageMaxEdge(), getImageMaxEdge(), maskBg());
             thumbnail.loadAsPath(path, getImageMaxEdge(), getImageMaxEdge(), maskBg(), ext);
         } else {
-            //todo 更换默认图片
+            // 更换默认图片
             thumbnail.loadAsResource(R.drawable.default_image_5dp, maskBg());
         }
     }
