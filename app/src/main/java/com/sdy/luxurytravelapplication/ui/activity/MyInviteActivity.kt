@@ -66,7 +66,7 @@ class MyInviteActivity :
                 inviteRewardProgress.setProgress(data.now_amount.toFloat())
                 inviteRewardProgress.setIndicatorText("${data.now_amount}/${data.all_cnt}")
                 inviteRewardCount.text = "${data.coin_all_amount}"
-                myInviteTimes.text = "我的邀请码*${data.now_amount}"
+                myInviteTimes.text = "我的邀请码*${data.residue_cnt}"
                 inviteRule.text = data.invite_rule
 
 

@@ -1311,7 +1311,7 @@ data class MyInviteBean(
     var all_cnt: Int = 0,
     var coin_all_amount: Int = 0,
     var invite_list: MutableList<Invite> = mutableListOf(),
-    var now_amount: Int = 0,
+    var now_amount: String="0",
     var invite_rule: String = "",
     var invite_url: String = "",
     var invite_title: String = "",
